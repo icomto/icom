@@ -1,0 +1,13 @@
+	{*<a style="display:block;position:fixed;z-index:1000;bottom:5px;right:5px;background:#222;border:1px #333 solid;color:#fafafa;font-weight:bold;text-align:center;" href="javascript:void();" onclick="window.open('/{LANG}/report_page?url='+escape(document.location));return false;">
+		Diese Seite melden<br>
+		<span style="font-weight:normal;font-size:90%;">
+			Unangemessener Inhalt,<br>
+			Urheberrechtsverletzung,<br>
+			Verletzung von Privatsph&auml;re<br>
+			oder Abuse, DMCA ...
+		</span>
+	</a>*}
+	<script>ilrtd.imodules={iengine::TO_JSON()};</script>
+	<script>user_tooltips={user::USER_TOOLTIPS_JSON()};</script>
+	</body>
+</html>

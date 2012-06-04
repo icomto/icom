@@ -1,0 +1,9 @@
+{if !$news->num_rows}<p class="error">[*Keine Eintr&auml;ge gefunden.*]</p>
+{else}
+{while $i = $news->fetch_assoc()}
+<div style="margin:3px 0 3px 0;">
+	<div style="clear:both;float:left;margin-top:-3px;">{bookmark_engine::icon($url, 'news', $i.news_id)}</div>
+	<a href="/{LANG}/news/{$i.news_id}-{^$i.name}/">{~$i.name}</a>
+</div>
+{/while}
+{/if}

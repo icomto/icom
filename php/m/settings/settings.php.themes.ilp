@@ -1,0 +1,14 @@
+<table style="margin-top:5px;">
+	<tr>
+		{set $num = count($ini.THEME_SETS)}
+		{foreach $ini.THEME_SETS as $k=>$v |i}
+		<td style="text-align:center;vertical-align:bottom;padding-bottom:15px;">
+			<a href="/{LANG}/_theme/{$theme_ini}/_preset/{$k}/settings/themes/" target="_self">
+				<img src="{STATIC_CONTENT_DOMAIN}/themes/{$ini.STYLE_DIRECTORY}/presets/{$k}.jpg" alt="" style="width:95%;"><br>
+				{$k}
+			</a>
+		</td>
+		{if $foreach_i % 2 == 0 and $foreach_i < $num}</tr><tr>{/if}
+		{/foreach}
+	</tr>
+</table>

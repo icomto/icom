@@ -1,0 +1,80 @@
+<table{if $root.is_mod} border="1"{/if}>
+	<tr>
+		{if $root.is_mod}
+		<td>
+			<form method="post" action="{~$url_page}" onsubmit="return iC(this,'~table');">
+				<input type="hidden" name="{#IMPOST 'thread_id'}" value="{~$root.thread_id}">
+				<input type="hidden" name="{#IMPOST 'action'}" value="thread_state">
+				Status in
+				<select name="{#IMPOST 'state'}">
+					{foreach $FORUM_STATES as $k=>$v}
+					<option{if $v == $root.forum_state} selected="selected"{/if} value="{~$v}">{~$k}</option>
+					{/foreach}
+				</select>
+				<button type="submit" class="button">[*&Auml;ndern*]</button>
+			</form>
+		</td>
+		{/if}
+		<td{if not $root.is_mod} style="text-align:center;border:none;"{/if}>
+			<form method="post" action="{~$url_page}" onsubmit="return iC(this,'~table');">
+				<input type="hidden" name="{#IMPOST 'thread_id'}" value="{~$root.thread_id}">
+				<input type="hidden" name="{#IMPOST 'action'}" value="openclose">
+				<button type="submit" class="button">{if $root.is_mod}{if $root.open}[*Schlie&szlig;en*]{else}[*&Ouml;ffnen*]{/if}{else}{if $root.open}[*Thread schlie&szlig;en*]{else}[*Thread &ouml;ffnen*]{/if}{/if}</button>
+			</form>
+		</td>
+		{if $root.is_mod}
+		<td>
+			<form method="post" action="{~$url_page}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~table');">
+				<input type="hidden" name="{#IMPOST 'thread_id'}" value="{~$root.thread_id}">
+				<input type="hidden" name="{#IMPOST 'action'}" value="delete_thread">
+				<button type="submit" class="button">[*L&ouml;schen*]</button>
+			</form>
+		</td>
+		{/if}
+	</tr>
+	{if $root.is_mod}
+	<tr>
+		<td align="center">
+			<form method="post" action="{~$url_page}" onsubmit="return iC(this,'~table');">
+				<input type="hidden" name="{#IMPOST 'thread_id'}" value="{~$root.thread_id}">
+				<input type="hidden" name="{#IMPOST 'action'}" value="thread_priority">
+				[*Priorit&auml;t in*]
+				<select name="{#IMPOST 'priority'}">
+					<option{if $root.forum_priority == 0} selected="selected"{/if} value="0">[*Normal*]</option>
+					<option{if $root.forum_priority == 999} selected="selected"{/if} value="999">[*Wichtig*]</option>
+					<option{if $root.forum_priority == 1000} selected="selected"{/if} value="1000">[*Sehr wichtig*]</option>
+				</select>
+				<button type="submit" class="button">[*&Auml;ndern*]</button>
+			</form>
+		</td>
+		<td rowspan="2" colspan="2">
+			<form method="post" action="{~$url_page}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~table');">
+				<input type="hidden" name="{#IMPOST 'thread_id'}" value="{~$root.thread_id}">
+				<input type="hidden" name="{#IMPOST 'action'}" value="thread_move">
+				[*Nach*]
+				<select name="{#IMPOST 'section_id'}">
+					{while $i = $forum_sections->fetch_assoc()}
+					<option value="{$i.id}"{if $i.is_mod and $i.allow_write} style="font-weight:bold;color:green"{/if}{if $i.id == $root.section_id} selected="selected"{/if}>{str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $i.level)} {~$i.name}</option>
+					{/while}
+				</select>
+				<button type="submit" class="button">[*Verschieben*]</button>
+				<p class="info">[*Sektionen in denen du Modrechte hast sind gr&uuml;n.*]</p>
+				<input type="checkbox" name="{#IMPOST 'create_moved'}" id="AdminForumPostsCreateMoved"><label for="AdminForumPostsCreateMoved"> [*&quot;Verschoben&quot;-Thread erstellen*]</label>
+			</form>
+		</td>
+	</tr>
+	<tr>
+		<td align="center">
+			<form method="post" action="{~$url_page}" onsubmit="return iC(this,'~table');">
+				<input type="hidden" name="{#IMPOST 'thread_id'}" value="{~$root.thread_id}">
+				<input type="hidden" name="{#IMPOST 'action'}" value="change_lang">
+				[*Sprachen: *]
+				{foreach $LANG_NAMES as $k=>$v}
+				<input type="checkbox" id="ThreadLang{$k}" name="{#IMPOST $k}"{if $root["thread_lang_$k"]} checked="checked"{/if}><label for="ThreadLang{$k}">{~$v}</label>
+				{/foreach}
+				<button type="submit" class="button">[*&Auml;ndern*]</button>
+			</form>
+		</td>
+	</tr>
+	{/if}
+</table>

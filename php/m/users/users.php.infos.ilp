@@ -1,0 +1,366 @@
+<div class="module-user-infos">
+	{if not IS_LOGGED_IN}<p class="info">[*Du musst eingeloggt sein um diese Seite zu sehen.*]</p>
+	{elseif not $user}<p class="error">[*Der Benutzer wurde nicht gefunden.*]</p>
+	{else}
+	
+	{if $errors}
+	{foreach $errors as $error}
+	<p class="error">
+		{switch $error}
+		{default}[*Unbekannter Fehler: {~$error}*]{/default}
+		{case 'FRIENDSHIP_ALREADY_EXISTS'}[*Diese Freundschaftsverbindung besteht bereits.*]{/case}
+		{case 'FRIENDSHIP_REQUEST_ALREADY_SENT'}[*Du hast diesem Benutzer keine Freundschaftsanfrage geschickt oder sie wurde bereits angenommen oder abgelehnt.*]{/case}
+		{case 'FIRENDSHIP_CANCELED'}[*Die Freundschaftsanfrage wurde zur&uuml;ckgenommen.*]{/case}
+		{case 'FRIENDSHIP_NOT_RECEIVED'}[*Du hast von diesem Benutzer keine Freundschaftsanfrage erhalten oder sie wurde bereits angenommen oder abgelehnt.*]{/case}
+		{case 'FRIENDSHIP_REJECTED'}[*Die Freundschaftsanfrage wurde abgelehnt.*]{/case}
+		{case 'FRIENDSHIP_ENDED'}[*Die Freundschaft wurde beendet.*]{/case}
+		{case 'TRUST_LIMIT_REACHED'}[*Das Limit von Benutzern die Dich als vertrauensw&uuml;rdig einstufen ist erreicht.*]{/case}
+		{case 'NOT_ENOUGH_WARNING_POINTS'}[*Du musst mindestens einen Verwarnpunkt verteilen.*]{/case}
+		{case 'WARNING_NOT_FOUND'}[*Die Verwarnung wurde nicht gefunden.*]{/case}
+		{/switch}
+	</p>
+	{/foreach}
+	{/if}
+	
+	{if $user.avatar}
+	<div class="user-avatar" width="{~AVATAR_MAX_WIDTH + 10}">
+		<img src="{~get_avatar_url($user.avatar)}" alt="">
+	</div>
+	{/if}
+	
+	<style>
+	.T-base-white table.user-infos tr {{
+		border-bottom:1px #ccc solid;
+	}}
+	.T-base-black table.user-infos tr {
+		border-bottom:1px #333 solid;
+	}}
+	</style>
+	<table class="user-infos">
+		<tr>
+			<th width="150">[*Benutzername:*]</th>
+			<td><a href="/{LANG}/users/{$user.user_id}-{^$user.nick}/">{~$user.nick}</a></td>
+		</tr>
+		<tr>
+			<th>[*Jabber Addresse:*]</th>
+			<td>(<a href="/{LANG}/wiki/Jabber_Server/" class="info">Infos</a>) <a href="xmpp:{$user.nick_jabber}@jabber.icom.to/icom" target="_blank">{~$user.nick_jabber}@jabber.icom.to</a></td>
+		</tr>
+		<tr>
+			<th>[*Gruppe:*]</th>
+			<td>{user($user.user_id)->html_groups(0, ', ', array(), true)}</td>
+		</tr>
+		<tr>
+			<th>[*Sprachen:*]</th>
+			<td>
+				{foreach $user.languages as $lang}
+				<img src="{STATIC_CONTENT_DOMAIN}/img/countryflags/{~$lang}.gif" alt="{~$lang}" title="{if $lang == 'de'}[*Deutsch*]{else}[*Englisch*]{/if}">
+				{/foreach}
+			</td>
+		</tr>
+		{set $rank = user($user.user_id)->html_rank()}
+		<tr><th>[*Rang:*]</th><td><span style="{~$rank.css}">{~$rank.de}</span></td></tr>
+		<tr><th>[*Anmeldedatum:*]</th><td>{timeago($user.regtime)}</td></tr>
+		<tr><th>[*Letzter Besuch:*]</th><td>{if not $user.lastvisit}[*noch nie*]{else}{timeago($user.lastvisit)}{/if}</td></tr>
+		<tr><th>[*Letzte Aktion:*]</th><td>{if not $user.lastaction}[*noch nie*]{else}{timeago($user.lastaction)}{/if}</td></tr>
+		<tr><th>[*Zeit auf iCom:*]</th><td><span title="Seit 29. Oktober 2009 17:30">{if $user.time_on_page > 60*60}{%$user.time_on_page/(60*60)} [*Stunden*]{elseif $user.time_on_page > 60}{%$user.time_on_page/60} [*Minuten*]{else}{%$user.time_on_page} [*Sekunden*]{/if}</span></td></tr>
+		<tr><th>[*Profilaufrufe:*]</th><td>{%$user.profile_views}</td></tr>
+		<tr><th>[*Punkte:*]</th><td>{%$user.points}</td></tr>
+		<tr><th>[*Verwarnpunkte:*]</th><td{if $user.open_warnings} class="error"{/if}>{%$user.open_warnings} / {%MAX_WARNING_POINTS}</td></tr>
+		<tr>
+			<th class="user-thrusted-by" colspan="2">
+				{if $user.trusted_by}
+				[*Als vertrauensw&uuml;rdig eingestuft von:*]<br>
+				{set $num = count($user.trusted_by)}
+				{foreach $user.trusted_by as $u |u}{*
+				*}{if $visitor_user_id == $user.user_id}{*
+				*}<div style="display:inline;" onmouseover="$(this).children('.tufrm').css('display','inline');" onmouseout="$(this).children('.tufrm').css('display','none');">{*
+					*}{user($u)->html(1, '')}{*
+					*}<form class="tufrm" method="post" style="width:15px;height:15px;display:none;" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.module-user-infos');">{*
+						*}<input type="hidden" name="{#IMPOST 'action'}" value="remove_thrusted_user">{*
+						*}<input type="hidden" name="{#IMPOST 'user_id'}" value="{$u}">{*
+						*}<button type="submit" title="[*L&ouml;schen*]" class="button" style="display:inline;">X</button>{*
+					*}</form>{*
+					*}</div>{*
+					*}{else}{*
+					*}{user($u)->html(1)}{*
+					*}{/if}{*
+					*}{if $foreach_u < $num}, {/if}{*
+				*}{/foreach}
+				{else}
+				<p class="info">
+					[**{~$user.nick} wurde noch von niemandem als Vertrauensw&uuml;rdig eingestuft.*]
+				</p>
+				{/if}
+			</th>
+		</tr>
+	</table>
+	
+	<div class="user-controls">
+		{if $visitor_user_id and $visitor_user_id != $user.user_id}
+		<a href="/{LANG}/pn_new/{$user.user_id}-{^$user.nick}/" class="button">[*Private Nachricht senden*]</a>
+		{/if}
+		
+		{if $friend_status == ''}
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~.module-user-infos');">
+			<input type="hidden" name="{#IMPOST 'action'}" value="frendship_request">
+			<button type="submit" class="button">[*Freundschaftsanfrage senden*]</button>
+		</form>
+		{elseif $friend_status == 'request_sent'}
+		<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.module-user-infos');">
+			<input type="hidden" name="{#IMPOST 'action'}" value="frendship_cancel">
+			<button type="submit" class="button">[*Freundschaftsanfrage zur&uuml;cknehmen*]</button>
+		</form>
+		{elseif $friend_status == 'request_received'}
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~.module-user-infos');">
+			<input type="hidden" name="{#IMPOST 'action'}" value="frendship_accept">
+			<button type="submit" class="button">[*Freundschaftsanfrage annehmen*]</button>
+		</form>
+		<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.module-user-infos');">
+			<input type="hidden" name="{#IMPOST 'action'}" value="frendship_ignore">
+			<button type="submit" class="button">[*Freundschaftsanfrage ignorieren*]</button>
+		</form>
+		{elseif $friend_status == 'accepted'}
+		<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.module-user-infos');">
+			<input type="hidden" name="{#IMPOST 'action'}" value="frendship_end">
+			<button type="submit" class="button">[*Freundschaft beenden*]</button>
+		</form>
+		{/if}
+		
+		{if $visitor_user_id and $visitor_user_id != $user.user_id}
+		{if in_array($visitor_user_id, $user.trusted_by)}
+		<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.module-user-infos');">
+			<input type="hidden" name="{#IMPOST 'action'}" value="remove_thrusted_user">
+			<input type="hidden" name="{#IMPOST 'user_id'}" value="{USER_ID}">
+			<button type="submit" class="button">[*Als NICHT vertrauensw&uuml;rdig einstufen*]</button>
+		</form>
+		{elseif count($user.trusted_by) < 5}
+		<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.module-user-infos');">
+			<input type="hidden" name="{#IMPOST 'action'}" value="add_thrusted_user">
+			<button type="submit" class="button">[*Als vertrauensw&uuml;rdig einstufen*]</button>
+		</form>
+		{/if}
+		{/if}
+		
+		{if has_privilege('community_master')}
+		<a href="/{LANG}/admin/warnings/{$user.user_id}-{^$user.nick}/" class="button">[*Ausgestellte Verwarnungen anzeigen*]</a>
+		{/if}
+		
+		{if in_array(LEVEL2_GROUPID, $allowed_groups_to_change) and (!in_array(LEVEL2_HIDDEN_GROUPID, $group_ids) or $user.points < LEVEL2_POINTS)}
+		<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.module-user-infos');">
+			<input type="hidden" name="{#IMPOST 'group_id'}" value="{LEVEL2_GROUPID}">
+			{if not in_array(LEVEL2_HIDDEN_GROUPID, $group_ids)}
+			<input type="hidden" name="{#IMPOST 'action'}" value="add_group">
+			<button type="submit" class="button">[*Rechte f&uuml;r Level 2 geben*]</button>
+			{else}
+			<input type="hidden" name="{#IMPOST 'action'}" value="remove_group">
+			<button type="submit" class="button">[*Rechte f&uuml;r Level 2 WEGNEHMEN*]</button>
+			{/if}
+		</form>
+		{/if}
+		
+		{if in_array(GUEST_DJ_GROUPID, $allowed_groups_to_change)}
+		<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.module-user-infos');">
+			<input type="hidden" name="{#IMPOST 'group_id'}" value="{GUEST_DJ_GROUPID}">
+			{if not in_array(GUEST_DJ_GROUPID, $group_ids)}
+			<input type="hidden" name="{#IMPOST 'action'}" value="add_group">
+			<button type="submit" class="button">[*In die Gast DJ Gruppe reinpacken*]</button>
+			{else}
+			<input type="hidden" name="{#IMPOST 'action'}" value="remove_group">
+			<button type="submit" class="button">[*Aus der Gast DJ Gruppe rausnehmen*]</button>
+			{/if}
+		</form>
+		{/if}
+		
+		{if in_array(BIRTHDAY_GROUPID, $allowed_groups_to_change)}
+		<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.module-user-infos');">
+			<input type="hidden" name="{#IMPOST 'group_id'}" value="{BIRTHDAY_GROUPID}">
+			{if not in_array(BIRTHDAY_GROUPID, $group_ids)}
+			<input type="hidden" name="{#IMPOST 'action'}" value="add_group">
+			<button type="submit" class="button">[*In die Geburtstagsgruppe reinpacken*]</button>
+			{else}
+			<input type="hidden" name="{#IMPOST 'action'}" value="remove_group">
+			<button type="submit" class="button">[*Aus der Geburtstagsgruppe rausnehmen*]</button>
+			{/if}
+		</form>
+		{/if}
+	</div>
+	<div class="clear"></div>
+	
+	
+	<div class="SEP"><div><div></div><h3>[*Aktivit&auml;ten*]</h3><div></div></div></div>
+	<table class="user-infos">
+		<tr><th>[*Forenthemen:*]</th><td>{%$forum_threads}</td><td><a href="/{LANG}/activities/{$user.user_id}-{^$user.nick}/upat/threads/" class="info">anzeigen</a></td></tr>
+		<tr><th>[*Forenbeitr&auml;ge:*]</th><td>{%$forum_posts}</td><td><a href="/{LANG}/activities/{$user.user_id}-{^$user.nick}/upat/posts/" class="info">anzeigen</a></td></tr>
+		<tr><th>[*Wiki Artikel:*]</th><td>{%$wiki_stats.articles}</td><td></td></tr>
+		<tr><th>[*Wiki &Auml;nderungen:*]</th><td>{%$wiki_stats.changes}</td><td><a href="/{LANG}/activities/{$user.user_id}-{^$user.nick}/upat/wiki/" class="info">anzeigen</a></td></tr>
+		<tr><th>[*Shoutbox Beitr&auml;ge:*]</th><td>{%$shouts}</td></tr>
+		<tr><th>&nbsp;</th><td></td><td></td></tr>
+		<tr><th>[*Lesezeichen:*]</th><td>{%$bookmarks}</td><td>{if user()->has_priv($user.priv_bookmarks, user($user.user_id))}<a href="/{LANG}/users/{$user.user_id}-{^$user.nick}/profile/bookmarks/" class="info">anzeigen</a>{/if}</td></tr>
+		<tr><th>&nbsp;</th><td></td><td></td></tr>
+		<tr><th>[*Gemeldete Beitr&auml;ge:*]</th><td><span class="success" title="Angenommene Meldungen">{%$forum_reported_posts.good}</span> / <span class="error" title="Abgelehnte Meldungen">{%$forum_reported_posts.bad}</span></td><td></td></tr>
+	</table>
+	<div class="clear"></div>
+	
+	{if has_privilege('forum_super_mod')}
+	<div class="SEP"><div><div></div><h3>[*Notizen*]</h3><div></div></div></div>
+	<div class="user-notes">
+		{while $i = $notes->fetch_assoc()}
+		<table class="user-message">
+			<tr>
+				<td class="user-message-infos">
+					[*#von {user($i.writer_id)->html(-1)}*]<br>
+					{timeago($i.timeadded)}
+				 </td>
+				<td>
+					{if USER_ID == $i.writer_id or has_privilege('forum_super_mod')}
+					<div class="user-message-controls user-entry">
+						<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.user-message');">
+							<input type="hidden" name="{#IMPOST 'action'}" value="remove_note">
+							<input type="hidden" name="{#IMPOST 'note_id'}" value="{$i.id}">
+							<button class="button">X</button>
+						</form>
+					</div>
+					{/if}
+					{ubbcode::add_smileys(ubbcode::compile($i.message, 622))}
+				</td>
+			</tr>
+		</table>
+		{/while}
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~.module-user-infos');">
+			<input type="hidden" name="{#IMPOST 'action'}" value="add_note">
+			<div><textarea class="bbcodeedit" name="{#IMPOST 'message'}" style="height:80px;"></textarea></div>
+			<button type="submit" class="big-button lonely-button">[*Erstellen*]</button>
+		</form>
+	</div>
+	{/if}
+	
+	{if $warnings->num_rows}
+	<div class="SEP"><div><div></div><h3>[*Verwarnungen*]</h3><div></div></div></div>
+	<div class="user-warnings">
+		{set $has_ended_warnings = false}
+		{while $i = $warnings->fetch_assoc()}
+		<table class="user-message{if $i.ended} user-warning-ended{set $has_ended_warnings = true}{/if}">
+			<tr>
+				<td class="user-message-infos">
+					[*#von {user($i.warner_id)->html(-1)}*]<br>
+					{timeago($i.timeadded)}<br>
+					{%$i.points} Punkt{if $i.points != 1}e{/if}<br>
+					{if $i.ended}[*verfallen*]{else}[*verf&auml;llt*]{/if} {if not $i.timeending or $i.timeending == '0000-00-00 00:00:00'}[*nie*]{else}{timeago($i.timeending, $i.ended)}{/if}<br>
+				 </td>
+				<td>
+					{if has_privilege('user_warnings')}
+					<div class="user-message-controls user-entry">
+						<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.user-message');">
+							<input type="hidden" name="{#IMPOST 'action'}" value="remove_warning">
+							<input type="hidden" name="{#IMPOST 'warning_id'}" value="{$i.warning_id}">
+							<button type="submit" class="button">X</button>
+						</form>
+					</div>
+					{/if}
+					{ubbcode::add_smileys(ubbcode::compile($i.reason, 622))}
+				</td>
+			</tr>
+		</table>
+		{/while}
+		{if $has_ended_warnings}
+		<button type="button" class="big-button lonely-button" onclick="$('.user-warning-ended').show();$(this).hide();">[*Verfallene Verwarnungen anzeigen*]</button>
+		{/if}
+	</div>
+	{/if}
+	
+	{if $denied_entrances->num_rows}
+	<div class="SEP"><div><div></div><h3>[*Zugangssperren*]</h3><div></div></div></div>
+	{set $has_ended_denied_entrances = false}
+	{while $i = $denied_entrances->fetch_assoc()}
+	<div class="denied-entrances{if $i.ended} user-denied-entrance-ended{set $has_ended_denied_entrances = true}{/if}">
+		<table class="user-message">
+			<tr>
+				<td class="user-message-infos">
+					[*#von {user($i.mod_id)->html(-1)}*]<br>
+					{timeago($i.timeadded)}<br>
+					{if $i.ended}[*verfallen*]{else}[*verf&auml;llt*]{/if} {if not $i.timeending or $i.timeending == '0000-00-00 00:00:00'}[*nie*]{else}{timeago($i.timeending, $i.ended)}{/if}
+				 </td>
+				<td>
+					{if has_privilege('shoutboxmaster')}
+					<div class="user-message-controls user-entry">
+						<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.denied-entrances');">
+							<input type="hidden" name="{#IMPOST 'action'}" value="remove_denied_entrance">
+							<input type="hidden" name="{#IMPOST 'denied_entrance_id'}" value="{$i.id}">
+							<button type="submit" class="button">X</button>
+						</form>
+					</div>
+					{/if}
+					<p class="user-message-topic">
+						{switch $i.place}
+						{default}[*Zugangssperre zu: $i.place*]{/default}
+						{case 'shoutbox'}[*Zugangssperre zur Shoutbox*]{/case}
+						{case 'chat'}[*Zugangssperre zu den Chats*]{/case}
+						{/switch}
+					</p>
+					{ubbcode::add_smileys(ubbcode::compile($i.reason, 622))}
+				</td>
+			</tr>
+			</table>
+		<br>
+	</div>
+	{/while}
+	{if $has_ended_denied_entrances}
+	<button type="button" class="big-button lonely-button" onclick="$('.user-denied-entrance-ended').show();$(this).hide();">[*Verfallene Zugangssperren anzeigen*]</button>
+	{/if}
+	{/if}
+	
+	{if has_privilege('user_warnings')}
+	<div class="SEP"><div><div></div><h3>[*Neue Verwarnung erstellen*]</h3><div></div></div></div>
+	<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.module-user-infos');">
+		<input type="hidden" name="{#IMPOST 'action'}" value="add_warning">
+		<div style="text-align:left;width:230px;">
+			[*Punkte*] <input type="text" onfocus="this.select();" name="{#IMPOST 'points'}" style="text-align:right;width:50px;" value="10"><br>
+			[*Endet in*] <input type="text" onfocus="this.select();" name="{#IMPOST 'days'}" style="text-align:right;width:50px;" value="30"> [*Tagen (0 = verf&auml;llt nie)*]<br>
+		</div>
+		<div><textarea class="bbcodeedit" name="{#IMPOST 'reason'}" style="height:80px;"></textarea></div>
+		<button type="submit" class="big-button lonely-button">[*Erstellen*]</button>
+	</form>
+	{/if}
+	
+	{if has_privilege('shoutboxmaster')}
+	<div class="SEP"><div><div></div><h3>[*Neue Zugangssperre erstellen*]</h3><div></div></div></div>
+	<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.module-user-infos');" style="text-align:left;">
+		<input type="hidden" name="{#IMPOST 'action'}" value="add_denied_entrance">
+		[*Ort:*]
+		<select name="{#IMPOST 'place'}">
+			<option value="shoutbox">[*Shoutbox*]</option>
+			<option value="chat">[*Alle chats (ausser Livestreams)*]</option>
+		</select><br>
+		[*Endet in*] <input type="text" onfocus="this.select();" name="{#IMPOST 'days'}" style="text-align:right;width:30px;" value="0"> [*Tagen*], <input type="text" onfocus="this.select();" name="{#IMPOST 'hours'}" style="text-align:right;width:30px;" value="0"> [*Stunden*], <input type="text" onfocus="this.select();" name="{#IMPOST 'minutes'}" style="text-align:right;width:30px;" value="30"> [*Minuten (&uuml;berall 0 = verf&auml;llt nie)*]<br>
+		[*Grund (max. 64 Zeichen):*] <input type="text" onfocus="this.select();" name="{#IMPOST 'reason'}" value="" size="64"><br>
+		<button type="submit" class="big-button">[*Erstellen*]</button>
+	</form>
+	{/if}
+	
+	{if has_privilege('usermanager')}
+	<div class="SEP"><div><div></div><h3>[*Benutzer*]</h3><div></div></div></div>
+	<div id="user{~$user.user_id}" class="row">{iengine::GET(['admin', 'users'])->row($user)}</div>
+	{/if}
+	
+	{if has_privilege('groupmanager')}
+	<div class="SEP"><div><div></div><h3>[*Privilegien*]</h3><div></div></div></div>
+	<table border="1">
+		{foreach array_keys($privileges) as $k}
+		<tr style="border:1px #aaa solid;" class="row">
+			<th>{~$k}</th>
+			<td>{if @user($user.user_id)->privileges[$k]}[*ja*]{else}[*nein*]{/if}</td>
+		</tr>
+		{/foreach}
+	</table>
+	{/if}
+	
+	{if has_privilege('forum_admin')}
+	<div class="SEP"><div><div></div><h3>[*Signatur*]</h3><div></div></div></div>
+	<form id="admin_change_sig" method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.module-user-infos');">
+		<input type="hidden" name="{#IMPOST 'action'}" value="change_signature">
+		<div><textarea class="bbcodeedit" name="{#IMPOST 'signature'}" rows="6" cols="30" style="width:100%;height:120px;">{~$user.signature}</textarea></div>
+		<button type="submit" class="big-button lonely-button">[*Speichern*]</button>
+	</form>
+	{/if}
+	{/if}
+</div>

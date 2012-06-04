@@ -1,0 +1,24 @@
+<div class="main-menu-top">
+	<a href="/{LANG}/" class="main-menu-logo"></a>
+	
+	<div class="main-menu-language">
+		<a href="/{LANG}/_lang/en{~rebuild_location()}" style="position:relative;margin-top:2px;" target="_self" class="language"><img src="{STATIC_CONTENT_DOMAIN}/img/p.gif" alt="" class="en" style="background:transparent url(/img/sitelang/en.gif) top left no-repeat;"></a>
+		<a href="/{LANG}/_lang/de{~rebuild_location()}" style="position:relative;margin-top:2px;" target="_self" class="language"><img src="{STATIC_CONTENT_DOMAIN}/img/p.gif" alt="" class="de" style="background:transparent url(/img/sitelang/de.gif) top left no-repeat;"></a>
+	</div>
+	<div class="main-menu-controls">
+		{new ilphp_sub 'controls'}
+		{if IS_LOGGED_IN}
+		<a href="/{LANG}/users/{user()->user_id}-{^user()->nick}/" class="profile" title="[*Mein Profil*]">[*Profil*]<img src="/img/p.gif"></a>
+		<span id="MenuPNs">{iengine::GET('pn')->RUN('ICON', ['pn'=>'icon'])}</span>
+		<a href="/{LANG}/settings/" class="settings" title="[*Einstellungen*]">[*Einstellungen*]<img src="/img/p.gif"></a>
+		<a href="/{LANG}/logout/" class="logout" title="[*Abmelden*]" style="border:0;">[*Abmelden*]<img src="/img/p.gif"></a>
+		{else}
+		<a href="/{LANG}/settings/" class="settings" title="[*Einstellungen*]">[*Einstellungen*]<img src="/img/p.gif"></a>
+		<a href="/{LANG}/login/" class="login" title="[*Anmelden*]">[*Anmelden*]<img src="/img/p.gif"></a>
+		<a href="/{LANG}/register/" class="register" title="[*Registrieren*]">[*Registrieren*]<img src="/img/p.gif"></a>
+		{/if}
+		{/new ilphp_sub}
+	</div>
+	{iengine::GET('search')->RUN('MENU')}
+	<div class="clear"></div>
+</div>

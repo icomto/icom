@@ -1,0 +1,95 @@
+<div class="module-item">
+	<h1>{#THIS->im_way_html()}</h1>
+	<div class="module-content module-register">
+		{if $step == 'closed'}
+		<p class="info">[*Die Registrierung ist derzeit geschlossen.*]</p>
+		
+		{elseif $step == 'disallow'}
+		<p class="error">[*Du darfst dich hier nicht Registrieren. Sorry.*]</p>
+		
+		{elseif $step == 'validate'}
+		{if not $user}
+		<p class="error">[*Du hast einen ung&uuml;ltigen Best&auml;tigungslink aufgerufen.*]</p>
+		{else}
+		<p class="info">[*Du kannst Dich jetzt mit deinem Benutzernamen und Passwort einloggen.*]</p>
+		{/if}
+		
+		{elseif $step == 'success'}
+		<p>
+			[*Vielen Dank f&uuml;r deine Registrierung.*]
+		</p>
+		<p>
+			{if REGISTER_OPT_IN}[*Es wurde eine E-Mail mit einem Best&auml;tigungslink an Dich gesendet.*]
+			{else}[*!Du kannst Dich jetzt <a href="/{LANG}/login/">einloggen</a>.*]
+			{/if}
+		</p>
+		
+		{else}
+		<p class="important">
+			<a href="/{LANG}/wiki/Regeln/">
+				[*!Bevor Du dich Registrierst lese Dir bitte unsere <u>Regeln</u> aufmerksam durch!*]
+			</a>
+		</p>
+		{if $error}
+		<p class="error">
+			{switch $error}
+			{default}[*Unbekannter Fehler: {~$error}*]{/default}
+			{case "RULES_NOT_ACCEPTED"}[*Du musst die Regeln gelesen, verstanden und akzeptiert haben.*]{/case}
+			{case "INVALID_USERNAME"}[*Dein Benutzername darf nicht weniger als 3 und nicht mehr als 13 Buchstaben enthalten.*]{/case}
+			{case "PASSWORD_TOO_SHORT"}[*Dein Passwort mu&szlig; mindestens 6 Zeichen lang sein.*]{/case}
+			{case "PASSWORDS_NOT_MATCH"}[*Die Passw&ouml;rter stimmen nicht &uuml;berein.*]{/case}
+			{case "INVALID_EMAIL"}[*Du musst eine g&uuml;ltige E-Mail Addresse angeben.*]{/case}
+			{case "USERNAME_ALREADY_ESISTS"}[*Der von Dir gew&auml;hlte Benutzername existiert bereits. Bitte w&auml;hle einen anderen.*]{/case}
+			{case "REGISTER_DENIED"}[*Du darfst dich hier nicht anmelden.*]{/case}
+			{case "INVALID_INVITE_CODE"}[*Der Invite-Code wurde bereits verwendet oder existiert nicht.*]{/case}
+			{case "EMAIL_HOST_FORBIDDEN"}[*Dein E-Mail Anbieter wird von uns nicht akzeptiert.*]{/case}
+			{case "INVALID_CAPTCHA"}[*Das Captcha war nicht korrekt.*]{/case}
+			{/switch}
+		</p>
+		{/if}
+		<form method="post" onsubmit="return iC(this, '~.module-item');">
+			<td><input type="hidden" name="{#IMPOST 'action'}" value="register"></td>
+			<table>
+				<tr>
+					<th>[*Benutzername:*]</th>
+					<td><input type="text" name="{#IMPOST 'nick'}" value="{~@$args.post.nick}"></td>
+				</tr>
+				<tr>
+					<th>[*E-Mail:*]</th>
+					<td><input type="text" name="{#IMPOST 'email'}" value="{~@$args.post.email}"></td>
+				</tr>
+				<tr>
+					<th>[*Passwort:*]</th>
+					<td><input type="password" name="{#IMPOST 'pass'}"></td>
+				</tr>
+				<tr>
+					<th>[*Passwort wiederholen:*]</th>
+					<td><input type="password" name="{#IMPOST 'pass2'}"></td>
+				</tr>
+				{if REGISTER_NEED_INVITE_CODE}
+				<tr>
+					<th><a href="/{LANG}/contact/invite/">[*Invite-Code:*]</a></th>
+					<td><input type="text" name="{#IMPOST 'invite'}" value="{~@$args.post.invite}"></td>
+				</tr>
+				{/if}
+			</table>
+			{if REGISTER_NEED_INVITE_CODE}
+			<p class="info">
+				[*!Wenn Du noch keinen Invite-Code hast kannst Du <a href="/{LANG}/contact/intive/">hier</a> einen beantragen.*]
+			</p>
+			{/if}
+			<p>
+				<input type="checkbox" name="{#IMPOST 'rules_accepted'}" id="RegisterRulesAccepted"{if not empty($args.post.rules_accepted)} checked="checked"{/if}><label for="RegisterRulesAccepted"> [*!Ich habe die <a href="/{LANG}/wiki/Regeln/">Regeln</a> gelesen, verstanden und akzeptiert.*]</label>
+			</p>
+			<p>
+				Gib bitte die folgenden Zeichen ein:<br>
+				<img src="/{LANG}/captcha/register?{mt_rand()}"><br>
+				<a href="" onclick="document.getElementById('Captcha').src='/{LANG}/captcha/register?'+Math.random();document.getElementById('CaptchaForm').focus();return false;" id="change-image" style="font-weight:normal;font-size:90%;padding-left:35px;">[[*Nicht lesbar? Text &auml;ndern*]]</a><br>
+				<input type="text" name="{#IMPOST 'captcha'}" style="width:200px;">
+			</p>
+			<button type="submit" class="big-button">[*Registrieren*]</button>
+		</form>
+		{/if}
+	</div>
+	<div class="module-footer"></div>
+</div>

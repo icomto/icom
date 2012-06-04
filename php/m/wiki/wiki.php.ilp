@@ -1,0 +1,394 @@
+<div class="module-item">
+	<script>
+	var whist2=function(a){{
+		whist2c();
+		$('.wiki .whist-'+a).addClass('hover');
+	}};
+	var whist2c=function(){{
+		$('.wiki .history tr').removeClass('hover');
+	}};
+	</script>
+	<h1>
+		{if @$page}
+		{bookmark_engine::icon('/'.LANG.'/wiki/'.wiki_urlencode($wiki).'/', 'wiki', $page.id)}
+		{if IS_LOGGED_IN}
+		<img class="dropdown-icon" src="{STATIC_CONTENT_DOMAIN}/img/p.gif" alt="" data-dd="ildd.def" data-dd-item-1="&lt;a href=&quot;/{LANG}/wiki/{wiki_urlencode($wiki)}/history/&quot;&gt;[*Versionen/Autoren*]&lt;/a&gt;"{if $page.history or @$history} data-dd-item-2="&lt;a href=&quot;/{LANG}/wiki/{wiki_urlencode($wiki)}/edit/{if ($action == 'MAIN' or $action == 'EDIT') and @$history}{if is_array($history)}{$history.id}{else}{$history}{/if}/{/if}&quot;&gt;{if $page.locked and !has_privilege('wiki_mod')}[*Quelltext betrachten*]{else}[*Bearbeiten*]{/if}"{/if}>
+		{/if}
+		{/if}
+		{set $count = count($way)}
+		{foreach $way as $i |i}
+		{if $i.1} <a href="/{LANG}{$i.1}">{~$i.0}</a>{else} {~$i.0}{/if}{if $foreach_i < $count} &raquo;{/if}
+		{/foreach}
+	</h1>
+	<div class="module-content">
+		<div class="wiki">
+			{if $action == 'MAIN' and !$page}
+			<p class="error">[*Diese Seite existiert nicht*]</p>
+			<ul>
+				<li>[**<a href="/{LANG}/wiki/Spezial:Suche/qd/{wiki_urlencode($wiki)}/">Suche nach &quot;{~$wiki}&quot;</a> in anderen Artikeln.*]</li>
+				<li><a href="/{LANG}/wiki/{wiki_urlencode($wiki)}/edit/">[*Verfasse einen Artikel zum Thema*]</a> (<a href="/{LANG}/wiki/Wiki_Artikel_schreiben/">[*Anleitung*]</a>).</li>
+			</ul>
+			{else}
+			
+			{if $action == 'ERROR'}
+			<h2 class="firstHeading">{~$wiki}</h2>
+			{include 'wiki.php.system_messages.ilp'}
+			<div class="error">
+				{$code}
+				{switch $code}
+				{case 403} - [*Zugriff verweigert*]{/case}
+				{case 404} - [*Seite nicht gefunden*]{/case}
+				{/switch}
+			</div>
+			
+			{elseif $action == 'MAIN'}
+			<h2 class="firstHeading">
+				{~$page.name}
+				{if $ws->aliases}
+				<span class="aliases">
+					([*Auch bekannt als*]
+					{set $num = count($ws->aliases)}
+					{foreach $ws->aliases as $a |a}
+					<a href="/{LANG}/wiki/{wiki_urlencode($a)}/">{~$a}</a>{if $foreach_a < $num}, {/if}
+					{/foreach})
+				</span>
+				{/if}
+			</h2>
+			{if @$history}<div class="headingComment">[*Version vom {default_time_format($history.timeadded)}*]{if $history and $page.history == $history.id} ([*Aktuell*]){elseif has_privilege('wiki_mod')} (<a href="/{LANG}/wiki/{wiki_urlencode($wiki)}/history/{$history.id}/set/">[*Version benutzen*]</a>){/if}</div>{/if}
+			{include 'wiki.php.system_messages.ilp'}
+			{$ws->output}
+			
+			{elseif $action == 'HISTORY_OVERVIEW'}
+			<h2 class="firstHeading">[*Versionsgeschichte von &quot;{~$page.name}&quot;*]</h2>
+			{include 'wiki.php.system_messages.ilp'}
+			{if $tickets->num_rows}
+			<h3>[*Tickets*]</h3>
+			<ul>
+				{while $i = $tickets->fetch_assoc() |i}
+				<li>
+					<h6 style="margin-bottom:0;">
+						[*#Er&ouml;ffnet von {user($i.opener)->html(-1)}*] {timeago($i.timecreated)}
+						{if $i.closer}, [*#geschlossen von {user($i.closer)->html(-1)}*] {timeelapsed(strtotime($i.timecreated) - strtotime($i.timeclosed), LS('nach'))}{/if}
+					</h6>
+					{~$i.message}
+					{if has_privilege('wiki_mod')}
+					<form method="post" action="/{LANG}/wiki/{wiki_urlencode($this->page['name'])}/history/" onsubmit="return iC(this, '~.module-item');">
+						<input type="hidden" name="{#IMPOST 'history'}" value="closed_tickets">
+						{if $i.closer}
+						<input type="hidden" name="{#IMPOST 'action'}" value="reopen_ticket">
+						<input type="hidden" name="{#IMPOST 'reopen_ticket'}" value="{$i.id}">
+						<input type="submit" class="button" value="[*Ticket wieder &ouml;ffnen*]">
+						{else}
+						<input type="hidden" name="{#IMPOST 'action'}" value="close_ticket">
+						<input type="hidden" name="{#IMPOST 'close_ticket'}" value="{$i.id}">
+						<input type="submit" class="button" value="[*Ticket schlie&szlig;en*]">
+						{/if}
+					</form>
+					{/if}
+				</li>
+				{/while}
+			</ul>
+			{if $has_closed_tickets}<ul><li><a href="/{LANG}/wiki/{wiki_urlencode($wiki)}/history/closed_tickets/">[*Geschlossene Tickets anzeigen*]</a></li></ul>{/if}
+			<h3>[*Versionsgeschichte*]</h3>
+			{elseif $has_closed_tickets}<ul><li><a href="/{LANG}/wiki/{wiki_urlencode($wiki)}/history/closed_tickets/">[*Geschlossene Tickets anzeigen*]</a></li></ul>
+			{/if}
+			{if $num_pages > 1}<div class="pages">{create_pages($current_page, $num_pages - 1, '/'.LANG.'/wiki/'.wiki_urlencode($page.name).'/history/page:%s/')}</div>{/if}
+			<table border="1" width="100%" class="history">
+				<tr>
+					<th width="120" style="text-align:center;">[*Aktion*]</th>
+					<th width="110" style="text-align:center;">[*Version/Zeit*]</th>
+					<th>Grund</th>
+				</tr>
+				{while $i = $this->history_changes_fetch($changes)}
+				<tr {if $i.history or $i.action == "history_activated" or $i.action == "article_created"}class="whist-{$i.history}" onmouseover="whist2({$i.history});" onmouseout="whist2c();"{else}class="row"{/if}>
+					<td valign="top" align="center">
+						{set $before = false}
+						{if has_privilege('wiki_mod')}
+						{if $i.history == $page.history}[*Aktuell*]{set $before = true}
+						{elseif $i.history or $i.action == 'article_created'}<a href="/{LANG}/wiki/{wiki_urlencode($wiki)}/history/{$i.history}/set/">[*Aktuell*]</a>{set $before = true}
+						{/if}
+						{/if}
+						
+						{if $i.action == 'content_changed' or ($i.action == 'history_activated' and $i.history)}
+						{if $before} | {/if}
+						{if $page.history != $i.history and $page.history and $i.history}<a href="/{LANG}/wiki/{wiki_urlencode($wiki)}/compare/{$page.history}/with/{$i.history}/">[*Vergleichen*]</a>
+						{else}[*Vergleichen*]
+						{/if}
+						{set $before = true}
+						{/if}
+						
+						{if has_privilege('wiki_admin')}{if $before} | {/if}<a href="javascript:iC_confirm('[*Sicher?*]', '{#IMPOST 'wiki'}={wiki_urlencode($wiki)}&{#IMPOST 'delete_log'}={$i.id}', '~.module-item');void(0);">X</a>{/if}
+					</td>
+					<td valign="top" align="center">
+						{if $i.history}<a href="/{LANG}/wiki/{wiki_urlencode($wiki)}/{if $i.history != $page.history}history/{$i.history}/{/if}">{~$i.history_timeadded}</a><br>{/if}
+						{timeago($i.timeadded)}
+					</td>
+					<td valign="top">
+						{$this->history_get_reason($i)}
+						{if $i.x}<br>{$this->history_get_reason($i.x, strtotime($i.timeadded) - strtotime($i.x.timeadded))}{/if}
+					</td>
+				</tr>
+				{/while}
+			</table>
+			{if IS_LOGGED_IN}
+			<h3>[*Neues Ticket erstellen*]</h3>
+			<form method="post" action="/{LANG}/wiki/{wiki_urlencode($this->page['name'])}/history/#0" onsubmit="return iC(this, '~.module-item');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="new_ticket">
+				<input type="hidden" name="{#IMPOST 'history'}" value="">
+				[*Gib hier eine kurze Beschreibung was am Artikel &uuml;berarbeitet oder ge&auml;ndert werden muss.*]<br>
+				<input type="text" name="{#IMPOST 'ticket'}" style="width:100%"><br>
+				<input type="submit" class="button" value="[*Ticket erstellen*]">
+			</form>
+			{/if}
+			{if has_privilege('wiki_mod')}
+			{if $unsighted_changes}
+			<h3>[*Neueste &Auml;nderungen Verwerfen*]</h3>
+			<form method="post" action="/{LANG}/wiki/{wiki_urlencode($wiki)}/" onsubmit="return iC(this, '~.module-item');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="history_sighted">
+				<input type="hidden" name="{#IMPOST 'history_sighted'}" value="1">
+				[*Grund der Verwerfung*]<br>
+				<input type="text" name="{#IMPOST 'reason'}" style="width:50%"> <input type="submit" class="button" value="[*Verwerfen*]">
+			</form>
+			{/if}
+			{if $page.locked}
+			<h3>[*Artikel entsperren*]</h3>
+			<form method="post" action="/{LANG}/wiki/{wiki_urlencode($wiki)}/" onsubmit="return iC(this, '~.module-item');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="unlock_page">
+				<input type="hidden" name="{#IMPOST 'unlock_page'}" value="1">
+				[*Grund der Entsperrung*]<br>
+				<input type="text" name="{#IMPOST 'reason'}" style="width:50%"> <input type="submit" class="button" value="[*Entsperren*]">
+			</form>
+			{else}
+			<h3>[*Artikel sperren*]</h3>
+			<form method="post" action="/{LANG}/wiki/{wiki_urlencode($wiki)}/" onsubmit="return iC(this, '~.module-item');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="lock_page">
+				<input type="hidden" name="{#IMPOST 'lock_page'}" value="1">
+				[*Grund der Sperrung*]<br>
+				<input type="text" name="{#IMPOST 'reason'}" style="width:50%"> <input type="submit" class="button" value="[*Sperren*]">
+			</form>
+			{/if}
+			{/if}
+			{if has_privilege('wiki_admin')}
+			<h3>[*Artikel umbenennen*]</h3>
+			<form method="post" action="/{LANG}/wiki/{wiki_urlencode($wiki)}/rename_page/#0" onsubmit="return iC(this, '~.module-item');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="rename_page">
+				<input type="hidden" name="{#IMPOST 'rename_page'}" value="1">
+				[*Neuer Name*]<br>
+				<input type="text" name="{#IMPOST 'name'}" style="width:50%"> <input type="submit" class="button" value="[*Umbenennen*]">
+			</form>
+			<h3>[*Sprache &auml;ndern*]</h3>
+			<form method="post" action="/{LANG}/wiki/{wiki_urlencode($wiki)}/change_language/" onsubmit="return iC(this, '~.module-item');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="change_language">
+				<input type="hidden" name="{#IMPOST 'change_language'}" value="">
+				<input type="hidden" name="{#IMPOST 'lang'}" value="{if $page.lang == 'de'}en{else}de{/if}">
+				<input type="submit" class="button" value="{if $page.lang == 'de'}[*Sprache des Artikels in Englisch &auml;ndern*]{else}[*Sprache des Artikels in Deutsch &auml;ndern*]{/if}">
+			</form>
+			<h3>[*Artikel l&ouml;schen*]</h3>
+			<form method="post" action="/{LANG}/wiki/{wiki_urlencode($wiki)}/delete_article/" onsubmit="return iC(this, '~.module-item');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="delete_article">
+				<input type="hidden" name="{#IMPOST 'delete_article'}" value="">
+				<input type="checkbox" name="{#IMPOST 'confirm'}" id="DeleteArticle{~$wiki}Confirm"><label for="DeleteArticle{~$wiki}Confirm" class="quiet"> [*Den Artikel wirklich L&ouml;schen*]</label><br>
+				<input type="submit" class="button" value="[*Den gesammten Artikeln und alle Historyeintr&auml;ge l&ouml;schen*]">
+			</form>
+			{/if}
+			
+			{elseif $action == 'HISTORY_SET'}
+			<h2 class="firstHeading">[*Version Aktivieren*]</h2>
+			<form method="post" action="/{LANG}/wiki/{wiki_urlencode($wiki)}/history/{$history}/set/" onsubmit="return iC(this, '~.module-item');" style="margin-bottom:5px;">
+				<input type="hidden" name="{#IMPOST 'action'}" value="set_history">
+				<input type="hidden" name="{#IMPOST 'history'}" value="{$history}">
+				<input type="hidden" name="{#IMPOST 'set'}" value="">
+				[*Grund der Aktivierung*]: <input type="text" name="{#IMPOST 'reason'}" style="width:50%">
+				<input type="submit" class="button" value="[*Speichern*]">
+			</form>
+			
+			{elseif $action == 'ARTICLE_DELETED'}
+			<h2 class="firstHeading">[*Artikel gel&ouml;scht*]</h2>
+				<div class="info">[*Der Artikel wurde gel&ouml;scht*]</div>
+			</form>
+			
+			{elseif $action == 'RENAME_PAGE'}
+			<h2 class="firstHeading">[*Artikel &quot;{~$page.name}&quot; in &quot;{~$newname}&quot; umbenennen*]</h2>
+			{include 'wiki.php.system_messages.ilp'}
+			[*Bevor Du diesen Artikel umbenennst:*]
+			<ul>
+				<li>[**<a href="/{LANG}/wiki/Spezial:Suche/qd/{wiki_urlencode($newname)}/">Suche nach &quot;{~$newname}&quot;</a> in anderen Artikeln.*]</li>
+			</ul>
+			{if $num}
+			<h3>
+				{if $num == 1}[*Dieser Artikel ist in einem anderen Artikel verlinkt*]
+				{else}[*Dieser Artikel ist in {%$num} anderen Artikeln verlinkt*]
+				{/if}
+			</h3>
+			<ul>
+				<li><a href="/{LANG}/wiki/{wiki_urlencode($wiki)}/rename_page/{wiki_urlencode($newname)}/change_links/">[*Alle Verlinkungen &auml;ndern*]</a></li>
+				<li><a href="/{LANG}/wiki/{wiki_urlencode($wiki)}/rename_page/{wiki_urlencode($newname)}">[*Die alten Verlinkungen beibehalten*]</a></li>
+			</ul>
+			{else}
+			<h3>[*Umbenennung abschlie&szlig;en*]</h3>
+			<a href="/{LANG}/wiki/{wiki_urlencode($wiki)}/rename_page/{wiki_urlencode($newname)}/">[*Klicke hier um die Umbenennung abszschlie&szlig;en*]</a>
+			{/if}
+			
+			{elseif $action == 'COMPARE'}
+			<h2 class="firstHeading">[*Versionsvergleich von &quot;{~$page.name}&quot;*]</h2>
+			{include 'wiki.php.system_messages.ilp'}
+			<table style="width:100%">
+				<tr>
+					<td width="20">&nbsp;</td>
+					<td>&nbsp;</td>
+					<td width="20">&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="diff-blockheader" colspan="2" style="text-align:center;">
+						<a href="/{LANG}/wiki/{wiki_urlencode($wiki)}/history/{$compare.id}/">[*Version vom {default_time_format($compare.timeadded)}*]</a> {if $page.history == $compare.id} (Aktuell Version){elseif has_privilege('wiki_mod')} (<a href="/{LANG}/wiki/{wiki_urlencode($wiki)}/history/{$compare.id}/set/">[*Version benutzen*]</a>){/if}<br>
+						[*!von {user($compare.user)->html(-1)}*]
+					</td>
+					<td class="diff-blockheader" colspan="2" style="text-align:center;">
+						<a href="/{LANG}/wiki/{wiki_urlencode($wiki)}/history/{$with.id}/">[*Version vom {default_time_format($with.timeadded)}*]</a> {if $page.history == $with.id} ([*Aktuelle Version*]){elseif has_privilege('wiki_mod')} (<a href="/{LANG}/wiki/{wiki_urlencode($wiki)}/history/{$with.id}/set/">[*Version benutzen*]</a>){/if}<br>
+						[*!von {user($with.user)->html(-1)}*]
+					</td>
+				</tr>
+				{$diff}
+			</table>
+			
+			{elseif $action == 'EDIT'}
+			<h2 class="firstHeading">{if $page.locked and !has_privilege('wiki_mod')}[*Quelltext*]{else}[*Bearbeiten*]{/if} [*von &quot;{~$page.name}&quot;*]</h2>
+			{if $history}<div class="headingComment">[*Version vom {default_time_format($history.timeadded)}*]</div>{/if}
+			{include 'wiki.php.system_messages.ilp'}
+			{if $page.locked and !has_privilege('wiki_mod')}
+			<pre>{str_replace("\n", '<br>', htmlspecialchars($page.content))}</pre>
+			{else}
+			{if $page.history and $history.id == $page.history and (!$page.locked or has_privilege('wiki_mod'))}
+			<div class="info">
+				[**Du bearbeitest gerade die aktuelle Version dieses Artikels.<br>
+				Es k&ouml;nnte sein das es schon eine neuere, noch nicht &uuml;berpr&uuml;fte Version gibt.<br>
+				Bevor Du anf&auml;ngst diesen Artikel zu editieren solltest du einen Blick auf <a href="/{LANG}/wiki/{wiki_urlencode($page.name)}/history/">Versionen/Autoren</a> werfen.*]
+			</div>
+			{/if}
+			<form method="post" action="/{LANG}/wiki/{wiki_urlencode($wiki)}/edit/{if $history}{$history.id}/{/if}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.module-item');" style="text-align:center;margin-bottom:5px;">
+				<input type="hidden" name="{#IMPOST 'action'}" value="edit">
+				<input type="hidden" name="{#IMPOST 'edit'}" value="{if $history}{$history.id}{/if}">
+				<textarea name="{#IMPOST 'content'}" class="wikiedit" style="width:100%;height:350px;">{~$page.content}</textarea>
+				{if $page.id}<p>[*Grund der &Auml;nderung:*] <input type="text" name="{#IMPOST 'reason'}" style="width:50%;"></p>{/if}
+				<input type="submit" class="big-button" value="[*Speichern*]">
+			</form>
+			<h2 class="firstHeading">[*Vorschau*]</h2>
+			<div id="wiki_preview">
+				{set $ws = wikicode::parse($page.name, $page.content)}
+				{$ws->output}
+			</div>
+			{/if}
+			
+			{elseif $action == 'PAGES'}
+			<h2 class="firstHeading">
+				{if $type == "Kategorie:" or $type == "Category:"}[*Kategorien*]
+				{elseif $category}[*Kategorie:*]{~$category}
+				{else}[*Alle Artikel*]
+				{/if}
+			</h2>
+			{include 'wiki.php.system_messages.ilp'}
+			{if $pages}
+			{set $col = 1}
+			{set $row = 2}
+			<div class="pagescol_first">
+				{foreach $pages as $c=>$names}
+				{foreach $names as $name |name}
+				
+				{if $foreach_name == 1}
+				{if count($names) > 3 and $row + 2 + 3 >= $rows_per_col}{set $row = $rows_per_col}
+				{else}{set $row += 2}
+				{/if}
+				{/if}
+				
+				{if ++$row >= $rows_per_col and $col < $this->WIKI_SPEZIAL_PAGES_COLS}
+				</div>
+				<div class="pagescol{if ++$col == $this->WIKI_SPEZIAL_PAGES_COLS}_last{/if}">
+				<h3>{~$c}</h3>
+				{set $row = 2}
+				{elseif $foreach_name == 1}
+				<h3>{~$c}</h3>
+				{/if}
+				<a href="/{LANG}/wiki/{$type}{wiki_urlencode($name)}/">{~$name}</a><br>
+				{/foreach}
+				{/foreach}
+			</div>
+			<div style="clear:both;"></div>
+			{/if}
+			
+			{elseif $action == 'ADMIN_LASTEST_CHANGES'}
+			<h2 class="firstHeading">[*Letzte &Auml;nderungen*]</h2>
+			{include 'wiki.php.system_messages.ilp'}
+			{while $i = $pages->fetch_assoc()}
+			<h3><a href="/{$i.lang}/wiki/{wiki_urlencode($i.name)}/">{~$i.name}</a></h3>
+			{set $this->admin_lastest_changes_query_page()}
+			<table border="1" width="100%" class="history">
+				<tr>
+					<th width="120" style="text-align:center;">[*Aktion*]</th>
+					<th width="110" style="text-align:center;">[*Version/Zeit*]</th>
+					<th>[*Grund*]</th>
+				</tr>
+				{while $j = $this->history_changes_fetch($changes)}
+				<tr class="whist-{$j.history}" onmouseover="whist2({$j.history});" onmouseout="whist2c();">
+					<td valign="top" align="center">
+						{if not $j.history}&nbsp;
+						{elseif not $i.history or $j.history == $i.history}[*Vergleichen*]
+						{else}<a href="/{$i.lang}/wiki/{wiki_urlencode($i.name)}/compare/{$i.history}/with/{$j.history}/">[*Vergleichen*]</a>
+						{/if}
+						{if has_privilege('wiki_admin')}{if $j.history}| {/if}<a href="javascript:iC_confirm('[*Sicher?*]', '{#IMPOST 'wiki'}={wiki_urlencode($i.name)}&{#IMPOST 'delete_log'}={$j.id}', '~.module-item');void(0);">X</a>{/if}
+					</td>
+					<td valign="top" align="center">
+						{if $j.history}<a href="/{$i.lang}/wiki/{wiki_urlencode($i.name)}/history/{$j.history}/">{~$j.history_timeadded}</a><br>{/if}
+						{timeago($j.timeadded)}
+					</td>
+					<td valign="top">
+						{$this->history_get_reason($j)}
+						{if $j.x}<br>{$this->history_get_reason($j.x, strtotime($j.timeadded) - strtotime($j.x.timeadded))}{/if}
+					</td>
+				</tr>
+				{/while}
+			</table>
+			{/while}
+			
+			{elseif $action == 'ADMIN_UNACTIVATED_ARTICLES'}
+			<h2 class="firstHeading">[*Unaktivierte Artikel*]</h2>
+			{include 'wiki.php.system_messages.ilp'}
+			{if not $pages->num_rows}
+			<div class="info">[*Es wurden keine unaktivierten Artikel gefunden.*]</div>
+			{else}
+			{while $i = $pages->fetch_assoc()}
+			<a href="/{$i.lang}/wiki/{wiki_urlencode($i.name)}/history/">{~$i.name}</a> {timeago($i.lastchange)}<br>
+			{/while}
+			{/if}
+			
+			{elseif $action == 'SEARCH'}
+		</div>
+		<div class="wiki">
+			<h2 class="firstHeading">{if $term}[*Wiki nach &quot;{~$term}&quot; durchsuchen*]{else}[*Wiki durchsuchen*]{/if}</h2>
+			{include 'wiki.php.system_messages.ilp'}
+			<form method="post" action="/{LANG}/wiki/[*Spezial*]:[*Suche*]/" onsubmit="return iC(this, '~.module-item');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="search">
+				<input type="text" name="{#IMPOST 'q'}" style="width:50%;" value="{~$term}">
+				<input type="submit" class="button" value="[*Suchen*]"><br>
+				<input type="checkbox" id="wikiSearchDeactivated" name="{#IMPOST 'deactivated'}"{if $q == 'qd'} checked="checked"{/if}><label for="wikiSearchDeactivated" class="quiet"> [*Deaktivierte Artikel durchsuchen*]</label>
+			</form>
+			{if $term}
+			<h3>[*Suchergebnisse*]</h3>
+			{if not $results->num_rows}[*Es wurden keine Artikel gefunden.*]
+			{else}
+			{if $num_pages > 1}<div class="pages">{create_pages($page, $num_pages - 1, '/'.LANG.'/wiki/Spezial:Suche/'.$q.'/'.wiki_urlencode($term).'/page/%s/')}</div>{/if}
+			{while $i = $results->fetch_assoc()}
+			<h4>
+				{set $this->search_query_aliases()}
+				<a href="/{LANG}/wiki/{wiki_urlencode($i.name)}/"{if not $i.history} class="quiet"{/if}>{~$i.name}</a>{if $aliases->num_rows}, {while $a = $aliases->fetch_assoc() |a}<a href="/{LANG}/wiki/{wiki_urlencode($a.name)}/">{~$a.name}</a>{if $while_a < $aliases->num_rows}, {/if}{/while}{/if}
+			</h4>
+			{/while}
+			{/if}
+			{/if}
+			
+			{/if}
+			{/if}
+		</div>
+	</div>
+	<div class="module-footer"></div>
+</div>

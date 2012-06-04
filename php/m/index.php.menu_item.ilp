@@ -1,0 +1,12 @@
+<form class="side-menu-header{if $first} menu-first{/if}" method="post" onclick="return mslide(this, '{~$name}');" onsubmit="return mslide(this, '{~$name}');">
+	<input type="hidden" name="{#IMPOST 'action'}" value="slide">
+	<input type="hidden" name="{#IMPOST 'module'}" value="{$module}">
+	<input type="hidden" name="{#IMPOST 'id'}" value="{$args_}">
+	<input type="hidden" name="{#IMPOST 'display'}" value="{$display ? 'no' : 'yes'}">
+	{~$title}
+</form>
+<div class="side-menu-content"{if not $display} style="display:none;"{/if}>
+	<div {if $classes}class="{~$classes}" {/if}id="IM_MENU_{~$name}">
+		{$content}
+	</div>
+</div>

@@ -1,0 +1,48 @@
+<div class="module-item">
+	<h1>{#THIS->im_way_html()}</h1>
+	<div class="module-content module-login">
+		{if IS_LOGGED_IN}
+		<p class="error">[*Du bist bereits eingeloggt.*]</p>
+		{else}
+		{if $state !== 'password_changed' and !REGISTER_CLOSED}
+		<a href="/{LANG}/register/" class="info">
+			[*!Noch nicht registriert?<br>
+			Dann melde Dich jetzt hier an!*]
+		</a>
+		{/if}
+		{if $state === 'failed'}
+		<p class="error">[*Login oder Passwort falsch!*]</p>
+		{elseif $state === 'not_validated'}
+		<p class="error">
+			[**Du musst noch den Best&auml;tigungslink in der E-Mail die Du bekommen hast aufrufen.<br>
+			Solltest Du keine bekommen haben wende Dich mit Angabe deines Benutzernamens und Deiner E-Mail Addresse an der Support.*]
+		<p>
+		{elseif $state === 'deleted'}
+		<p class="error">[*Dieser Account wurde gel&ouml;scht.*]</p>
+		{elseif $state === 'password_changed'}
+		<p class="info">
+			[*!Dein Passwort wurde ge&auml;ndert.<br>
+			Du kannst Dich jetzt mit deinem neuen einloggen.*]
+		</p>
+		{/if}
+		<form method="post" onsubmit="return iC(this, '~.module-item');">
+			<input type="hidden" name="{#IMPOST 'action'}" value="login"></td>
+			<table>
+				<tr>
+					<td>[*Benutzername:*]</td>
+					<td><input type="text" name="{#IMPOST 'nick'}"></td>
+				</tr>
+				<tr>
+					<td>[*Passwort:*]</td>
+					<td><input type="password" name="{#IMPOST 'pass'}"></td>
+				</tr>
+			</table>
+			<button type="submit" class="big-button">[*Login*]</button>
+		</form>
+		<p>
+			<a href="/{LANG}/password_lost/">[*Passwort vergessen?*]</a>
+		</p>
+		{/if}
+	</div>
+	<div class="module-footer"></div>
+</div>

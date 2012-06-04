@@ -1,0 +1,49 @@
+<div class="module-item">
+	<h1>
+		{#THIS->im_way_html()}
+	</h1>
+	<div class="module-content module-news-overview">
+		{if $page == 1 and is_newswriter()}
+		<p>
+			<form method="post" action="{~$url}" onsubmit="return iC(this, '~.module-item');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="new_acticle">
+				[*Neuen Artikel erstellen:*]
+				<input type="text" name="{#IMPOST 'name'}" size="70">
+				<button type="submit" class="button">[*Erstellen*]</button>
+			</form>
+		</p>
+		{/if}
+		{if $news->num_rows == 0}
+		<p class="info">
+			[*Keine Nachrichten gefunden.*]
+		</p>
+		{else}
+		{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+		{while $i = $news->fetch_assoc() |i}
+		{set $i.cover = image::querylinks($i.cover)}
+		{set $i.tags = array_map('trim', explode_arr_list($i.tags))}
+		<div class="news-article">
+			<h2><a href="/{LANG}/news/{$i.news_id}-{^$i.name}/">{~$i.name}</a></h2>
+			{user($i.user_id)->html(-1)} am {default_time_format($i.lastupdate)}{if $i.thread_id} - {%$i.num_replys} Reaktionen im <a href="/{LANG}/thread/{$i.thread_id}-{^$i.name}/">Forum</a>{/if}
+			<p class="introduce user-entry">
+				{if $i.cover}<a href="/{LANG}/news/{$i.news_id}-{^$i.name}/"><img src="{~$i.cover.1}"></a>{/if}
+				{ubbcode::compile($i.introduce_content)}
+			</p>
+			<a href="/{LANG}/news/{$i.news_id}-{^$i.name}/" class="info" style="font-weight:normal;">[*Weiterlesen...*]</a>
+			{if $i.tags}
+			<p>
+				Tags:
+				{set $num = count($i.tags)}
+				{foreach $i.tags as $tag |tag}
+				<a href="/{LANG}/news/overview/tag/{°$tag}/">{~$tag}</a>{if $foreach_tag < $num}, {/if}
+				{/foreach}
+			</p>
+			{/if}
+			<div class="clear"></div>
+		</div>
+		{/while}
+		{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+		{/if}
+	</div>
+	<div class="module-footer"></div>
+</div>

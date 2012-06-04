@@ -1,0 +1,18 @@
+<div class="module-item">
+	<h1>
+		{ILPHP_CLASS->im_way_html()}
+	</h1>
+	<div class="module-content">
+		{if $posts->num_rows == 0}
+		<p class="info">[*Keine Eintr&auml;ge gefunden*]</p>
+		{else}
+		<ul>
+			{while $i = $posts->fetch_assoc()}
+			{set $num = ILPHP_CLASS->post_num($i.thread, $i.id)}
+			<li>{if $is_multilang}{get_sitelang_flag($i.lang)} {/if}<a href="/{LANG}/thread/{$i.thread}-{^$i.name}/page/{calculate_pages($num, FORUM_THREAD_NUM_POSTS_PER_SITE)}/#post{$num}">{~$i.name}</a></li>
+			{/while}
+		</ul>
+		{/if}
+	</div>
+	<div class="module-footer"></div>
+</div>

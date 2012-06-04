@@ -1,0 +1,37 @@
+<div class="main-menu-search">
+	<form class="main-menu-search-category form-inline" method="post">
+		<input type="hidden" name="{#IMPOST 'action'}" value="top">
+		<input type="hidden" name="{#IMPOST 'top'}" value="for">
+		<button {if $search.top === 'for' or !$search.top} class="selected"{/if}>[*Forum*]</button>
+	</form>
+	&nbsp;&nbsp; |&nbsp;&nbsp;
+	<form class="main-menu-search-category form-inline" method="post">
+		<input type="hidden" name="{#IMPOST 'action'}" value="top">
+		<input type="hidden" name="{#IMPOST 'top'}" value="wiki">
+		<button {if $search.top === 'wiki'} class="selected"{/if}>[*Wiki*]</button>{if IS_LOGGED_IN}
+	</form>
+	&nbsp;&nbsp; |&nbsp;&nbsp;
+	<form class="main-menu-search-category form-inline" method="post">
+		<input type="hidden" name="{#IMPOST 'action'}" value="top">
+		<input type="hidden" name="{#IMPOST 'top'}" value="user">
+		<button {if $search.top === 'user'} class="selected"{/if}>[*Benutzer*]</button>{/if}
+	</form>
+	<form class="main-menu-search-form" method="post" onsubmit="var t=this;setTimeout(function(){{iC(t, '~.main-menu-search');}},200);return false;">
+		<input type="hidden" name="{#IMPOST 'action'}" value="search">
+		<input type="hidden" id="MainMenuSearchTop" name="{#IMPOST 'p'}" value="{$search.top}">
+		<input type="text" id="SearchSuggest" class="search-text" name="{#IMPOST 'q'}" value="[*Suche...*]{*if $search.text}{~$search.text}{else}[*Suche...*]{/if*}" autocomplete="off">
+		<button type="submit" class="button">[*Suchen*]</button>
+	</form>
+	<script>
+		var t = $('.main-menu-search-category');
+		t.find('button').bind('click', function() {{
+			t.find('button').removeClass('selected');
+			$(this).addClass('selected');
+			$('#MainMenuSearchTop').val($(this).parent().find('input[name$=top]').attr('value'));
+			$('#SearchSuggest').focus();
+			iC(false, $(this.form).serialize());
+			return false;
+		}});
+		$('#SearchSuggest').focus(function(){{if(this.value=='[*Suche...*]')this.value='';this.select();}}).blur(function(){{if(!this.value)this.value='[*Suche...*]';}});
+	</script>
+</div>

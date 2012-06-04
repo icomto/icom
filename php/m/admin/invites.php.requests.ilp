@@ -1,0 +1,21 @@
+{if not $invite_requests->num_rows}
+<center>Es gibt derzeit keine Invitecode Anfragen.</center>
+{else}
+{while $i = $invite_requests->fetch_assoc()}
+E-Mail: <em>{~$i.email}</em> {timeago($i.requesttime)}<br>
+{ubbcode::compile($i.message)}
+<center>
+	<form method="post" action="{$url}" onsubmit="return iC(this);">
+		<input type="hidden" name="{#IMPOST 'action'}" value="request">
+		<input type="hidden" name="{#IMPOST 'id'}" value="{$i.id}">
+		<div><textarea name="{#IMPOST 'message'}" style="width:80%;height:60px;"></textarea></div>
+		<select name="{#IMPOST 'status'}">
+			<option value="accepted" style="color:green;">Antrag annehmen</option>
+			<option value="rejected" style="color:red;">Antrag ablehnen</option>
+		</select>
+		<input type="submit" class="button" value="Abschicken">
+	</form>
+</center>
+<hr>
+{/while}
+{/if}

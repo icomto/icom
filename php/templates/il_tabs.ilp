@@ -1,0 +1,14 @@
+<div id="{$group}s">
+	<div class="{$class}">
+		<div class="tab-content">
+			{foreach $tabs as $tab}
+			{if $tab->type}
+			<div id="tab{$tab->id}" class="tab {if $tab->id == $active_tab->id}active{else}normal{/if}">
+				<h2>{$tab->html($group)}</h2>
+			</div>
+			{/if}
+			{/foreach}
+		</div>
+	</div>
+</div>
+<div style="clear:both;"></div>

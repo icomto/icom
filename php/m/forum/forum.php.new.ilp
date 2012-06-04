@@ -1,0 +1,72 @@
+{if $errors}
+{foreach $errors as $e}
+<p class="error">{~$e}</p>
+{/foreach}
+{/if}
+<form class="forum-write-post" method="post" action="{~$url}" onsubmit="return iC(this, '~.module-item');">
+	<input type="hidden" name="{#IMPOST 'action'}" value="save">
+	{if user()->points < 20}
+	<p clss="info" style="text-align:left;">
+		Bist Du dir sicher das Du diesen Thread im richtigen Forum erstellst?<br>
+		Bitte wirf lieber einmal zu oft einen Blick auf die verschiedenen Foren, vielleicht findest du eins in dem dein Thread besser aufgehoben ist.<br>
+		<span style="color:#777;">Diese Information wird nicht mehr eingeblendet wenn Du mehr als 20 Punkte hast.</span>
+	</p>
+	{/if}
+	<style>[name=forum_prefix] optgroup option {{ margin-left:7px; }}</style>
+	<select name="{#IMPOST 'prefix'}" style="width:13%;float:left;">
+		<option value=""></option>
+		<optgroup label="[*Allgemein*]">
+			<option value="H">[H] - [*Hilfe*]</option>
+			<option value="S">[S] - [*Suche*]</option>
+			<option value="E">[E] - [*Erledigt (z.B. bei Suche)*]</option>
+			<option value="FUN">[FUN] - [*Fun/Spa&szlig;*]</option>
+			<option value="KB">[KB] - [*Kaufberatung*]</option>
+			<option value="V">[V] - [*Vorstellung*]</option>
+			<option value="VK">[VK] - [*Verkaufe*]</option>
+			<option value="VS">[VS] [*Verschenke*]</option>
+			<option value="VS">[VB] [*Verbesserungsvorschlag*]</option>
+			<option value="F">[F] - [*Frage*]</option>
+		</optgroup>
+		{if $section.namespace == 'bor'}
+		<optgroup label="[*Downloads*]">
+			<option value="MULTI">[MULTI] - [*Mehrere Hoster (ab 3)*]</option>
+			<option value="DIRECT">[STREAM] - [*Stream(s)*]</option>
+			<option value="DIRECT">[DIRECT] - [*Direkt Download*]</option>
+			<option value="4US">[4US] - [*4us.to*]</option>
+			<option value="BL">[BL] - [*bitload.com*]</option>
+			<option value="BL">[BS] - [*bitshare.com*]</option>
+			<option value="DF">[DL] - [*duckload.com*]</option>
+			<option value="DF">[DF] - [*depositfiles.com*]</option>
+			<option value="FS">[FS] - [*fileserve.com*]</option>
+			<option value="FS">[FSC] - [*filesonic.com*]</option>
+			<option value="FM">[FM] - [*files.mail.ru*]</option>
+			<option value="HF">[HF] - [*hotfile.com*]</option>
+			<option value="MS">[LTO] - [*load.to*]</option>
+			<option value="MS">[MS] - [*megashares.com*]</option>
+			<option value="MU">[MU] - [*megaupload.com*]</option>
+			<option value="MV">[MV] - [*megavideo.com*]</option>
+			<option value="NL">[NL] - [*netload.in*]</option>
+			<option value="RS">[RS] - [*rapidshare.com*]</option>
+			<option value="SCX">[SCX] - [*share.cx*]</option>
+			<option value="SB">[SB] - [*sharebase.to*]</option>
+			<option value="SO">[SO] - [*share-online.biz*]</option>
+			<option value="UL">[UL] - [*uploaded.to*]</option>
+			<option value="x7">[x7] - [*x7.to*]</option>
+			<option value="ZS">[ZS] - [*zippyshare.com*]</option>
+		</optgroup>
+		{/if}
+	</select>
+	<input type="text" name="{#IMPOST 'name'}" value="{~@$thread_name}" style="width:86%;float:right;">
+	<div class="clear"></div>
+	<textarea class="bbcodeedit" name="{#IMPOST 'content'}">{~@$thread_content}</textarea>
+	<div style="text-align:left;">
+		<input type="checkbox" name="{#IMPOST 'lang_de'}"{if LANG == 'de'} checked="checked"{/if} id="ForumNewThreadLangDE"><label for="ForumNewThreadLangDE"> Dieser Thread ist f&uuml;r deutschsprachige Besucher interessant und sie k&ouml;nnen den Inhalt verstehen</label><br>
+		<input type="checkbox" name="{#IMPOST 'lang_en'}"{if LANG == 'en'} checked="checked"{/if} id="ForumNewThreadLangEN"><label for="ForumNewThreadLangEN"> Dieser Thread ist f&uuml;r englischsprachige Besucher interessant und sie k&ouml;nnen den Inhalt verstehen</label><br>
+		<span class="info">
+			Solltest Du 2 Sprachen ausw&auml;hlen solltest Du in deinem Beitrag festlegen was die Hauptsprache in diesem Thread sein soll so das sich die Benutzer daran halten k&ouml;nnen.<br>
+			Englisch ist bei mehrsprachigen Threads auf jeden Fall zu bevorzugen da die meisten deutschsprachigen Besucher auch englisch verstehen k&ouml;nnen.
+		</span>
+	</div>
+	<input type="submit" class="big-button" value="[*Thread erstellen*]">
+	{if LANG == 'de'}<a href="/de/wiki/Forensyntax/" target="_blank">[*Mehr Infos zum Forensyntax*]</a>{/if}
+</form>

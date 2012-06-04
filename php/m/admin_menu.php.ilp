@@ -1,0 +1,8 @@
+{if has_privilege('email')}<div><a href="/{LANG}/admin/email/">E-Mail</a></div>{/if}
+{if has_privilege('inviter')}<div><a href="/{LANG}/admin/invites/">Invite Codes</a></div>{/if}
+{if has_privilege('user_warnings') and (has_privilege('forum_admin') or has_privilege('forum_mod') or has_privilege('forum_super_mod'))}<div><a href="/{LANG}/admin/forum_report_tickets/">[*Gemeldete Beitr&auml;ge*]</a></div>{/if}
+{if has_privilege('radio') or has_privilege('radio_admin')}<div><a href="/{LANG}/admin/radio/">Radio</a></div>{/if}
+{if has_privilege('groupmanager')}<div><a href="/{LANG}/admin/groups/">Gruppen</a></div>{/if}
+{if has_privilege('usermanager')}<div><a href="/{LANG}/admin/users/">Benutzer</a></div>{/if}
+{if has_privilege('forum_admin')}<div title="Forum Administration"><a href="/{LANG}/admin/forum/">Forum</a></div>{/if}
+{if has_privilege('report_page')}<div><a href="/{LANG}/admin/report_page/">Gemeldete Seiten</a></div>{/if}

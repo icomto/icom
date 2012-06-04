@@ -1,0 +1,19 @@
+<div class="user-friends">
+	{if not IS_LOGGED_IN}
+	<p class="error">[*Du musst eingeloggt sein um diese Seite zu sehen.*]</p>
+	{elseif not $user}
+	<p class="error">[*Der Benutzer wurde nicht gefunden.*]</p>
+	{elseif not $friends->num_rows}
+	<p class="info">[*Der Benutzer {~$user.nick} hat noch keine Freunde.*]</p>
+	{else}
+	{while $i = $friends->fetch_assoc() |i}
+	<div class="friend-box">
+		<a href="/{LANG}/users/{$i.user_id}-{^$i.nick}/">
+			<div><img class="avatar" src="{if $i.avatar}{~get_avatar_url($i.avatar)}{else}{STATIC_CONTENT_DOMAIN}/img/no_avatar.jpg{/if}" alt=""></div>
+			{~$i.nick}
+		</a>
+	</div>
+	{/while}
+	<div class="clear"></div>
+	{/if}
+</div>

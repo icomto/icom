@@ -1,0 +1,26 @@
+<div class="module-item">
+	<h1>
+		{ILPHP_CLASS->im_way_html()}
+	</h1>
+	<div class="module-content module-pn-write">
+		{*if not user()->can_understand_one_lang($user.languages)}
+		<p class="warning">
+			[*!{user($user.user_id)->html(-1)} hat keine Sprache angegeben die Du auch verstehst ({~get_user_language_strings($user.languages)}).<br>
+			Vielleicht hat Dein Gespr&auml;chspartner vergessen seine Sprachkentnisse in seinen Einstellungen anzugeben.<br>
+			Solltest Du seine Sprache verstehen, solltest Du das in <a href="/{LANG}/settings/user/">Deinen Einstellungen</a> angeben.*]
+		</p>
+		{/if*}
+		<form method="post" action="{~$url}" onsubmit="if($(this).find('input[type=text]').attr('value').length<3||$(this).find('textarea').attr('value').length<3)alert('[*Du musst einen Betreff und eine Nachricht eingeben!*]');else iC(this, '~.module-item');return false;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="send">
+			<table>
+				<tr>
+					<th>[*Betreff:*]</th>
+					<td><input type="text" name="{#IMPOST 'name'}" value="{~@$args.name}"></td>
+				</tr>
+			</table>
+			<textarea class="bbcodeedit" name="{#IMPOST 'message'}">{~@$args.message}</textarea>
+			<button type="submit" class="button">[*Abschicken*]</button>
+		</form>
+	</div>
+	<div class="module-footer"></div>
+</div>

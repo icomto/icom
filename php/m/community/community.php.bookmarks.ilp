@@ -1,0 +1,35 @@
+<style>
+.community-bookmarks {{
+	text-align:center;
+}}
+.community-bookmarks h2 a {{
+	font-size:14px;
+}}
+.community-bookmarks table {{
+	margin:0 auto;
+	width:50%;
+}}
+.community-bookmarks table .num-bookmarks {{
+	text-align:right;
+	width:40%;
+}}
+</style>
+<div class="community-bookmarks">
+	{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+	{if !$bookmarks->num_rows}<p class="info">[*Keine freigegebenen Lesezeichen gefunden.*]</p>
+	{else}
+	<table border="1">
+		<tr>
+			<th>[*Benutzername*]</th>
+			<th class="num-bookmarks">[*Anzahl Lesezeichen*]</th>
+		</tr>
+		{while $i = $bookmarks->fetch_assoc() |i}
+		<tr class="row">
+			<td>{user($i.user_id)->html(-1)}</td>
+			<td class="num-bookmarks">{%$i.num}</td>
+		</tr>
+		{/while}
+	</table>
+	{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+	{/if}
+</div>

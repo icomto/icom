@@ -1,0 +1,3 @@
+{while $i = $channels->fetch_assoc() |i}{*
+*}<a class="tab{if $channel.channel == $i.channel} active{elseif $i.online} green{/if} {if $while_i == 1}first{elseif $while_i == $channels->num_rows}last{else}middle{/if}" href="/{LANG}/radio/{~$i.channel}/" target="_self">#{$while_i}</a>{*
+*}{/while}

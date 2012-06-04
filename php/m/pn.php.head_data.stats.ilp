@@ -1,0 +1,36 @@
+{new ilphp_sub 'vote_for_user'}
+<div class="pn-vote_for_user">
+	{if $polls->num_rows}
+	<div class="SEP"><div><div></div><h3>[*Abstimmungen*]</h3><div></div></div></div>
+	<ul>
+		{while $i = $polls->fetch_assoc()}
+		<li>
+			{if $i.has_voted}<span>[*!Die Abstimmung zur Einladung von {user($i.user_id)->html(-1)} l&auml;uft noch.*]</span>
+			{else}
+			[*!Bist Du damit einverstanden {user($i.user_id)->html(-1)} am Gespr&auml;ch teilnehmen zu lassen?*]
+			<form method="post" style="display:inline;" action="{~$url}" onsubmit="return iC(this, '~.pn-vote_for_user');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="vote_for_user">
+				<input type="hidden" name="{#IMPOST 'poll_id'}" value="{$i.id}">
+				<input type="hidden" name="{#IMPOST 'yes_or_no'}" value="yes">
+				<button type="submit" class="button">[*Ja*]</button>
+			</form>
+			<form method="post" style="display:inline;" action="{~$url}" onsubmit="return iC(this, '~.pn-vote_for_user');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="vote_for_user">
+				<input type="hidden" name="{#IMPOST 'poll_id'}" value="{$i.id}">
+				<input type="hidden" name="{#IMPOST 'yes_or_no'}" value="no">
+				<button type="submit" class="button">[*Nein*]</button>
+			</form>
+			{/if}
+		</li>
+		{/while}
+	</ul>
+	{/if}
+</div>
+{/new ilphp_sub}
+<div class="SEP"><div><div></div><h3>[*Infos*]</h3><div></div></div></div>
+<div>
+	[*Gespr&auml;chspartner:*] 
+	{if $users->num_rows == 0}-
+	{else}{while $i = $users->fetch_assoc() |i}{user($i.user_id)->html_sitelang()} <a href="/{LANG}/users/{$i.user_id}-{^$i.nick}/" {if $i.online}class="success" title="[*{~$i.nick} ist anwesend*]"{else}class="error" title="[*{~$i.nick} ist gerade abwesend*]"{/if}>{~$i.nick}</a>{if $while_i < $users->num_rows}, {/if}{/while}
+	{/if}
+</div>

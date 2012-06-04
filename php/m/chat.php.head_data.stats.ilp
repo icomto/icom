@@ -1,0 +1,66 @@
+<div>
+	{if $num_admins == 1}[*Admin:*] {else}[*Admins:*] {/if}
+	{if $num_admins == 0}[*keine*]
+	{else}{foreach $stats_admins as $i |i}{user($i)->html(-1)}{if $foreach_i < $num_admins}, {/if}{/foreach}
+	{/if}
+</div>
+{if $stats_admin_groups->num_rows}
+<div>
+	[*Admin Gruppen:*] 
+	{while $i = $stats_admin_groups->fetch_assoc() |i}{if $i.id}<a href="/{LANG}/community/users/groups/{$i.id}-{^$i.name}/">{~$i.name}</a>{else}{~$i.name}{/if}{if $while_i < $stats_admin_groups->num_rows}, {/if}{/while}
+</div>
+{/if}
+{if $stats_allowed_groups->num_rows}
+<div>
+	<span style="cursor:pointer;" onclick="vUserChat{$data.id}AG=!vUserChat{$data.id}AG;$(this).next().toggle().next().toggle();">[*Zugelassene Gruppen:*] </span>
+	<span style="cursor:pointer;" onclick="vUserChat{$data.id}AG=!vUserChat{$data.id}AG;$(this).toggle().next().toggle();">{%$stats_allowed_groups->num_rows}</span>
+	<span id="vUserChat{$data.id}AG" style="display:none;">
+		{while $i = $stats_allowed_groups->fetch_assoc() |i}{if $i.id}<a href="/{LANG}/community/users/groups/{$i.id}-{^$i.name}/">{~$i.name}</a>{else}{~$i.name}{/if}{if $while_i < $stats_allowed_groups->num_rows}, {/if}{/while}
+	</span>
+	<script>if(vUserChat{$data.id}AG===undefined)var vUserChat{$data.id}AG=false;$(function(){{if(vUserChat{$data.id}AG==true)$('#vUserChat{$data.id}AG').show().prev().hide();}});</script>
+</div>
+{/if}
+{if $num_allowed_users}
+<div>
+	<span style="cursor:pointer;" onclick="vUserChat{$data.id}AU=!vUserChat{$data.id}AU;$(this).next().toggle().next().toggle();">[*Zugelassene Benutzer:*] </span>
+	<span style="cursor:pointer;" onclick="vUserChat{$data.id}AU=!vUserChat{$data.id}AU;$(this).toggle().next().toggle();">{%$num_allowed_users}</span>
+	<span id="vUserChat{$data.id}AU" style="display:none;">
+		{foreach $stats_allowed_users as $i |i}{user($i)->html(-1)}{if $foreach_i < $num_allowed_users}, {/if}{/foreach}
+	</span>
+	<script>if(vUserChat{$data.id}AU===undefined)var vUserChat{$data.id}AU=false;$(function(){{if(vUserChat{$data.id}AU==true)$('#vUserChat{$data.id}AU').show().prev().hide();}});</script>
+</div>
+{/if}
+{if $data.points_from and $data.points_to}
+<div>[*Benutzer mit {%$data.points_from} bis {%$data.points_to} Punkten*]</div>
+{elseif $data.points_from}
+<div>[*Benutzer mit mehr als {%$data.points_from} Punkten*]</div>
+{elseif $data.points_to}
+<div>[*Benutzer mit bis zu {%$data.points_to} Punkten*]</div>
+{/if}
+{if $num_banned_users}
+<div>
+	<span style="cursor:pointer;" onclick="vUserChat{$data.id}BU=!vUserChat{$data.id}BU;$(this).next().toggle().next().toggle();">[*Gebannte Benutzer:*] </span>
+	<span style="cursor:pointer;" onclick="vUserChat{$data.id}BU=!vUserChat{$data.id}BU;$(this).toggle().next().toggle();">{%$num_banned_users}</span>
+	<span id="vUserChat{$data.id}BU" style="display:none;">
+		{foreach $stats_banned_users as $i |i}{user($i)->html(-1)}{if $foreach_i < $num_banned_users}, {/if}{/foreach}
+	</span>
+	<script>if(vUserChat{$data.id}BU===undefined)var vUserChat{$data.id}BU=false;$(function(){{if(vUserChat{$data.id}BU==true)$('#vUserChat{$data.id}BU').show().prev().hide();}});</script>
+</div>
+{/if}
+{if in_array(0, $stats_allowed_groups_array)}
+<div>
+	[*G&auml;ste online:*] {if $stats_guests == 0}[*keine*]{else}{%$stats_guests}{/if}
+</div>
+{/if}
+<div>
+	{if $stats_users->num_rows == 0}
+	[*Benutzer online:*] [*keine*]
+	{else}
+	<span style="cursor:pointer;" onclick="vUserChat{$data.id}UO=!vUserChat{$data.id}UO;$(this).next().toggle().next().toggle();">[*Benutzer online:*] </span>
+	<span style="cursor:pointer;" onclick="vUserChat{$data.id}UO=!vUserChat{$data.id}UO;$(this).toggle().next().toggle();">{%$stats_users->num_rows}</span>
+	<span id="vUserChat{$data.id}UO" style="display:none;">
+		{while $i = $stats_users->fetch_assoc() |i}{user($i.user_id)->html(-1)}{if $while_i < $stats_users->num_rows}, {/if}{/while}
+	</span>
+	<script>if(vUserChat{$data.id}UO===undefined)var vUserChat{$data.id}UO=false;if(vUserChat{$data.id}UO==true)$('#vUserChat{$data.id}UO').show().prev().hide();</script>
+	{/if}
+</div>

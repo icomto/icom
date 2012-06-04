@@ -1,0 +1,8 @@
+<div class="news-article">
+	<p class="introduce">
+		{if $news.cover}<img src="{~$news.cover}">{/if}
+		{ubbcode::compile($news.introduce_content)}<br>
+	</p>
+	<a href="/{LANG}/news/{$news.news_id}-{^$news.name}/">[*Weiterlesen...*]</a>
+	<div class="clear"></div>
+</div>

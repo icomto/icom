@@ -1,0 +1,47 @@
+<style>
+.community-groups table {{
+	margin:0 auto;
+	width:50%;
+}}
+.community-groups table .num-members {{
+	text-align:right;
+	width:30%;
+}}
+</style>
+<div class="community-polls">
+	{if IS_LOGGED_IN}
+	<p>
+		[*Neue Umfrage erstellen*]
+		<form method="post" action="/{LANG}/community/polls/">
+			<input type="hidden" name="{#IMPOST 'action'}" value="new">
+			[*Frage:*] <input type="text" size="80" name="{#IMPOST 'question'}" data-tooltip="[*BB-Code erlaubt*]"> <button type="submit" class="button">[*Erstellen*]</button>
+		</form>
+	</p>
+	{/if}
+	<p>
+		{if $polls->num_rows == 0}
+		<p class="info">
+			[*Keine Umfragen gefunden.*]
+		</p>
+		{else}
+		<div class="forum">
+			{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+			<table class="forum-sections" border="1">
+				<tr class="head">
+				<th>[*Name*]</th>
+					<th width="120" style="text-align:center;">[*Ersteller*]</th>
+				</tr>
+				{while $i = $polls->fetch_assoc() |i}
+				<tr class="forum-row">
+					<td>
+						<a href="/{LANG}/poll/{$i.id}-{^$i.question}/">{~$i.question}</a>{if $i.status == 'closed'} ([*geschlossen*]){elseif $i.status == 'deleted'} ([*gel&ouml;scht*]){/if}
+					</td>
+					<td style="text-align:center;">{user($i.creator)->html()}</td>
+				</tr>
+				{/while}
+			</table>
+			{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+		</div>
+		{/if}
+	</p>
+</div>

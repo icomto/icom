@@ -1,0 +1,11 @@
+{if IS_LOGGED_IN}
+{#THIS->add_menu('left', LS('Admin'), 'menu-admin', 'admin_menu')}
+{if !user()->has_group(USER_GROUPID) or user()->has_group(210)}
+{#THIS->add_menu('left', LS('Teamintern'), 'menu-forum', 'forum', ['namespace' => 'team', 'limit' => 10])}
+{/if}
+{/if}
+
+{#THIS->add_menu('left', LS('News'), 'menu-forum', 'forum', ['namespace' => 'news', 'limit' => 10])}
+{#THIS->add_menu('left', LS('Forum'), 'menu-forum', 'forum', ['namespace' => 'def', 'limit' => 20])}
+
+<div class="side-menu-footer"></div>

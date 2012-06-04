@@ -1,0 +1,25 @@
+<div class="user-friends">
+	{if not $requests->num_rows}
+	<p class="info">[*Derzeit liegen keine Freundschaftsanfragen vor.*]</p>
+	{else}
+	{while $i = $requests->fetch_assoc() |i}
+	<div class="clear" style="border-bottom:1px #777 solid;margin-bottom:5px;">
+		<div class="friend-box">
+			<a href="/{LANG}/users/{$i.user_id}-{^$i.nick}/">
+				<div><img class="avatar" src="{if $i.avatar}{~get_avatar_url($i.avatar)}{else}{STATIC_CONTENT_DOMAIN}/img/no_avatar.jpg{/if}" alt=""></div>
+				{~$i.nick}
+			</a>
+		</div>
+		<div id="UPFRT{$i.user_id}" style="float:right;margin:auto 0;">
+			<form method="post" action="{$url}" onsubmit="return iC(this);">
+				<input type="hidden" name="{#IMPOST 'requests', 'friend_id'}" value="{$i.user_id}">
+				<input type="hidden" class="friend-status" name="{#IMPOST 'requests', 'status'}" value="">
+				<p><button type="submit" value="accept" class="info" onclick="$(this.form).find('.friend-status').attr('value', this.value);" style="padding:4px;width:150px;font-weight:bold;">[*Freundschaft annehmen*]</button></p>
+				<p><button type="submit" value="reject" class="error" onclick="$(this.form).find('.friend-status').attr('value', this.value);" style="padding:4px;width:150px;">[*Freundschaft ignorieren*]</button></p>
+			</form>
+		</div>
+	</div>
+	{/while}
+	<div class="clear"></div>
+	{/if}
+</div>

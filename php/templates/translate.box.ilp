@@ -1,0 +1,11 @@
+{if not $i or not $i.static}
+<form method="post" action="" onsubmit="return save(this,'Item{$hash}{$lang}');">
+	<h3>{$lang} <button type="submit">Save</button></h3>
+	<input type="hidden" name="hash" value="{~$hash}">
+	<input type="hidden" name="lang" value="{~$lang}">
+	<textarea name="data">{htmlspecialchars(@$i.data)}</textarea>
+</form>
+{else}
+<h3>{$lang}</h3>
+<pre>{htmlspecialchars($i.data)}</pre>
+{/if}

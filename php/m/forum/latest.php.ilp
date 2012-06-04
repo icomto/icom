@@ -1,0 +1,10 @@
+<div class="module-item">
+	<h1>{#THIS->im_way_html()}</h1>
+	<div class="module-content">
+		{while $i = $threads->fetch_assoc()}
+		{set $i.pages = calculate_pages($i.thread_num_posts, FORUM_THREAD_NUM_POSTS_PER_SITE)}
+		<a href="/{LANG}/thread/{$i.thread_id}-{^$i.firstpost_name}/{if $i.pages>1}page/{°$i.pages}/{/if}"{if strlen($i.firstpost_name) > 80} title="{~$i.firstpost_name}"{/if}>{if $is_multilang}{get_sitelang_flag2($i.thread_lang_de, $i.thread_lang_en)}{else}<img src="{STATIC_CONTENT_DOMAIN}/img/dot.png" alt="">{/if} {~truncate($i.firstpost_name, 80, '...', true)}</a><br>
+		{/while}
+	</div>
+	<div class="module-footer"></div>
+</div>

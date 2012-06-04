@@ -1,0 +1,8 @@
+{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+{if not $pages->num_rows}<p class="error">[*Keine Artikel gefunden*]</p>
+{else}
+{while $i = $pages->fetch_assoc()}
+<a href="/{$i.lang}/wiki/{wiki_urlencode($i.name)}/">{if $is_multilang}{get_sitelang_flag2($i.lang == 'de', $i.lang == 'en')}{else}<img src="{STATIC_CONTENT_DOMAIN}/img/dot.png" alt="">{/if} {~$i.name}</a><br>
+{/while}
+{/if}
+{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}

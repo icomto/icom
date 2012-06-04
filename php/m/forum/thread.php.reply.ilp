@@ -1,0 +1,15 @@
+<div id="thread_reply">
+	<div class="SEP first" style="margin:15px 0 15px 0;"><div><div></div><h3>[*Auf dieses Thema antworten*]</h3><div></div></div></div>
+	{if $errors}
+	{foreach $errors as $e}
+	<p class="error">{~$e}</p>
+	{/foreach}
+	{/if}
+	<form class="forum-write-post" method="post" action="{~$url_page}#thread_reply" onsubmit="return iC(this, '~#thread_reply');">
+		<input type="hidden" name="{#IMPOST 'action'}" value="reply">
+		<div><input type="text" name="{#IMPOST 'name'}" value="{~$post_name}"></div>
+		<div><textarea class="bbcodeedit" name="{#IMPOST 'content'}">{~$post_content}</textarea></div>
+		<button type="submit" class="big-button">[*Speichern*]</button>
+		{if LANG == 'de'}<a href="/de/wiki/Forensyntax/" target="_blank">Mehr Infos zum Forensyntax</a>{/if}
+	</form>
+</div>

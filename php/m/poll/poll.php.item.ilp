@@ -1,0 +1,26 @@
+<div class="poll-item-{$poll.id}">{*
+	*}{if !$poll or $poll.status == 'deleted'}<span class="error">[*Umfrage nicht gefunden oder Zugriff verweigert.*]</span>{*
+	*}{elseif $poll.status == 'closed' or $has_voted}{*
+	*}<div class="voting">{*
+		*}<a href="{~$url}" style="text-decoration:none !important;font-weight:bold;">{~$poll.question}</a><br>{*
+		*}{foreach $answers as $i}{*
+		*}<span class="answer">{~$i.answer}</span>{*
+		*}<div class="bar" style="white-space:nowrap;width: {round(@($i.votes/$best_num_votes)*100,0)}%;">{%$i.votes} ({%1@($i.votes/$num_votes)*100}%)&nbsp;</div>{*
+		*}{/foreach}
+	</div>{*
+	*}{elseif $poll.status == 'open' and !$has_voted}{*
+	*}<div class="voting">{*
+		*}{set $rand = round(mt_rand() + time()/mt_rand())}{*
+		*}<form method="post" onsubmit="return iC(this, '~.poll-item-{$poll.id}');" style="text-align:left;">{*
+			*}<input type="hidden" name="{#IMPOST 'action'}" value="poll_vote">{*
+			*}<input type="hidden" name="{#IMPOST 'poll'}" value="{$poll.id}">{*
+			*}<a href="{~$url}" style="text-decoration:none !important;font-weight:bold;">{~$poll.question}</a><br>{*
+			*}{foreach $answers as $i}{*
+			*}<input class="radio" type="radio" name="{#IMPOST 'answer_id'}" value="{~$i.id}" id="PollItem{~$poll.id}R{$rand}A{$i.id}">{*
+			*}<label class="label" for="PollItem{~$poll.id}R{$rand}A{$i.id}" class="answer">{~$i.answer}</label><br>{*
+			*}{/foreach}{*
+			*}<center><button type="submit" class="button">[*Abstimmen*]</button></center>{*
+		*}</form>{*
+	*}</div>{*
+	*}{/if}{*
+*}</div>

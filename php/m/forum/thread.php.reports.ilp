@@ -1,0 +1,26 @@
+{if $reports->num_rows}
+<div class="post-spacer"></div>
+{while $report = $reports->fetch_assoc()}
+<div class="post-report">
+	<div class="post-header"></div>
+	<p class="clear">
+		Beitrag gemeldet von {user($report.user_id)->html(-1)} {timeago($report.timeadded)}
+		<div class="user-entry">{ubbcode::add_smileys(ubbcode::compile($report.reason))}</div>
+		<form method="post" action="{~$url_page}#post{(($page - 1)*FORUM_THREAD_NUM_POSTS_PER_SITE) + $while_i}" onsubmit="return iC(this, '~.post-report');">
+			<input type="hidden" name="{#IMPOST 'action'}" value="close_report">
+			<input type="hidden" name="{#IMPOST 'ticket_id'}" value="{~$report.id}">
+			<input type="hidden" name="{#IMPOST 'good'}" value="1">
+			<input type="submit" class="button" value="[*Gutes Ticket*]">
+		</form>
+		<form method="post" action="{~$url_page}#post{(($page - 1)*FORUM_THREAD_NUM_POSTS_PER_SITE) + $while_i}" onsubmit="return iC(this, '~.post-report');">
+			<input type="hidden" name="{#IMPOST 'action'}" value="close_report">
+			<input type="hidden" name="{#IMPOST 'ticket_id'}" value="{~$report.id}">
+			<input type="hidden" name="{#IMPOST 'good'}" value="0">
+			<input type="submit" class="button" value="[*Schlechtes Ticket*]">
+			<input type="text" name="{#IMPOST 'reason'}" style="width:60%;" data-tooltip="[*Grund*]"> 
+		</form>
+		<div class="clear"></div>
+	</p>
+</div>
+{/while}
+{/if}

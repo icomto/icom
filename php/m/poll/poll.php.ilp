@@ -1,0 +1,142 @@
+<div class="module-item">
+	<h1>{ILPHP_CLASS->im_way_html()}</h1>
+	<div class="module-content community-poll">
+		{if $poll and $is_admin}
+		<div class="SEP first"><div><div></div><h3>[*Umfrage anpassen*]</h3><div></div></div></div>
+		{if $display_settings}<a href="{$url}">Einstellungen ausblenden</a>
+		{else}<a href="{$url}settings/">Einstellungen einblenden</a>
+		{/if}
+		{if $display_settings}
+		<style>li.user-poll-setting {{ margin-bottom:8px; }}</style>
+		<div class="SEP"><div><div></div><h3>[*Einstellungen*]</h3><div></div></div></div>
+		<ul>
+			{if $best_num_votes}
+			<li class="user-poll-setting">
+				<strong>[*Es wurden bereits Stimmen abgegeben*]</strong><br>
+				<span class="info">
+					[*Somit ist keine &Auml;nderung an den m&ouml;glichen Antworten mehr m&ouml;glich.*]
+				</span>
+			</li>
+			{else}
+			
+			{new ilphp_sub 'change_question'}
+			<li class="user-poll-setting">
+				<strong>[*Frage &auml;ndern*]</strong><br>
+				<form method="post" action="{$url}settings/" onsubmit="return iC(this, '~li');" style="text-align:left;">
+					<input type="hidden" name="{#IMPOST 'action'}" value="change_question">
+					<input type="text" size="65" name="{#IMPOST 'question'}" value="{~$poll.question}">
+					<button type="submit" class="button">[*&Auml;ndern*]</button>
+				</form>
+			</li>
+			{/new ilphp_sub}
+			
+			{if $num_answers}
+			{new ilphp_sub 'answers'}
+			<li class="user-poll-setting">
+				<strong>[*Antworten &auml;ndern*]</strong><br>
+				{foreach $answers as $i}
+				<form method="post" style="float:left;" action="{$url}settings/" onsubmit="return iC(this, '~li');" style="text-align:left;">
+					<input type="hidden" name="{#IMPOST 'action'}" value="change_answer">
+					<input type="hidden" name="{#IMPOST 'answer_id'}" value="{$i.id}">
+					<input type="text" size="65" name="{#IMPOST 'answer'}" value="{~$i.answer}">
+					<button type="submit" class="button">[*&Auml;ndern*]</button>
+				</form>
+				<form method="post" action="{$url}settings/" onsubmit="return iC(this, '~li');" style="text-align:left;">
+					<input type="hidden" name="{#IMPOST 'action'}" value="delete_answer">
+					<input type="hidden" name="{#IMPOST 'answer_id'}" value="{$i.id}">
+					<button type="submit" class="button">[*L&ouml;schen*]</button>
+				</form>
+				{/foreach}
+			</li>
+			{/new ilphp_sub}
+			{/if}
+			
+			{new ilphp_sub 'add_answer'}
+			<li class="user-poll-setting">
+				<strong>[*Neue Antwort*]</strong><br>
+				<form method="post" action="{$url}settings/" onsubmit="return iC(this, '~li');" style="text-align:left;">
+					<input type="hidden" name="{#IMPOST 'action'}" value="add_answer">
+					<input type="text" size="65" name="{#IMPOST 'answer'}">
+					<button type="submit" class="button">[*Hinzuf&uuml;gen*]</button>
+				</form>
+			</li>
+			{/new ilphp_sub}
+			{/if}
+			
+			{if $available_groups->num_rows or $groups->num_rows}
+			{new ilphp_sub 'groups'}
+			<li class="user-chat-setting">
+				<strong>[*Gruppen*]</strong><br>
+				{if $available_groups->num_rows}
+				<form method="post" action="{$url}settings/" onsubmit="return iC(this, '~li');" style="text-align:left;">
+					<input type="hidden" name="{#IMPOST 'action'}" value="add_group">
+					<select name="{#IMPOST 'group_id'}" title="[*Gruppe hinzuf&uuml;gen*]">
+						{while $i = $available_groups->fetch_assoc()}
+						<option value="{$i.id}">{~$i.name}</option>
+						{/while}
+					</select>
+					<button type="submit" class="button">[*Hinzuf&uuml;gen*]</button>
+				</form>
+				{/if}
+				{if $groups->num_rows}
+				{while $i = $groups->fetch_assoc()}
+				<form method="post" action="{$url}settings/" onsubmit="return iC(this, '~li');" style="text-align:left;display:inline;">
+					<input type="hidden" name="{#IMPOST 'action'}" value="remove_group">
+					<input type="hidden" name="{#IMPOST 'group_id'}" value="{$i.id}">
+					<button type="submit" class="button" title="[*Gruppe l&ouml;schen*]">{~$i.name}</button>
+				</form>
+				{/while}
+				<p></p>
+				{else}
+				<p class="info">
+					[*Vergiss nicht Gruppen f&uuml;r diese Umfrage hinzuzuf&uuml;gen. Ansonsten kann niemand abstimmen.*]
+				</p>
+				{/if}
+			</li>
+			{/new ilphp_sub}
+			{/if}
+			
+			{new ilphp_sub 'status'}
+			<li class="user-poll-setting">
+				<strong>[*Status &auml;ndern*]</strong><br>
+				<form method="post" action="{$url}settings/" onsubmit="return iC(this, '~li');" style="text-align:left;">
+					<input type="hidden" name="{#IMPOST 'action'}" value="change_status">
+					<select name="{#IMPOST 'status'}">
+						<option value="open"{if $poll.status == 'open'} selected="selected"{/if}>[*Offen*]</option>
+						<option value="closed"{if $poll.status == 'closed'} selected="selected"{/if}>[*Geschlossen*]</option>
+						<option value="deleted"{if $poll.status == 'deleted'} selected="selected"{/if}>[*L&ouml;schen (kann nicht r&uuml;ckg&auml;ngig gemacht werden!)*]</option>
+					</select> <button type="submit" class="button">[*&Auml;ndern*]</button>
+					{if not $num_answers}
+					<ul>
+						<li class="info">
+							[**Nach der ersten abgegebenen Stimme ist keine &Auml;nderung bei der Frage oder den Antworten mehr m&ouml;glich.<br>
+							Die Umfrage also erst &ouml;ffnen wenn sie komplett fertiggestellt ist.*]
+						</li>
+						{if $num_answers < 2}
+						<li class="info">
+							[**Eine Umfrage kann erst ge&ouml;ffnet werden wenn sie mindestens 2 Antworten hat.*]
+						</li>
+						{/if}
+					</ul>
+					{/if}
+				</form>
+			</li>
+			{/new ilphp_sub}
+		</ul>
+		{/if}
+		<div class="SEP"><div><div></div><h3>[*Umfrage*]</h3><div></div></div></div>
+		{/if}
+		<p>
+			{if $num_answers}
+			{#THIS->RUN('ITEM')}
+			<p>
+				<strong>[*BB-Code f&uuml;r diese Umfrage:*]</strong><br>
+				<input type="text" style="width:40%;text-align:center;" value="[poll]{$poll.id}[/poll]" onfocus="this.select();">
+			</p>
+			{else}
+			<p class="info">[*Dieser Umfrage wurden noch keine Antworten hinzugef&uuml;gt.*]</p>
+			{/if}
+		</p>
+	</div>
+	<div class="module-footer"></div>
+</div>

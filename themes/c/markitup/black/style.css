@@ -1,0 +1,48 @@
+.T-base-black .markItUp .markItUpButton1x1 a	{ background-image:url(bold.png);/*ICON*/ }
+.T-base-black .markItUp .markItUpButton1x2 a	{ background-image:url(italic.png);/*ICON*/ }
+.T-base-black .markItUp .markItUpButton1x3 a	{ background-image:url(underline.png);/*ICON*/ }
+.T-base-black .markItUp .markItUpButton1x4 a	{ background-image:url(picture.png);/*ICON*/ }
+.T-base-black .markItUp .markItUpButton1x5 a	{ background-image:url(link.png);/*ICON*/ }
+
+.T-base-black .bbcode .markItUp .markItUpButton1x6 a	{ background-image:url(colors.png);/*ICON*/ }
+.T-base-black .bbcode .markItUp .markItUpButton1x7 a	{ background-image:url(fonts.png);/*ICON*/ }
+
+.T-base-black .markItUp .markItUpButton1x8 a	{ background-image:url(ta_left.png);/*ICON*/ }
+.T-base-black .markItUp .markItUpButton1x9 a	{ background-image:url(ta_center.png);/*ICON*/ }
+.T-base-black .markItUp .markItUpButton1x10 a	{ background-image:url(ta_right.png);/*ICON*/ }
+
+.T-base-black .markItUp .markItUpButton1x11 a	{ background-image:url(list-bullet.png);/*ICON*/ }
+.T-base-black .markItUp .markItUpButton1x12 a	{ background-image:url(list-numeric.png);/*ICON*/ }
+.T-base-black .markItUp .markItUpButton1x13 a	{ background-image:url(list-item.png);/*ICON*/ }
+.T-base-black .markItUp .markItUpButton1x14 a	{ background-image:url(quotes.png);/*ICON*/ }
+.T-base-black .markItUp .markItUpButton1x15 a	{ background-image:url(code.png);/*ICON*/ }
+
+.T-base-black .markItUp .markItUpButton1x16 a	{ background-image:url(spoiler.png);/*ICON*/ }
+.T-base-black .markItUp .markItUpButton1x17 a	{ background-image:url(hidden.png);/*ICON*/ }
+
+.T-base-black .bbcode .markItUp .markItUpButton1x18 a	{ background:url(youtube.png) top left no-repeat;/*ICON*/ }
+
+.T-base-black .markItUp .clean a { background-image:url(clean.png);/*ICON*/ }
+.T-base-black .markItUp .preview a { background-image:url(preview.png);/*ICON*/ }
+
+.T-base-black .wiki .markItUp .markItUpButton1x1 a { background-image:url(h1.png);/*ICON*/ }
+.T-base-black .wiki .markItUp .markItUpButton1x2 a { background-image:url(h2.png);/*ICON*/ }
+.T-base-black .wiki .markItUp .markItUpButton1x3 a { background-image:url(h3.png);/*ICON*/ }
+.T-base-black .wiki .markItUp .markItUpButton1x4 a { background-image:url(h4.png);/*ICON*/ }
+.T-base-black .wiki .markItUp .markItUpButton1x5 a { background-image:url(h5.png);/*ICON*/ }
+
+.T-base-black .wiki .markItUp .markItUpButton1x6 a { background-image:url(bold.png);/*ICON*/ }
+.T-base-black .wiki .markItUp .markItUpButton1x7 a { background-image:url(italic.png);/*ICON*/ }
+.T-base-black .wiki .markItUp .markItUpButton1x8 a { background-image:url(stroke.png);/*ICON*/ }
+
+.T-base-black .wiki .markItUp .markItUpButton1x9 a { background-image:url(list-bullet.png);/*ICON*/ }
+.T-base-black .wiki .markItUp .markItUpButton1x10 a { background-image:url(list-numeric.png);/*ICON*/ }
+
+.T-base-black .wiki .markItUp .markItUpButton1x11 a { background-image:url(picture.png);/*ICON*/ }
+.T-base-black .wiki .markItUp .markItUpButton1x12 a { background-image:url(link.png);/*ICON*/ }
+.T-base-black .wiki .markItUp .markItUpButton1x13 a { background-image:url(url.png);/*ICON*/ }
+
+.T-base-black .wiki .markItUp .markItUpButton1x14 a { background-image:url(quotes.png);/*ICON*/ }
+.T-base-black .wiki .markItUp .markItUpButton1x15 a { background-image:url(code.png);/*ICON*/ }
+
+.T-base-black .wiki .markItUp .preview a { background-image:url(preview.png);/*ICON*/ }

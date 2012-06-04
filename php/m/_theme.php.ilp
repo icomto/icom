@@ -1,0 +1,14 @@
+<div class="module-item">
+	<h1><a href="/{LANG}/logout/">[*Abmelden*]</a></h1>
+	<div class="module-content center">
+		{if has_privilege('banned')}<p class="error">[*Du wurdest gebannt.*]</p>
+		{elseif not IS_LOGGED_IN}<p class="error">[*Du bist nicht eingeloggt.*]</p>
+		{else}
+		<form method="post">
+			<input type="hidden" name="{#IMPOST 'action'}" value="change">
+			<button type="submit" class="big-button">[*Um dein aktuelles Layout oder Thema zu &auml;ndern klicke hier*]</button>
+		</form>
+		{/if}
+	</div>
+	<div class="module-footer"></div>
+</div>

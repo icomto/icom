@@ -1,0 +1,117 @@
+{include '~/page_header.ilp'}
+<div class="full-page {if DISPLAY_COMMUNITY_ELEMENTS}short-style{else}long-style{/if}">
+	<div class="main-menu-helper">
+		<div class="main-menu-icons-helper {$THEME.mm_icons}">
+			<div class="main-menu">
+				<div class="main-menu-style-helper {$THEME.mm_style}">
+					<div class="main-menu-logo-helper {$THEME.mm_logo}">
+						{include 'index.php.menu_main.ilp'}
+					</div>
+				</div>
+				<div class="main-menu-places-helper {$THEME.mm_places}">
+					<style>.main-menu-places a {{ padding: 0 30px 0 30px; }}</style>
+					<div class="main-menu-places">
+						<a href="/{LANG}/forum/">[*Forum*]</a> |
+						<a href="/{LANG}/news/">[*News*]</a> |
+						<a href="/{LANG}/wiki/">[*Wiki*]</a> |
+						<a href="/{LANG}/chats/">[*Chats*]</a> |
+						{if IS_LOGGED_IN}<a href="/{LANG}/community/">[*Community*]</a> |{/if}
+						<a href="/{LANG}/wiki/Portal/">[*Portal*]</a> |
+						<a href="/{LANG}/contact/">[*Kontakt*]</a> |
+						<a href="/{LANG}/report_page/" target="_blank">[*Abuse*]</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	{if DISPLAY_COMMUNITY_ELEMENTS}
+	<div class="side-menu side-menu-helper side-menu-left {$THEME.side_menu}">
+		{include 'index.php.menu_left.ilp'}
+	</div>
+	{/if}
+	<div class="module-helper {$THEME.module}">
+		<div class="module" id="Module">
+			{*<div class="module-item" id="ModuleDifferentLang">
+				<h1>[*Test*]</a></h1>
+				<div class="module-content" style="text-align:center;">
+					Du bist momentan auf der Testseite von iCom.to.<br>
+					Der Test dauert nicht lange, Du wirst bald wieder auf die alte Version zur&uuml;ckgeleitet.
+				</div>
+				<div class="module-footer"></div>
+			</div>*}
+			{*if IS_LOGGED_IN and !$suggested_us and LANG == 'de'}
+			<div class="module-item">
+				<h1>[*Wir brauchen Deine Hilfe*]</a></h1>
+				<div class="module-content" style="text-align:center;">
+					<a href="/title_suggest/">
+						Bitte schenke uns ein ein paar Minuten Deiner Zeit und Bewerte ein paar Titel die Du kennst.<br>
+						Wir sind f&uuml;r jede Bewertung dankbar.<br>
+						<br>
+						Hier gehts zur Bewertung
+					</a>
+					<br>
+					<br>
+					<a href="/de/thread/59271-Vorbereitungen-fuer-ein-neues-Feature/">
+						Hier findest Du weitere Informationen zum geplanten Feature
+					</a>
+				</div>
+				<div class="module-footer"></div>
+			</div>
+			{/if*}
+			
+			{if !HIDE_DIFFERENT_LANG_MESSAGE_BOX and LANG_ENABLED_DIFFERENT_LANG}
+			<div class="module-item" id="ModuleDifferentLang">
+				<h1>[*Andere Sprache*]</a></h1>
+				<div class="module-content" style="text-align:center;">
+					[*Diese Seite wird in einer anderen Sprache dargestellt als Du eingestellt hast.*]<br>
+					<form method="post" action="/{LANG}/_lang/{LANG}{rebuild_location()}" style="margin:5px;">
+						<button type="submit" class="big-button" style="width:75%;">[*Die aktuelle Sprache ({~get_user_language_strings(array(LANG))}) als Hauptsprache verwenden*]</button>
+					</form>
+					<form method="post" action="/{LANG}/_lang/{LANG_COOKIE_LANG}{rebuild_location()}" style="margin:5px;">
+						<button type="submit" class="big-button" style="width:75%;">[*Zu meiner eingestellten Sprache ({~get_user_language_strings(array(LANG_COOKIE_LANG))}) wechseln*]</button>
+					</form>
+					<form method="post" action="/{LANG}{rebuild_location()}" style="margin:5px;">
+						<input type="hidden" name="lang_hide_different_lang_message_box" value="1">
+						<button type="submit" class="big-button" style="width:75%;">[*Dieses Fenster ausblenden und nicht mehr anzeigen*]</button>
+					</form>
+				</div>
+				<div class="module-footer"></div>
+			</div>
+			{elseif IS_LOGGED_IN and !HIDE_CAN_UNDERSTAND_MESSAGE_BOX and !user()->can_understand_one_language(array(LANG))}
+			<div class="module-item" id="ModuleDifferentLang">
+				<h1>[*Verstehst Du diese Sprache?*]</a></h1>
+				<div class="module-content" style="text-align:center;">
+					[**Diese Seite wird in {~get_user_language_strings(array(LANG))} angezeigt.<br>
+					Du hast in Deinem Profil angegeben das Du nur {~get_user_language_strings(NULL)} verstehst.*]<br>
+					<form method="post" action="/{LANG}{rebuild_location()}" style="margin:5px;">
+						<input type="hidden" name="lang_add_current_lang_to_profile" value="1">
+						<button type="submit" class="big-button" style="width:75%;">[*{~get_user_language_strings(array(LANG))} in mein Profil aufnehmen*]</button>
+					</form>
+					<form method="post" action="/{LANG}{rebuild_location()}" style="margin:5px;">
+						<input type="hidden" name="lang_hide_can_understand_message_box" value="1">
+						<button type="submit" class="big-button" style="width:75%;">[*Dieses Fenster ausblenden und nicht mehr anzeigen*]</button>
+					</form>
+				</div>
+				<div class="module-footer"></div>
+			</div>
+			{/if}
+			{$MODULE_CONTENT}
+		</div>
+	</div>
+	<div class="side-menu side-menu-helper side-menu-right {$THEME.side_menu}">
+		{if not DISPLAY_COMMUNITY_ELEMENTS}{include 'index.php.menu_left.ilp'}{/if}
+		{include 'index.php.menu_right.ilp'}
+	</div>
+	
+	<div class="page-footer">
+		<div class="copyright">Copyright &copy; 2008 - 2012 iCom.to Inc. [*Alle Rechte vorbehalten*]</div>
+		<div class="links">
+			<a href="/de/wiki/Disclaimer/" class="tos">[*Disclaimer*]</a><a href="/de/wiki/Disclaimer/" class="tos">[*Disclaimer*]</a>
+		</div>
+		<div class="credits">
+			Coding by wuff, Content-Management by chucky, Design by J0NES &copy; 2008-2012 iCom.to, Land of the rising sun Holdings, LLC. [*Alle Rechte vorbehalten*].
+		</div>
+	</div>
+</div>
+{include '~/page_footer.ilp'}

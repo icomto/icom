@@ -1,0 +1,25 @@
+<div>
+	{if $errors}
+	{foreach $errors as $e}
+	<p class="error">{~$e}</p>
+	{/foreach}
+	{/if}
+	<form class="forum-write-post" method="post" action="{~$url_page}#post{$while_i}" onsubmit="return iC(this, '~div:first');">
+		<input type="hidden" name="{#IMPOST 'action'}" value="edit">
+		<input type="hidden" name="{#IMPOST 'post_id'}" value="{~$i.post_id}">
+		<div><input type="text" name="{#IMPOST 'name'}" value="{~$post_name}"></div>
+		<div><textarea class="bbcodeedit" name="{#IMPOST 'content'}" >{~$post_content}</textarea></div>
+		{if $root.firstpost_id == $i.post_id}
+		<div style="text-align:left;">
+			<input type="checkbox" name="{#IMPOST 'lang_de'}"{if $root.thread_lang_de} checked="checked"{/if} id="ForumNewThreadLangDE"><label for="ForumNewThreadLangDE"> Dieser Thread ist f&uuml;r deutschsprachige Besucher interessant und sie k&ouml;nnen den Inhalt verstehen</label><br>
+			<input type="checkbox" name="{#IMPOST 'lang_en'}"{if $root.thread_lang_en} checked="checked"{/if} id="ForumNewThreadLangEN"><label for="ForumNewThreadLangEN"> Dieser Thread ist f&uuml;r englischsprachige Besucher interessant und sie k&ouml;nnen den Inhalt verstehen</label><br>
+			<span class="info">
+				Solltest Du 2 Sprachen ausw&auml;hlen solltest Du in deinem Beitrag festlegen was die Hauptsprache in diesem Thread sein soll so das sich die Benutzer daran halten k&ouml;nnen.<br>
+				Englisch ist bei mehrsprachigen Threads auf jeden Fall zu bevorzugen da die meisten deutschsprachigen Besucher auch englisch verstehen k&ouml;nnen.
+			</span>
+		</div>
+		{/if}
+		<button type="submit" class="button">[*Speichern*]</button>
+		<a href="{~$url_page}" class="button">[*Abbrechen*]</a>
+	</form>
+</div>

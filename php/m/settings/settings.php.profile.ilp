@@ -1,0 +1,205 @@
+<div class="module-user-settings">
+	{define ilphp_sub 'post_responses'}
+	{if $info}
+	<p class="info">
+		{switch $info}
+		{default}[*Unbekannte Information: {~$info}*]{/default}
+		{case "EMAIL_CHANGED"}[*E-Mail Addresse ge&auml;ndert.*]{/case}
+		{case "AVATAR_CHANGED"}[*Avatar ge&auml;ndert.*]{/case}
+		{case "AVATAR_DELETED"}[*Avatar gel&ouml;scht.*]{/case}
+		{case "SIGNATURE_CHANGED"}[*Signatur ge&auml;ndert.*]{/case}
+		{case "PASSWORD_CHANGED"}
+			[*!Dein Passwort wurde ge&auml;ndert.<br>
+			Du musst dich jetzt neu einloggen.*]
+			<script type="text/javascript">setTimeout(function(){{location='/login/';}},3500);</script>
+		{/case}
+		{case "MYSPACE_NAME_CHANGED"}[*Name von Meine Seite ge&auml;ndert.*]{/case}
+		{case "MYSPACE_BACKGROUND_CHANGED"}[*Hintergrund von meiner Seite ge&auml;ndert.*]{/case}
+		{case "MYSPACE_CHANGED"}[*Meine Seite ge&auml;ndert.*]{/case}
+		{/switch}
+	</p>
+	{/if}
+	{if $error}
+	<p class="error">
+		{switch $error}
+		{default}[*Unbekannter Fehler: {~$error}*]{/default}
+		{case "INVALID_EMAIL"}[*Ung&uuml;ltige E-Mail Addresse.*]{/case}
+		{case "INVALID_PASSWORD"}[*Passwort falsch.*]{/case}
+		{case "PASSWORTS_NOT_MATCH"}[*Die Passw&ouml;rter stimmen nicht &uuml;berein.*]{/case}
+		{case "NEED_PASSWORD_TO_CHANGE_PASSWORD"}[*Du musst dein altes Passwort angeben um es zu &auml;ndern.*]{/case}
+		{case "AVATAR_DOWNLOAD_FAILED"}[*Fehler beim runterladen des Avatars.*]{/case}
+		{case "AVATAR_SAVE_FAILED"}[*Fehler beim speichern des Avatars.*]{/case}
+		{case "AVATAR_FILESIZE_TOO_BIG"}[*Das Avatar darf h&ouml;chstens 1 Megabyte gro&szlig; sein.*]{/case}
+		{case "AVATAR_INVALID_SIZE"}[*Das Avatar darf h&ouml;chstens {AVATAR_MAX_WIDTH} mal {AVATAR_MAX_HEIGHT} Pixel gro&szlig; sein.*]{/case}
+		{case "SIGNATURE_TOO_BIG"}[*Mindestens ein Bild in deiner Signatur ist gr&ouml;&szlig;er als die maximale Dateigr&ouml;&szlig;e von 2 Megabyte.*]{/case}
+		{case "NEED_AT_LEAST_ONE_LANGUAGE"}[*Du musst mindestens eine Sprache die du Sprichst ausw&auml;hlen.*]{/case}
+		{/switch}
+	</p>
+	{/if}
+	{/define ilphp_sub}
+	
+	{if not IS_LOGGED_IN}<p class="error">[*Du musst eingeloggt sein.*]</p>
+	{else}
+	
+	{new ilphp_sub 'email'}
+	<form method="post" onsubmit="return iC(this);">
+		<input type="hidden" name="{#IMPOST 'action'}" value="email">
+		<div class="SEP"><div><div></div><h4>[*E-Mail Addresse &auml;ndern*]</h4><div></div></div></div>
+		{set $info = @$info.email}{set $error = @$error.email}{call ilphp_sub 'post_responses'}
+		<table>
+			<tr>
+				<td>[*Neue E-Mail:*]</td>
+				<td><input type="text" name="{#IMPOST 'email'}" value="{~$user.email}"></td>
+			</tr>
+			<tr data-tooltip="[*Du musst dein aktuelles Passwort angeben um deine E-Mail Addresse zu &auml;ndern.*]">
+				<td>[*Passwort:*]</td>
+				<td><input type="password" name="{#IMPOST 'pass'}"></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><button type="submit" class="button">[*Speichern*]</button></td>
+			</tr>
+		</table>
+	</form>
+	{/new ilphp_sub}
+	
+	{new ilphp_sub 'password'}
+	<form method="post" onsubmit="return iC(this);">
+		<input type="hidden" name="{#IMPOST 'action'}" value="password">
+		<div class="SEP"><div><div></div><h4>[*Passwort &auml;ndern*]</h4><div></div></div></div>
+		{set $info = @$info.password}{set $error = @$error.password}{call ilphp_sub 'post_responses'}
+		<table>
+			{if not $password_recover}
+			<tr>
+				<td>[*Aktuelles Passwort:*]</td>
+				<td><input type="password" name="{#IMPOST 'old'}"></td>
+			</tr>
+			{/if}
+			<tr>
+				<td>[*Neues Passwort:*]</td>
+				<td><input type="password" name="{#IMPOST 'new'}"></td>
+			</tr>
+			<tr>
+				<td>[*Wiederholen:*]</td>
+				<td><input type="password" name="{#IMPOST 'new2'}"></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><button type="submit" class="button">[*Speichern*]</button></td>
+			</tr>
+		</table>
+	</form>
+	{/new ilphp_sub}
+	
+	{new ilphp_sub 'languages'}
+	<form method="post" onsubmit="return iC(this);">
+		<input type="hidden" name="{#IMPOST 'action'}" value="languages">
+		<div class="SEP"><div><div></div><h4>[*Spracheinstellungen*]</h4><div></div></div></div>
+		{set $info = @$info.languages}{set $error = @$error.languages}{call ilphp_sub 'post_responses'}
+		<table>
+			<tr>
+				<td>[*Sprachen die du verstehst:*]</td>
+				<td>
+					<input type="hidden" name="{#IMPOST 'save'}" value="1">
+					<input type="checkbox" id="UserSettingsLanguagesDE" name="{#IMPOST 'de'}"{if in_array('de', $user.languages)} checked="checked"{/if} style="width:auto;"><label for="UserSettingsLanguagesDE"> [*Deutsch*]</label><br>
+					<input type="checkbox" id="UserSettingsLanguagesEN" name="{#IMPOST 'en'}"{if in_array('en', $user.languages)} checked="checked"{/if} style="width:auto;"><label for="UserSettingsLanguagesEN"> [*Englisch*]</label>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><button type="submit" class="button">[*Speichern*]</button></td>
+			</tr>
+		</table>
+	</form>
+	{/new ilphp_sub}
+	
+	{new ilphp_sub 'emails_allowed'}
+	<form method="post" onsubmit="return iC(this);">
+		<input type="hidden" name="{#IMPOST 'action'}" value="emails_allowed">
+		<div class="SEP"><div><div></div><h4>[*E-Mail Einstellungen*]</h4><div></div></div></div>
+		{set $info = @$info.emails_allowed}{set $error = @$error.emails_allowed}{call ilphp_sub 'post_responses'}
+		<table>
+			<tr>
+				<td>[*Ich m&ouml;chte E-Mails von {SITE_NAME} erhalten (seltene Rundmails wegen Sicherheitswarnungen, wichtigen Updates ...):*]</td>
+				<td><input type="checkbox" id="UserSettingsEmailAllowed" name="{#IMPOST 'allow'}"{if $user.emails_allowed} checked="checked"{/if} style="width:auto;"><label for="UserSettingsEmailAllowed"> [*Ich m&ouml;chte E-Mails empfangen*]</label></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><button type="submit" class="button">[*Speichern*]</button></td>
+			</tr>
+		</table>
+	</form>
+	{/new ilphp_sub}
+	
+	{new ilphp_sub 'forum'}
+	<form method="post" onsubmit="return iC(this);">
+		<input type="hidden" name="{#IMPOST 'action'}" value="forum">
+		<div class="SEP"><div><div></div><h4>[*Einstellungen f&uuml;r das Forum*]</h4><div></div></div></div>
+		{set $info = @$info.forum}{set $error = @$error.forum}{call ilphp_sub 'post_responses'}
+		<table>
+			<tr>
+				<td><label for="UserSettingsDisplaySignatures">[*Signaturen anzeigen:*]</label></td>
+				<td><input type="checkbox" id="UserSettingsDisplaySignatures" name="{#IMPOST 'display_signatures'}"{if $user.display_signatures} checked="checked"{/if} style="width:auto;"></td>
+			</tr>
+			<tr>
+				{set $avatar = get_avatar_url($user.avatar)}
+				{if $avatar == STATIC_CONTENT_DOMAIN.'/img/no_avatar.jpg'}{set $avatar = ''}{/if}
+				<td>[*Avatar:*]</td>
+				<td><input type="text" name="{#IMPOST 'avatar'}" value="{~$avatar}" data-tooltip="[*Gib hier die URL zu deinem Avatar ein oder lasse dieses Feld leer um deinen jetzigen Avatar zu l&ouml;schen.*]"></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><button type="submit" class="button">[*Speichern*]</button></td>
+			</tr>
+		</table>
+	</form>
+	{/new ilphp_sub}
+	
+	{new ilphp_sub 'signature'}
+	<form method="post" onsubmit="return iC(this);">
+		<input type="hidden" name="{#IMPOST 'action'}" value="signature">
+		<div class="SEP"><div><div></div><h4>[*Signatur*]</h4><div></div></div></div>
+		{set $info = @$info.signature}{set $error = @$error.signature}{call ilphp_sub 'post_responses'}
+		<p class="info">
+			[*!Bitte beachte das Deine Signatur aus maximal einem Banner und einer Zeile Text bestehen darf!<br>
+			Das entspricht einer H&ouml;he von ca. 175 Pixel.*]
+		</p>
+		<textarea class="bbcodeedit user-signature" name="{#IMPOST 'signature'}">{~$user.signature}</textarea><br>
+		<button type="submit" class="button">[*Speichern*]</button>
+	</form>
+	{/new ilphp_sub}
+	
+	{new ilphp_sub 'myspace'}
+	<form method="post" onsubmit="return iC(this);">
+		<input type="hidden" name="{#IMPOST 'action'}" value="myspace">
+		<div class="SEP"><div><div></div><h4>[*Deine Seite*]</h4><div></div></div></div>
+		{set $info = @$info.myspace}{set $error = @$error.myspace}{call ilphp_sub 'post_responses'}
+		<p>
+			[*!Hier kannst du Dir Deine eigene Seite zusammenstellen die dann auf Deiner Profilseite angezeigt wird.<br>
+			Du kannst hier alles hinschreiben was Du willst (solange es den Regeln entspricht).*]
+		</p>
+		<p class="info">
+			[*Bitte beachte das wir dunkle und helle Themes haben. Teste deine Seite am besten mit beiden Theme-Arten.*]<br>
+			<a href="/{LANG}/theme/apple_white/settings/user/">[*Hier klicken um ein helles Theme auszuw&auml;hlen*]</a><br>
+			<a href="/{LANG}/theme/apple_black/settings/user/">[*Hier klicken um ein dunkles Theme auszuw&auml;hlen*]</a>
+		</p>
+		<table>
+			<tr>
+				<td>[*Name deiner Seite (optional):*]</td>
+				<td><input type="text" name="{#IMPOST 'name'}" value="{~$user.myspace_name}"></td>
+			</tr>
+			<tr>
+				<td data-tooltip="[*!Gib einen Link zu einem Bild an um ein Hintergrundbild zu verwenden,<br>ansonsten wird dieser Wert als Farbe angesehen.<br>M&ouml;gliche Farben sind green, red, yellow, blue etc.<br>oder Farbcodes die mit einem # beginnen m&uuml;ssen (z.B. #6183F3 oder #AAA).*]">
+					[*Hintergrundfarbe/bild (optional):*]
+				</td>
+				<td valign="top">
+					<input type="text" name="{#IMPOST 'background'}" value="{~$user.myspace_background}">
+				</td>
+			</tr>
+		</table>
+		<textarea class="bbcodeedit user-space" name="{#IMPOST 'content'}">{~$user.myspace}</textarea><br>
+		<button type="submit" class="button">[*Speichern*]</button>
+	</form>
+	{/new ilphp_sub}
+	{/if}
+</div>

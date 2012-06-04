@@ -1,0 +1,78 @@
+<div class="module-item">
+	<h1>{#THIS->im_way_html()}</h1>
+	<div class="module-content module-contact">
+		{if IS_LOGGED_IN}
+		[*Du bist Angemeldet, deshalb musst Du dich direkt an Deinen gew&uuml;nschten Gespr&auml;chspartner wenden.*]
+		<ul>
+			<li>[**Um einen Co-Administratoren, Moderatoren, Supermoderatoren oder Administratoren zu finden wirf einen Blick auf die <a href="/{LANG}/community/groups/">&Uuml;bersicht der Benutzergruppen</a>.*]</li>
+		</ul>
+		{else}
+		{if $invite_request}
+		{if $invite_request.status == 'requested'}
+		<p class="info">[*Dein Antrag wurde noch nicht bearbeitet.*]</p>
+		{elseif $invite_request.status == 'rejected'}
+		<p class="error">[*Dein Antrag wurde abgelehnt.*]</p>
+		{else}
+		<p class="info">[*Dein Antrag wurde angenommen.*]</p>
+		<p>Dein Invite-Code: <input class="invite-code" type="text" value="{~$invite_request.code}" onfocus="this.select();"></p>
+		<p><a href="/{LANG}/register/">[*Hier gehts zur Registrierung.*]</a></p>
+		{/if}
+		{elseif $message}
+		<p>{$message}<p>
+		{else}
+		{if $error}
+		<p class="error">{$error}</p>
+		{/if}
+		<p class="important">
+			[*W&auml;hle unbedingt das richtige Anliegen aus!*]
+		</p>
+		{if REGISTER_CLOSED}
+		<p class="important">
+			[*!Die Registrierung ist derzeit geschlossen.<br>
+			Anfragen zum Thema Registrierung werden ignoriert.<br>
+			Versuche es einfach in ein paar Tagen nochmal.*]
+		</p>
+		{elseif REGISTER_NEED_INVITE_CODE}
+		<p>
+			<u class="important">Um einen Invite-Code zu beantragen Beachte folgendes:</u><br>
+			- [*Invite-Code Anfragen an einen Administrator oder Co-Administrator werden ignoriert.*]<br>
+			- [*Schreibe in Deinen Invite-Code Antrag warum Du einen Account m&ouml;chtest und was Du hier als registrierter Benutzer machen m&ouml;chtest.*]
+		</p>
+		{/if}
+		<p>
+			<a href="http://icom.to/de/report_page" target="_blank">Hier klicken f&uuml;r Abuse oder DMCA-Memeldung</a>
+		</p>
+		<form method="post" action="/{LANG}/contact/" onsubmit="if($('#ModuleContactEmail')[0].value.length<=0)alert('[*Du musst eine E-Mail Addresse eingeben!*]');else if($('#ModuleContactMessage').attr('value').length<=0)alert('[*Du musst eine Nachricht eingeben!*]');else return iC(this, '~.module-item');return false;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="contact">
+			<table>
+				<tr>
+					<th>[*Deine E-Mail Addresse:*]</th>
+					<td><input type="text" name="{#IMPOST 'email'}" id="ModuleContactEmail"></td>
+				</tr>
+				<tr>
+					<th>[*Dein Anliegen:*]</th>
+					<td>
+						<select name="{#IMPOST 'reason'}">
+							<option value="admin"{if $reason == 'admin'} selected="selected"{/if}>[*Einen Administratoren kontaktieren*]</option>
+							{if not REGISTER_CLOSED and REGISTER_NEED_INVITE_CODE}
+							<option value="invite"{if $reason == 'invite'} selected="selected"{/if}>[*Anfrage auf einen Invite-Code*]</option>
+							{/if}
+						</select>
+					</td>
+				</tr>
+			</table>
+			<textarea id="ModuleContactMessage" name="{#IMPOST 'message'}"></textarea>
+			<button type="submit" class="button lonely-button">[*Abschicken*]</button>
+		</form>
+		<div class="SEP"><div><div></div><h3>[*Invite-Code Antragsstatus abrufen*]</h3><div></div></div></div>
+		<form method="post" action="/{LANG}/contact/" onsubmit="if(String($('#invite_status_email').attr('value')).length<=0)alert('[*Du musst Deine E-Mail Addresse eingeben!*]');else return iC(this, '~.module-item');return false;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="invite">
+			[*Deine E-Mail Addresse:*]
+			<input type="text" id="{#IMPOST 'invite_status_email'}" name="{#IMPOST 'email'}">
+			<button type="submit" class="button">[*Status &uuml;berpr&uuml;fen*]</button>
+		</form>
+		{/if}
+		{/if}
+		</div>
+	<div class="module-footer"></div>
+</div>

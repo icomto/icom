@@ -1,0 +1,171 @@
+<div class="module-item">
+	<h1>{#THIS->im_way_html()}</h1>
+	<div class="module-content module-admin-radio">
+		{if not $channels->num_rows}<p class="error">[*Du hast keinen Zugriff auf einen Kanal.*]</p>
+		{else}
+		{while $i = $channels->fetch_assoc() |i}
+		
+		{new ilphp_sub 'channel'}
+		{if not $i}<p class="error">[*Der Kanal wurde nicht gefunden.*]</p>
+		{else}
+		{#THIS->prepare_channel()}
+		<div class="admin-radio-channel">
+			<div class="SEP"><div><div></div><h3>[*Einstellungen f&uuml;r den Kanal {~$i.channel}*]</h3><div></div></div></div>
+			<table>
+				<tr>
+					<td width="180">[*Deine Rechte:*]</td>
+					<td>{if $i.is_admin}[*Admin*]{else}[*Gast DJ*]{/if}</td>
+				</tr>
+				<tr><td colspan="2">&nbsp;</td></tr>
+				<tr>
+					<td>[*Server Details:*]</td>
+					<td>
+						<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.admin-radio-channel');">
+							<input type="hidden" name="{#IMPOST 'action'}" value="server">
+							<input type="hidden" name="{#IMPOST 'channel'}" value="{~$i.channel}">
+							<input type="text" name="{#IMPOST 'host'}" value="{$i.host}" size="20" data-tooltip="Hostname / IP">
+							<input type="text" name="{#IMPOST 'port'}" value="{$i.port}" size="5" data-tooltip="Port">
+							<button type="submit" class="button">[*Speichern*]</button>
+						</form>
+					</td>
+				</tr>
+				<tr><td colspan="2">&nbsp;</td></tr>
+				<tr>
+					<td>[*Admins:*]</td>
+					<td>
+						{if $i.admins}
+						{set $num_admins = count($i.admins)}
+						{foreach $i.admins as $admin |admin}
+						{if has_privilege('radio_admin')}
+						<form style="display:inline;" method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.admin-radio-channel');">
+							<input type="hidden" name="{#IMPOST 'action'}" value="remove_admin">
+							<input type="hidden" name="{#IMPOST 'channel'}" value="{~$i.channel}">
+							<input type="hidden" name="{#IMPOST 'admin_id'}" value="{$admin}">
+							<button type="submit" class="button">{~user($admin)->nick}</button>
+						</form>
+						{else}
+						{user($admin)->html(-1)}{if $foreach_admin < $num_admins}, {/if}
+						{/if}
+						{/foreach}
+						{else}
+						[*keine*]
+						{/if}
+					</td>
+				</tr>
+				{if has_privilege('radio_admin')}
+				<tr><td colspan="2">&nbsp;</td></tr>
+				<tr>
+					<td>[*Neuer Admin (Link zum Profil hier einf&uuml;gen):*]</td>
+					<td>
+						<form method="post" action="{~$url}" onsubmit="return iC(this, '~.admin-radio-channel');">
+							<input type="hidden" name="{#IMPOST 'action'}" value="add_admin">
+							<input type="hidden" name="{#IMPOST 'channel'}" value="{~$i.channel}">
+							<input type="text" name="{#IMPOST 'admin'}" size="40">
+							<button type="submit" class="button">[*Hinzuf&uuml;gen*]</button>
+						</form>
+					</td>
+				</tr>
+				{/if}
+				<tr><td colspan="2">&nbsp;</td></tr>
+				<tr>
+					<td>[*Gast DJs:*]</td>
+					<td>
+						{if $i.guests}
+						{set $num_guests = count($i.guests)}
+						{foreach $i.guests as $guest |guest}
+						{if $i.is_admin}
+						<form style="display:inline;" method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.admin-radio-channel');">
+							<input type="hidden" name="{#IMPOST 'action'}" value="remove_guest">
+							<input type="hidden" name="{#IMPOST 'channel'}" value="{~$i.channel}">
+							<input type="hidden" name="{#IMPOST 'guest_id'}" value="{$guest}">
+							<button type="submit" class="button">{~user($guest)->nick}</button>
+						</form>
+						{else}
+						{user($guest)->html(-1)}{if $foreach_guest < $num_guests}, {/if}
+						{/if}
+						{/foreach}
+						{else}
+						[*keine*]
+						{/if}
+					</td>
+				</tr>
+				{if $i.is_admin}
+				<tr><td colspan="2">&nbsp;</td></tr>
+				<tr>
+					<td>[*Neuer Gast DJ (Link zum Profil hier einf&uuml;gen):*]</td>
+					<td>
+						<form method="post" action="{~$url}" onsubmit="return iC(this, '~.admin-radio-channel');">
+							<input type="hidden" name="{#IMPOST 'action'}" value="add_guest">
+							<input type="hidden" name="{#IMPOST 'channel'}" value="{~$i.channel}">
+							<input type="text" name="{#IMPOST 'guest'}" size="40">
+							<button type="submit" class="button">[*Hinzuf&uuml;gen*]</button>
+						</form>
+					</td>
+				</tr>
+				{/if}
+				<tr><td colspan="2">&nbsp;</td></tr>
+				<tr>
+					<td>[*DJ der gerade auflegt ausw&auml;hlen:*]</td>
+					<td>
+						<form style="display:inline;" method="post" action="{~$url}" onsubmit="return iC(this, '~.admin-radio-channel');">
+							<input type="hidden" name="{#IMPOST 'action'}" value="dj">
+							<input type="hidden" name="{#IMPOST 'channel'}" value="{~$i.channel}">
+							<input type="hidden" name="{#IMPOST 'dj'}" value="auto">
+							<button type="submit" class="button">[*Auto DJ*]</button>
+						</form>
+						{if $i.djs}
+						{foreach $i.djs as $dj}
+						<form style="display:inline;" method="post" action="{~$url}" onsubmit="return iC(this, '~.admin-radio-channel');">
+							<input type="hidden" name="{#IMPOST 'action'}" value="dj">
+							<input type="hidden" name="{#IMPOST 'channel'}" value="{~$i.channel}">
+							<input type="hidden" name="{#IMPOST 'dj'}" value="{$dj}">
+							<button type="submit" class="button">{~user($dj)->nick}</button>
+						</form>
+						{/foreach}
+						{/if}
+					</td>
+				</tr>
+				<tr><td colspan="2">&nbsp;</td></tr>
+				<tr>
+					<td>[*Aktueller DJ:*]</td>
+					<td>
+						{if $i.current_dj}{user($i.current_dj)->html()}
+						{else}[*AutoDJ bzw. niemand oder anonym*]
+						{/if}
+					</td>
+				</tr>
+				<tr><td colspan="2">&nbsp;</td></tr>
+				<tr>
+					<td>[*Infos (kleiner Info-Text, BB-Code ist erlaubt):*]</td>
+					<td>
+						<form method="post" action="{~$url}" onsubmit="return iC(this, '~.admin-radio-channel');">
+							<input type="hidden" name="{#IMPOST 'action'}" value="infos">
+							<input type="hidden" name="{#IMPOST 'channel'}" value="{~$i.channel}">
+							<div><textarea name="{#IMPOST 'infos'}" style="width:100%;" rows="5">{~$i.infos}</textarea></div>
+							<button type="submit" class="button">[*Speichern*]</button>
+						</form>
+					</td>
+				</tr>
+				<tr><td colspan="2">&nbsp;</td></tr>
+				{if $i.is_admin}
+				<tr>
+					<td>[*Chat (Link zum Chat angeben oder Chat ID, leer lassen um Chat zu deaktivieren):*]</td>
+					<td>
+						<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.admin-radio-channel');">
+							<input type="hidden" name="{#IMPOST 'action'}" value="chat">
+							<input type="hidden" name="{#IMPOST 'channel'}" value="{~$i.channel}">
+							<input type="text" name="{#IMPOST 'chat'}" size="40" value="{~$i.chat_id ? $i.chat_id : ''}">
+							<button type="submit" class="button">[*Speichern*]</button>
+						</form>
+					</td>
+				</tr>
+				{/if}
+			</table>
+		</div>
+		{/if}
+		{/new ilphp_sub}
+		{/while}
+		{/if}
+	</div>
+	<div class="module-footer"></div>
+</div>

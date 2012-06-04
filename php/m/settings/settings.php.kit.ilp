@@ -1,0 +1,311 @@
+<script>
+var stcc=function(t,p){{
+	if(!p)p='T-';
+	$(t).parent().children('button').removeClass('active');
+	$(t).addClass('active');
+	$($(t).attr('data-target'))
+		.removeClass(function(){{
+			var a=$(this).attr('class').split(/ /);
+			var r='';
+			for(var i in a)if(new RegExp('^[ \t]*'+p).test(a[i]))r+=a[i]+' ';
+			return r;
+		}})
+		.addClass($(t).attr('data-classes'));
+	$('.settings-theme input[name="'+$(t).attr('data-name')+'"]').val($(t).attr('data-value'));
+	return false;
+}}
+var outofcc=function(t,e){{
+	e=$(e);
+	if(e.is(':visible'))e.hide();
+	else {{
+		$('body').append(e.detach());
+		var p=$(t).position();
+		e.css({{position:'fixed',top:'50px',left:Math.round(p.left/2)+'px'}});
+		//e.css({{top:(p.top+$(t).height())+'px',left:Math.round(p.left/2)+'px'}});
+		e.show();
+	}}
+	return false;
+}}
+</script>
+<noscript><p class="error">[*Um den Baukasten zu verwenden musst du Javascript aktivieren.*]</p></noscript>
+<div>
+	<div class="SEP first"><div><div></div><h3>Grundsets</h3><div></div></div></div>
+	<p class="info">
+		Es gibt 2 verschiedene Themensets. Das 1. ist das normale und komplett ausgereifte.<br>
+		Das 2. ist der &quot;Themen-Spielplatz&quot; in dem sich unser Designer J0NES austobt. Hier werden einige neue Designs und Features geboten.
+	</p>
+	<p>
+		<a href="/{LANG}/_theme/a/settings/kit/" class="big-button" style="width:30%;display:block;line-height:30px;text-align:center;">Das Standard-Set aktivieren</a>
+		<a href="/{LANG}/_theme/b/settings/kit/" class="big-button" style="width:30%;display:block;line-height:30px;text-align:center;">Das Spielplatz-Set aktivieren</a>
+	</p>
+</div>
+<div>
+	<div class="SEP"><div><div></div><h3>Link zum akutellen Thema</h3><div></div></div></div>
+	<p class="info">
+		Diesen Link kannst Du weitergeben um anderen dein Thema zu zeigen.<br>
+		Er &auml;ndert sich erst nachdem Du gespeichert hast.
+	</p>
+	<input type="text" style="width:75%;" onfocus="this.select();" value="{~$current_url}">
+</div>
+<form method="post" action="{~$url}" onsubmit="return iC(this, '~.module-item');" class="settings-theme">
+	<input type="hidden" name="{#IMPOST 'action'}" value="save">
+	<div>
+		<div class="SEP"><div><div></div><h3>[*Speichern*]</h3><div></div></div></div>
+		<button type="submit" class="big-button" style="width:30%;">[*Einstellungen speichern*]</button>
+	</div>
+	{set $t_bg = 'T-'.implode(' T-', explode(' ', trim($ini.background[$current.background])))}
+	{set $t_mm_style = 'T-'.implode(' T-', explode(' ', trim($ini['mm-style'][$current['mm-style']])))}
+	{set $t_mm_logo = 'T-'.implode(' T-', explode(' ', trim($ini['mm-logo'][$current['mm-logo']])))}
+	{set $t_mm_places = 'T-'.implode(' T-', explode(' ', trim($ini['mm-places'][$current['mm-places']])))}
+	
+	<div>
+		<div class="SEP"><div><div></div><h3>[*Hintergrund*]</h3><div></div></div></div>
+		<input type="hidden" name="{#IMPOST 'background'}" value="{$current.background}">
+		<button type="button" class="big-button" style="width:30%;display:block;" onclick="$(this).next().toggle();">[*Ausw&auml;hlen*]</button>
+		<div style="display:none;">
+			{foreach $ini.background as $k=>$v}
+			{set $t = 'T-'.implode(' T-', explode(' ', trim($v)))}
+			<div style="width:135px;height:120px;margin:1px;border:1px black solid;cursor:pointer;float:left;" title="{~$k}" class="{$t}" data-name="{#IMPOST 'background'}" data-value="{$k}" data-target=".page-background" data-classes="{$t}" onclick="stcc(this);"></div>
+			{/foreach}
+		</div>
+	</div>
+	<div>
+		<div class="SEP"><div><div></div><h3>[*Hauptmen&uuml;*]</h3><div></div></div></div>
+		<input type="hidden" name="{#IMPOST 'mm-style'}" value="{$current['mm-style']}">
+		<button type="button" class="big-button" style="width:30%;display:block;" onclick="$(this).next().toggle();">[*Stil ausw&auml;hlen*]</button>
+		<ul style="width:auto;height:auto;padding:0;display:none;">
+			{foreach $ini['mm-style'] as $k=>$v}
+			{set $t = 'T-'.implode(' T-', explode(' ', trim($v)))}
+			<li style="display:block;float:left;padding:3px;margin:1px;border:1px black solid;" class="page-background {$t_bg}">
+				<div class="main-menu" title="{~$k}" href="javascript:void(0);" onclick="return stcc(this);" target="_self" data-name="mm-style" data-value="{$k}" data-target=".main-menu-style-helper" data-classes="{$t}">
+					<div class="{$t}">
+						<div class="main-menu-top">
+							<a class="main-menu-logo" style="background:none !important;"></a>
+							<div class="clear"></div>
+						</div>
+					</div>
+					<div class="main-menu-places-helper {$t_mm_places}">
+						<div class="main-menu-places">
+							<a href="javascript:void(0);">Radio</a> | <a href="javascript:void(0);">Forum</a>
+						</div>
+					</div>
+				</div>
+			</li>
+			{/foreach}
+		</ul>
+		<div class="clear"></div>
+		
+		<input type="hidden" name="{#IMPOST 'mm-logo'}" value="{$current['mm-logo']}">
+		<button type="button" class="big-button" style="width:30%;display:block;" onclick="$(this).next().toggle();">[*Logo ausw&auml;hlen*]</button>
+		<ul style="width:auto;height:auto;padding:0;display:none;">
+			{foreach $ini['mm-logo'] as $k=>$v}
+			{set $t = 'T-'.implode(' T-', explode(' ', trim($v)))}
+			<li style="display:block;float:left;padding:3px;margin:1px;border:1px black solid;" class="page-background {$t_bg}">
+				<div class="main-menu" title="{~$k}" href="javascript:void(0);" onclick="return stcc(this);" target="_self" data-name="mm-logo" data-value="{$k}" data-target=".main-menu-logo-helper" data-classes="{$t}">
+					<div class="main-menu-style-helper {$t_mm_style}">
+						<div class="{$t}">
+							<div class="main-menu-top">
+								<a class="main-menu-logo"></a>
+								<div class="clear"></div>
+							</div>
+						</div>
+						<div class="main-menu-places-helper {$t_mm_places}">
+							<div class="main-menu-places">
+								<a href="javascript:void(0);">Radio</a> | <a href="javascript:void(0);">Forum</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			{/foreach}
+		</ul>
+		<div class="clear"></div>
+		
+		<input type="hidden" name="{#IMPOST 'mm-icons'}" value="{$current['mm-icons']}">
+		<button type="button" class="big-button" style="width:30%;display:block;" onclick="$(this).next().toggle();">[*Icons ausw&auml;hlen*]</button>
+		<ul style="width:auto;height:auto;padding:0;display:none;">
+			{foreach $ini['mm-icons'] as $k=>$v}
+			{set $t = 'T-'.implode(' T-', explode(' ', trim($v)))}
+			<li style="width:70%;display:block;float:left;padding:3px;margin:1px;border:1px black solid;" class="page-background {$t_bg}">
+				<div class="main-menu-helper">
+					<div class="main-menu" title="{~$k}" style="cursor:pointer;" data-name="mm-icons" data-value="{$k}" data-target=".main-menu-icons-helper" data-classes="{$t}" onclick="return stcc(this);">
+						<div class="main-menu-style-helper {$t_mm_style}">
+							<div class="main-menu-top">
+								<div class="{$t}">
+									<div class="main-menu-controls">
+										{include '../index.php.menu_main.ilp|controls'}
+									</div>
+									<div class="clear"></div>
+								</div>
+							</div>
+						</div>
+						<div class="main-menu-places-helper {$t_mm_places}">
+							<div class="main-menu-places">
+								<a href="javascript:void(0);">Radio</a> | <a href="javascript:void(0);">Forum</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			{/foreach}
+		</ul>
+		
+		<input type="hidden" name="{#IMPOST 'mm-places'}" value="{$current['mm-places']}">
+		<button type="button" class="big-button" style="width:30%;display:block;" onclick="$(this).next().toggle();">[*Stil 2 ausw&auml;hlen*]</button>
+		<ul style="width:auto;height:auto;padding:0;display:none;">
+			{foreach $ini['mm-places'] as $k=>$v}
+			{set $t = 'T-'.implode(' T-', explode(' ', trim($v)))}
+			<li style="display:block;float:left;padding:3px;margin:1px;border:1px black solid;" class="page-background {$t_bg}">
+				<div class="{$t}">
+					<div class="main-menu" title="{~$k}" onclick="return stcc(this);" target="_self" data-name="mm-places" data-value="{$k}" data-target=".main-menu-places-helper" data-classes="{$t}">
+						<div class="main-menu-style-helper {$t_mm_style}">
+							<div class="main-menu-logo-helper {$t_mm_logo}">
+								<div class="main-menu-top">
+									<a class="main-menu-logo"></a>
+									<div class="clear"></div>
+								</div>
+							</div>
+							<div class="main-menu-places">
+								<a href="javascript:void(0);">Radio</a> | <a href="javascript:void(0);">Forum</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			{/foreach}
+		</ul>
+		<div class="clear"></div>
+	</div>
+	<div>
+		<div class="SEP"><div><div></div><h3>[*Seitenmen&uuml;*]</h3><div></div></div></div>
+		<input type="hidden" name="{#IMPOST 'side-menu'}" value="{$current['side-menu']}">
+
+		<button type="button" class="big-button" style="width:30%;display:block;" onclick="outofcc(this,'#ModuleDesignerChooseSideMenu');">[*Seitenmen&uuml; ausw&auml;hlen*]</button>
+		<div id="ModuleDesignerChooseSideMenu" style="display:none;width:738px;position:absolute;margin-top:5px;background:white;border:2px black solid;z-index:999;padding:5px;">
+			<button type="button" class="button" style="width:100%;height:24px;" onclick="outofcc(this,'#ModuleDesignerChooseSideMenu');">[*Fenster schlie&szlig;en*]</button>
+			<div style="height:260px;overflow:auto;">
+				{foreach $ini['side-menu'] as $k=>$v |i}
+				{set $t = 'T-'.implode(' T-', explode(' ', trim($v)))}
+				<div style="float:left;padding:3px 3px 0 3px;margin:3px;border:1px black solid;" class="page-background {$t_bg}">
+					<div class="{$t}">
+						<div class="side-menu" title="{~$k}" style="cursor:pointer;" data-name="side-menu" data-value="{$k}" data-target=".side-menu-helper" data-classes="{$t}" onclick="stcc(this);">
+							<div class="side-menu-header">
+								[*Header*]
+							</div>
+							<div class="side-menu-content">
+								<div style="text-align:center;">
+									[*Inhalt vom Seitenmen&uuml;*]<br>
+									[*Irgendein Text...*]<br>
+									<br>
+									<button type="button" class="button">[*Ich bin ein Button*]</button><br>
+									<br>
+								</div>
+								<div class="menu-navi">
+									<a href="javascript:void(0);" class="prev level1">
+										<img src="{STATIC_CONTENT_DOMAIN}/img/p.gif" class="p">[*Filter*]
+									</a>
+									<a href="javascript:void(0);" class="active level1">
+										<img src="{STATIC_CONTENT_DOMAIN}/img/p.gif" class="p">[*Filme*]
+									</a>
+									<a href="javascript:void(0);" class="next level2">
+										<img src="{STATIC_CONTENT_DOMAIN}/img/p.gif" class="p">[*Action*]
+									</a>
+									<a href="javascript:void(0);" class="next level2">
+										<img src="{STATIC_CONTENT_DOMAIN}/img/p.gif" class="p">[*Kom&ouml;die*]
+									</a>
+								</div>
+								<br>
+								<div class="menu-forum-threads">
+									<a href="javascript:void(0);">[*Ich bin ein Forenthread*]</a>
+									<a href="javascript:void(0);">[*Noch ein Thread*]</a>
+								</div>
+							</div>
+							<div class="side-menu-footer"></div>
+						</div>
+					</div>
+				</div>
+				{if $foreach_i % 4 == 0}<div class="clear"></div>{/if}
+				{/foreach}
+			</div>
+		</div>
+	</div>
+	<div>
+		<div class="SEP"><div><div></div><h3>[*Hauptteil*]</h3><div></div></div></div>
+		<input type="hidden" name="{#IMPOST 'module'}" value="{$current.module}">
+		
+		<button type="button" class="big-button" style="width:30%;display:block;" onclick="outofcc(this,'#ModuleDesignerChooseModule');">[*Hauptteil ausw&auml;hlen*]</button>
+		<div id="ModuleDesignerChooseModule" style="display:none;width:{if DISPLAY_COMMUNITY_ELEMENTS}690{else}861{/if}px;position:absolute;margin-top:5px;background:white;border:2px black solid;z-index:999;padding:5px;">
+			<button type="button" class="button" style="width:100%;height:24px;" onclick="outofcc(this,'#ModuleDesignerChooseModule');">[*Fenster schlie&szlig;en*]</button>
+			<div style="height:375px;overflow:auto;">
+				{foreach $ini['module'] as $k=>$v}
+				{set $t = 'T-'.implode(' T-', explode(' ', trim($v)))}
+				<div style="float:left;padding:3px 3px 0 3px;margin:3px;border:1px black solid;" class="page-background {$t_bg}">
+					<div class="{if DISPLAY_COMMUNITY_ELEMENTS}short-style{else}long-style{/if}">
+						<div class="{$t}">
+							<div class="module">
+								<div class="module-item" title="{~$k}" style="cursor:pointer;" data-name="module" data-value="{$k}" data-target=".module-helper" data-classes="{$t}" onclick="stcc(this);">
+									<h1>
+										[*Header*] &raquo; [*Irgendein Text*]
+									</h1>
+									<div class="module-content">
+										<div style="text-align:center;">
+											[*Irgendein Text im Hauptteil...*]<br>
+											[*Noch mehr Text...*]<br>
+											<br>
+											<button type="button" class="button">[*Ich bin ein Button*]</button><br>
+											<br>
+										</div>
+										<div class="forum">
+											<div class="section-mods">
+												[*Moderatoren: Mod1, Mod2*]
+											</div>
+											<table class="forum-sections" border="1">
+												<tr>
+													<th>[*Thema*]</th>
+													<th>[*Beitr&auml;ge*]</th>
+													<th>[*Hits*]</th>
+													<th>[*Letzter Beitrag*]</th>
+												</tr>
+												<tr>
+													<td class="thread-topic">
+														<h2>[*Name vom Thread*]</h2>
+														[*Er&ouml;ffnet von einem User
+													</td>
+													<td class="thread-stats">
+														123
+													</td>
+													<td class="thread-stats">
+														456
+													</td>
+													<td class="thread-lastpost">
+														[*Letzter Beitrag ist lange her*]<br>
+														[*von einem User*]
+													</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									<div class="module-footer"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+				{/foreach}
+			</div>
+		</div>
+	</div>
+	<div data-tooltip="Das hier ist ein Tooltip mit ein bischen Text...">
+		<div class="SEP"><div><div></div><h3>[*Tooltips*]</h3><div></div></div></div>
+		<input type="hidden" name="{#IMPOST 'tooltip'}" value="{$current.tooltip}">
+		{foreach $ini['tooltip'] as $k=>$v}
+		{set $t = 'T-'.implode(' T-', explode(' ', trim($v)))}
+		<button type="button" class="big-button {$k}{if $current.tooltip == $k} active{/if}" data-name="tooltip" data-value="{$k}" data-target="body" data-classes="{$t}" onclick="stcc(this,'T-tooltip-');">{~$k}</button>
+		{/foreach}
+	</div>
+	<div>
+		<div class="SEP"><div><div></div><h3>[*Speichern*]</h3><div></div></div></div>
+		<button type="submit" class="big-button" style="width:33%;">[*Einstellungen speichern*]</button>
+	</div>
+</form>

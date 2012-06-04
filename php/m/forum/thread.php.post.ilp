@@ -1,0 +1,118 @@
+<tr id="post{(($page - 1)*FORUM_THREAD_NUM_POSTS_PER_SITE) + $while_i}">
+	<td class="post-infos">
+		{user($i.user_id)->html(-1)}<br>
+		{if user($i.user_id)->has_groups()}{user($i.user_id)->html_groups(0, ' ', array())}<br>{/if}
+		{if $root.firstpost_uid == $i.user_id and $root.firstpost_id != $i.post_id}<div class="threadstarter">Threadstarter</div>{/if}
+		{set $rank = user($i.user_id)->html_rank()}
+		{if $rank}<div style="{~$rank.css}" title="[*{%$i.user_points} Punkte*]">{~$rank.de}</div>{/if}
+		{if user($i.user_id)->has_avatar()}{user($i.user_id)->avatar_html()}<br>{/if}
+		[*Registriert*] {timeago($i.user_regtime, false)}<br>
+		[*Beitr&auml;ge*]: {%$i.user_posts}
+	</td>
+	<td class="post-content">
+		{if $action == 'edit' and $i.post_id == $edit_post_id}
+		<div>
+			{include 'thread.php.edit.ilp'}
+			{*#THIS->edit()*}
+		</div>
+		{else}
+		<div class="post-header">
+			<h4><a href="/{LANG}/thread/{$root.thread_id}-{^$root.firstpost_name}/{if $page > 1}page/{$page}/{/if}#post{(($page - 1)*FORUM_THREAD_NUM_POSTS_PER_SITE)+$while_i}">#{(($page - 1)*FORUM_THREAD_NUM_POSTS_PER_SITE)+$while_i}</a></h4>
+			<h3><a href="/{LANG}/thread/{$root.thread_id}-{^$root.firstpost_name}/{if $page > 1}page/{$page}/{/if}#post{(($page - 1)*FORUM_THREAD_NUM_POSTS_PER_SITE)+$while_i}">{~$i.post_name}</a></h3>
+		</div>
+		
+		<div class="user-entry">{ubbcode::add_smileys(ubbcode::compile($i.post_content, (DISPLAY_COMMUNITY_ELEMENTS ? 491 : 616), NULL, ($root.is_mod or $i.post_user_thanked) ? true : false))}</div>
+		
+		{if (!IS_LOGGED_IN or user()->display_signatures) and $i.user_signature}
+		<div class="post-spacer"></div>
+		<div class="user-entry">
+			{ubbcode::add_smileys(ubbcode::compile($i.user_signature, DISPLAY_COMMUNITY_ELEMENTS ? 491 : 616))}
+		</div>
+		{/if}
+		
+		<div{if not $i.post_thanks} class="hidden"{/if} id="thread_thanks_{$i.post_id}">
+			{new ilphp_sub 'thanks'}
+			{if $i.post_thanks}
+			{set $i.post_thanks = (is_array($i.post_thanks) ? $i.post_thanks : explode_arr_list($i.post_thanks))}
+			<div class="post-spacer"></div>
+			<div class="post-thanks">
+				{set $num_thanks = count($i.post_thanks)}
+				{if not IS_LOGGED_IN}[*Benutzer die sich bedankt haben:*] {%$num_thanks}
+				{else}
+				<span style="cursor:pointer;" onclick="$(this).next().toggle().next().toggle();">[*Benutzer die sich bedankt haben:*] </span>
+				<span style="cursor:pointer;" onclick="$(this).toggle().next().toggle();">{%$num_thanks}</span>
+				<span style="display:none;">
+				{foreach $i.post_thanks as $user_id |j}
+				{user($user_id)->html(-1)}{if $foreach_j < $num_thanks}, {/if}
+				{/foreach}
+				</span>
+				{/if}
+			</div>
+			{/if}
+			{/new ilphp_sub}
+		</div>
+		
+		{if $root.is_mod and has_privilege('user_warnings')}
+		{#THIS->query_reports()}
+		{/if}
+		{/if}
+	</td>
+</tr>
+<tr>
+	<td class="post-time">
+		{timeago($i.post_timeadded)}
+	</td>
+	<td class="post-infos">
+		{if $action == 'report' and $i.post_id == $report_post_id}
+		<div>
+			{include 'thread.php.report.ilp'}
+		</div>
+		{else}
+		{if $i.post_lastedit}
+		<div class="post-edited">
+			[*!Editiert von {user($i.lasteditor_id)->html(-1)} {timeago($i.post_lastedit)}*]
+		</div>
+		{/if}
+		{if IS_LOGGED_IN and ($action != 'edit' or $i.post_id != $edit_post_id)}
+		<div class="post-controls">
+			{if $root.allow_write and ($root.open or $root.is_mod)}
+			<form method="post" action="{~$url_page}#post_report{(($page - 1)*FORUM_THREAD_NUM_POSTS_PER_SITE) + $while_i}" onsubmit="return iC(this, '~.module-item');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="report">
+				<input type="hidden" name="{#IMPOST 'post_id'}" value="{~$i.post_id}">
+				<input type="hidden" name="{#IMPOST 'init'}" value="1">
+				<button type="submit" class="button">[*Melden*]</button>
+			</form>
+			<form method="post" action="{~$url_page}#thread_reply" onsubmit="return iC(this, '~.module-item');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="quote">
+				<input type="hidden" name="{#IMPOST 'post_id'}" value="{$i.post_id}">
+				<input type="hidden" name="{#IMPOST 'init'}" value="1">
+				<button type="submit" class="button">[*Quote*]</button>
+			</form>
+			{if $root.is_mod or $i.user_id == USER_ID}
+			<form method="post" action="{~$url_page}#post{(($page - 1)*FORUM_THREAD_NUM_POSTS_PER_SITE) + $while_i}" onsubmit="return iC(this, '~.module-item');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="edit">
+				<input type="hidden" name="{#IMPOST 'post_id'}" value="{~$i.post_id}">
+				<input type="hidden" name="{#IMPOST 'init'}" value="1">
+				<button type="submit" class="button">[*Bearbeiten*]</button>
+			</form>
+			{/if}
+			{/if}
+			{if not $i.post_user_thanked}
+			<form method="post" action="{~$url}" onsubmit="return iC(this);">
+				<input type="hidden" name="{#IMPOST 'action'}" value="thanks">
+				<input type="hidden" name="{#IMPOST 'post_id'}" value="{~$i.post_id}">
+				<input type="submit" class="button" value="[*Danke*]">
+			</form>
+			{/if}
+			{if $root.allow_write and $root.is_mod}
+			<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~td');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="delete_post">
+				<input type="hidden" name="{#IMPOST 'post_id'}" value="{~$i.post_id}">
+				<input type="submit" class="button" value="[*L&ouml;schen*]">
+			</form>
+			{/if}
+		</div>
+		{/if}
+		{/if}
+	</td>
+</tr>

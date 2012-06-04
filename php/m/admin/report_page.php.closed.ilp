@@ -1,0 +1,21 @@
+<div class="module-user-myspace">
+	{if not $tickets->num_rows}
+	<p class="info">[*Keine Tickets gefunden*]</p>
+	{else}
+	{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+	{while $i = $tickets->fetch_assoc()}
+	<a href="/{LANG}/settings/tickets/ticket_id/{$i.report_id}/pw/{$i.password}/">[{$i.report_id}]</a> {timeago($i.t)}<br>
+	Name: {if $i.user_id}{user($i.user_id)->html()}{else}<em>{~$i.name}</em><br>E-Mail: <em>{~$i.email}</em>{/if}<br>
+	URL: <a href="{~$i.url}" target="_blank">{~$i.url}</a><br>
+	Grund: {~$i.class}<br>
+	{ubbcode::compile($i.message)}
+	<hr style="width:30%;margin:5px 0 5px 0;">
+	Bearbeiter: {user($i.admin_id)->html()}<br>
+	Bearbeitungszeit: {timeago($i.edit_time)}<br>
+	Status: {~$i.status}<br>
+	{ubbcode::compile($i.comment)}
+	<hr style="margin:15px 0 15px 0;">
+	{/while}
+	{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+	{/if}
+</div>

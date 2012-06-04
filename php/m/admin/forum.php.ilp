@@ -1,0 +1,64 @@
+<div class="module-item">
+	<h1>
+		{foreach $way as $i |i}
+		{if $i.1}<a href="/{LANG}{~$i.1}">{~$i.0}</a>{else}{~$i.0}{/if}{if $foreach_i < count($way)} &raquo; {/if}
+		{/foreach}
+	</h1>
+	<div style="height:auto;display:block;text-align:center;" class="module-content">
+		<br>
+		<form method="post" onsubmit="return iC(this);">
+			<input type="hidden" name="{#IMPOST 'action'}" value="new">
+			<input type="hidden" name="{#IMPOST 'section_id'}" value="{$parent}">
+			<input type="submit" class="button" value="[*Neues Forum erstellen*]">
+		</form>
+		<br>
+		
+		{while $i = $sections->fetch_assoc() |i}
+		{set $positions[] = array($while_i, $i.section_id)}
+		<table width="100%" class="row">
+			<tr>
+				<td>
+					<div id="forumpos{$while_i}">
+						{ILPHP_CLASS->row($i)}
+					</div>
+				</td>
+				<td align="center" width="40">
+					{if $while_i > 1}<input type="button" class="button" style="width:29px;" value="UU" onclick="forumswap({$while_i},{$while_i-1});">{/if}
+					<br>
+					<br>
+					<br>
+					<br>
+					{if $while_i < $sections->num_rows}<input type="button" class="button" style="width:29px;" value="DD" onclick="forumswap({$while_i},{$while_i+1});">
+					{else}<br>
+					{/if}
+				</td>
+			</tr>
+		</table>
+		<hr>
+		{/while}
+		
+		<br>
+		<form method="post" onsubmit="return iC(this);">
+			<input type="hidden" name="{#IMPOST 'action'}" value="positions">
+			<input type="hidden" name="{#IMPOST 'section_id'}" value="{$parent}">
+			{foreach $positions as $p}
+			<input type="hidden" id="forumposid{$p.0}" name="{#IMPOST 'positions', $p.0}" value="{~$p.1}">
+			{/foreach}
+			<input type="hidden" name="{#IMPOST 'num_positions'}" value="{$while_i}">
+			<input type="submit" class="button" value="[*Positionen speichern*]">
+		</form>
+		<br>
+		
+		<script>
+			var forumswap=function(s,t){{
+				var i=$('#forumposid'+s)[0].value;
+				$('#forumposid'+s)[0].value=$('#forumposid'+t)[0].value;
+				$('#forumposid'+t)[0].value=i;
+				var m=$('#forumpos'+s).html();
+				$('#forumpos'+s).html($('#forumpos'+t).html());
+				$('#forumpos'+t).html(m);
+			}}
+		</script>
+	</div>
+	<div class="module-footer"></div>
+</div>

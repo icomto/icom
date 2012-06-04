@@ -1,0 +1,14 @@
+<table>
+	<tr>
+		{set $num = count($LAYOUTS)}
+		{foreach $LAYOUTS as $i |i}
+		<td style="text-align:center;vertical-align:bottom;">
+			<a href="/{LANG}/_layout/{$i}/settings/layout/" target="_self">
+				<img src="{STATIC_CONTENT_DOMAIN}/themes/{THEME_STYLE_DIRECTORY}/layouts/{$i}-{LANG}.jpg" alt="" style="width:95%;"><br>
+				[*Layout {$i}*]{if $i == CURRENT_LAYOUT} ([*aktuell*]){/if}
+			</a>
+		</td>
+		{if $foreach_i % 2 == 0 and $foreach_i < $num}</tr><tr>{/if}
+		{/foreach}
+	</tr>
+</table>

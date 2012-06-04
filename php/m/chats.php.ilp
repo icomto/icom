@@ -1,0 +1,69 @@
+<div class="module-item">
+	<h1>{ILPHP_CLASS->im_way_html()}</h1>
+	<div class="module-content">
+		{if not $category_id and IS_LOGGED_IN}
+		<p>
+			[*Neuen Chat erstellen*]
+			<form method="post" action="/{LANG}/chats/" onsubmit="return iC(this, '~.module-item');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="new">
+				[*Name:*] <input type="text" size="80" name="{#IMPOST 'name'}"> <button type="submit" class="button">[*Erstellen*]</button>
+			</form>
+		</p>
+		{/if}
+		<p>
+			{if $error}
+			<div class="error">
+				{switch $error}
+				{default}[*Unbekannter Fehler: {~$error}*]{/default}
+				{case 'CATEGORY_NOT_FOUND'}[*Die Kategorie wurde nicht gefunden*]{/case}
+				{case 'SUB_CATEGORY_NOT_FOUND'}[*Die Unterkategorie wurde nicht gefunden*]{/case}
+				{case 'NO_POSSIBLE_CATEGORY'}[*Du hast nicht gen&uuml;gend Rechte um einen Chat zu erstellen.*]{/case}
+				{/switch}
+			</div>
+			{elseif $chats->num_rows == 0}
+			<p class="info">
+				[*Keine Chats gefunden.*]
+			</p>
+			{else}
+			<div class="forum">
+				{while $i = $chats->fetch_assoc() |i}
+				{if $while_i == 1 or $current_category != $i.category_id}
+				{set $current_category = $i.category_id}
+				{if $while_i > 1}
+				</table>
+				{/if}
+				{if not $category_id}
+				<div class="root-section-header">
+					<a href="/{LANG}/chats/{$i.category_id}-{^$i.category_name}/">{~$i.category_name}</a>
+				</div>
+				{/if}
+				<table class="forum-sections" border="1">
+					<tr class="head">
+						{if $i.has_sub_categorys and !$sub_category_id}<th width="70">[*Kategorie*]</th>{/if}
+						<th>[*Name*]</th>
+						<th width="100" style="text-align:center;">[*Benutzer / G&auml;ste*]</th>
+						<th width="80" style="text-align:center;">[*Nachrichten*]</th>
+						<th width="100" style="text-align:center;">[*Letzte Nachricht*]</th>
+					</tr>
+				{/if}
+					<tr class="forum-row">
+						{if $i.has_sub_categorys and !$sub_category_id}
+						<td>
+							{if $i.sub_category_id}<a href="/{LANG}/chats/{$i.category_id}-{^$i.category_name}/sub/{$i.sub_category_id}-{^$i.sub_category_name}/">{~$i.sub_category_name}</a>{else}-{/if}
+						</td>
+						{/if}
+						<td>
+							<a href="/{LANG}/chat/{°$i.id}-{^$i.name}/">{get_sitelang_flag($i.lang)} {~$i.name}</a>{if $i.status == 'closed'} ([*geschlossen*]){elseif $i.status == 'deleted'} ([*gel&ouml;scht*]){/if}
+						</td>
+						<td style="text-align:center;">{if $i.online_users}{%$i.online_users}{else}-{/if} / {if $i.online_guests}{%$i.online_guests}{else}-{/if}</td>
+						<td style="text-align:center;">{if $i.num_messages}{%$i.num_messages}{else}-{/if}</td>
+						<td style="text-align:center;">{if $i.lastmessage}{timeago($i.lastmessage)}{else}-{/if}</td>
+					</tr>
+				{/while}
+				</table>
+			</div>
+			{/if}
+		</p>
+	</div>
+	<div class="module-footer"></div>
+</div>

@@ -1,0 +1,4 @@
+#!/bin/sh
+kill `ps aux|grep 'php cron.php'|grep -v grep|awk '{print $2}'` 2>/dev/null
+nohup nice php cron.php >/var/log/ic-cron.log 2>&1 &
+rm -f nohup.out

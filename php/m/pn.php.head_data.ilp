@@ -1,0 +1,28 @@
+{if not $data.read_only}
+<div class="SEP first"><div><div></div><h3>[*Einstellungen und Funktionen*]</h3><div></div></div></div>
+<style>ul.user-chat-setting li {{ margin-bottom:8px; }}</style>
+<ul class="user-chat-setting">
+	<li>
+		<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this);" style="text-align:left;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="leave_pn">
+			<button type="submit" class="button">[*Gespr&auml;ch verlassen*]</button><br>
+			<span class="info">[*Wenn Du dieses Gespr&auml;ch verl&auml;sst kannst Du es erst wieder betreten wenn Du eingeladen wirst.*]</span>
+		</form>
+	</li>
+	<li id="PN{$data.id}add_user">
+		{new ilphp_sub 'add_user'}
+		<strong>[*Benutzer zum Gespr&auml;ch hinzuf&uuml;gen*]</strong>
+		<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this);" style="text-align:left;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="add_user">
+			<input type="text" size="65" name="{#IMPOST 'link'}" title="[*Link zum Profil angeben*]">
+			<button type="submit" class="button">[*Hinzuf&uuml;gen*]</button><br>
+			<span class="info">[*Es folgt eine Abstimmung in der mehr als die h&auml;lfte Deiner Gespr&auml;chspartner f&uuml;r die Einladung stimmen m&uuml;ssen.*]</span>
+		</form>
+		{/new ilphp_sub}
+	</li>
+</ul>
+<div id="ModulePN{$data.id}Stats">
+	{include 'pn.php.head_data.stats.ilp'}
+</div>
+<div class="SEP"><div><div></div><h3>[*Unterhaltung*]</h3><div></div></div></div>
+{/if}

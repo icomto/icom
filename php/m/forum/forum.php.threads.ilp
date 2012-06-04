@@ -1,0 +1,69 @@
+{if $has_posts}
+<table class="forum-sections" border="1">
+	<tr>
+		<th class="thread-topic">[*Thema*]</th>
+		<th class="thread-stats">[*Beitr&auml;ge*]</th>
+		<th class="thread-stats">[*Hits*]</th>
+		<th>[*Letzter Beitrag*]</th>
+	</tr>
+	{foreach $rvs as $rv}
+	{while $i = $rv->fetch_assoc()}
+	<tr class="forum-row{if in_array($i.thread_state, array('sticky', 'important'))} {$i.thread_state}{/if}">
+		{if $i.thread_state == 'moved'}
+		<td class="thread-topic">
+			<h2>{if $is_multilang}{get_sitelang_flag2($i.thread_lang_de, $i.thread_lang_en)} {/if}[*Verschoben:*] <a href="/{LANG}/thread/{#THIS->query_last_editor($i.firstpost_id)}-{^$i.firstpost_name}/">{~$i.firstpost_name}</a></h2>
+			[**Er&ouml;ffnet von*] {user($i.firstpost_user_id)->html(-1)} {timeago($i.firstpost_time)}
+		</td>
+		<td class="thread-stats">-</td>
+		<td class="thread-stats">-</td>
+		<td class="thread-lastpost">
+			{if $section.is_mod}
+			<form method="post" action="/{LANG}/thread/{$i.thread_id}-{^$i.firstpost_name}/" onsubmit="return iC_confirm('[*Sicher?*]', this);">
+				<input type="hidden" name="imodules/forum__thread/action" value="delete_thread">
+				<button type="submit" class="button">[*L&ouml;schen*]</button>
+			</form>
+			{else}-
+			{/if}
+		</td>
+		{else}
+		
+		{set $i.thread_num_pages = calculate_pages($i.thread_num_posts, FORUM_THREAD_NUM_POSTS_PER_SITE)}
+		<td class="thread-topic">
+			<h2>
+				{if $is_multilang}{get_sitelang_flag2($i.thread_lang_de, $i.thread_lang_en)} {/if}
+				{if $i.thread_state == 'sticky'}[*Sticky:*] {elseif $i.thread_state == 'important'}[*Wichtig:*] {/if}
+				<a href="/{LANG}/thread/{$i.thread_id}-{^$i.firstpost_name}/">{~$i.firstpost_name}</a>{if not $i.thread_open} ([*geschlossen*]){/if}
+			</h2>
+			{if $i.thread_num_pages > 1}<div class="pages">( <img class="mulitpage" src="{STATIC_CONTENT_DOMAIN}/img/p.gif" alt="" title="[*Mehrseitiges Thema*]">{create_pages(0, $i.thread_num_pages - 1, '/'.LANG.'/thread/'.urlencode($i.thread_id).'-'.urlenc($i.firstpost_name).'/page/%s/', false, " &nbsp;", "%s")} )</div>{/if}
+			Er&ouml;ffnet von {user($i.firstpost_user_id)->html(-1)} {timeago($i.firstpost_time)}
+		</td>
+		<td class="thread-stats">{%$i.thread_num_posts}</td>
+		<td class="thread-stats">{%$i.thread_num_hits}</td>
+		<td class="thread-lastpost">
+			Letzter Beitrag <a href="/{LANG}/thread/{$i.thread_id}-{^$i.firstpost_name}/{if $i.thread_num_pages > 1}page/{$i.thread_num_pages}/{/if}">{timeago($i.lastpost_time)}</a><br>
+			von {user($i.lastpost_user_id)->html(-1)}
+		</td>
+		{/if}
+	</tr>
+	{/while}
+	{/foreach}
+</table>
+
+{else}
+<p class="info">
+	[*In diesem Forum wurden noch keine Threads er&ouml;ffnet.*]
+</p>
+{/if}
+
+{if $num_pages or $section.allow_write}
+<div class="section-footer">
+	{if $num_pages}<div class="pages">{#THIS->im_pages_html()}</div>{/if}
+	{if $section.allow_write}
+	<form method="post" action="{~$url}#0" onsubmit="return iC(this, '~.module-item');">
+		<input type="hidden" name="{#IMPOST 'action'}" value="new">
+		<button type="submit" class="button new-thread-button">Neuen Thread erstellen</button>
+	</form>
+	{/if}
+</div>
+<div class="clear"></div>
+{/if}

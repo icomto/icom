@@ -1,0 +1,24 @@
+<style>
+.community-groups table {{
+	margin:0 auto;
+	width:50%;
+}}
+.community-groups table .num-members {{
+	text-align:right;
+	width:30%;
+}}
+</style>
+<div class="community-groups">
+	<table border="1">
+		<tr>
+			<th>[*Name*]</th>
+			<th class="num-members">[*Mitglieder*]</th>
+		</tr>
+		{while $i = $groups->fetch_assoc()}
+		<tr class="row">
+			<td><a href="/{LANG}/community/users/group/{$i.id}-{^$i.name}/"><img src="{STATIC_CONTENT_DOMAIN}/img/groups/{$i.id}.gif" alt="" width="16" height="12"> {~$i.name}</a></td>
+			<td class="num-members">{%$i.num}</td>
+		</tr>
+		{/while}
+	</table>
+</div>

@@ -1,0 +1,9 @@
+<div class="module-item">
+	<h1>{#THIS->im_way_html()}</h1>
+	<div class="module-content">
+		{foreach $rows as $i |i}
+		<a href="/{LANG}/category/-1-Alles/search/{°$i.str}/" title="[*{%$i.num} Suchanfragen*]" style="font-size:{round($i.num/$max*30+8)}px;">{~trim($i.str)}</a>{if $foreach_i < count($rows)}, {/if}
+		{/foreach}
+	</div>
+	<div class="module-footer"></div>
+</div>

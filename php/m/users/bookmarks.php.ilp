@@ -1,0 +1,14 @@
+{if $user.user_id == USER_ID}
+<div class="SEP first"><div><div></div><h3>[*Wer darf meine Lesezeichen sehen?*]</h3><div></div></div></div>
+<form method="post">
+	<input type="radio" name="priv_bookmarks" value="private"{if $user.priv_bookmarks == 'private'} checked="checked"{/if} id="PrivBookmarksPrivate"><label for="PrivBookmarksPrivate">[*niemand*]</label><br>
+	<input type="radio" name="priv_bookmarks" value="friends"{if $user.priv_bookmarks == 'friends'} checked="checked"{/if} id="PrivBookmarksFriends"><label for="PrivBookmarksFriends">[*nur meine Freunde*]</label><br>
+	<input type="radio" name="priv_bookmarks" value="users"{if $user.priv_bookmarks == 'users'} checked="checked"{/if} id="PrivBookmarksUsers"><label for="PrivBookmarksUsers">[*alle registrierten Benutzer*]</label><br>
+	<input type="radio" name="priv_bookmarks" value="public"{if $user.priv_bookmarks == 'public'} checked="checked"{/if} id="PrivBookmarksPublic"><label for="PrivBookmarksPublic">[*jeder*]</label><br>
+	<button type="submit" class="button">[*Speichern*]</button>
+</form>
+{/if}
+<div class="SEP"><div><div></div><h3>[*Lesezeichen*]</h3><div></div></div></div>
+<div class="user-bookmarks">
+	{ILPHP_CLASS->im_tab_create()}
+</div>

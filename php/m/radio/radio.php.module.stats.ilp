@@ -1,0 +1,51 @@
+{if not $channel.online}<div class="error">[*Der Stream ist derzeit offline.*]</div>
+{else}
+<table>
+	<tr><td style="font-weight:bold;"{if strlen($channel.currentsong) > 24} title="{~$channel.currentsong}"{/if}><marquee scrolldelay="150">{~$channel.currentsong}</marquee></td></tr>
+</table>
+<table>
+	<tr>
+		<td width="108" style="padding-left:2px;">DJ</td>
+		<td width="58">
+			{if $channel.current_dj}{user($channel.current_dj)->html(-1)}
+			{else}[*AutoDJ*]
+			{/if}
+		</tr>
+	</tr>
+	<tr>
+		<td style="padding-left:2px;">[*Zuh&ouml;rer*]</td>
+		<td>{~$channel.listeners} / {~$channel.maxlisteners}</tr>
+	</tr>
+	<tr>
+		<td style="padding-left:2px;">[*Max. Zuh&ouml;rer*]</td>
+		<td>{~$channel.peaklisteners}</td>
+	</tr>
+	<tr>
+		<td style="padding-left:2px;">[*Bitrate*]</td>
+		<td>{~$channel.bitrate} kbps</td>
+	</tr>
+</table>
+{/if}
+
+{if $channel.infos}
+<table><tr><td>{ubbcode::add_smileys(ubbcode::compile($channel.infos,152))}</td></tr></table>
+{/if}
+
+{if $channel.admins or $channel.guests}
+<table><tr><td>	
+	{if $channel.admins}
+	{if $channel.admins->num_rows > 1}[*Admins*]{else}[*Admin*]{/if}: 
+	{while $i = $channel.admins->fetch_assoc() |i}
+	{user($i.user_id)->html(-1)}{if $while_i < $channel.admins->num_rows}, {/if}
+	{/while}
+	<br>
+	{/if}
+	{if $channel.guests}
+	{if $channel.admins->num_rows > 1}[*Gast DJs*]{else}[*Gast DJ*]{/if}: 
+	{while $i = $channel.guests->fetch_assoc() |i}
+	{user($i.user_id)->html(-1)}{if $while_i < $channel.guests->num_rows}, {/if}
+	{/while}
+	<br>
+	{/if}
+</td></tr></table>
+{/if}

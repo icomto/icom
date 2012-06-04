@@ -1,0 +1,129 @@
+<form method="post" name="{#IMPOST 'section_id'}" value="{$i.section_id}" onsubmit="return iC(this);">
+	<input type="hidden" name="{#IMPOST 'action'}" value="save">
+	<input type="hidden" name="{#IMPOST 'section_id'}" value="{$parent}">
+	<table width="100%" border="1">
+		<tr>
+			<td valign="top" width="40">
+				<a href="/{LANG}/admin/forum/{$i.section_id}/">{~'> '.$i.section_id.' <'}</a>
+			</td>
+			<td valign="top" width="135">
+				<input type="text" name="{#IMPOST 'name_de'}" style="width:100%;" value="{~$i.name_de}" title="[*Deutscher Name*]">
+			</td>
+			<td valign="top" width="100%">
+				<input type="text" name="{#IMPOST 'description_de'}" style="width:100%;" value="{~$i.description_de}" title="[*Deutsche Beschreibung*]">
+			</td>
+		</tr>
+		<tr>
+			<td valign="top">
+				&nbsp;
+			</td>
+			<td valign="top">
+				<input type="text" name="{#IMPOST 'name_en'}" style="width:100%;" value="{~$i.name_en}" title="[*Englischer Name*]">
+			</td>
+			<td valign="top">
+				<input type="text" name="{#IMPOST 'description_en'}" style="width:100%;" value="{~$i.description_en}" title="[*Englische Beschreibung*]">
+			</td>
+		</tr>
+		<tr>
+			<td valign="top">
+				<input type="text" style="width:100%;" name="{#IMPOST 'namespace'}" value="{~$i.namespace}" onfocus="this.select();" title="[*Namespace*]">
+			</td>
+			<td valign="top">
+				<select style="width:100%;" name="{#IMPOST 'group_id'}" onchange="if(this.value!='')iC(this, this.form, '{#IMPOST 'action'}=add_read_group');return false;">
+					<option value="" style="font-style:italic;">Lesegruppen</option>
+					{if not in_array('0', $i.read_groups)}<option value="0">G&auml;ste</option>{/if}
+					{while $g = $available_read_groups->fetch_assoc()}
+					<option value="{~$g.id}">{~$g.name}</option>
+					{/while}
+				</select>
+			</td>
+			<td valign="top">
+				{set $num = count($i.read_groups)}
+				{foreach $i.read_groups as $g |g}
+				{if $g == ''}{continue}{/if}
+				{if $g == 0}G&auml;ste
+				{else}
+				{set $grp = ILPHP_CLASS->_afr_get_group($g)}
+				<a href="/{LANG}/community/users/groups/{$grp.id}-{^$grp.name}/">{~$grp.name}</a>
+				{/if}
+				<a name="{#IMPOST 'group_id'}" value="{$g}" onclick="return iC(this, '~form', '{#IMPOST 'action'}=del_read_group');">X</a>
+				{if $foreach_g < $num}, {/if}
+				{/foreach}
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td valign="top">
+				<select style="width:100%;" name="{#IMPOST 'group_id'}" onchange="if(this.value!='')iC(this, this.form, '{#IMPOST 'action'}=add_write_group');return false;">
+					<option value="" style="font-style:italic;">Schreibgruppen</option>
+					{while $g = $available_write_groups->fetch_assoc()}
+					<option value="{~$g.id}">{~$g.name}</option>
+					{/while}
+				</select>
+			</td>
+			<td valign="top">
+				{set $num = count($i.write_groups)}
+				{foreach $i.write_groups as $g |g}
+				{if $g == ""}{continue}{/if}
+				{set $grp = ILPHP_CLASS->_afr_get_group($g)}
+				<a href="/{LANG}/community/users/groups/{$grp.id}-{^$grp.name}/">{~$grp.name}</a>
+				<a name="{#IMPOST 'group_id'}" value="{$g}" onclick="return iC(this, '~form', '{#IMPOST 'action'}=del_write_group');">X</a>
+				{if $foreach_g < $num}, {/if}
+				{/foreach}
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td valign="top">
+				<select style="width:100%;" name="{#IMPOST 'user_id'}" onchange="if(this.value!='')iC(this, this.form, '{#IMPOST 'action'}=add_mod');return false;">
+					<option value="" style="font-style:italic;">Moderatoren</option>
+					{foreach $possible_mods as $m}
+					<option value="{$m.user_id}">{~$m.nick}</option>
+					{/foreach}
+				</select>
+			</td>
+			<td valign="top">
+				{if $mods}
+				{while $m = $mods->fetch_assoc() |m}
+				{user($m.user_id)->html(-1)}
+				<a name="{#IMPOST 'user_id'}" value="{$m.user_id}" onclick="return iC(this, '~form', '{#IMPOST 'action'}=del_mod');">X</a>
+				{if $while_m < $mods->num_rows}, {/if}
+				{/while}
+				{/if}
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td valign="top">
+				<select style="width:100%;" name="{#IMPOST 'group_id'}" onchange="if(this.value!='')iC(this, this.form, '{#IMPOST 'action'}=add_mod_group');return false;">
+					<option value="" style="font-style:italic;">Modgruppen</option>
+					{while $g = $available_mod_groups->fetch_assoc()}
+					<option value="{~$g.id}">{~$g.name}</option>
+					{/while}
+				</select>
+			</td>
+			<td valign="top">
+				{set $num = count($i.mod_groups)}
+				{foreach $i.mod_groups as $g |g}
+				{if $g == ''}{continue}{/if}
+				{set $grp = ILPHP_CLASS->_afr_get_group($g)}
+				<a href="/{LANG}/community/users/groups/{$grp.id}-{^$grp.name}/">{~$grp.name}</a>
+				<a name="{#IMPOST 'group_id'}" value="{$g}" onclick="return iC(this, '~form', '{#IMPOST 'action'}=del_mod_group');">X</a>
+				{if $foreach_g < $num}, {/if}
+				{/foreach}
+			</td>
+		</tr>
+		<tr>
+			<td valign="middle" align="center" colspan="2">
+				<input type="submit" class="button" style="width:70px;" value="[*Speichern*]">
+			</td>
+			<td valign="top" align="center">
+				<label for="allow_threads{$i.section_id}">Threads</label> <input type="checkbox" id="allow_threads{$i.section_id}" name="{#IMPOST 'allow_threads'}"{if $i.allow_threads} checked="checked"{/if}> |
+				<label for="allow_content{$i.section_id}">Content</label> <input type="checkbox" id="allow_content{$i.section_id}" name="{#IMPOST 'allow_content'}"{if $i.allow_content} checked="checked"{/if}> |
+				Punkte: <input type="text" style="width:23px;text-align:right;" name="{#IMPOST 'points'}" value="{~round($i.points,1)}"> |
+				Subs: {if $i.has_childs}ja{else}nein{/if}
+				<br>
+			</td>
+		</tr>
+	</table>
+</form>

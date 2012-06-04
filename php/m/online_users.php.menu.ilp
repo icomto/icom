@@ -1,0 +1,3 @@
+[*Registriert:*] {$num_registered}<br>
+[*G&auml;ste Online:*] {$num_guests_online}<br>
+<a href="/{LANG}/online_users/">[*Mitglieder Online:*] {if $num_online_users}{$num_online_users}{else}[*keine*]{/if}</a>

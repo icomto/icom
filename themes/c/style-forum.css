@@ -1,0 +1,264 @@
+.forum-row:hover {
+	background:transparent url(forum-row-hover.png) center left no-repeat;
+}
+.forum-row-nohover:hover {
+	background:transparent;
+}
+.T-base-white .forum-row.important {
+	background-color:#ff7777;
+}
+.T-base-white .forum-row.sticky {
+	background-color:#eecccc;
+}
+.T-base-black .forum-row.important {
+	background-color:#880000;
+}
+.T-base-black .forum-row.sticky {
+	background-color:#550000;
+}
+
+
+.forum-post th {
+	width:20%;
+	padding:2px 3px 2px 3px;
+}
+.forum-post td {
+	padding:2px;
+}
+.post-footer th,
+.post-footer td {
+	vertical-align:middle;
+}
+.post-controls {
+	text-align:right;
+}
+.post-controls form {
+	display:inline;
+}
+.post-thanks a {
+	font-weight:normal;
+}
+.post-spacer {
+	width:40%;
+	margin:4px auto;
+	height:0px;
+}
+.T-base-white .post-spacer {
+	border-top:1px #ccc solid;
+	border-bottom:1px #aaa solid;
+}
+.T-base-black .post-spacer {
+	border-top:1px #333 solid;
+	border-bottom:1px #666 solid;
+}
+.post-edited {
+	float:left;
+}
+
+
+
+.forum .info,
+.forum .error {
+	text-align:center;
+}
+
+.forum .new-thread-button,
+.forum .reply-button {
+	height:20px;
+	line-height:20px;
+}
+.forum .new-thread-button {
+	display:block;
+	float:right;
+}
+.forum .reply-button {
+	margin-top:5px;
+}
+
+.forum-write-post {
+	text-align:center;
+}
+.forum-write-post input[type=text] {
+	width:100%;
+}
+.forum-write-post .big-button {
+	display:block;
+	margin:0 auto;
+}
+
+.forum .root-section-header,
+.forum .section-mods {
+	height:30px;
+	line-height:30px;
+	text-indent:5px;
+	border:1px #545454 solid;
+	border-bottom:none;
+}
+.T-forum-header-apple .forum .root-section-header,
+.T-forum-header-apple .forum .section-mods {
+	background:url('forum-header/apple.jpg') top right no-repeat;
+}
+.T-forum-header-reloaded-black .forum .root-section-header,
+.T-forum-header-reloaded-black .forum .section-mods {
+	background:url('forum-header/reloaded-black.jpg') top right no-repeat;
+}
+.T-forum-header-reloaded-white .forum .root-section-header,
+.T-forum-header-reloaded-white .forum .section-mods {
+	background:url('forum-header/reloaded-white.jpg') top right no-repeat;
+}
+.T-forum-header-reloaded-pink .forum .root-section-header,
+.T-forum-header-reloaded-pink .forum .section-mods {
+	background:url('forum-header/reloaded-pink.jpg') top right no-repeat;
+}
+.T-forum-header-reloaded-blue .forum .root-section-header,
+.T-forum-header-reloaded-blue .forum .section-mods {
+	background:url('forum-header/reloaded-blue.jpg') top right no-repeat;
+}
+.T-forum-header-silverlight .forum .root-section-header,
+.T-forum-header-silverlight .forum .section-mods {
+	background:url('forum-header/silverlight.jpg') top right no-repeat;
+}
+.T-forum-header-hello-kitty .forum .root-section-header,
+.T-forum-header-hello-kitty .forum .section-mods {
+	background:url('forum-header/hello-kitty.jpg') top right no-repeat;
+}
+.T-forum-header-red-light-destrict .forum .root-section-header,
+.T-forum-header-red-light-destrict .forum .section-mods {
+	background:url('forum-header/red-light-destrict.jpg') top right no-repeat;
+}
+.forum .root-section-header a,
+.forum .section-mods,
+.forum .section-mods a {
+	font-size:13px;
+	font-weight:bold;
+}
+.T-forum-header-base-white .forum .root-section-header a,
+.T-forum-header-base-white .forum .section-mods,
+.T-forum-header-base-white .forum .section-mods a {
+	color:#090909;
+}
+.T-forum-header-base-black .forum .root-section-header a,
+.T-forum-header-base-black .forum .section-mods,
+.T-forum-header-base-black .forum .section-mods a {
+	color:#fafafa;
+}
+
+.forum .root-section-header a {
+	display:block;
+}
+
+
+.forum-sections {
+	margin-bottom:5px;
+}
+.forum-sections tr:first-child {
+	background:transparent url(forum-section-header.jpg) top left repeat-x;/*WIDTH-1*/
+}
+.forum-sections tr:first-child th {
+	color:#fafafa;
+}
+.forum-sections .section-name {
+	width:69%;
+}
+.forum-sections .sub-sections a {
+	font-weight:normal;
+}
+.forum-sections .section-stats {
+	font-style:italic;
+}
+.forum-sections .thread-topic {
+	width:60%;
+}
+.forum-sections .thread-topic h2 {
+	width:auto;
+	margin-bottom:0;
+}
+.forum-sections .thread-stats {
+	width:50px;
+	text-align:center;
+	vertical-align:middle;
+}
+.forum-sections .thread-lastpost {
+}
+.forum-sections .pages {
+	text-align:left;
+}
+.forum-sections .mulitpage {
+	width:10px;
+	height:12px;
+	padding:0;
+	margin:0 4px 0 6px;
+	background:transparent url(multipage.gif) top left no-repeat;/*ICON*/
+}
+.forum-sections .important a {
+	color:inherit;
+}
+
+
+.forum-posts th,
+.forum-posts td {
+	padding-right:3px;
+}
+.forum-posts .post-infos {
+	width:20%;
+}
+.forum-posts .threadstarter {
+	font-weight:bold;
+	color:#555;
+}
+.forum .post-header {
+	width:100%;
+	margin:0 2px 0 2px;
+	border-bottom:1px grey dotted;
+}
+.forum .post-header h3 a {
+	font-size:12px;
+}
+.forum .post-header h4 {
+	float:right;
+}
+.forum .post-header h4 a {
+	font-size:11px;
+	font-weight:normal;
+}
+.T-base-white .forum .post-header h4 a {
+	color:#333;
+}
+.T-base-black .forum .post-header h4 a {
+	color:#888;
+}
+.section-footer .pages,
+.thread-footer .pages {
+	float:left;
+	margin-top:3px;
+}
+.section-footer form,
+.thread-footer form {
+	float:right;
+}
+
+
+.forum-search tr td:first-child {
+	padding-right:5px;
+}
+.forum-search tr td:last-child {
+	padding-left:5px;
+}
+.forum-search tr td:last-child select {
+	height:150px;
+}
+.forum-search input[type=text],
+.forum-search select {
+	width:100%;
+	border:1px black solid;
+}
+.forum-search td p {
+	margin-bottom:10px;
+}
+.forum-search-results tr td:last-child {
+	width:120px;
+}
+
+.forum .admin-box {
+	margin-top:6px;
+}

@@ -1,0 +1,23 @@
+<div class="module-item">
+	<h1>E-Mail verschicken</h1>
+	<div class="module-content">
+	{if $sent}
+	<center>
+		<br>
+		Nachricht Abgeschickt.<br>
+		<br>
+	</center>
+	{/if}
+	<form method="post" action="{~$url}" onsubmit="return iC(this);">
+		<input type="hidden" name="{#IMPOST 'action'}" value="send">
+		<i>Absender:: </i> &nbsp; <input type="text" name="{#IMPOST 'from'}" value="noreply@icom.to" style="width:220px;"><br>
+		<i>Empf&auml;nger: </i> &nbsp; <input type="text" name="{#IMPOST 'to'}" value="" style="width:220px;"><br>
+		<i>Betreff: </i> &nbsp; <input type="text" name="{#IMPOST 'topic'}" value="Nachricht von icom.to" style="width:380px;"><br>
+		<center>
+			<textarea name="{#IMPOST 'message'}" rows="5" cols="30" style="width:590px;height:150px;font-size:12px;font-family:Arial;"></textarea><br>
+			<input type="submit" class="button" value="Abschicken">
+		</center>
+	</form>
+	</div>
+	<div class="module-footer"></div>
+</div>

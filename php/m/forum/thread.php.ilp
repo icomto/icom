@@ -1,0 +1,67 @@
+<div class="module-item">
+	<h1>
+		{bookmark_engine::icon($url.($page > 1 ? 'page/'.$page.'/' : ''), 'thread', $root.thread_id)}
+		{#THIS->im_way_html()}
+	</h1>
+	<div class="module-content forum forum-posts">
+		{if not $root}
+		<p class="error">
+			[*Der Thread wurde nicht gefunden.*]
+		</p>
+		
+		{*
+		{elseif $action == 'moved_to_solved'}
+		<p class="info">
+			[**Der Thread wurde in das &quot;Erledigt&quot;-Forum verschoben.<br>*]
+			Solltest du nicht weitergeleitet werden klicke <a href="/{LANG}/thread/{$root.thread_id}-{^$root.firstpost_name}/{if $page > 1}page/{$page}/{/if}">hier</a>.
+		</p>
+		<script type="text/javascript">iL('/thread/{°$root.thread_id}-{^$root.firstpost_name}/{if $page > 1}page/{$page}/{/if}');</script>
+		*}
+		
+		{elseif $action == 'report_post'}
+		{include 'thread.php.report.ilp'}
+		
+		{else}
+		{if $num_pages > 1}<div class="pages">{#THIS->im_pages_html()}</div>{/if}
+		<table class="forum-posts" border="1">
+			{while $i = $posts->fetch_assoc() |i}
+			{include 'thread.php.post.ilp'}
+			{/while}
+		</table>
+		
+		<div class="thread-footer">
+			{if $num_pages > 1}<div class="pages" style="float:left;">{#THIS->im_pages_html()}</div>{/if}
+			{if $root.allow_write and ($root.open or $root.is_mod) and $action != 'reply'}
+			<form method="post" id="thread_reply_button" action="{~$url_page}#thread_reply" onsubmit="return iC(this, '~.module-item');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="reply">
+				<input type="hidden" name="{#IMPOST 'init'}" value="1">
+				<button type="submit" class="button reply-button">[*Auf dieses Thema antworten*]</button>
+			</form>
+			{/if}
+		</div>
+		<div class="clear"></div>
+		
+		{if $action == 'reply'}
+		{*#THIS->reply()*}
+		{include 'thread.php.reply.ilp'}
+		{/if}
+		
+		{*
+		{if $is_possible_solved_thread}
+		<form method="post" action="/{LANG}/thread/{$root.thread_id}-{^$root.firstpost_name}/{if $page > 1}page/{$page}/{/if}" onsubmit="if(confirm('Sicher?'))iL(this);return false;">
+			<input type="hidden" name="action" value="solved">
+			<button type="submit" class="center big-button">[*Suche ist erledigt*]</button>
+		</form>
+		{/if}
+		*}
+		
+		{if $root.is_mod or (IS_LOGGED_IN and $root.firstpost_uid == USER_ID and ($root.open or !$root.closed_by_mod))}
+		<div{if $root.is_mod} class="admin-box"{/if}>
+			{include 'thread.php.admin.ilp'}
+		</div>
+		{/if}
+		
+		{/if}
+	</div>
+	<div class="module-footer"></div>
+</div>

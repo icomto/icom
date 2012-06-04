@@ -1,0 +1,66 @@
+<div class="module-item">
+	<h1>
+		<img class="dropdown-icon" src="{STATIC_CONTENT_DOMAIN}/img/p.gif" alt="" data-dd="ildd.def" data-dd-item-1="&lt;a href=&quot;/{LANG}/forum/0/search/&quot;&gt;[*Forum durchsuchen*]&lt;/a&gt;">
+		{#THIS->im_way_html()}
+	</h1>
+	<div class="module-content forum forum-overview">
+		{if $action == 'new'}
+		
+		{include 'forum.php.new.ilp'}
+		
+		{else}
+		
+		{if $section_id and $section.allow_content}
+		{if $section.is_mod and $action == 'content_edit'}
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~.module-item');" class="center">
+			<input type="hidden" name="{#IMPOST 'action'}" value="content_save">
+			<textarea class="bbcodeedit" name="{#IMPOST 'content'}">{~$section.content}</textarea>
+			<button type="submit" class="button">[*Speichern*]</button>
+		</form>
+		{elseif $section.content}
+		<p>{ubbcode::add_smileys(ubbcode::compile($section.content, DISPLAY_COMMUNITY_ELEMENTS ? 491 : 616))}</p>
+		{/if}
+		{/if}
+		
+		{if $section_id}
+		{if $section.allow_threads}
+		{#THIS->query_child_threads()}
+		{if $mods and $mods->num_rows}
+		<div class="section-mods">
+			[*Moderatoren:*]
+			{while $mod = $mods->fetch_assoc() |i}
+			{user($mod.id)->html(-1)}{if $while_i < $mods->num_rows}, {/if}
+			{/while}
+		</div>
+		{/if}
+		{/if}
+		{include 'forum.php.sections.ilp'}
+		{if $section.allow_threads}
+		{include 'forum.php.threads.ilp'}
+		{/if}
+		{else}
+		
+		{while $section = $sections->fetch_assoc()}
+		{include 'forum.php.sections.ilp'}
+		{/while}
+		{/if}
+		
+		{if $section_id and $section.allow_content and $section.is_mod and $action != 'content_edit'}
+		<form method="post" action="{~$url}#0" onsubmit="return iC(this, '~.module-item');" class="center">
+			<input type="hidden" name="{#IMPOST 'action'}" value="content_edit">
+			<button type="submit" class="button">[*Oberen statischen Inhalt bearbeiten*]</button>
+		</form>
+		{/if}
+		
+		{if has_privilege('forum_admin') and $section_id}
+		<div style="clear:both;"></div>
+		<div id="forum{$section.id}" style="border:2px black solid;">
+			{set $M = iengine::GET(['admin', 'forum'])}
+			{set $M->parent = $section_id}
+			{$M->row($section)}
+		</div>
+		{/if}
+		{/if}
+	</div>
+	<div class="module-footer"></div>
+</div>

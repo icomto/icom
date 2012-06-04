@@ -1,0 +1,43 @@
+{include '~/page_header.ilp'}
+<table style="width:auto;">
+	<tr>
+		<td>
+			<div class="side-menu side-menu-helper {$THEME.side_menu}" style="margin:5px 0 0 5px;">
+				<div class="side-menu-header menu-first">{#THIS->im_way_html()}</div>
+				<div class="side-menu-content">
+					<div class="menu-radio" id="IM_MENU_radio">
+						{include 'radio.php.module.ilp'}
+					</div>
+				</div>
+				<div class="side-menu-footer"></div>
+			</div>
+		</td>
+		{set $has_chat = false}
+		{if $channel.chat_id}
+		{set $CHAT = iengine::GET('chat', ['chat_id' => $channel.chat_id])}
+		{set $CONTENT = $CHAT->RUN('MENU')}
+		{if $CONTENT}
+		{set $has_chat = true}
+		<td>
+			<div class="side-menu side-menu-helper {$THEME.side_menu}" style="margin:5px 5px 0 0;">
+				<div class="side-menu-header menu-first">{if $CHAT->chat_name}{~$CHAT->chat_name}{else}[*Chat*]{/if}</div>
+				<div class="side-menu-content">
+					<div class="menu-chat" id="IM_MENU_chat_{$channel.chat_id}">
+						{$CONTENT}
+					</div>
+				</div>
+				<div class="side-menu-footer"></div>
+			</div>
+		</td>
+		{/if}
+		{/if}
+		{if $has_chat}
+		<script>window.innerWidth=365;</script>
+		<script>document.body.clientWidth=365;</script>
+		{else}
+		<script>window.innerWidth=195;</script>
+		<script>document.body.clientWidth=195;</script>
+		{/if}
+	</tr>
+</table>
+{include '~/page_footer.ilp'}

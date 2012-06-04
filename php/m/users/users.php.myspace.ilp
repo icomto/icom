@@ -1,0 +1,14 @@
+<div class="module-user-myspace">
+	{if not IS_LOGGED_IN}
+	<p class="error">[*Du musst eingeloggt sein um diese Seite zu sehen.*]</p>
+	{elseif not $user}
+	<p class="error">[*Der Benutzer wurde nicht gefunden.*]</p>
+	{elseif not $user.myspace}
+	<p class="info">[*Der Benutzer {~$user.nick} hat keine eigene Seite eingerichtet.*]</p>
+	{else}
+	<div class="SEP first"><div><div></div><h3>{if $user.myspace_name}{~$user.myspace_name}{else}[*Meine Seite*]{/if}</h3><div></div></div></div>
+	<div class="myspace-content user-entry" style="{if $user.myspace_background}background:{if stripos($user.myspace_background, 'http://') === 0}url('{~$user.myspace_background}'){else}{~$user.myspace_background}{/if};{/if}">
+		{ubbcode::add_smileys(ubbcode::compile($user.myspace, 622))}
+	</div>
+	{/if}
+</div>

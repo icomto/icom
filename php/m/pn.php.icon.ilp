@@ -1,0 +1,5 @@
+<a href="/{LANG}/pns/" class="pns{if $has_new_pns} blink{/if}" title="[*Private Nachrichten*]">[*Nachrichten*]<img src="/img/p.gif"></a>
+<script>try{{if(tupni)clearInterval(tupni);}}catch(e){{}}tupni=null;</script>
+{if $has_new_pns}
+<script>var tupni=setInterval(function(){{var x=$('#MenuPNs .pns');if(x.hasClass('blink'))x.removeClass('blink');else x.addClass('blink');}},500);</script>
+{/if}

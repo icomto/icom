@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="{LANG}">
+	<head>
+		<title>&Uuml;bersetzungstool</title>
+		<meta HTTP-EQUIV="Content-Type" Content="text/html; charset=utf-8">
+		<meta name="Robots" content="index,follow">
+		<meta name="Language" content="{LANG}">
+		<meta name="Content-Language" content="{LANG}">
+		<meta name="Author" content="wuff">
+		<link rel="icon" type="image/ico" href="/favicon.ico">
+		<link rel="shortcut icon" type="image/gif" href="/favicon.gif">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+		<script src="{STATIC_CONTENT_DOMAIN}/lib/vt-18.js?ver={~RELEASE_VERSION}"></script>
+		<style>
+			* {{
+				font-family:monospace;
+				margin:0;
+				padding:0;
+			}}
+			a {{
+				text-decoration:none;
+			}}
+			table {{
+				table-layout:fixed;
+				border-collapse:collapse;
+				border-spacing:0;
+			}}
+			pre {{
+				white-space:pre-wrap;
+			}}
+			td {{
+				width:350px;
+			}}
+			h3 {{
+				border-bottom:1px #ddd solid;
+				height:18px;
+				line-height:18px;
+				color:#999;
+			}}
+			textarea {{
+				width:100%;
+				height:100%;
+			}}
+			button {{
+				height:18px;
+				border:1px solid #ccc;
+				background:#f6f6f6;
+			}}
+		</style>
+		<script>
+			var save=function(frm,id){{
+				var dom='#'+id;
+				$.ajax({{
+					type:'POST',
+					url:'?ajax=1',
+					data:$(frm).serialize(true),
+					async:true,
+					beforeSend:function(){{$(dom).html('Saving...');}},
+					success:function(d){{$(dom).html(d);}}
+				}});
+				return false;
+			}}
+		</script>
+	</head>
+	<body>
+		{if $action == 'index'}
+		{if $langs}
+		<a href="?rebuild=1">rebuild</a> |
+		<a href="?c=">root</a>
+		{foreach $chain as $n |n}{if $foreach_n > 1}.{set $c .= '.'}{/if}{set $c .= $n}<a href="?c={$c}">{~$n}</a>{/foreach}
+		<table border="1">
+			<tr>
+				<th>Namespace</th>
+				{foreach $LANGS as $lang}
+				<th>{$lang}</th>
+				{/foreach}
+			</tr>
+			{while $i = $langs->fetch_assoc()}
+			<tr>
+				<th valign="top" align="left">
+					{set $i.namespace = explode('.', $i.namespace)}
+					{$c = ''}
+					{foreach $i.namespace as $n |n}{if $foreach_n > 1} {set $c .= '.'}{/if}{set $c .= $n}<a href="?c={$c}">{~$n}</a>{/foreach}
+				</th>
+				{set $hash = $i.hash}
+				{foreach $LANGS as $lang}
+				{set $i = query_lang($lang, $hash)}
+				<td valign="top" align="left" id="Item{$hash}{$lang}">
+					{include 'translate.box.ilp'}
+				</td>
+				{/foreach}
+			</tr>
+			{/while}
+		</table>
+		{/if}
+		
+		{/if}
+	</body>
+</html>

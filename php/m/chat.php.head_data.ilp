@@ -1,0 +1,314 @@
+{if $data.is_admin}
+<p>
+	<div class="SEP first"><div><div></div><h3>[*Chat anpassen*]</h3><div></div></div></div>
+	{if $display_settings}<a href="{~$url}">Einstellungen ausblenden</a>
+	{else}<a href="{~$url}settings/">Einstellungen einblenden</a>
+	{/if}
+	{if m_chat_global::is_ultra_admin()}<br>Erstellt von {user($data.creator)->html(-1)}{/if}
+</p>
+{if $num_admins <= 1 and !$num_allowed_users and !$stats_allowed_groups->num_rows and !$data.points_from and !$data.points_to}
+<p class="error">
+	Du hast noch keine Berechtigungen verteilt. Momentan kannst nur Du diesen Chat sehen.
+</p>
+{/if}
+
+{if $display_settings}
+<style>li.user-chat-setting {{ margin-bottom:8px; }}</style>
+<div class="SEP"><div><div></div><h3>[*Einstellungen*]</h3><div></div></div></div>
+<ul>
+	<li class="user-chat-setting">
+		<strong>[*Chat umbenennen*]</strong><br>
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="change_name">
+			<input type="text" size="65" name="{#IMPOST 'name'}" value="{~$data.name}">
+			<button type="submit" class="button">[*Umbenennen*]</button>
+		</form>
+	</li>
+
+	{new ilphp_sub 'change_default_text'}
+	<li class="user-chat-setting" id="Chat{$data.id}change_default_text">
+		<strong>[*Standart Text*]</strong><br>
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="change_default_text">
+			<input type="text" size="65" name="{#IMPOST 'default_text'}" value="{~$data.default_text}">
+			<button type="submit" class="button">[*&Auml;ndern*]</button>
+		</form>
+	</li>
+	{/new ilphp_sub}
+
+	{if $possible_categorys->num_rows > 1 or $possible_sub_categorys->num_rows > 1}
+	<li class="user-chat-setting">
+		<strong>[*Kategorie*]</strong><br>
+		{if $possible_categorys->num_rows > 1}
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="change_category">
+			<select name="{#IMPOST 'category_id'}">
+				{while $i = $possible_categorys->fetch_assoc()}
+				<option value="{$i.id}"{if $i.id == $data.category_id} selected="selected"{/if}>{~$i.name}</option>
+				{/while}
+			</select>
+			<button type="submit" class="button">[*Speichern*]</button>
+		</form>
+		{/if}
+	</li>
+	{if $data.has_sub_categorys and $possible_sub_categorys->num_rows > 1}
+	<li class="user-chat-setting">
+		<strong>[*Unterkategorie*]</strong><br>
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="change_sub_category">
+			<select name="{#IMPOST 'sub_category_id'}">
+				{while $i = $possible_sub_categorys->fetch_assoc()}
+				<option value="{$i.id}"{if $i.id == $data.sub_category_id} selected="selected"{/if}>{~$i.name}</option>
+				{/while}
+			</select>
+			<button type="submit" class="button">[*Speichern*]</button>
+		</form>
+	</p>
+	{/if}
+	{/if}
+	
+	{new ilphp_sub 'change_lang'}
+	<li class="user-chat-setting" id="Chat{$data.id}change_lang">
+		<strong>[*Sprache*]</strong><br>
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="change_lang">
+			<select name="{#IMPOST 'lang'}">
+				{foreach $LANGUAGE_PRIORITY as $lang}
+				<option value="{~$lang}"{if $lang == $data.lang} selected="selected"{/if}>{~get_sitelang_string($lang)}</option>
+				{/foreach}
+			</select> <button type="submit" class="button">[*&Auml;ndern*]</button>
+		</form>
+	</li>
+	{/new ilphp_sub}
+	
+	{new ilphp_sub 'change_status'}
+	<li class="user-chat-setting" id="Chat{$data.id}change_status">
+		<strong>[*Status*]</strong><br>
+		<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~li');" style="text-align:left;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="change_status">
+			<select name="{#IMPOST 'status'}">
+				<option value="open"{if $data.status == 'open'} selected="selected"{/if}>[*Offen*]</option>
+				<option value="closed"{if $data.status == 'closed'} selected="selected"{/if}>[*Geschlossen*]</option>
+				<option value="deleted"{if $data.status == 'deleted'} selected="selected"{/if}>[*L&ouml;schen (kann nicht r&uuml;ckg&auml;ngig gemacht werden!)*]</option>
+			</select> <button type="submit" class="button">[*&Auml;ndern*]</button>
+		</form>
+	</li>
+	{/new ilphp_sub}
+	
+	{new ilphp_sub 'change_input_box'}
+	<li class="user-chat-setting" id="Chat{$data.id}change_input_box">
+		<strong>[*Eingabemethode*]</strong><br>
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="change_input_box">
+			<select name="{#IMPOST 'input_box'}">
+				<option value="textarea"{if $data.input_box == 'textarea'} selected="selected"{/if}>[*Textfeld*]</option>
+				<option value="input"{if $data.input_box == 'input'} selected="selected"{/if}>[*Eingabezeile*]</option>
+			</select> <button type="submit" class="button">[*&Auml;ndern*]</button>
+		</form>
+	</li>
+	{/new ilphp_sub}
+
+	{if m_chat_global::is_admin()}
+	{new ilphp_sub 'change_place'}
+	<li class="user-chat-setting" id="Chat{$data.id}change_place">
+		<strong>[*Platz in der Liste (Admin Zeugs)*]</strong><br>
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="change_place">
+			<input type="text" name="{#IMPOST 'place'}" size="10" value="{$data.place}" style="text-align:right;">
+			<button type="submit" class="button">[*Speichern*]</button>
+			<p class="info">
+				Der Standartplatz ist 12345.<br>
+				Wenn ein Chat immer auf Platz 1 sein soll hier 1 eingeben (solange noch kein anderer Chat den Platz hat).<br>
+				Am besten einfach immer in 100er schritten Arbeiten. Also 1. Chat bekommt 100, der 2. 200, der 3. 300.<br>
+				So kann man immer ohne gro&szlig;e &auml;nderungen nen Chat dazwischenschieben.
+			</p>
+		</form>
+	</li>
+	{/new ilphp_sub}
+	{/if}
+
+	{if $data.allow_ubb}
+	<li class="user-chat-setting">
+		<strong>[*Infos &uuml;ber den Chat, Regeln...*]</strong><br>
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="change_content_ubb">
+			<textarea name="{#IMPOST 'content_ubb'}" class="bbcodeedit">{~$data.content_ubb}</textarea>
+			<button type="submit" class="button">[*Speichern*]</button>
+		</form>
+	</li>
+	{/if}
+
+	{if $data.allow_html}
+	<li class="user-chat-setting">
+		<strong>[*HTML Code*]</strong><br>
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="change_content_html">
+			<textarea name="{#IMPOST 'content_html'}" style="width:100%;height:100px;">{~$data.content_html}</textarea>
+			<button type="submit" class="button">[*Speichern*]</button>
+		</form>
+		<ul class="info" style="margin-top:5px;">
+			<li class="info">
+				Um den Inhalt zu Zentrieren nutzt entweder den &quot;center&quot;-Tag: <pre>&lt;center&gt;HIER DER ZENTRIERTE HTML CODE&lt;/center&gt;</pre>
+				Oder diesen Code: <pre>&lt;div class=&quot;center&quot;&gt;HIER DER ZENTRIERTE HTML CODE&lt;/div&gt;</pre>
+			</li>
+			<li class="info">
+				Um einen Seperator zu machen (das Teil wo z.B. &quot;Chat anpassen&quot; steht) nutzt diesen Code: <pre>&lt;div class=&quot;SEP&quot;&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;h3&gt;HIER DIE &Uuml;BERSCHRIFT&lt;/h3&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</pre>
+			</li>
+		</ul>
+	</li>
+	{/if}
+</ul>
+
+<div class="SEP"><div><div></div><h3>[*Zugangsberechtigungen*]</h3><div></div></div></div>
+<ul>
+	<li class="user-chat-setting">
+		<strong>[*Infos zu den Zugangsberechtigungen*]</strong><br>
+		<ul>
+			<li>Wo ein Benutzer verlangt wird muss der Link zu seinem Profil eingetragen werden.</li>
+			<li>L&ouml;schen kann man einen Benutzer oder eine Gruppe indem man auf den Button mit dem jeweiligen Namen dr&uuml;ckt.</li>
+		</ul>
+	</li>
+	
+	{new ilphp_sub 'admins'}
+	<li class="user-chat-setting" id="Chat{$data.id}admins">
+		<strong>[*Admins*]</strong><br>
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="add_admin">
+			<input type="text" size="65" name="{#IMPOST 'link'}" title="[*Link zum Profil angeben*]">
+			<button type="submit" class="button">[*Hinzuf&uuml;gen*]</button>
+		</form>
+		{while $i = $admins->fetch_assoc()}
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;display:inline;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="remove_admin">
+			<input type="hidden" name="{#IMPOST 'user_id'}" value="{$i.id}">
+			<button type="submit" class="button" title="[*Admin l&ouml;schen*]">{~$i.nick}</button>
+		</form>
+		{/while}
+	</li>
+	{/new ilphp_sub}
+
+	{if $available_admin_groups->num_rows or $admin_groups->num_rows}
+	{new ilphp_sub 'admin_groups'}
+	<li class="user-chat-setting" id="Chat{$data.id}admin_groups">
+		<strong>[*Admin Gruppen*]</strong><br>
+		{if $available_admin_groups->num_rows}
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="add_admin_group">
+			<select name="{#IMPOST 'group_id'}" title="[*Admin Gruppe hinzuf&uuml;gen*]">
+				{while $i = $available_admin_groups->fetch_assoc()}
+				<option value="{$i.id}">{~$i.name}</option>
+				{/while}
+			</select>
+			<button type="submit" class="button">[*Hinzuf&uuml;gen*]</button>
+		</form>
+		{/if}
+		{while $i = $admin_groups->fetch_assoc()}
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;display:inline;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="remove_admin_group">
+			<input type="hidden" name="{#IMPOST 'group_id'}" value="{$i.id}">
+			<button type="submit" class="button" title="[*Gruppe l&ouml;schen*]">{~$i.name}</button>
+		</form>
+		{/while}
+	</li>
+	{/new ilphp_sub}
+	{/if}
+	
+	{new ilphp_sub 'users'}
+	<li class="user-chat-setting" id="Chat{$data.id}users">
+		<strong>[*Benutzer*]</strong><br>
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="add_user">
+			<input type="text" size="65" name="{#IMPOST 'link'}" title="[*Link zum Profil angeben*]">
+			<button type="submit" class="button">[*Hinzuf&uuml;gen*]</button><br>
+			<input type="checkbox" name="{#IMPOST 'send_pn'}" checked="checked" id="UserChat{$data.id}SendPN"><label for="UserChat{$data.id}SendPN"> [*Benutzer benachrichtigen*]</label>
+		</form>
+		{while $i = $users->fetch_assoc()}
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;display:inline;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="remove_user">
+			<input type="hidden" name="{#IMPOST 'user_id'}" value="{$i.id}">
+			<button type="submit" class="button" title="[*Benutzer l&ouml;schen*]">{~$i.nick}</button>
+		</form>
+		{/while}
+	</li>
+	{/new ilphp_sub}
+
+	{new ilphp_sub 'banned_users'}
+	<li class="user-chat-setting" id="Chat{$data.id}banned_users">
+		<strong>[*Gebannte Benutzer*]</strong><br>
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="add_banned_user">
+			<input type="text" size="65" name="{#IMPOST 'link'}" title="[*Link zum Profil angeben*]">
+			<button type="submit" class="button">[*Hinzuf&uuml;gen*]</button>
+		</form>
+		{while $i = $banned_users->fetch_assoc()}
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;display:inline;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="remove_banned_user">
+			<input type="hidden" name="{#IMPOST 'user_id'}" value="{$i.id}">
+			<button type="submit" class="button" title="[*Benutzer l&ouml;schen*]">{~$i.nick}</button>
+		</form>
+		{/while}
+	</li>
+	{/new ilphp_sub}
+
+	{if $available_groups->num_rows or $groups->num_rows}
+	{new ilphp_sub 'groups'}
+	<li class="user-chat-setting" id="Chat{$data.id}groups">
+		<strong>[*Gruppen*]</strong><br>
+		{if $available_groups->num_rows}
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="add_group">
+			<select name="{#IMPOST 'group_id'}" title="[*Gruppe hinzuf&uuml;gen*]">
+				{while $i = $available_groups->fetch_assoc()}
+				<option value="{$i.id}">{~$i.name}</option>
+				{/while}
+			</select>
+			<button type="submit" class="button">[*Hinzuf&uuml;gen*]</button>
+		</form>
+		{/if}
+		{while $i = $groups->fetch_assoc()}
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;display:inline;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="remove_group">
+			<input type="hidden" name="{#IMPOST 'group_id'}" value="{$i.id}">
+			<button type="submit" class="button" title="[*Gruppe l&ouml;schen*]">{~$i.name}</button>
+		</form>
+		{/while}
+	</li>
+	{/new ilphp_sub}
+	{/if}
+
+	{new ilphp_sub 'needed_points'}
+	<li class="user-chat-setting" id="Chat{$data.id}needed_points">
+		<strong>[*Ben&ouml;tigte Punkte*]</strong><br>
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~li');" style="text-align:left;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="needed_points">
+			Von <input type="text" name="{#IMPOST 'points_from'}" size="10" value="{$data.points_from}" style="text-align:right;">
+			bis <input type="text" name="{#IMPOST 'points_to'}" size="10" value="{$data.points_to}" style="text-align:right;">
+			<button type="submit" class="button">[*&Auml;ndern*]</button><br>
+			<p class="info">Wenn man hier zum Beispiel nur &quot;von&quot; angibt heisst das das es bis oben keine Grenze gibt. Gibt man bei beiden Feldern nichts ein wird diese Funktion deaktiviert.</p>
+		</form>
+	</li>
+	{/new ilphp_sub}
+</ul>
+{/if}
+
+{if !$data.is_admin and (!$data.allow_html or !$data.content_html) and (!$data.allow_ubb or !$data.content_ubb)}
+<div class="SEP"><div><div></div><h3>[*Chat*]</h3><div></div></div></div>
+{/if}
+{/if}
+
+{if ($data.allow_html and $data.content_html) or ($data.allow_ubb and $data.content_ubb)}
+<div class="SEP{if not $data.is_admin} first{/if}"><div><div></div><h3>[*Infos*]</h3><div></div></div></div>
+<div id="ModuleChat{$data.id}Stats">
+	{include 'chat.php.head_data.stats.ilp'}
+</div>
+{/if}
+{if $data.allow_ubb and $data.content_ubb}<p>{ubbcode::add_smileys(ubbcode::compile($data.content_ubb, 622))}</p>{/if}
+{if $data.allow_html and $data.content_html}<p>{$data.content_html}</p>{/if}
+{if $data.is_admin or ($data.allow_html and $data.content_html) or ($data.allow_ubb and $data.content_ubb)}
+<div class="SEP" style="margin-top:5px;"><div><div></div><h3>[*Chat*]</h3><div></div></div></div>
+{/if}
+{if (!$data.allow_ubb or !$data.content_ubb) and (!$data.allow_html or !$data.content_html)}
+<div id="ModuleChat{$data.id}Stats">
+	{include 'chat.php.head_data.stats.ilp'}
+</div>
+{/if}

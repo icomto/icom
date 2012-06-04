@@ -1,0 +1,40 @@
+<div class="module-item">
+	<h1><a href="/{LANG}/admin/groups/">[*Gruppenmanager*]</a></h1>
+	<div class="module-content" style="text-align:center;padding-bottom:5px;">
+		<form method="post" onsubmit="return iC(this, '~.module-item');">
+			<input type="hidden" name="{#IMPOST 'action'}" value="new">
+			<table>
+				<tr style="border:1px #aaa solid;" class="row"><th>[*Name DE*]</th><td><input type="text" name="{#IMPOST 'name_de'}"></td></tr>
+				<tr style="border:1px #aaa solid;" class="row"><th>[*Name EN*]</th><td><input type="text" name="{#IMPOST 'name_en'}"></td></tr>
+			</table>
+			<button type="submit" class="button">[*Neue Gruppe erstellen*]</button>
+		</form>
+		<table width="100%">
+			<tr>
+				{while $i = $groups->fetch_assoc() |i}
+				{if $while_i % 2 == 1}</tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr>{/if}
+				<td align="center">
+					{ILPHP_CLASS->row($i)}
+					{define ilphp_sub 'row'}
+					<form method="post" onsubmit="return iC(this);">
+						<input type="hidden" name="{#IMPOST 'action'}" value="save">
+						<table>
+							<tr style="border:1px #aaa solid;" class="row"><th>[*ID*]</th><td align="right"><input type="hidden" name="{#IMPOST 'id'}" value="{$i.id}"><a href="/{LANG}/community/users/groups/{$i.id}/">{~$i.id}</a></td></tr>
+							<tr style="border:1px #aaa solid;" class="row"><th style="cursor:pointer;" onclick="$(this).parent().parent().children('.v').toggle();">[*Name DE*]</th><td><input type="text" name="{#IMPOST 'name_de'}" value="{~$i.name_de}"></td></tr>
+							<tr style="border:1px #aaa solid;" class="row"><th style="cursor:pointer;" onclick="$(this).parent().parent().children('.v').toggle();">[*Name EN*]</th><td><input type="text" name="{#IMPOST 'name_en'}" value="{~$i.name_en}"></td></tr>
+							<tr style="border:1px #aaa solid;{if $display != $i.id}display:none;{/if}" class="row v"><th>[*Public*]</th><td align="right"><input type="checkbox" name="{#IMPOST 'public'}"{if $i.public} checked="checked"{/if}></td></tr>
+							{foreach $DEFAULT_PRIVILEGES as $k=>$v}
+							<tr style="border:1px #aaa solid;{if $display != $i.id}display:none;{/if}" class="row v"><th>{~$k}</th><td align="right"><input type="checkbox" name="{#IMPOST 'priv', $k}"{if $i[$k]} checked="checked"{/if}></td></tr>
+							{/foreach}
+							<tr style="border:1px #aaa solid;{if $display != $i.id}display:none;{/if}" class="row v"><th>[*Speichern*]</th><td align="right"><input type="submit" class="button" value="[*Speichern*]"></td></tr>
+							<tr style="border:1px #aaa solid;{if $display != $i.id}display:none;{/if}" class="row v"><th>[*L&ouml;schen*]</th><td align="right"><input type="button" class="button" value="[*L&ouml;schen*]" onclick="if(confirm('Sicher?'))iC(this.form, '{#IMPOST 'action'}=delete&{#IMPOST 'delete'}={$i.id}');"></td></tr>
+						</table>
+					</form>
+					{/define ilphp_sub}
+				</td>
+				{/while}
+			</tr>
+		</table>
+	</div>
+	<div class="module-footer"></div>
+</div>

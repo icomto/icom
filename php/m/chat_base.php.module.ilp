@@ -1,0 +1,43 @@
+<div class="module-item" id="Module{$html_id}">
+	<h1>{ILPHP_CLASS->im_way_html()}</h1>
+	<div class="module-content module-chat">
+		{if $module_head_data}<div id="Module{$html_id}HeadData">{$module_head_data}</div>{/if}
+		{if $page == 1 and $type != '_archive'}
+		{if $allow_post}
+		<span class="error" id="ModuleChat{$html_id}Error">{$error}</span>
+		<form class="{#THIS->imodule_name}_form" method="post" action="{~$url}" onsubmit="return chat_base_submit(this, '{~str_replace("'", "\\'", $default_text)}', '[*Du musst eine Nachricht eingeben!*]', 'Shouting...');">
+			<input type="hidden" name="{#IMPOST 'action'}" value="new">
+			{if $chat_input_box == 'textarea'}<textarea class="bbcodeedit" name="{#IMPOST 'message'}" onfocus="if(this.value=='{~$default_text}')this.value='';" onblur="if(this.value=='')this.value='{~$default_text}';">{~$default_text}</textarea>
+			{else}<input type="text" name="{#IMPOST 'message'}" autocomplete="off" onfocus="if(this.value=='{~$default_text}')this.value='';" onblur="if(this.value=='')this.value='{~$default_text}';" style="width:89%;margin-bottom:3px;">
+			{/if}
+			<button type="submit" class="button"{if $chat_input_box == 'input'} style="width:10%;margin-bottom:3px;float:right;"{/if}>[*Shout!*]</button>
+		</form>
+		{else}
+		{if $reason}
+		<p class="error">{$reason}</p>
+		{/if}
+		{/if}
+		{/if}
+		{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html(NULL, $url.'page/%s/'.($type == '_archive' ? 'archive/' : ''))}</div>
+		{else}<div style="height:5px;"></div>
+		{/if}
+		<div id="Module{$html_id}Top"></div>
+		{set $last_id = 0}
+		{if $shouts}
+		{while $i = $shouts->fetch_assoc()}
+		{include 'chat_base.php.row.ilp'}
+		{if $last_id < $i.id}{set $last_id = $i.id}{/if}
+		{/while}
+		{/if}
+		<div class="thin-line"></div>
+		{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html(NULL, $url.'page/%s/'.($type == '_archive' ? 'archive/' : ''))}</div>{/if}
+		{if $has_archive}
+		<div class="chat-archive">
+			{if $type == "_archive"}<a href="{~$url}page/1/">[*Aktuelle {~$title}*]</a>
+			{else}<a href="{~$url}page/1/archive/">[*{~$title} Archiv*]</a>
+			{/if}
+		</div>
+		{/if}
+	</div>
+	<div class="module-footer"></div>
+</div>

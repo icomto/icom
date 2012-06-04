@@ -1,0 +1,1018 @@
+.main-menu {
+	margin:0 0 5px 0;
+	position:fixed;
+	z-index:3000;
+	position:center;
+
+}
+.settings-theme .main-menu {
+    position:relative;
+	width:100%;
+}
+
+.T-base-black .main-menu a:hover,
+.T-base-black .main-menu a:active {
+	color:#ddd;
+}
+
+.T-mm-style-apple .main-menu-top {
+	background:transparent url(mm/style/apple/top.png) top left repeat-x;/*WIDTH-1*/
+}
+.T-mm-style-reloaded-white .main-menu-top {
+	background:#b3b3b3 url(mm/style/reloaded-white/top.png) top left repeat-x;/*WIDTH-1*/
+}
+.T-mm-style-reloaded-black .main-menu-top {
+	background:#2d2d2d url(mm/style/reloaded-black/top.png) top left repeat-x;/*WIDTH-1*/
+}
+.T-mm-style-natural-spirit .main-menu-top {
+	background:transparent url(mm/style/natural-spirit/top.png) top left repeat-x;
+}
+.T-mm-style-reloaded-pink .main-menu-top {
+	background:transparent url(mm/style/reloaded-pink/top.png) top left repeat-x;/*WIDTH-1*/
+}
+.T-mm-style-reloaded-blue .main-menu-top {
+	background:transparent url(mm/style/reloaded-blue/top.png) top left repeat-x;/*WIDTH-1*/
+}
+.T-mm-style-silverlight .main-menu-top {
+	background:transparent url(mm/style/silverlight/top.png) top left repeat-x;/*WIDTH-1*/
+}
+.T-mm-style-hello-kitty .main-menu-top {
+	background:transparent url(mm/style/hello-kitty/top.png) top left repeat-x;/*WIDTH-1*/
+}
+.T-mm-style-one .main-menu-top {
+	background:#2d2d2d url(mm/style/one/top.png) top left repeat-x;/*WIDTH-1*/
+}
+.T-mm-style-red-light-destrict .main-menu-top {
+	background:transparent url(mm/style/red-light-destrict/top.png) top left repeat-x;/*WIDTH-1*/
+}
+.T-mm-style-silversurfer .main-menu-top {
+	background:#2d2d2d url(mm/style/silversurfer/top.png) top left repeat-x;/*WIDTH-1*/
+}
+
+
+
+
+.main-menu-logo {
+	display:block;
+	float:left;
+	/*margin:3px 0 0 5px;*/
+	width:160px;
+	height:44px;
+	padding:0;
+	margin:0;
+	/*background:transparent url('/themes/a/_temp.png') center left no-repeat;*/
+}
+
+.T-mm-logo-reloaded-white .main-menu-logo {
+	background:transparent url(mm/logos/reloaded-white/logo.png) top left no-repeat !important;
+}
+.T-mm-logo-reloaded-white .main-menu-logo:hover,
+.T-mm-logo-reloaded-white .main-menu-logo:active {
+	background:transparent url(mm/logos/reloaded-white/logo-hover.png) top left no-repeat !important;
+}
+.T-mm-logo-reloaded-black .main-menu-logo {
+	background:transparent url(mm/logos/reloaded-black/logo.png) top left no-repeat !important;
+}
+.T-mm-logo-reloaded-black .main-menu-logo:hover,
+.T-mm-logo-reloaded-black .main-menu-logo:active {
+	background:transparent url(mm/logos/reloaded-black/logo-hover.png) top left no-repeat !important;
+}
+.T-mm-logo-natural-spirit .main-menu-logo {
+	background:transparent url(mm/logos/natural-spirit/logo.png) top left no-repeat !important;
+}
+.T-mm-logo-natural-spirit .main-menu-logo:hover,
+.T-mm-logo-natural-spirit .main-menu-logo:active {
+	background:transparent url(mm/logos/natural-spirit/logo-hover.png) top left no-repeat !important;
+}
+.T-mm-logo-flowers .main-menu-logo {
+	background:transparent url(mm/logos/flowers/logo.png) top left no-repeat !important;
+}
+.T-mm-logo-flowers .main-menu-logo:hover,
+.T-mm-logo-flowers .main-menu-logo:active {
+	background:transparent url(mm/logos/flowers/logo-hover.png) top left no-repeat !important;
+}
+.T-mm-logo-silverlight .main-menu-logo {
+	background:transparent url(mm/logos/silverlight/logo.png) top left no-repeat !important;
+}
+.T-mm-logo-silverlight .main-menu-logo:hover,
+.T-mm-logo-silverlight .main-menu-logo:active {
+	background:transparent url(mm/logos/silverlight/logo-hover.png) top left no-repeat !important;
+}
+.T-mm-logo-hello-kitty .main-menu-logo {
+	background:transparent url(mm/logos/hello-kitty/logo.png) top left no-repeat !important;
+}
+.T-mm-logo-hello-kitty .main-menu-logo:hover,
+.T-mm-logo-hello-kitty .main-menu-logo:active {
+	background:transparent url(mm/logos/hello-kitty/logo-hover.png) top left no-repeat !important;
+}
+.T-mm-logo-one .main-menu-logo {
+	background:transparent url(mm/logos/one/logo.png) top left no-repeat !important;
+}
+.T-mm-logo-one .main-menu-logo:hover,
+.T-mm-logo-one .main-menu-logo:active {
+	background:transparent url(mm/logos/one/logo-hover.png) top left no-repeat !important;
+}
+.T-mm-logo-silversurfer .main-menu-logo {
+	background:transparent url(mm/logos/silversurfer/logo.png) top left no-repeat !important;
+}
+.T-mm-logo-silversurfer .main-menu-logo:hover {
+	background:transparent url(mm/logos/silversurfer/logo-hover.png) top left no-repeat !important;
+}
+.T-mm-logo-silversurfer .main-menu-logo:active {
+	background:transparent url(mm/logos/silversurfer/logo-active.png) top left no-repeat !important;
+}
+.T-mm-logo-flag .main-menu-logo {
+	background:transparent url(mm/logos/flag/logo.png) top left no-repeat !important;
+}
+.T-mm-logo-flag .main-menu-logo:hover,
+.T-mm-logo-flag .main-menu-logo:active {
+	background:transparent url(mm/logos/flag/logo-hover.png) top left no-repeat !important;
+}
+.T-mm-logo-flag-bw .main-menu-logo {
+	background:transparent url(mm/logos/flag-bw/logo.png) top left no-repeat !important;
+}
+.T-mm-logo-flag-bw .main-menu-logo:hover,
+.T-mm-logo-flag-bw .main-menu-logo:active {
+	background:transparent url(mm/logos/flag-bw/logo-hover.png) top left no-repeat !important;
+}
+
+
+
+
+.main-menu-controls {
+	float:right;
+	margin-top:1px;
+	margin-right:5px;
+}
+.main-menu-controls a {
+	display:block;
+	float:left;
+	text-align:center;
+}
+.user-logged-in .main-menu-controls a {
+	margin:0 18px 0 18px;
+}
+.user-logged-out .main-menu-controls a {
+	margin:0 32px 0 32px;
+}
+.main-menu-controls img {
+	display:block;
+	margin:0 auto;
+	width:40px;
+	height:28px;
+	margin-top:-3px;
+}
+
+.main-menu-language {
+	float:right;
+	margin:2px 5px 0 0;
+}
+.language img {
+	width:16px;
+	height:11px;
+}
+.language .de {
+	background:transparent url(/img/countryflags/de.gif) top left no-repeat;/*WIDTH-18*/
+}
+.language .en {
+	background:transparent url(/img/countryflags/en.gif) top left no-repeat;/*WIDTH-18*/
+}
+
+.T-mm-style-red-light-destrict .main-menu-language {
+	margin-top:7px;
+}
+
+
+
+.T-mm-icons-apple .main-menu-controls .profile img {
+	background:transparent url(mm/icons/apple/profile.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-apple .main-menu-controls .profile:hover img {
+	background:transparent url(mm/icons/apple/profile-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-apple .main-menu-controls .pns img {
+	background:transparent url(mm/icons/apple/pns.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-apple .main-menu-controls .pns:hover img,
+.T-mm-icons-apple .main-menu-controls .pns.blink img {
+	background:transparent url(mm/icons/apple/pns-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-apple .main-menu-controls .bookmarks img {
+	background:transparent url(mm/icons/apple/bookmarks.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-apple .main-menu-controls .bookmarks:hover img {
+	background:transparent url(mm/icons/apple/bookmarks-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-apple .main-menu-controls .logout img {
+	background:transparent url(mm/icons/apple/logout.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-apple .main-menu-controls .logout:hover img {
+	background:transparent url(mm/icons/apple/logout-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-apple .main-menu-controls .reload img {
+	background:transparent url(mm/icons/apple/reload.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-apple .main-menu-controls .reload:hover img {
+	background:transparent url(mm/icons/apple/reload-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-apple .main-menu-controls .login img {
+	background:transparent url(mm/icons/apple/login.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-apple .main-menu-controls .login:hover img {
+	background:transparent url(mm/icons/apple/login-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-apple .main-menu-controls .register img {
+	background:transparent url(mm/icons/apple/register.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-apple .main-menu-controls .register:hover img {
+	background:transparent url(mm/icons/apple/register-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-apple .main-menu-controls .settings img {
+	background:transparent url(mm/icons/apple/settings.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-apple .main-menu-controls .settings:hover img {
+	background:transparent url(mm/icons/apple/settings-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+
+/*.T-mm-icons-reloaded-white .main-menu-controls a {
+	margin-top:-1px;
+}*/
+.T-mm-icons-reloaded-white .main-menu-controls .profile img {
+	background:transparent url(mm/icons/reloaded-white/profile.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-white .main-menu-controls .profile:hover img {
+	background:transparent url(mm/icons/reloaded-white/profile-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-white .main-menu-controls .pns img {
+	background:transparent url(mm/icons/reloaded-white/pns.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-white .main-menu-controls .pns:hover img {
+	background:transparent url(mm/icons/reloaded-white/pns-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-white .main-menu-controls .pns.blink img {
+	background:transparent url(mm/icons/reloaded-white/pns-blink.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-white .main-menu-controls .bookmarks img {
+	background:transparent url(mm/icons/reloaded-white/bookmarks.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-white .main-menu-controls .bookmarks:hover img {
+	background:transparent url(mm/icons/reloaded-white/bookmarks-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-white .main-menu-controls .logout img {
+	background:transparent url(mm/icons/reloaded-white/logout.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-white .main-menu-controls .logout:hover img {
+	background:transparent url(mm/icons/reloaded-white/logout-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-white .main-menu-controls .reload img {
+	background:transparent url(mm/icons/reloaded-white/reload.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-white .main-menu-controls .reload:hover img {
+	background:transparent url(mm/icons/reloaded-white/reload-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-white .main-menu-controls .login img {
+	background:transparent url(mm/icons/reloaded-white/login.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-white .main-menu-controls .login:hover img {
+	background:transparent url(mm/icons/reloaded-white/login-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-white .main-menu-controls .register img {
+	background:transparent url(mm/icons/reloaded-white/register.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-white .main-menu-controls .register:hover img {
+	background:transparent url(mm/icons/reloaded-white/register-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-white .main-menu-controls .settings img {
+	background:transparent url(mm/icons/reloaded-white/settings.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-white .main-menu-controls .settings:hover img {
+	background:transparent url(mm/icons/reloaded-white/settings-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+
+/*.T-mm-icons-reloaded-black .main-menu-controls a {
+	margin-top:-1px;
+}*/
+.T-mm-icons-reloaded-black .main-menu-controls .profile img {
+	background:transparent url(mm/icons/reloaded-black/profile.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-black .main-menu-controls .profile:hover img {
+	background:transparent url(mm/icons/reloaded-black/profile-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-black .main-menu-controls .pns img {
+	background:transparent url(mm/icons/reloaded-black/pns.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-black .main-menu-controls .pns:hover img {
+	background:transparent url(mm/icons/reloaded-black/pns-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-black .main-menu-controls .pns.blink img {
+	background:transparent url(mm/icons/reloaded-black/pns-blink.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-black .main-menu-controls .bookmarks img {
+	background:transparent url(mm/icons/reloaded-black/bookmarks.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-black .main-menu-controls .bookmarks:hover img {
+	background:transparent url(mm/icons/reloaded-black/bookmarks-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-black .main-menu-controls .logout img {
+	background:transparent url(mm/icons/reloaded-black/logout.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-black .main-menu-controls .logout:hover img {
+	background:transparent url(mm/icons/reloaded-black/logout-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-black .main-menu-controls .reload img {
+	background:transparent url(mm/icons/reloaded-black/reload.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-black .main-menu-controls .reload:hover img {
+	background:transparent url(mm/icons/reloaded-black/reload-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-black .main-menu-controls .login img {
+	background:transparent url(mm/icons/reloaded-black/login.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-black .main-menu-controls .login:hover img {
+	background:transparent url(mm/icons/reloaded-black/login-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-black .main-menu-controls .register img {
+	background:transparent url(mm/icons/reloaded-black/register.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-black .main-menu-controls .register:hover img {
+	background:transparent url(mm/icons/reloaded-black/register-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-black .main-menu-controls .settings img {
+	background:transparent url(mm/icons/reloaded-black/settings.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-reloaded-black .main-menu-controls .settings:hover img {
+	background:transparent url(mm/icons/reloaded-black/settings-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+
+.T-mm-icons-round-white .main-menu-controls .profile img {
+	background:transparent url(mm/icons/round-white/profile.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-white .main-menu-controls .profile:hover img {
+	background:transparent url(mm/icons/round-white/profile-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-white .main-menu-controls .pns img {
+	background:transparent url(mm/icons/round-white/pns.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-white .main-menu-controls .pns:hover img {
+	background:transparent url(mm/icons/round-white/pns-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-white .main-menu-controls .pns.blink img {
+	background:transparent url(mm/icons/round-white/pns-blink.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-white .main-menu-controls .bookmarks img {
+	background:transparent url(mm/icons/round-white/bookmarks.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-white .main-menu-controls .bookmarks:hover img {
+	background:transparent url(mm/icons/round-white/bookmarks-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-white .main-menu-controls .logout img {
+	background:transparent url(mm/icons/round-white/logout.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-white .main-menu-controls .logout:hover img {
+	background:transparent url(mm/icons/round-white/logout-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-white .main-menu-controls .reload img {
+	background:transparent url(mm/icons/round-white/reload.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-white .main-menu-controls .reload:hover img {
+	background:transparent url(mm/icons/round-white/reload-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-white .main-menu-controls .login img {
+	background:transparent url(mm/icons/round-white/login.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-white .main-menu-controls .login:hover img {
+	background:transparent url(mm/icons/round-white/login-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-white .main-menu-controls .register img {
+	background:transparent url(mm/icons/round-white/register.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-white .main-menu-controls .register:hover img {
+	background:transparent url(mm/icons/round-white/register-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-white .main-menu-controls .settings img {
+	background:transparent url(mm/icons/round-white/settings.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-white .main-menu-controls .settings:hover img {
+	background:transparent url(mm/icons/round-white/settings-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+
+.T-mm-icons-round-black .main-menu-controls .profile img {
+	background:transparent url(mm/icons/round-black/profile.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-black .main-menu-controls .profile:hover img {
+	background:transparent url(mm/icons/round-black/profile-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-black .main-menu-controls .pns img {
+	background:transparent url(mm/icons/round-black/pns.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-black .main-menu-controls .pns:hover img {
+	background:transparent url(mm/icons/round-black/pns-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-black .main-menu-controls .pns.blink img {
+	background:transparent url(mm/icons/round-black/pns-blink.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-black .main-menu-controls .bookmarks img {
+	background:transparent url(mm/icons/round-black/bookmarks.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-black .main-menu-controls .bookmarks:hover img {
+	background:transparent url(mm/icons/round-black/bookmarks-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-black .main-menu-controls .logout img {
+	background:transparent url(mm/icons/round-black/logout.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-black .main-menu-controls .logout:hover img {
+	background:transparent url(mm/icons/round-black/logout-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-black .main-menu-controls .reload img {
+	background:transparent url(mm/icons/round-black/reload.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-black .main-menu-controls .reload:hover img {
+	background:transparent url(mm/icons/round-black/reload-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-black .main-menu-controls .login img {
+	background:transparent url(mm/icons/round-black/login.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-black .main-menu-controls .login:hover img {
+	background:transparent url(mm/icons/round-black/login-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-black .main-menu-controls .register img {
+	background:transparent url(mm/icons/round-black/register.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-black .main-menu-controls .register:hover img {
+	background:transparent url(mm/icons/round-black/register-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-black .main-menu-controls .settings img {
+	background:transparent url(mm/icons/round-black/settings.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-black .main-menu-controls .settings:hover img {
+	background:transparent url(mm/icons/round-black/settings-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+
+.T-mm-icons-round-silver .main-menu-controls .profile img {
+	background:transparent url(mm/icons/round-silver/profile.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-silver .main-menu-controls .profile:hover img {
+	background:transparent url(mm/icons/round-silver/profile-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-silver .main-menu-controls .pns img {
+	background:transparent url(mm/icons/round-silver/pns.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-silver .main-menu-controls .pns:hover img {
+	background:transparent url(mm/icons/round-silver/pns-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-silver .main-menu-controls .pns.blink img {
+	background:transparent url(mm/icons/round-silver/pns-blink.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-silver .main-menu-controls .bookmarks img {
+	background:transparent url(mm/icons/round-silver/bookmarks.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-silver .main-menu-controls .bookmarks:hover img {
+	background:transparent url(mm/icons/round-silver/bookmarks-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-silver .main-menu-controls .logout img {
+	background:transparent url(mm/icons/round-silver/logout.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-silver .main-menu-controls .logout:hover img {
+	background:transparent url(mm/icons/round-silver/logout-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-silver .main-menu-controls .reload img {
+	background:transparent url(mm/icons/round-silver/reload.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-silver .main-menu-controls .reload:hover img {
+	background:transparent url(mm/icons/round-silver/reload-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-silver .main-menu-controls .login img {
+	background:transparent url(mm/icons/round-silver/login.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-silver .main-menu-controls .login:hover img {
+	background:transparent url(mm/icons/round-silver/login-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-silver .main-menu-controls .register img {
+	background:transparent url(mm/icons/round-silver/register.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-silver .main-menu-controls .register:hover img {
+	background:transparent url(mm/icons/round-silver/register-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-silver .main-menu-controls .settings img {
+	background:transparent url(mm/icons/round-silver/settings.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-round-silver .main-menu-controls .settings:hover img {
+	background:transparent url(mm/icons/round-silver/settings-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+
+.T-mm-icons-natural-white .main-menu-controls img {
+	margin-top:-3px;
+}
+.T-mm-icons-natural-white .main-menu-controls .profile img {
+	background:transparent url(mm/icons/natural-white/profile.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-white .main-menu-controls .profile:hover img {
+	background:transparent url(mm/icons/natural-white/profile-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-white .main-menu-controls .pns img {
+	background:transparent url(mm/icons/natural-white/pns.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-white .main-menu-controls .pns:hover img {
+	background:transparent url(mm/icons/natural-white/pns-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-white .main-menu-controls .pns.blink img {
+	background:transparent url(mm/icons/natural-white/pns-blink.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-white .main-menu-controls .bookmarks img {
+	background:transparent url(mm/icons/natural-white/bookmarks.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-white .main-menu-controls .bookmarks:hover img {
+	background:transparent url(mm/icons/natural-white/bookmarks-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-white .main-menu-controls .logout img {
+	background:transparent url(mm/icons/natural-white/logout.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-white .main-menu-controls .logout:hover img {
+	background:transparent url(mm/icons/natural-white/logout-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-white .main-menu-controls .reload img {
+	background:transparent url(mm/icons/natural-white/reload.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-white .main-menu-controls .reload:hover img {
+	background:transparent url(mm/icons/natural-white/reload-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-white .main-menu-controls .login img {
+	background:transparent url(mm/icons/natural-white/login.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-white .main-menu-controls .login:hover img {
+	background:transparent url(mm/icons/natural-white/login-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-white .main-menu-controls .register img {
+	background:transparent url(mm/icons/natural-white/register.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-white .main-menu-controls .register:hover img {
+	background:transparent url(mm/icons/natural-white/register-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-white .main-menu-controls .settings img {
+	background:transparent url(mm/icons/natural-white/settings.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-white .main-menu-controls .settings:hover img {
+	background:transparent url(mm/icons/natural-white/settings-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+
+/*.T-mm-icons-natural-black .main-menu-controls a {
+	margin-top:-2px;
+}*/
+.T-mm-icons-natural-black .main-menu-controls .profile img {
+	background:transparent url(mm/icons/natural-black/profile.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-black .main-menu-controls .profile:hover img {
+	background:transparent url(mm/icons/natural-black/profile-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-black .main-menu-controls .pns img {
+	background:transparent url(mm/icons/natural-black/pns.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-black .main-menu-controls .pns:hover img {
+	background:transparent url(mm/icons/natural-black/pns-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-black .main-menu-controls .pns.blink img {
+	background:transparent url(mm/icons/natural-black/pns-blink.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-black .main-menu-controls .bookmarks img {
+	background:transparent url(mm/icons/natural-black/bookmarks.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-black .main-menu-controls .bookmarks:hover img {
+	background:transparent url(mm/icons/natural-black/bookmarks-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-black .main-menu-controls .logout img {
+	background:transparent url(mm/icons/natural-black/logout.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-black .main-menu-controls .logout:hover img {
+	background:transparent url(mm/icons/natural-black/logout-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-black .main-menu-controls .reload img {
+	background:transparent url(mm/icons/natural-black/reload.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-black .main-menu-controls .reload:hover img {
+	background:transparent url(mm/icons/natural-black/reload-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-black .main-menu-controls .login img {
+	background:transparent url(mm/icons/natural-black/login.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-black .main-menu-controls .login:hover img {
+	background:transparent url(mm/icons/natural-black/login-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-black .main-menu-controls .register img {
+	background:transparent url(mm/icons/natural-black/register.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-black .main-menu-controls .register:hover img {
+	background:transparent url(mm/icons/natural-black/register-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-black .main-menu-controls .settings img {
+	background:transparent url(mm/icons/natural-black/settings.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-natural-black .main-menu-controls .settings:hover img {
+	background:transparent url(mm/icons/natural-black/settings-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+
+/*.T-mm-icons-colorful .main-menu-controls a {
+	margin-top:-2px;
+}*/
+.T-mm-icons-colorful .main-menu-controls .profile img {
+	background:transparent url(mm/icons/colorful/profile.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-colorful .main-menu-controls .profile:hover img {
+	background:transparent url(mm/icons/colorful/profile-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-colorful .main-menu-controls .pns img {
+	background:transparent url(mm/icons/colorful/pns.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-colorful .main-menu-controls .pns:hover img {
+	background:transparent url(mm/icons/colorful/pns-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-colorful .main-menu-controls .pns.blink img {
+	background:transparent url(mm/icons/colorful/pns-blink.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-colorful .main-menu-controls .bookmarks img {
+	background:transparent url(mm/icons/colorful/bookmarks.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-colorful .main-menu-controls .bookmarks:hover img {
+	background:transparent url(mm/icons/colorful/bookmarks-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-colorful .main-menu-controls .logout img {
+	background:transparent url(mm/icons/colorful/logout.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-colorful .main-menu-controls .logout:hover img {
+	background:transparent url(mm/icons/colorful/logout-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-colorful .main-menu-controls .reload img {
+	background:transparent url(mm/icons/colorful/reload.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-colorful .main-menu-controls .reload:hover img {
+	background:transparent url(mm/icons/colorful/reload-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-colorful .main-menu-controls .login img {
+	background:transparent url(mm/icons/colorful/login.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-colorful .main-menu-controls .login:hover img {
+	background:transparent url(mm/icons/colorful/login-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-colorful .main-menu-controls .register img {
+	background:transparent url(mm/icons/colorful/register.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-colorful .main-menu-controls .register:hover img {
+	background:transparent url(mm/icons/colorful/register-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-colorful .main-menu-controls .settings img {
+	background:transparent url(mm/icons/colorful/settings.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-colorful .main-menu-controls .settings:hover img {
+	background:transparent url(mm/icons/colorful/settings-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+
+.T-mm-icons-one .main-menu-controls .profile img {
+	background:transparent url(mm/icons/one/profile.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-one .main-menu-controls .profile:hover img {
+	background:transparent url(mm/icons/one/profile-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-one .main-menu-controls .pns img {
+	background:transparent url(mm/icons/one/pns.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-one .main-menu-controls .pns:hover img {
+	background:transparent url(mm/icons/one/pns-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-one .main-menu-controls .pns.blink img {
+	background:transparent url(mm/icons/one/pns-blink.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-one .main-menu-controls .bookmarks img {
+	background:transparent url(mm/icons/one/bookmarks.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-one .main-menu-controls .bookmarks:hover img {
+	background:transparent url(mm/icons/one/bookmarks-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-one .main-menu-controls .logout img {
+	background:transparent url(mm/icons/one/logout.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-one .main-menu-controls .logout:hover img {
+	background:transparent url(mm/icons/one/logout-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-one .main-menu-controls .reload img {
+	background:transparent url(mm/icons/one/reload.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-one .main-menu-controls .reload:hover img {
+	background:transparent url(mm/icons/one/reload-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-one .main-menu-controls .login img {
+	background:transparent url(mm/icons/one/login.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-one .main-menu-controls .login:hover img {
+	background:transparent url(mm/icons/one/login-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-one .main-menu-controls .register img {
+	background:transparent url(mm/icons/one/register.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-one .main-menu-controls .register:hover img {
+	background:transparent url(mm/icons/one/register-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-one .main-menu-controls .settings img {
+	background:transparent url(mm/icons/one/settings.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-one .main-menu-controls .settings:hover img {
+	background:transparent url(mm/icons/one/settings-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+
+.T-mm-icons-serious .main-menu-controls .profile img {
+	background:transparent url(mm/icons/serious/profile.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-serious .main-menu-controls .profile:hover img {
+	background:transparent url(mm/icons/serious/profile-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-serious .main-menu-controls .pns img {
+	background:transparent url(mm/icons/serious/pns.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-serious .main-menu-controls .pns:hover img {
+	background:transparent url(mm/icons/serious/pns-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-serious .main-menu-controls .pns.blink img {
+	background:transparent url(mm/icons/serious/pns-blink.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-serious .main-menu-controls .bookmarks img {
+	background:transparent url(mm/icons/serious/bookmarks.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-serious .main-menu-controls .bookmarks:hover img {
+	background:transparent url(mm/icons/serious/bookmarks-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-serious .main-menu-controls .logout img {
+	background:transparent url(mm/icons/serious/logout.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-serious .main-menu-controls .logout:hover img {
+	background:transparent url(mm/icons/serious/logout-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-serious .main-menu-controls .reload img {
+	background:transparent url(mm/icons/serious/reload.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-serious .main-menu-controls .reload:hover img {
+	background:transparent url(mm/icons/serious/reload-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-serious .main-menu-controls .login img {
+	background:transparent url(mm/icons/serious/login.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-serious .main-menu-controls .login:hover img {
+	background:transparent url(mm/icons/serious/login-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-serious .main-menu-controls .register img {
+	background:transparent url(mm/icons/serious/register.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-serious .main-menu-controls .register:hover img {
+	background:transparent url(mm/icons/serious/register-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-serious .main-menu-controls .settings img {
+	background:transparent url(mm/icons/serious/settings.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-serious .main-menu-controls .settings:hover img {
+	background:transparent url(mm/icons/serious/settings-hover.png) top left no-repeat;/*WIDTH-40*/
+}
+
+.T-mm-icons-elementary .main-menu-controls .profile img {
+	background:transparent url(mm/icons/elementary/profile.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-elementary .main-menu-controls .pns img {
+	background:transparent url(mm/icons/elementary/pns.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-elementary .main-menu-controls .pns.blink img {
+	background:transparent url(mm/icons/elementary/pns-blink.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-elementary .main-menu-controls .bookmarks img {
+	background:transparent url(mm/icons/elementary/bookmarks.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-elementary .main-menu-controls .logout img {
+	background:transparent url(mm/icons/elementary/logout.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-elementary .main-menu-controls .reload img {
+	background:transparent url(mm/icons/elementary/reload.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-elementary .main-menu-controls .login img {
+	background:transparent url(mm/icons/elementary/login.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-elementary .main-menu-controls .register img {
+	background:transparent url(mm/icons/elementary/register.png) top left no-repeat;/*WIDTH-40*/
+}
+.T-mm-icons-elementary .main-menu-controls .settings img {
+	background:transparent url(mm/icons/elementary/settings.png) top left no-repeat;/*WIDTH-40*/
+}
+
+
+
+.main-menu-search {
+}
+
+.main-menu-search-category button {
+	border:0;
+	background:none;
+	font-weight:bold;
+}
+.main-menu-search-category button.selected {
+	color:#229922;
+}
+
+.T-base-white .main-menu-search-form .search-text {
+	color:#777;
+}
+.T-base-white .main-menu-search-form .search-text:hover,
+.T-base-white .main-menu-search-form .search-text:focus {
+	color:black;
+	background:#f3f3f3;
+}
+
+.T-base-black .main-menu-search-form .search-text {
+	border:1px solid #555;
+}
+.T-base-black .main-menu-search-form .search-text:hover,
+.T-base-black .main-menu-search-form .search-text:focus {
+	color:#e3e3e3;
+	background:#0c0c0c;
+}
+
+.main-menu-search-form .search-text {
+    margin-top:4px !important;
+	width:300px;
+	height:18px;
+	font-size:14px;
+}
+
+.main-menu-search-form .button {
+	height:20px;
+	margin-top:-4px;
+}
+
+
+
+
+
+
+
+.main-menu-places {
+	clear:both;
+	padding:2px 0 2px 10px;
+	color:#777;
+}
+.main-menu-places a {
+	padding:0 17px 0 17px;
+}
+.main-menu-places {
+	border-bottom-left-radius:0px;
+	border-bottom-right-radius:0px;
+	-moz-border-radius-bottomleft:0px;
+	-moz-border-radius-bottomright:0px;
+	-webkit-border-bottom-left-radius:0px;
+	-webkit-border-bottom-right-radius:0px;
+	-khtml-border-bottom-left-radius:0px;
+	-khtml-border-bottom-right-radius:0px;
+}
+
+.T-mm-border-light-grey .main-menu-top {
+	border-left:1px #7c7c7c solid;
+	border-right:1px #7c7c7c solid;
+}
+.T-mm-border-light-grey .main-menu-places {
+	border:1px #7c7c7c solid;
+	/*border-top:0;*/
+	/*border-bottom:0;*/
+}
+
+.T-mm-border-black .main-menu-top {
+	border-left:1px black solid;
+	border-right:1px black solid;
+}
+.T-mm-border-black .main-menu-places {
+	border:1px black solid;
+	/*border-top:0;*/
+	/*border-bottom:0;*/
+}
+
+.T-mm-places-apple .main-menu-places {
+	background:#b3b3b3 url(mm/style/apple/places.png) top left repeat-x;/*WIDTH-1*/
+}
+.T-mm-places-reloaded-white .main-menu-places {
+	background:#b3b3b3 url(mm/style/reloaded-white/places.png) top left repeat-x;/*WIDTH-1*/
+}
+.T-mm-places-reloaded-black .main-menu-places {
+	background:transparent url(mm/style/reloaded-black/places.png) top left repeat-x;/*WIDTH-1*/
+}
+.T-mm-places-reloaded-blue .main-menu-places {
+	background:transparent url(mm/style/reloaded-blue/places.png) top left repeat-x;/*WIDTH-1*/
+}
+.T-mm-places-reloaded-pink .main-menu-places {
+	background:transparent url(mm/style/reloaded-pink/places.png) top left repeat-x;/*WIDTH-1*/
+}
+.T-mm-places-natural-spirit .main-menu-places {
+	background:transparent url(mm/style/natural-spirit/places.png) top left repeat-x;
+}
+.T-mm-places-hello-kitty .main-menu-places {
+	background:#b3b3b3 url(mm/style/hello-kitty/places.png) top left repeat-x;/*WIDTH-1*/
+}
+.T-mm-places-silverlight .main-menu-places {
+	background:#b3b3b3 url(mm/style/silverlight/places.png) top left repeat-x;/*WIDTH-1*/
+}
+.T-mm-places-silversurfer .main-menu-places {
+	background:#b3b3b3 url(mm/style/silversurfer/places.png) top left repeat-x;/*WIDTH-1*/
+}
+.T-mm-places-one .main-menu-places {
+	background:#2d2d2d url(mm/style/one/places.png) top left repeat-x;/*WIDTH-1*/
+}
+.T-mm-places-red-light-destrict .main-menu-places {
+	background:#b3b3b3 url(mm/style/red-light-destrict/places.png) top left repeat-x;/*WIDTH-1*/
+}
+
+
+
+
+
+
+
+
+
+/* der suggest container (suchfunktion) ********************************/
+#jSuggestContainer {
+	width:395px;
+	/*margin-top:3px;*/
+}
+#jSuggestContainer ul {
+	padding:0;
+	list-style-type:none;
+}
+#jSuggestContainer li {
+	padding:0 3px 0 3px;
+	cursor:pointer;
+	clear:both;
+}
+#jSuggestContainer li div.name {
+	float:left;
+	width:284px;
+}
+#jSuggestContainer li div.category {
+	float:right;
+	width:105px;
+	color:#888;
+}
+
+.T-suggest-white #jSuggestContainer {
+	color:#090909;
+	background:white;
+	border:1px #777 solid;
+}
+.T-suggest-white #jSuggestContainer li {
+	border-bottom:1px #aaa dotted;
+}
+.T-suggest-white #jSuggestContainer li:hover,
+.T-suggest-white #jSuggestContainer .jSuggestHover {
+	background:#ddd;
+}
+
+.T-suggest-black #jSuggestContainer {
+	color:#fafafa;
+	background:black;
+	border:1px #888 solid;
+}
+.T-suggest-black #jSuggestContainer li {
+	border-bottom:1px #666 dotted;
+}
+.T-suggest-black #jSuggestContainer li:hover,
+.T-suggest-black #jSuggestContainer .jSuggestHover {
+	background:#222;
+}
+
+
+
+
+
+#MMSearchCategorySub {
+	z-index:1000;
+	position:absolute;
+	padding:5px;
+	margin:-41px 0 0 560px;
+	padding:0;
+	min-width:155px;
+}
+#MMSearchCategorySub button {
+	display:block;
+	width:100%;
+	text-align:left;
+}
+#MMSearchCategorySub ul {
+	padding:0;
+}
+#MMSearchCategorySub ul ul {
+	padding-left:15px;
+}
+#MMSearchCategorySub li {
+	list-style-type:none;
+}
+
+.T-suggest-white #MMSearchCategorySub {
+	color:#090909;
+	background:white;
+	border:1px #777 solid;
+}
+
+.T-suggest-black #MMSearchCategorySub {
+	color:#fafafa;
+	background:black;
+	border:1px #888 solid;
+}

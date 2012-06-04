@@ -1,0 +1,57 @@
+{set $childs = #THIS->query_child_sections($section.id)}
+{if $childs->num_rows}
+{set $child_index = 0}
+{if $sections->num_rows > 1}
+<div class="root-section-header">
+	<a href="/{LANG}/forum/{$section.section_id}-{^$section.name}/">{~$section.name}</a>
+</div>
+{/if}
+<table class="forum-sections" border="1">
+	<tr class="head">
+		<th class="section-name">[*Forum*]</th>
+		<th>[*Letzter Beitrag*]</th>
+	</tr>
+	{while $i = $childs->fetch_assoc()}
+	{set $child_index++}
+	{set $lastthread = $i}
+	<tr class="forum-row">
+		<td class="section-name">
+			<h2><a href="/{LANG}/forum/{$i.section_id}-{^$i.section_name}/">{~$i.section_name}</a></h2>
+			{if $i.section_description}{ubbcode::compile($i.section_description)}<br>{/if}
+			{if $i.childs}
+			<div class="sub-sections">
+				<ul>
+					{for $j = 0; $j < $i.childs and $k = $childs->fetch_assoc(); $j++}
+					{if $k.section_parent == $section.id}
+					{set $childs->data_seek($child_index)}
+					{break}
+					{/if}
+					{set $child_index++}
+					{set $i.section_num_threads += $k.section_num_threads}
+					{set $i.section_num_posts += $k.section_num_posts}
+					{if $lastthread.lastpost_time < $k.lastpost_time}{set $lastthread = $k}{/if}
+					{if $k.section_parent == $i.section_id}
+					<li style="margin-right:1%;width:31%;float:left;padding-left:0;"><a href="/{LANG}/forum/{$k.section_id}-{^$k.section_name}/">{~$k.section_name}</a></li>
+					{/if}
+					{/for}
+				</ul>
+				<div class="clear" style="height:10px;"></div>
+			</div>
+			{/if}
+			<div class="section-stats">{if $i.section_num_threads == 1}[*{%$i.section_num_threads} Thema*]{else}[*{%$i.section_num_threads} Themen*]{/if}, {if $i.section_num_posts == 1}[*{%$i.section_num_posts} Beitrag*]{else}[*{%$i.section_num_posts} Beitr&auml;ge*]{/if}</div>
+		</td>
+		<td>
+			{if $lastthread.lastthread_id}
+			{if $is_multilang}{get_sitelang_flag2($lastthread.lastthread_lang_de, $lastthread.lastthread_lang_en)} {/if}
+			{if $lastthread.lastthread_state == 'moved'}[*Verschoben:*] {/if}
+			<a href="/{LANG}/thread/{$lastthread.lastthread_id}-{^$lastthread.firstpost_name}/">{~truncate($lastthread.firstpost_name, $lastthread.lastthread_state == "moved" ? (DISPLAY_COMMUNITY_ELEMENTS ? 20 : 35) : (DISPLAY_COMMUNITY_ELEMENTS ? 28 : 45))}</a><br>
+			von {user($lastthread.lastpost_uid)->html(-1)}<br>
+			<a href="/{LANG}/thread/{$lastthread.lastthread_id}-{^$lastthread.firstpost_name}/{if $lastthread.lastthread_num_posts > FORUM_THREAD_NUM_POSTS_PER_SITE}page/{°floor($lastthread.lastthread_num_posts/FORUM_THREAD_NUM_POSTS_PER_SITE)}/{/if}">{timeago($lastthread.lastpost_time)}</a>
+			{else}
+			&nbsp;
+			{/if}
+		</td>
+	</tr>
+	{/while}
+</table>
+{/if}

@@ -1,0 +1,11 @@
+<div class="menu-radio-tabs side-menu-tabs">
+	{while $i = $channels->fetch_assoc() |i}{*
+	*}<a class="tab {if $i.online}green {/if}{if $while_i == 1}first{elseif $while_i == $channels->num_rows}last{else}middle{/if}" href="/{LANG}/radio/{~$i.channel}/" rel="nofollow" target="_blank" onclick="window.open('/{LANG}/radio/{~$i.channel}/','_i_radio__','width=365,height=500,status=no,scrollbars=yes,resizable=yes,location=no');return false;" data-dd="ildd.menuRadio" data-radio="{*
+		*}&lt;div class=&quot;menu-radio-links&quot;&gt;{*
+		*}&lt;a href=&quot;/{LANG}/radio/{~htmlspecialchars($i.channel)}/playlist/pls/&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;{STATIC_CONTENT_DOMAIN}/img/p.gif&quot; class=&quot;p menu-radio-icon-winamp&quot; alt=&quot;WinAMP&quot;&gt;&lt;/a&gt;{*
+		*}&lt;a href=&quot;/{LANG}/radio/{~htmlspecialchars($i.channel)}/playlist/pls/&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;{STATIC_CONTENT_DOMAIN}/img/p.gif&quot; class=&quot;p menu-radio-icon-vlc&quot; alt=&quot;VLC&quot;&gt;&lt;/a&gt;{*
+		*}&lt;a href=&quot;/{LANG}/radio/{~htmlspecialchars($i.channel)}/playlist/wmp/&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;{STATIC_CONTENT_DOMAIN}/img/p.gif&quot; class=&quot;p menu-radio-icon-wmp&quot; alt=&quot;WMP&quot;&gt;&lt;/a&gt;{*
+		*}&lt;/div&gt;">#{$while_i}</a>{*
+	*}{/foreach}
+</div>
+<div class="clear" style="height:5px;"></div>

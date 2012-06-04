@@ -1,0 +1,4 @@
+<div class="SEP"><div><div></div><h3>{~$tab_title}</h3><div></div></div></div>
+<div class="{~$tab_class}">
+	{ILPHP_CLASS->create_tabs()}
+</div>

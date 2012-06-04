@@ -1,0 +1,54 @@
+<div class="module-item">
+	<h1>
+		{#THIS->im_way_html()}
+	</h1>
+	<div class="module-content module-news-article">
+		<form method="post" onsubmit="return iC(this, '~.module-item');">
+			<input type="hidden" name="{#IMPOST 'action'}" value="edit">
+			<input type="hidden" name="{#IMPOST 'news_id'}" value="{$news.news_id}">
+			
+			<p><strong>Titel:</strong> <input type="text" name="{#IMPOST 'name'}" value="{~$news.name}" size="70"></p>
+			<p><strong>Cover:</strong> <input type="text" name="{#IMPOST 'cover'}" value="{~$news.cover}" size="70"> (Direktlink angeben!)</p>
+			<p><strong>Tags:</strong> <input type="text" name="{#IMPOST 'tags'}" value="{~$news.tags}" size="70"> (durch Komma getrennte Liste)</p>
+			<p>
+				<strong>Status:</strong>
+				<select name="{#IMPOST 'status'}">
+					<option value="edit"{if $news.status == 'open'} selected="selected"{/if}>[*Geschlossen und unsichtbar*]</option>
+					<option value="public"{if $news.status == 'public'} selected="selected"{/if}>[*Ver&ouml;ffentlichen*]</option>
+				</select>
+			</p>
+			<p>
+				<strong>News Pushen (zum Beispiel wenn ein wichtiges Update gemacht worden ist):</strong>
+				<input type="checkbox" name="{#IMPOST 'push_it'}">
+			</p>
+			<p>
+				<strong>Zugeh&ouml;riger Forenthread:</strong>
+				{if $news.thread_id}<a href="/{LANG}/thread/{$news.thread_id}-{^$news.name}/">klick</a>
+				{else}wird beim ver&ouml;ffentlichen automatisch erstellt
+				{/if}
+			</p>
+			<p>
+				<strong>Einleitungstext:</strong><br>
+				<textarea name="{#IMPOST 'introduce_content'}" class="bbcodeedit" style="width:100%;height:150px;">{~$news.introduce_content}</textarea>
+			</p>
+			<p>
+				<strong>Text:</strong><br>
+				<textarea name="{#IMPOST 'content'}" class="bbcodeedit" style="width:100%;height:400px;">{~$news.content}</textarea>
+			</p>
+			<p>
+				<strong>Textquellen:</strong> (BB-Code im Format <strong>[url=http://link.zur.quelle/]Name der Quelle[/url]</strong> - eine Quelle pro Zeile)<br>
+				<textarea name="{#IMPOST 'source_text'}" style="width:100%;height:50px;">{~$news.source_text}</textarea>
+			</p>
+			<p>
+				<strong>Bildquellen:</strong> (BB-Code im Format <strong>[url=http://link.zur.quelle/]Name der Quelle[/url]</strong> - eine Quelle pro Zeile)<br>
+				<textarea name="{#IMPOST 'source_image'}" style="width:100%;height:50px;">{~$news.source_image}</textarea>
+			</p>
+			<p>
+				<strong>Videoquellen:</strong> (BB-Code im Format <strong>[url=http://link.zur.quelle/]Name der Quelle[/url]</strong> - eine Quelle pro Zeile)<br>
+				<textarea name="{#IMPOST 'source_video'}" style="width:100%;height:50px;">{~$news.source_video}</textarea>
+			</p>
+			<p><button type="submit" class="big-button center">[*Speichern*]</button></p>
+		</form>
+	</div>
+	<div class="module-footer"></div>
+</div>

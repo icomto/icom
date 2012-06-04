@@ -1,0 +1,97 @@
+<div class="module-item">
+	<h1>
+		{#THIS->im_way_html()}
+	</h1>
+	<div class="module-content forum forum-search">
+		<form method="post" action="{~$url}" onsubmit="return iC(this);">
+			<input type="hidden" name="{#IMPOST 'action'}" value="search">
+			<table>
+				<tr>
+					<td>
+						<p>
+							[*Suchtext:*]<br>
+							<input type="text" name="{#IMPOST 'search'}" value="{~$term}">
+						</p>
+						<p>
+							[*Nur Threads/Posts vom Benutzer:*]<br>
+							<input type="text" name="{#IMPOST 'user'}" value="{~$user}">
+						</p>
+						<p>
+							<select name="{#IMPOST 'order_by'}">
+								<option value="score"{if $order_by == 'score'} selected="selected"{/if}>[*Ergebnisse nach Relevanz sortieren*]</option>
+								<option value="hits"{if $order_by == 'hits'} selected="selected"{/if}>[*Ergebnisse nach Hits sortieren*]</option>
+								<option value="time"{if $order_by == 'time'} selected="selected"{/if}>[*Ergebnisse nach neuestem Beitrag sortieren*]</option>
+							</select>
+						</p>
+						<p>
+							<select name="{#IMPOST 'group_by'}">
+								<option value="threads"{if $group_by == 'threads'} selected="selected"{/if}>[*Ergebnisse nach Threads gruppieren*]</option>
+								<option value="posts"{if $group_by == 'posts'} selected="selected"{/if}>[*Ergebnisse nach Beitr&auml;gen gruppieren*]</option>
+							</select>
+						</p>
+						<p>
+							<input type="checkbox" id="ModuleForumSearchNames" name="{#IMPOST 'names'}"{if $names} checked="checked"{/if}><label for="ModuleForumSearchNames"> [*Titel durchsuchen*]</label><br>
+							<input type="checkbox" id="ModuleForumSearchContent" name="{#IMPOST 'content'}"{if $content} checked="checked"{/if}><label for="ModuleForumSearchContent"> [*Beitr&auml;ge durchsuchen*]</label>
+						</p>
+					</td>
+					<td>
+						<p>
+							[*Suchen in:*]<br>
+							<select name="{#IMPOST 'forum'}[]" multiple="multiple">
+								<option value="0"{if count($forum) == 1 and $forum.0 == 0} selected="selected"{/if}>[*In allen Foren suchen*]</option>
+								{set $selected = 0}
+								{while $i = $forum_sections->fetch_assoc()}
+								{if $i.selected}{set $selected = $i.level + 1}
+								{elseif $i.level < $selected}{set $selected = 0}
+								{/if}
+								<option value="{$i.section_id}"{if $selected} selected="selected"{/if}>{str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $i.level)} {~$i.name}</option>
+								{/while}
+							</select>
+						</p>
+						<p>
+							<input type="checkbox" id="ModuleForumSearchSubs" name="{#IMPOST 'sub'}"{if $search_sub} checked="checked"{/if}><label for="ModuleForumSearchSubs"> [*Unterforen mit einbeziehen*]</label>
+						</p>
+					</td>
+				</tr>
+			</table>
+			<button type="submit" class="big-button center">[*Suchen*]</button>
+		</form>
+	</div>
+	<div class="module-footer"></div>
+</div>
+{if @$results or @$user_not_found_error}
+<div class="module-item">
+	<h1>
+		{if $term}<a href="{~$url}">[*Suchergebnisse zu &quot;{~$term}&quot;*]</a>{/if}
+		{if $term and $user and !@$user_not_found_error} - {/if}
+		{if $user and not @$user_not_found_error}[*#Beitr&auml;ge von {user($user_id)->html(-1)}*]{/if}
+		{if @$page > 1} - <a href="{~$url}page/{$page}/">[*Seite {~$page}*]</a>{/if}
+	</h1>
+	<div class="module-content forum forum-search-results">
+		{if @$num_pages > 1}<div class="pages">{#THIS->im_pages_html()}</div>{/if}
+		{if @$user_not_found_error}<p class="error">[*Der Benutzer &quot;{~$user}&quot; wurde nicht gefunden.*]</p>
+		{elseif not $num_rows}<p class="error">[*Es wurden keine Eintr&auml;ge gefunden.*]</p>
+		{else}
+		<table border="1">
+			{while $i = $results->fetch_assoc()}
+			{set $i = #THIS->search_query_result($i.post_id)}
+			<tr class="forum-row forum-row-nohover">
+				<td class="post-content">
+					<h3>{get_sitelang_flag2($i.lang_de, $i.lang_en)} <a href="/{LANG}/thread/{$i.thread_id}-{^$i.post_name}/">{~truncate($i.post_name, 80)}</a>{if not $i.open}<span style="font-weight:normal;"> ([*geschlossen*])</span>{/if}</h3>
+					<div class="user-entry">
+						{ubbcode::add_smileys(ubbcode::compile(truncate(preg_replace('~\r?\n\r?\n~', '\n', $i.post_content), 450, ' [...]'), 300, 300))}
+					</div>
+				</td>
+				<td>
+					{user($i.user_id)->html(1)}<br>
+					{timeago($i.post_timeadded)}
+				</td>
+			</tr>
+			{/while}
+		</table>
+		{/if}
+		{if @$num_pages > 1}<div class="pages">{#THIS->im_pages_html()}</div>{/if}
+	</div>
+	<div class="module-footer"></div>
+</div>
+{/if}

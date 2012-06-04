@@ -1,0 +1,54 @@
+<style>
+.community-users {{
+	text-align:center;
+}}
+.community-users h2 a {{
+	font-size:14px;
+}}
+.community-users table {{
+	margin:0 auto;
+	width:50%;
+}}
+.community-users table .groups-of-user {{
+	width:30%;
+}}
+</style>
+<div class="community-users">
+	<h2>
+		{if $search}
+		{if $group.id == 'all'}<a href="{~$url}">[*Suche nach &quot;{~$search}&quot;*]</a>
+		{else}<a href="{~$url}">[*Suche nach &quot;{~$search}&quot; in der Gruppe {~$group.name}*]</a>
+		{/if}
+		{else}
+		{if $group.id == 'all'}<a href="{~$url}">[*Alle Mitglieder*]</a>
+		{else}<a href="{~$url}">[*Mitglieder der Gruppe &quot;{~$group.name}*]&quot;</a>
+		{/if}
+		{/if}
+	</h2>
+	{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+	{if !$users->num_rows}<p class="info">[*Keine Mitglieder gefunden.*]</p>
+	{else}
+	<table border="1">
+		<tr>
+			<th>[*Name*]</th>
+			<th class="groups-of-user">[*Gruppe*]</th>
+		</tr>
+		{while $i = $users->fetch_assoc() |i}
+		<tr class="row">
+			<td>{user($i.user_id)->html(-1)}</td>
+			<td class="groups-of-user">
+				{set $i.groups = explode_arr_list($i.groups)}
+				{set ksort($i.groups)}
+				{set $num = count($i.groups)}
+				{set $j = 0}
+				{foreach $i.groups as $g}{*
+				*}{if isset($groups[$g]) and $groups[$g]['public']}{if $j++}, {/if}<a href="/{LANG}/community/users/group/{$g}-{^$groups[$g].name}/">{~$groups[$g].name}</a>{/if}{*
+				*}
+				{/foreach}
+			</td>
+		</tr>
+		{/while}
+	</table>
+	{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+	{/if}
+</div>

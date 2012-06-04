@@ -1,0 +1,8 @@
+Banner			http://s.iload.to/img/linkus/ban_new.jpg
+Schwarz-Weiﬂ Banner	http://s.iload.to/img/linkus/ban_bw.jpg
+Classic-Banner		http://s.iload.to/img/linkus/ban_classic.jpg
+Classic-Button		http://s.iload.to/img/linkus/but_classic.gif
+XXX-Button		http://s.iload.to/img/linkus/but_xxx.gif
+Classic-Logo		http://s.iload.to/img/linkus/logo_classic.png
+Shiny-Logo		http://s.iload.to/img/linkus/logo_shiny.png
+News-Logo		http://s.iload.to/img/linkus/logo_style.png

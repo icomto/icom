@@ -1,0 +1,40 @@
+{foreach $errors as $ewi}
+<div class="error">
+	{switch $ewi}
+	{default}[*Unbekannter Fehler: {~$ewi}*]{/default}
+	{case 'ARTICLE_NOT_CHANGED'}[*Der Artikel existiert in dieser Form bereits.*]{/case}
+	{case 'NO_ARTICLES'}[*Es wurden keine Artikel gefunden.*]{/case}
+	{case 'NO_CATEGORYS'}[*Es wurden keine Kategorien gefunden.*]{/case}
+	{case 'PAGES_INVALID_TYPE'}[*Unbekannter Listentyp: {~$type}*]{/case}
+	{case 'HISTORY_NOT_SET'}[*Fehler beim aktivieren einer anderen Artikel-Version.*]{/case}
+	{case 'HISTORY_NOT_FOUND'}[*Die angeforderte Artikelversion konnte nicht gefunden werden.*]{/case}
+	{case 'HISTORY_SET_ACCESS_DENIED'}[*Du hast leider nicht die n&ouml;tigen Rechte um eine andere Artikelversion zu aktivieren.*]{/case}
+	{case 'PAGE_RENAME_ALREADY_EXISTS'}[*!Umbenennen fehlgeschlagen.<br>Ein Artikel mit dem Namen &quot;{~$newname}&quot; existiert bereits.*]{/case}
+	{case 'PAGE_RENAME_SAME_NAME'}[*!Umbenennen fehlgeschlagen.<br>Der neue Name gleicht dem alten Namen.*]{/case}
+	{/switch}
+</div>
+{/foreach}
+{foreach $warnings as $ewi}
+<div class="warning">
+	{switch $ewi}
+	{default}[*Unbekannte Warnung: {~$ewi}*]{/default}
+	{case 'PAGE_EDIT_LOCKED_ACCESS_DENIED'}[*Dieser Artikel wurde von einem Moderator gegen Ver&auml;nderungen gesch&uuml;tzt.*]{/case}
+	{case 'HAS_OPEN_TICKETS'}[**Dieser Artikel hat offene Tickets<br><a href="/{LANG}/wiki/{wiki_urlencode($this->wiki)}/history/">Klicke hier um Dir die Tickets anzusehen.</a>*]{/case}
+	{/switch}
+</div>
+{/foreach}
+{foreach $infos as $ewi}
+<div class="info">
+	{switch $ewi}
+	{default}[*Unbekannte Information: {~$ewi}*]{/default}
+	{case 'PAGE_ADDED_WAITING_FOR_PUBLISH'}[*!Vielen dank f&uuml;r Deinen Beitrag.<br>Ein Moderator wird so bald wie m&ouml;glich deinen Artikel/&Auml;nderung &uuml;berpr&uuml;fen und ihn dann freischalten.*]{/case}
+	{case 'NO_LATEST_CHANGES_FOUND'}[*Es gibt derzeit keine unbearbeiteten &Auml;nderungen.*]{/case}
+	{case 'NO_HISTORY_ACTIVATED'}[*Bei diesem Artikel wurde noch keine Version aktiviert.*]{/case}
+	{case 'ARTICLE_FOR_RELEASE'}[*!Hier findest Du hilfe zum schreiben eines Artikels:<br><a href="/{LANG}/thread/21571--TuT--FAQ-Wiki-Erstellen/">FAQ-Wiki erstellen</a><br><a href="/{LANG}/wiki/Wiki_Artikel_schreiben/">Wiki Artikel schreiben</a>*]{/case}
+	{case 'ARTICLE_FOR_TITLE'}[*!Hier findest Du hilfe zum schreiben eines Artikels:<br><a href="/{LANG}/thread/21571--TuT--FAQ-Wiki-Erstellen/">FAQ-Wiki erstellen</a><br><a href="/{LANG}/wiki/Wiki_Artikel_schreiben/">Wiki Artikel schreiben</a><br><br>Bitte passe die vorgefertigte Maske f&uuml;r diesen Titel an.<br>Bei zum Beispiel Spielen passt die Maske in vielen Punkten nicht.*]{/case}
+	{case 'TICKET_CREATED'}[*Dein Ticket wurde erstellt.*]{/case}
+	{case 'TICKET_CLOSED'}[*Das Ticket wurde geschlossen.*]{/case}
+	{case 'TICKET_OPENED'}[*Das Ticket wurde wieder ge&ouml;ffnet.*]{/case}
+	{/switch}
+</div>
+{/foreach}

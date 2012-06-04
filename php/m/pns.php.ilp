@@ -1,0 +1,42 @@
+<div class="module-item">
+	<h1>{ILPHP_CLASS->im_way_html()}</h1>
+	<div class="module-content module-pn-box">
+		{if $pns->num_rows == 0}
+		<p class="info">
+			[*Keine Nachrichten gefunden.*]
+		</p>
+		{else}
+		{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html(NULL, ILPHP_CLASS->url.'%s/')}</div>{/if}
+		<table border="1">
+			<tr>
+				<th>[*Betreff*]</th>
+				<th width="110">[*Gespr&auml;chspartner*]</th>
+				<th width="95">[*Letzte Nachricht*]</th>
+			</tr>
+			{while $i = $pns->fetch_assoc()}
+			{if $i.name == '%-SYSTEM%'}{set $i.name = LS('Systembenachrichtigungen')}{set $i.read_only = true}{else}{set $i.read_only = false}{/if}
+			<tr class="row">
+				<td><a href="/{LANG}/pn/{$i.pn_id}-{^$i.name}/"{if $i.has_new_message} class="pn-new"{/if}>{~$i.name}{if $i.num_messages > 1} ({%$i.num_messages}){/if}</a></td>
+				<td>
+					{if $i.read_only}-
+					{else}
+					{set $users = explode_arr_list($i.users)}
+					{set $involved_users = explode_arr_list($i.involved_users)}
+					{set $num_users = count($involved_users) - 1}
+					{if $num_users}
+					{foreach $involved_users as $user |i}
+					{if $user == USER_ID}{continue}{elseif $user}{if not in_array($user, $users)}<a href="/{LANG}/users/{user($user)->user_id}-{^user($user)->nick}/" title="[*Hat das Gespr&auml;ch verlassen*]" style="color:#666;font-size:80%;">{~user($user)->nick}</a>{else}{user($user)->html(-1)}{/if}{else}[*System*]{/if}{if $foreach_i < $num_users}, {/if}
+					{/foreach}
+					{else}-
+					{/if}
+					{/if}
+				</td>
+				<td>{timeago($i.lastmessage)}</td>
+			</tr>
+			{/while}
+		</table>
+		{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html(NULL, ILPHP_CLASS->url.'%s/')}</div>{/if}
+		{/if}
+	</div>
+	<div class="module-footer"></div>
+</div>

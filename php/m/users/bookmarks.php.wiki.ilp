@@ -1,0 +1,9 @@
+{if !$wiki->num_rows}<p class="error">[*Keine Eintr&auml;ge gefunden.*]</p>
+{else}
+{while $i = $wiki->fetch_assoc()}
+<div style="margin:3px 0 3px 0;">
+	<div style="clear:both;float:left;margin-top:-3px;">{bookmark_engine::icon($url, 'wiki', $i.id)}</div>
+	<a href="/{$i.lang}/wiki/{wiki_urlencode($i.name)}/">{~$i.name}</a>
+</div>
+{/while}
+{/if}

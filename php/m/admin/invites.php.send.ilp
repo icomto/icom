@@ -1,0 +1,9 @@
+{if $sent}
+<p class="info">[*Invite-Code wurde an {~$sent} versendet.*]</p>
+{else}
+<form method="post" action="{$url}" onsubmit="return iC(this);">
+	<input type="hidden" name="{#IMPOST 'action'}" value="send">
+	E-Mail Addresse: <input type="text" name="{#IMPOST 'email'}" size="35"><br>
+	<button type="submit" class="button">[*Invite absenden*]</button>
+</form>
+{/if}

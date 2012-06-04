@@ -1,0 +1,31 @@
+{set $current_sub = ''}
+{if $chats->num_rows}
+<div class="menu-forum-threads">
+	{while $i = $chats->fetch_assoc()}
+	{if $current_sub != $i.sub_category_id}
+	{if $current_sub}</div>{/if}
+	{set $current_sub = $i.sub_category_id}
+	<a href="/{LANG}/chats/{$i.category_id}-{^$i.category_name}/sub/{$i.sub_category_id}-{^$i.sub_category_name}/"{if strlen($i.sub_category_name) > 25} title="{~$i.sub_category_name}"{/if} class="chat-sub-category" data-chat-id="{$i.sub_category_id}">{~truncate($i.sub_category_name,25,'...',true)}</a>
+	<div{*if !defined('CURRENT_USER_CHAT_SUBCATEGORY') or $i.sub_category_id != CURRENT_USER_CHAT_SUBCATEGORY} style="display:none;"{/if*}>
+	{/if}
+	<a href="/{LANG}/chat/{°$i.id}-{^$i.name}/"{if strlen($i.name) > 25} title="{~$i.name}"{/if} style="background:none;">{~truncate($i.name,25,'...',true)}</a>
+	{*<a href="/{LANG}/chat/{°$i.id}-{^$i.name}/"{if strlen($i.name) > 25} title="{~$i.name}"{/if}>{if $i.has_sub_categorys and $i.sub_category_id}{~$i.sub_category_name} &raquo; {/if}{~truncate($i.name,25,'...',true)}</a>*}
+	{/while}
+</div>
+{/if}
+{if $current_sub}</div>{/if}
+<script>
+if(menuUserChatsSubCategory===undefined)var menuUserChatsSubCategory=false;
+$(function(){{
+	if(menuUserChatsSubCategory){{
+		$('a[data-chat-id='+menuUserChatsSubCategory+']').next().show();
+	}}
+	$('.chat-sub-category').click(function(){{
+		var t=$(this);
+		menuUserChatsSubCategory=t.attr('data-chat-id');
+		t.parent().find('div').hide()
+		t.next().show();
+		return false;
+	}});
+}});
+</script>

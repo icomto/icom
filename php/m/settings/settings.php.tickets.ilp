@@ -1,0 +1,35 @@
+{if $reports->num_rows == 0}
+<p class="error">Keine Eintr&auml;ge gefunden</p>
+{else}
+{if $num_pages > 1}<div class="pages">{create_pages($page, $num_pages, '/'.LANG.'/settings/tickets/page/%s/')}</div>{/if}
+{while $i = $reports->fetch_assoc()}
+<p>
+	Gemeldet {timeago($i.t)}<br>
+	URL: <a href="{~$i.url}">{~$i.url}</a><br>
+	Grund:
+	{switch $i.class}
+	{default}Nicht aufgelisteter Grund{/default}
+	{case 'content'}Unangemessener Inhalt (Versto&szlig; gegen den Jugendschutz etc.){/case}
+	{case 'abuse'}Urheberrechtlich gesch&uuml;tzter Inhalt{/case}
+	{case 'privacy'}Verletzung von Pers&ouml;nlichkeitsrechten oder den Datenschutz{/case}
+	{/switch}<br>
+	{ubbcode::compile($i.message)}
+</p>
+<p style="border-top:1px #777 solid;">
+	Status:
+	{switch $i.status}
+	{default}Unbekannt{/default}
+	{case 'open'}Offen{/case}
+	{case 'accepted'}<span class="success">Angenommen</span> {timeago($i.edit_time)}{/case}
+	{case 'rejected'}<span class="error">Abgelehnt</span> {timeago($i.edit_time)}{/case}
+	{/switch}
+</p>
+{if $i.comment}
+<p>
+	{ubbcode::compile($i.comment)}
+</p>
+{/if}
+<hr style="margin:15px 0 15px 0;">
+{/while}
+{if $num_pages > 1}<div class="pages">{create_pages($page, $num_pages, '/'.LANG.'/settings/tickets/page/%s/')}</div>{/if}
+{/if}

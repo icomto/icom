@@ -1,0 +1,35 @@
+<div class="module-item">
+	<h1>
+		{bookmark_engine::icon($url, 'news', $news.news_id)}
+		{#THIS->im_way_html()}
+	</h1>
+	<div class="module-content module-news-article">
+		<h2><a href="{~$url}">{~$news.name}</a>{if is_newswriter()} (<a href="{~$url}edit/">[*Bearbeiten*]</a>){/if}</h2>
+		<div class="news-article user-entry" style="border:0;margin-bottom:0;">
+			<p class="introduce">
+				{if $news.cover}<img src="{~$news.cover}">{/if}
+				{ubbcode::compile($news.introduce_content)}
+			</p>
+			<div class="clear"></div>
+			<p><a href="{~$url}">[*Weiter lesen*]</a></p>
+			{if $news.source_text or $news.source_image or $news.source_video}
+			<p class="news-sources" style="border:0;">
+				{if $news.source_text}Text-Quellen: {implode(', ', array_map('ubbcode::compile', array_map('trim', explode("\n", str_replace("\r", '', $news.source_text)))))}<br>{/if}
+				{if $news.source_image}Bild-Quellen: {implode(', ', array_map('ubbcode::compile', array_map('trim', explode("\n", str_replace("\r", '', $news.source_image)))))}<br>{/if}
+				{if $news.source_video}Video-Quellen: {implode(', ', array_map('ubbcode::compile', array_map('trim', explode("\n", str_replace("\r", '', $news.source_video)))))}<br>{/if}
+			</p>
+			{/if}
+			{if $news.tags}
+			<p class="news-tags">
+				Tags:
+				{set $num = count($news.tags)}
+				{foreach $news.tags as $tag |tag}
+				<a href="/{LANG}/news/overview/tag/{°$tag}/">{~$tag}</a>{if $foreach_tag < $num}, {/if}
+				{/foreach}
+			</p>
+			{/if}
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="module-footer"></div>
+</div>

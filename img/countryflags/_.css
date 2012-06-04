@@ -1,0 +1,820 @@
+.flag {
+	width:16px;
+	height:11px;
+}
+.flag .flag-ad {
+	background:transparent url(ad.gif) top left no-repeat;
+}
+.flag .flag-ae {
+	background:transparent url(ae.gif) top left no-repeat;
+}
+.flag .flag-af {
+	background:transparent url(af.gif) top left no-repeat;
+}
+.flag .flag-ag {
+	background:transparent url(ag.gif) top left no-repeat;
+}
+.flag .flag-ai {
+	background:transparent url(ai.gif) top left no-repeat;
+}
+.flag .flag-al {
+	background:transparent url(al.gif) top left no-repeat;
+}
+.flag .flag-am {
+	background:transparent url(am.gif) top left no-repeat;
+}
+.flag .flag-an {
+	background:transparent url(an.gif) top left no-repeat;
+}
+.flag .flag-ao {
+	background:transparent url(ao.gif) top left no-repeat;
+}
+.flag .flag-ar {
+	background:transparent url(ar.gif) top left no-repeat;
+}
+.flag .flag-as {
+	background:transparent url(as.gif) top left no-repeat;
+}
+.flag .flag-at {
+	background:transparent url(at.gif) top left no-repeat;
+}
+.flag .flag-au {
+	background:transparent url(au.gif) top left no-repeat;
+}
+.flag .flag-aw {
+	background:transparent url(aw.gif) top left no-repeat;
+}
+.flag .flag-ax {
+	background:transparent url(ax.gif) top left no-repeat;
+}
+.flag .flag-az {
+	background:transparent url(az.gif) top left no-repeat;
+}
+.flag .flag-ba {
+	background:transparent url(ba.gif) top left no-repeat;
+}
+.flag .flag-bb {
+	background:transparent url(bb.gif) top left no-repeat;
+}
+.flag .flag-bd {
+	background:transparent url(bd.gif) top left no-repeat;
+}
+.flag .flag-be {
+	background:transparent url(be.gif) top left no-repeat;
+}
+.flag .flag-bf {
+	background:transparent url(bf.gif) top left no-repeat;
+}
+.flag .flag-bg {
+	background:transparent url(bg.gif) top left no-repeat;
+}
+.flag .flag-bh {
+	background:transparent url(bh.gif) top left no-repeat;
+}
+.flag .flag-bi {
+	background:transparent url(bi.gif) top left no-repeat;
+}
+.flag .flag-bj {
+	background:transparent url(bj.gif) top left no-repeat;
+}
+.flag .flag-blank {
+	background:transparent url(blank.gif) top left no-repeat;
+}
+.flag .flag-bm {
+	background:transparent url(bm.gif) top left no-repeat;
+}
+.flag .flag-bn {
+	background:transparent url(bn.gif) top left no-repeat;
+}
+.flag .flag-bo {
+	background:transparent url(bo.gif) top left no-repeat;
+}
+.flag .flag-br {
+	background:transparent url(br.gif) top left no-repeat;
+}
+.flag .flag-bs {
+	background:transparent url(bs.gif) top left no-repeat;
+}
+.flag .flag-bt {
+	background:transparent url(bt.gif) top left no-repeat;
+}
+.flag .flag-bul {
+	background:transparent url(bul.gif) top left no-repeat;
+}
+.flag .flag-bv {
+	background:transparent url(bv.gif) top left no-repeat;
+}
+.flag .flag-bw {
+	background:transparent url(bw.gif) top left no-repeat;
+}
+.flag .flag-by {
+	background:transparent url(by.gif) top left no-repeat;
+}
+.flag .flag-bz {
+	background:transparent url(bz.gif) top left no-repeat;
+}
+.flag .flag-ca {
+	background:transparent url(ca.gif) top left no-repeat;
+}
+.flag .flag-catalonia {
+	background:transparent url(catalonia.gif) top left no-repeat;
+}
+.flag .flag-cc {
+	background:transparent url(cc.gif) top left no-repeat;
+}
+.flag .flag-cd {
+	background:transparent url(cd.gif) top left no-repeat;
+}
+.flag .flag-cf {
+	background:transparent url(cf.gif) top left no-repeat;
+}
+.flag .flag-cg {
+	background:transparent url(cg.gif) top left no-repeat;
+}
+.flag .flag-ch {
+	background:transparent url(ch.gif) top left no-repeat;
+}
+.flag .flag-chi {
+	background:transparent url(chi.gif) top left no-repeat;
+}
+.flag .flag-ci {
+	background:transparent url(ci.gif) top left no-repeat;
+}
+.flag .flag-ck {
+	background:transparent url(ck.gif) top left no-repeat;
+}
+.flag .flag-cl {
+	background:transparent url(cl.gif) top left no-repeat;
+}
+.flag .flag-cm {
+	background:transparent url(cm.gif) top left no-repeat;
+}
+.flag .flag-cn {
+	background:transparent url(cn.gif) top left no-repeat;
+}
+.flag .flag-co {
+	background:transparent url(co.gif) top left no-repeat;
+}
+.flag .flag-cr {
+	background:transparent url(cr.gif) top left no-repeat;
+}
+.flag .flag-cs {
+	background:transparent url(cs.gif) top left no-repeat;
+}
+.flag .flag-cu {
+	background:transparent url(cu.gif) top left no-repeat;
+}
+.flag .flag-cv {
+	background:transparent url(cv.gif) top left no-repeat;
+}
+.flag .flag-cx {
+	background:transparent url(cx.gif) top left no-repeat;
+}
+.flag .flag-cy {
+	background:transparent url(cy.gif) top left no-repeat;
+}
+.flag .flag-cze {
+	background:transparent url(cze.gif) top left no-repeat;
+}
+.flag .flag-cz {
+	background:transparent url(cz.gif) top left no-repeat;
+}
+.flag .flag-dan {
+	background:transparent url(dan.gif) top left no-repeat;
+}
+.flag .flag-de {
+	background:transparent url(de.gif) top left no-repeat;
+}
+.flag .flag-dj {
+	background:transparent url(dj.gif) top left no-repeat;
+}
+.flag .flag-dk {
+	background:transparent url(dk.gif) top left no-repeat;
+}
+.flag .flag-dm {
+	background:transparent url(dm.gif) top left no-repeat;
+}
+.flag .flag-do {
+	background:transparent url(do.gif) top left no-repeat;
+}
+.flag .flag-dz {
+	background:transparent url(dz.gif) top left no-repeat;
+}
+.flag .flag-ec {
+	background:transparent url(ec.gif) top left no-repeat;
+}
+.flag .flag-ee {
+	background:transparent url(ee.gif) top left no-repeat;
+}
+.flag .flag-eg {
+	background:transparent url(eg.gif) top left no-repeat;
+}
+.flag .flag-eh {
+	background:transparent url(eh.gif) top left no-repeat;
+}
+.flag .flag-en {
+	background:transparent url(en.gif) top left no-repeat;
+}
+.flag .flag-england {
+	background:transparent url(england.gif) top left no-repeat;
+}
+.flag .flag-er {
+	background:transparent url(er.gif) top left no-repeat;
+}
+.flag .flag-es {
+	background:transparent url(es.gif) top left no-repeat;
+}
+.flag .flag-esp {
+	background:transparent url(esp.gif) top left no-repeat;
+}
+.flag .flag-et {
+	background:transparent url(et.gif) top left no-repeat;
+}
+.flag .flag-eu {
+	background:transparent url(eu.gif) top left no-repeat;
+}
+.flag .flag-europeanunion {
+	background:transparent url(europeanunion.gif) top left no-repeat;
+}
+.flag .flag-fam {
+	background:transparent url(fam.gif) top left no-repeat;
+}
+.flag .flag-fi {
+	background:transparent url(fi.gif) top left no-repeat;
+}
+.flag .flag-fin {
+	background:transparent url(fin.gif) top left no-repeat;
+}
+.flag .flag-fj {
+	background:transparent url(fj.gif) top left no-repeat;
+}
+.flag .flag-fk {
+	background:transparent url(fk.gif) top left no-repeat;
+}
+.flag .flag-fm {
+	background:transparent url(fm.gif) top left no-repeat;
+}
+.flag .flag-fo {
+	background:transparent url(fo.gif) top left no-repeat;
+}
+.flag .flag-fra {
+	background:transparent url(fra.gif) top left no-repeat;
+}
+.flag .flag-fr {
+	background:transparent url(fr.gif) top left no-repeat;
+}
+.flag .flag-ga {
+	background:transparent url(ga.gif) top left no-repeat;
+}
+.flag .flag-gb {
+	background:transparent url(gb.gif) top left no-repeat;
+}
+.flag .flag-gd {
+	background:transparent url(gd.gif) top left no-repeat;
+}
+.flag .flag-ge {
+	background:transparent url(ge.gif) top left no-repeat;
+}
+.flag .flag-ger {
+	background:transparent url(ger.gif) top left no-repeat;
+}
+.flag .flag-gf {
+	background:transparent url(gf.gif) top left no-repeat;
+}
+.flag .flag-gh {
+	background:transparent url(gh.gif) top left no-repeat;
+}
+.flag .flag-gi {
+	background:transparent url(gi.gif) top left no-repeat;
+}
+.flag .flag-gl {
+	background:transparent url(gl.gif) top left no-repeat;
+}
+.flag .flag-gm {
+	background:transparent url(gm.gif) top left no-repeat;
+}
+.flag .flag-gn {
+	background:transparent url(gn.gif) top left no-repeat;
+}
+.flag .flag-gp {
+	background:transparent url(gp.gif) top left no-repeat;
+}
+.flag .flag-gq {
+	background:transparent url(gq.gif) top left no-repeat;
+}
+.flag .flag-gr {
+	background:transparent url(gr.gif) top left no-repeat;
+}
+.flag .flag-grk {
+	background:transparent url(grk.gif) top left no-repeat;
+}
+.flag .flag-gs {
+	background:transparent url(gs.gif) top left no-repeat;
+}
+.flag .flag-gt {
+	background:transparent url(gt.gif) top left no-repeat;
+}
+.flag .flag-gu {
+	background:transparent url(gu.gif) top left no-repeat;
+}
+.flag .flag-gw {
+	background:transparent url(gw.gif) top left no-repeat;
+}
+.flag .flag-gy {
+	background:transparent url(gy.gif) top left no-repeat;
+}
+.flag .flag-hk {
+	background:transparent url(hk.gif) top left no-repeat;
+}
+.flag .flag-hm {
+	background:transparent url(hm.gif) top left no-repeat;
+}
+.flag .flag-hn {
+	background:transparent url(hn.gif) top left no-repeat;
+}
+.flag .flag-hr {
+	background:transparent url(hr.gif) top left no-repeat;
+}
+.flag .flag-ht {
+	background:transparent url(ht.gif) top left no-repeat;
+}
+.flag .flag-hu {
+	background:transparent url(hu.gif) top left no-repeat;
+}
+.flag .flag-hun {
+	background:transparent url(hun.gif) top left no-repeat;
+}
+.flag .flag-id {
+	background:transparent url(id.gif) top left no-repeat;
+}
+.flag .flag-ie {
+	background:transparent url(ie.gif) top left no-repeat;
+}
+.flag .flag-il {
+	background:transparent url(il.gif) top left no-repeat;
+}
+.flag .flag-ind {
+	background:transparent url(ind.gif) top left no-repeat;
+}
+.flag .flag-in {
+	background:transparent url(in.gif) top left no-repeat;
+}
+.flag .flag-io {
+	background:transparent url(io.gif) top left no-repeat;
+}
+.flag .flag-iq {
+	background:transparent url(iq.gif) top left no-repeat;
+}
+.flag .flag-ir {
+	background:transparent url(ir.gif) top left no-repeat;
+}
+.flag .flag-is {
+	background:transparent url(is.gif) top left no-repeat;
+}
+.flag .flag-ita {
+	background:transparent url(ita.gif) top left no-repeat;
+}
+.flag .flag-it {
+	background:transparent url(it.gif) top left no-repeat;
+}
+.flag .flag-jap {
+	background:transparent url(jap.gif) top left no-repeat;
+}
+.flag .flag-jm {
+	background:transparent url(jm.gif) top left no-repeat;
+}
+.flag .flag-jo {
+	background:transparent url(jo.gif) top left no-repeat;
+}
+.flag .flag-jp {
+	background:transparent url(jp.gif) top left no-repeat;
+}
+.flag .flag-ke {
+	background:transparent url(ke.gif) top left no-repeat;
+}
+.flag .flag-kg {
+	background:transparent url(kg.gif) top left no-repeat;
+}
+.flag .flag-kh {
+	background:transparent url(kh.gif) top left no-repeat;
+}
+.flag .flag-ki {
+	background:transparent url(ki.gif) top left no-repeat;
+}
+.flag .flag-km {
+	background:transparent url(km.gif) top left no-repeat;
+}
+.flag .flag-kn {
+	background:transparent url(kn.gif) top left no-repeat;
+}
+.flag .flag-kp {
+	background:transparent url(kp.gif) top left no-repeat;
+}
+.flag .flag-kr {
+	background:transparent url(kr.gif) top left no-repeat;
+}
+.flag .flag-kw {
+	background:transparent url(kw.gif) top left no-repeat;
+}
+.flag .flag-ky {
+	background:transparent url(ky.gif) top left no-repeat;
+}
+.flag .flag-kz {
+	background:transparent url(kz.gif) top left no-repeat;
+}
+.flag .flag-la {
+	background:transparent url(la.gif) top left no-repeat;
+}
+.flag .flag-lb {
+	background:transparent url(lb.gif) top left no-repeat;
+}
+.flag .flag-lc {
+	background:transparent url(lc.gif) top left no-repeat;
+}
+.flag .flag-li {
+	background:transparent url(li.gif) top left no-repeat;
+}
+.flag .flag-lk {
+	background:transparent url(lk.gif) top left no-repeat;
+}
+.flag .flag-lr {
+	background:transparent url(lr.gif) top left no-repeat;
+}
+.flag .flag-ls {
+	background:transparent url(ls.gif) top left no-repeat;
+}
+.flag .flag-lt {
+	background:transparent url(lt.gif) top left no-repeat;
+}
+.flag .flag-lu {
+	background:transparent url(lu.gif) top left no-repeat;
+}
+.flag .flag-lv {
+	background:transparent url(lv.gif) top left no-repeat;
+}
+.flag .flag-ly {
+	background:transparent url(ly.gif) top left no-repeat;
+}
+.flag .flag-ma {
+	background:transparent url(ma.gif) top left no-repeat;
+}
+.flag .flag-mc {
+	background:transparent url(mc.gif) top left no-repeat;
+}
+.flag .flag-md {
+	background:transparent url(md.gif) top left no-repeat;
+}
+.flag .flag-me {
+	background:transparent url(me.gif) top left no-repeat;
+}
+.flag .flag-mg {
+	background:transparent url(mg.gif) top left no-repeat;
+}
+.flag .flag-mh {
+	background:transparent url(mh.gif) top left no-repeat;
+}
+.flag .flag-mk {
+	background:transparent url(mk.gif) top left no-repeat;
+}
+.flag .flag-ml {
+	background:transparent url(ml.gif) top left no-repeat;
+}
+.flag .flag-mm {
+	background:transparent url(mm.gif) top left no-repeat;
+}
+.flag .flag-mn {
+	background:transparent url(mn.gif) top left no-repeat;
+}
+.flag .flag-mo {
+	background:transparent url(mo.gif) top left no-repeat;
+}
+.flag .flag-mp {
+	background:transparent url(mp.gif) top left no-repeat;
+}
+.flag .flag-mq {
+	background:transparent url(mq.gif) top left no-repeat;
+}
+.flag .flag-mr {
+	background:transparent url(mr.gif) top left no-repeat;
+}
+.flag .flag-ms {
+	background:transparent url(ms.gif) top left no-repeat;
+}
+.flag .flag-mt {
+	background:transparent url(mt.gif) top left no-repeat;
+}
+.flag .flag-mu {
+	background:transparent url(mu.gif) top left no-repeat;
+}
+.flag .flag-mul {
+	background:transparent url(mul.gif) top left no-repeat;
+}
+.flag .flag-mv {
+	background:transparent url(mv.gif) top left no-repeat;
+}
+.flag .flag-mw {
+	background:transparent url(mw.gif) top left no-repeat;
+}
+.flag .flag-mx {
+	background:transparent url(mx.gif) top left no-repeat;
+}
+.flag .flag-my {
+	background:transparent url(my.gif) top left no-repeat;
+}
+.flag .flag-mz {
+	background:transparent url(mz.gif) top left no-repeat;
+}
+.flag .flag-na {
+	background:transparent url(na.gif) top left no-repeat;
+}
+.flag .flag-nc {
+	background:transparent url(nc.gif) top left no-repeat;
+}
+.flag .flag-ne {
+	background:transparent url(ne.gif) top left no-repeat;
+}
+.flag .flag-nf {
+	background:transparent url(nf.gif) top left no-repeat;
+}
+.flag .flag-ng {
+	background:transparent url(ng.gif) top left no-repeat;
+}
+.flag .flag-ni {
+	background:transparent url(ni.gif) top left no-repeat;
+}
+.flag .flag-nl {
+	background:transparent url(nl.gif) top left no-repeat;
+}
+.flag .flag-no {
+	background:transparent url(no.gif) top left no-repeat;
+}
+.flag .flag-nor {
+	background:transparent url(nor.gif) top left no-repeat;
+}
+.flag .flag-np {
+	background:transparent url(np.gif) top left no-repeat;
+}
+.flag .flag-nr {
+	background:transparent url(nr.gif) top left no-repeat;
+}
+.flag .flag-nu {
+	background:transparent url(nu.gif) top left no-repeat;
+}
+.flag .flag-nz {
+	background:transparent url(nz.gif) top left no-repeat;
+}
+.flag .flag-om {
+	background:transparent url(om.gif) top left no-repeat;
+}
+.flag .flag-pa {
+	background:transparent url(pa.gif) top left no-repeat;
+}
+.flag .flag-pe {
+	background:transparent url(pe.gif) top left no-repeat;
+}
+.flag .flag-pf {
+	background:transparent url(pf.gif) top left no-repeat;
+}
+.flag .flag-pg {
+	background:transparent url(pg.gif) top left no-repeat;
+}
+.flag .flag-ph {
+	background:transparent url(ph.gif) top left no-repeat;
+}
+.flag .flag-pk {
+	background:transparent url(pk.gif) top left no-repeat;
+}
+.flag .flag-pl {
+	background:transparent url(pl.gif) top left no-repeat;
+}
+.flag .flag-pm {
+	background:transparent url(pm.gif) top left no-repeat;
+}
+.flag .flag-pn {
+	background:transparent url(pn.gif) top left no-repeat;
+}
+.flag .flag-pol {
+	background:transparent url(pol.gif) top left no-repeat;
+}
+.flag .flag-pr {
+	background:transparent url(pr.gif) top left no-repeat;
+}
+.flag .flag-ps {
+	background:transparent url(ps.gif) top left no-repeat;
+}
+.flag .flag-pt {
+	background:transparent url(pt.gif) top left no-repeat;
+}
+.flag .flag-pw {
+	background:transparent url(pw.gif) top left no-repeat;
+}
+.flag .flag-py {
+	background:transparent url(py.gif) top left no-repeat;
+}
+.flag .flag-qa {
+	background:transparent url(qa.gif) top left no-repeat;
+}
+.flag .flag-re {
+	background:transparent url(re.gif) top left no-repeat;
+}
+.flag .flag-ro {
+	background:transparent url(ro.gif) top left no-repeat;
+}
+.flag .flag-rs {
+	background:transparent url(rs.gif) top left no-repeat;
+}
+.flag .flag-ru {
+	background:transparent url(ru.gif) top left no-repeat;
+}
+.flag .flag-rus {
+	background:transparent url(rus.gif) top left no-repeat;
+}
+.flag .flag-rw {
+	background:transparent url(rw.gif) top left no-repeat;
+}
+.flag .flag-sa {
+	background:transparent url(sa.gif) top left no-repeat;
+}
+.flag .flag-sb {
+	background:transparent url(sb.gif) top left no-repeat;
+}
+.flag .flag-sc {
+	background:transparent url(sc.gif) top left no-repeat;
+}
+.flag .flag-scotland {
+	background:transparent url(scotland.gif) top left no-repeat;
+}
+.flag .flag-sd {
+	background:transparent url(sd.gif) top left no-repeat;
+}
+.flag .flag-se {
+	background:transparent url(se.gif) top left no-repeat;
+}
+.flag .flag-sg {
+	background:transparent url(sg.gif) top left no-repeat;
+}
+.flag .flag-sh {
+	background:transparent url(sh.gif) top left no-repeat;
+}
+.flag .flag-si {
+	background:transparent url(si.gif) top left no-repeat;
+}
+.flag .flag-sj {
+	background:transparent url(sj.gif) top left no-repeat;
+}
+.flag .flag-sk {
+	background:transparent url(sk.gif) top left no-repeat;
+}
+.flag .flag-sl {
+	background:transparent url(sl.gif) top left no-repeat;
+}
+.flag .flag-slv {
+	background:transparent url(slv.gif) top left no-repeat;
+}
+.flag .flag-sm {
+	background:transparent url(sm.gif) top left no-repeat;
+}
+.flag .flag-sn {
+	background:transparent url(sn.gif) top left no-repeat;
+}
+.flag .flag-so {
+	background:transparent url(so.gif) top left no-repeat;
+}
+.flag .flag-sr {
+	background:transparent url(sr.gif) top left no-repeat;
+}
+.flag .flag-st {
+	background:transparent url(st.gif) top left no-repeat;
+}
+.flag .flag-sv {
+	background:transparent url(sv.gif) top left no-repeat;
+}
+.flag .flag-swe {
+	background:transparent url(swe.gif) top left no-repeat;
+}
+.flag .flag-sy {
+	background:transparent url(sy.gif) top left no-repeat;
+}
+.flag .flag-sz {
+	background:transparent url(sz.gif) top left no-repeat;
+}
+.flag .flag-tc {
+	background:transparent url(tc.gif) top left no-repeat;
+}
+.flag .flag-td {
+	background:transparent url(td.gif) top left no-repeat;
+}
+.flag .flag-tf {
+	background:transparent url(tf.gif) top left no-repeat;
+}
+.flag .flag-tg {
+	background:transparent url(tg.gif) top left no-repeat;
+}
+.flag .flag-th {
+	background:transparent url(th.gif) top left no-repeat;
+}
+.flag .flag-tj {
+	background:transparent url(tj.gif) top left no-repeat;
+}
+.flag .flag-tk {
+	background:transparent url(tk.gif) top left no-repeat;
+}
+.flag .flag-tl {
+	background:transparent url(tl.gif) top left no-repeat;
+}
+.flag .flag-tm {
+	background:transparent url(tm.gif) top left no-repeat;
+}
+.flag .flag-tn {
+	background:transparent url(tn.gif) top left no-repeat;
+}
+.flag .flag-to {
+	background:transparent url(to.gif) top left no-repeat;
+}
+.flag .flag-tr {
+	background:transparent url(tr.gif) top left no-repeat;
+}
+.flag .flag-tt {
+	background:transparent url(tt.gif) top left no-repeat;
+}
+.flag .flag-tur {
+	background:transparent url(tur.gif) top left no-repeat;
+}
+.flag .flag-tv {
+	background:transparent url(tv.gif) top left no-repeat;
+}
+.flag .flag-tw {
+	background:transparent url(tw.gif) top left no-repeat;
+}
+.flag .flag-tz {
+	background:transparent url(tz.gif) top left no-repeat;
+}
+.flag .flag-ua {
+	background:transparent url(ua.gif) top left no-repeat;
+}
+.flag .flag-ug {
+	background:transparent url(ug.gif) top left no-repeat;
+}
+.flag .flag-ukr {
+	background:transparent url(ukr.gif) top left no-repeat;
+}
+.flag .flag-um {
+	background:transparent url(um.gif) top left no-repeat;
+}
+.flag .flag-unknown {
+	background:transparent url(unknown.gif) top left no-repeat;
+}
+.flag .flag-us {
+	background:transparent url(us.gif) top left no-repeat;
+}
+.flag .flag-uy {
+	background:transparent url(uy.gif) top left no-repeat;
+}
+.flag .flag-uz {
+	background:transparent url(uz.gif) top left no-repeat;
+}
+.flag .flag-va {
+	background:transparent url(va.gif) top left no-repeat;
+}
+.flag .flag-vc {
+	background:transparent url(vc.gif) top left no-repeat;
+}
+.flag .flag-ve {
+	background:transparent url(ve.gif) top left no-repeat;
+}
+.flag .flag-vg {
+	background:transparent url(vg.gif) top left no-repeat;
+}
+.flag .flag-vi {
+	background:transparent url(vi.gif) top left no-repeat;
+}
+.flag .flag-vn {
+	background:transparent url(vn.gif) top left no-repeat;
+}
+.flag .flag-vu {
+	background:transparent url(vu.gif) top left no-repeat;
+}
+.flag .flag-wales {
+	background:transparent url(wales.gif) top left no-repeat;
+}
+.flag .flag-wf {
+	background:transparent url(wf.gif) top left no-repeat;
+}
+.flag .flag-ws {
+	background:transparent url(ws.gif) top left no-repeat;
+}
+.flag .flag-ye {
+	background:transparent url(ye.gif) top left no-repeat;
+}
+.flag .flag-yt {
+	background:transparent url(yt.gif) top left no-repeat;
+}
+.flag .flag-za {
+	background:transparent url(za.gif) top left no-repeat;
+}
+.flag .flag-zm {
+	background:transparent url(zm.gif) top left no-repeat;
+}
+.flag .flag-zw {
+	background:transparent url(zw.gif) top left no-repeat;
+}

@@ -1,0 +1,29 @@
+<div>
+	{if not $tickets->num_rows}
+	<p class="info">[*Keine Tickets gefunden*]</p>
+	{else}
+	{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+	{while $i = $tickets->fetch_assoc()}
+	<a href="/{LANG}/settings/tickets/ticket_id/{$i.report_id}/pw/{$i.password}/">[{$i.report_id}]</a> {timeago($i.t)}<br>
+	Name: {if $i.user_id}{user($i.user_id)->html()}{else}<em>{~$i.name}</em><br>E-Mail: <em>{~$i.email}</em>{/if}<br>
+	URL: <a href="{~$i.url}" target="_blank">{~$i.url}</a><br>
+	Grund: {~$i.class}<br>
+	{ubbcode::compile($i.message)}
+	<center>
+		<form method="post" onsubmit="return iC(this);">
+			<input type="hidden" name="{#IMPOST 'action'}" value="save">
+			<input type="hidden" name="{#IMPOST 'report_id'}" value="{$i.report_id}">
+			<textarea name="{#IMPOST 'comment'}" style="width:80%;height:60px;"></textarea>
+			<select name="{#IMPOST 'status'}">
+				<option value=""></option>
+				<option value="accepted" style="color:green;">Antrag annehmen (Unregelm&auml;&szlig;igkeit bereits behoben)</option>
+				<option value="rejected" style="color:red;">Antrag ablehnen (Bitte nur bei Trollen keinen Grund angeben)</option>
+			</select>
+			<button type="submit" class="button">Abschicken</button>
+		</form>
+	</center>
+	<hr>
+	{/while}
+	{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+	{/if}
+</div>

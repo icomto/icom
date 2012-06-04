@@ -1,0 +1,76 @@
+{include '~/page_header.ilp'}
+<div class="full-page long-style" style="width:1100px;">
+	<div class="module-helper {$THEME.module}">
+		<div class="module" id="Module" style="width:100%;">
+			<div class="module-item" style="margin:5px 0 5px 0;">
+				<h1>Seite oder Inhalt melden</h1>
+				<div class="module-content">
+					{if $success}
+					<p>
+						Vielen Danke f&uuml;r die Meldung.<br>
+						Wir werden Deine Anfrage so bald wie m&ouml;glich bearbeiten.
+					</p>
+					<p>
+						Du kannst hier auf Dein Ticket zugreifen:<br><a href="http://{SITE_DOMAIN}/{LANG}/settings/tickets/ticket_id/{$report_id}/{if not IS_LOGGED_IN}pw/{~$password}/{/if}">http://{SITE_DOMAIN}/{LANG}/settings/tickets/ticket_id/{$report_id}/{if not IS_LOGGED_IN}pw/{~$password}/{/if}</a><br>
+						<br>
+						{if not IS_LOGGED_IN}
+						Tip: Als <a href="/{LANG}/register/">registrierter Benutzer</a> kannst Du direkt &uuml;ber Dein Profil auf Deine Tickets zugreifen.
+						{else}
+						Du kannst Deine Tickets jederzeit unter <a href="/{LANG}/de/settings/tickets/">Einstellungen -> Tickets einsehen</a>.
+						{/if}
+					</p>
+					{else}
+					<form method="post">
+						<input type="hidden" name="{#IMPOST 'action'}" value="save">
+						{if not IS_LOGGED_IN}
+						<p>
+							Ihr Name:<br>
+							<input type="text" name="{#IMPOST 'name'}" value="{~@$args.post.name}" size="30">
+							{if @$error.name}<br><span class="error">Du musst deinen Namen angeben.</span>{/if}
+						</p>
+						<p>
+							Ihre E-Mail Addresse:<br>
+							<input type="text" name="{#IMPOST 'email'}" value="{~@$args.post.email}" size="30">
+							{if @$error.email}<br><span class="error">Du musst eine g&uuml;tige E-Mail Addresse angeben.</span>{/if}
+						</p>
+						{/if}
+						<p>
+							Betreffende URL:<br>
+							<input type="text" name="{#IMPOST 'url'}" value="{~@$args.post.url}" size="75">
+						</p>
+						<p>
+							Art der Meldung:<br>
+							<select name="{#IMPOST 'class'}">
+								<option value="" style="color:#888;">Bitte w&auml;hlen</option>
+								<option value="content"{if @$args.post.class == 'content'} selected="selected"{/if}>Unangemessener Inhalt (Versto&szlig; gegen den Jugendschutz etc.)</option>
+								<option value="abuse"{if @$args.post.class == 'abuse'} selected="selected"{/if}>Urheberrechtlich gesch&uuml;tzter Inhalt</option>
+								<option value="privacy"{if @$args.post.class == 'privacy'} selected="selected"{/if}>Verletzung von Pers&ouml;nlichkeitsrechten oder den Datenschutz</option>
+								<option value="other"{if @$args.post.class == 'other'} selected="selected"{/if}>Nicht aufgelisteter Grund</option>
+							</select>
+							{if @$error.class}<br><span class="error">Du musst eine Art der Meldung angeben.</span>{/if}
+						</p>
+						<p>
+							Bitte beschreibe so genau wie m&ouml;glich warum und was Du melden m&ouml;chstest.<br>
+							Du kannst auch gerne Screenshots oder weitere Links eintragen.
+							<textarea name="{#IMPOST 'message'}" class="bbcodeedit" rows="7">{~@$args.post.message}</textarea>
+							{if @$error.message}<br><span class="error">Bitte schreibe uns einen kurzen Text warum Du diese Seite melden willst.</span>{/if}
+						</p>
+						<p>
+							Gib bitte die folgenden Zeichen ein:<br>
+							<img src="/{LANG}/captcha/report_page?{mt_rand()}"><br>
+							<a href="" onclick="document.getElementById('Captcha').src='/{LANG}/captcha/report_page?'+Math.random();document.getElementById('CaptchaForm').focus();return false;" id="change-image" style="font-weight:normal;font-size:90%;padding-left:35px;">[[*Nicht lesbar? Text &auml;ndern*]]</a><br>
+							<input type="text" name="{#IMPOST 'captcha'}" style="width:200px;">
+							{if @$error.captcha}<br><span class="error">Bitte best&auml;tige das Captcha.</span>{/if}
+						</p>
+						<p>
+							<button type="submit" class="big-button">Abschicken</button>
+						</p>
+					</form>
+					{/if}
+				</div>
+				<div class="module-footer"></div>
+			</div>
+		</div>
+	</div>
+</div>
+{include '~/page_footer.ilp'}

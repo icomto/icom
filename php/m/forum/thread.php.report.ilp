@@ -1,0 +1,23 @@
+<div id="post_report{$while_i}">
+	{if $fatal_errors}
+	{foreach $fatal_errors as $e}<p class="error">{~$e}</p>{/foreach}
+	
+	{else}
+	
+	{if $errors}
+	{foreach $errors as $e}<p class="error">{~$e}</p>{/foreach}
+	{/if}
+
+	<form class="forum-write-post" method="post" action="{~$url_page}#post_report{$while_i}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~#post_report{$while_i}');">
+		<input type="hidden" name="{#IMPOST 'action'}" value="report">
+		<input type="hidden" name="{#IMPOST 'post_id'}" value="{~$i.post_id}">
+		<p class="info">
+			[*Gib hier einen kurzen Grund an warum Du diesen Beitrag melden m&ouml;chtest.*]<br>
+			[**Es gibt Punkte f&uuml;r einen gemeldeten Beitrag. Mehr dazu <a href="/wiki/Punkte/">hier</a>.*]
+		</p>
+		<div><textarea class="bbcodeedit" name="{#IMPOST 'reason'}">{~$post_reason}</textarea></div>
+		<button type="submit" class="button">[*Speichern*]</button>
+		<a href="/{LANG}/thread/{$root.thread_id}-{^$root.firstpost_name}/{if $page > 1}page/{$page}/{/if}" class="button">[*Abbrechen*]</a>
+	</form>
+	{/if}
+</div>

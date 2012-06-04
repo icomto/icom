@@ -1,0 +1,32 @@
+{include '~/page_header.ilp'}
+<script>clearInterval(ajaxUpdateIntervalHandle);</script>
+<div class="full-page long-style" style="width:1100px;">
+	<div class="module-helper {$THEME.module}">
+		<div class="module" id="Module" style="width:100%;">
+			<div class="module-item" style="margin:5px 0 5px 0;">
+				<h1>[*Du wurdest von {SITE_NAME} gebannt*]</h1>
+				<div class="module-content">
+					<tt>
+						<p>
+							[**Du kannst diese Seite erst wieder betreten wenn deine Verwarnpunkte unter 100 gefallen sind.<br>
+							Solltest Du Dir einen 2. Account erstellen werden beide Accounts komplett und f&uuml;r immer deaktiviert.*]
+						</p>
+						<p>[*Hier ein &Uuml;berblick &uuml;ber Deine Verwarnungen:*]</p>
+						{while $i = $warnings->fetch_assoc()}
+						<div style="margin-top:20px;padding-top:20px;border-top:1px #999 solid;">
+							<h4 style="margin:0;">
+								Ausgestellt {timeago($i.timeadded)}, {if $i.ended}verfallen{else}verf&auml;llt{/if} {if not $i._timeending}nie{else}{timeago($i._timeending, $i.ended)}{/if} ({%$i.points} Punkt{if $i.points != 1}e{/if})
+							</h4>
+							<p style="margin:0;">
+								{ubbcode::add_smileys(ubbcode::compile($i.reason))}
+							</p>
+						</div>
+						{/while}
+					</tt>
+				</div>
+				<div class="module-footer"></div>
+			</div>
+		</div>
+	</div>
+</div>
+{include '~/page_footer.ilp'}

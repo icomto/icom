@@ -1,0 +1,72 @@
+<div class="module-user-guestbook">
+	{if not $user}<p class="error">[*Der Benutzer wurde nicht gefunden.*]</p>
+	{elseif not $allow_see}<p class="error">[*Du hast keine Berechtigung das G&auml;stebuch von {~$user.nick} zu sehen.*]</p>
+	{else}
+	{if $user.user_id == USER_ID}
+	<div class="SEP first"><div><div></div><h3>[*Wer darf mein G&auml;stebuch sehen?*]</h3><div></div></div></div>
+	<form method="post" action="{~$url}">
+		<input type="radio" name="priv_guestbook" value="friends"{if $user.priv_guestbook == 'friends'} checked="checked"{/if} id="PrivGuestbookFriends"><label for="PrivGuestbookFriends">[*nur meine Freunde*]</label><br>
+		<input type="radio" name="priv_guestbook" value="users"{if $user.priv_guestbook == 'users'} checked="checked"{/if} id="PrivGuestbookUsers"><label for="PrivGuestbookUsers">[*alle registrierten Benutzer*]</label><br>
+		<input type="radio" name="priv_guestbook" value="public"{if $user.priv_guestbook == 'public'} checked="checked"{/if} id="PrivGuestbookPublic"><label for="PrivGuestbookPublic">[*jeder*]</label><br>
+		<button type="submit" class="button">[*Speichern*]</button>
+	</form>
+	<div class="SEP"><div><div></div><h3>[*G&auml;stebuch*]</h3><div></div></div></div>
+	{/if}
+	{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+	{if not $entries->num_rows}<p class="info">[*Der Benutzer {~$user.nick} hat noch keine G&auml;stebucheintr&auml;ge.*]</p>
+	{else}
+	{while $i = $entries->fetch_assoc() |i}
+	<table class="forum-post" border="1">
+		<tr>
+			<th class="post-infos">
+				{user($i.user_id)->html(-1)}<br>
+				{if user($i.user_id)->has_groups()}{user($i.user_id)->html_groups(0, ' ', array())}<br>{/if}
+				{set $rank = user($i.user_id)->html_rank()}
+				{if $rank}<span style="{~$rank.css}" data-tooltip="[*{%$i.user_points} Punkte*]">{~$rank.de}</span><br>{/if}
+				{if user($i.user_id)->has_avatar()}{user($i.user_id)->avatar_html()}<br>{/if}
+			</th>
+			<td class="post-content user-entry">
+				{ubbcode::add_smileys(ubbcode::compile($i.message, (DISPLAY_COMMUNITY_ELEMENTS ? 491 : 616)))}
+			</td>
+		</tr>
+		<tr class="post-footer">
+			<th>
+				{timeago($i.timeadded)}
+			</th>
+			<td class="post-controls">
+				{if $user.user_id == USER_ID or has_privilege('guestbook_master')}
+				<form method="post" action="{~$url}" onsubmit="if(!confirm('[*Sicher?*]'))return false;">
+					<input type="hidden" name="delete_guestbook_entrie" value="{~$i.id}">
+					<button type="submit" class="button">[*L&ouml;schen*]</button>
+				</form>
+				{/if}
+			</td>
+		</tr>
+	</table>
+	{/while}
+	{/if}
+	{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+
+	{if IS_LOGGED_IN and $page == 1}
+	<div class="guestbook-new-post">
+		<div class="SEP"><div><div></div><h3>[*Beitrag schreiben*]</h3><div></div></div></div>
+		{switch $allow_post}
+		{default}<p class="error">[*Unbekannter Status: {~$allow_post}*]</p>{/default}
+		{case "POST_LIMIT_REACHED"}<p class="info">[*Du darfst nur alle 15 Tage einen Beitrag in das G&auml;stebuch von {~$user.nick} schreiben.*]</p>{/case}
+		{case "ALLOW"}
+		<div class="guestbook-rules">
+			<h3>[*Regeln*]</h3>
+			<p>[*1. Du darfst nur einmal alle 15 Tage einen Beitrag in das G&auml;stebuch von {~$user.nick} schreiben.*]</p>
+			<p>[*2. Dein Beitrag darf nicht mehr als 1000 Zeichen enthalten. Alles was dar&uuml;ber geht wird abgeschnitten.*]</p>
+		</div>
+		<form method="post" action="{~$url}">
+			<textarea class="bbcodeedit" name="guestbook_message"></textarea>
+			<button type="submit" class="big-button lonely-button">[*Abschicken*]</button>
+		</form>
+		{/case}
+		{/switch}
+	</div>
+	{/if}
+
+	{/if}
+</div>

@@ -1,0 +1,22 @@
+{if $threads->num_rows}
+<div class="menu-forum-threads">
+	{while $i = $threads->fetch_assoc()}
+	{set $i.pages = calculate_pages($i.thread_num_posts, FORUM_THREAD_NUM_POSTS_PER_SITE)}
+	<a class="{if $i.thread_lang_de} lang-de{/if}{if $i.thread_lang_en} lang-en{/if}" {if $i.pages > 1 or $is_multilang or strlen($i.firstpost_name) > 26} data-dd="ildd.menuForum" data-dd-body="&lt;h4&gt;{if $is_multilang}{~get_sitelang_flag2($i.thread_lang_de, $i.thread_lang_en)} {/if}{~$i.firstpost_name}&lt;h4&gt;{if $i.pages > 1}[*Springe zu Seite: *]&lt;span class=&quot;pages&quot;&gt;{~create_pages(0, $i.pages - 1, '/'.LANG.'/thread/'.$i['thread_id'].'-'.urlenc($i['firstpost_name']).'/page/%s/', false)}&lt;/span&gt;{/if}" {/if}class="thread" href="/{LANG}/thread/{$i.thread_id}-{^$i.firstpost_name}/{if $i.pages > 1}page/{°$i.pages}/{/if}">{~truncate($i.firstpost_name,26,'...',true)}</a>
+	{/while}
+</div>
+{/if}
+<div class="MenuForumFooter">
+	<p class="all-entries">
+		{if $namespace == 'def'}
+		{if $threads->num_rows}<a href="/{LANG}/forum/latest/def/">[*Die letzten 100 Beitr&auml;ge*]</a>{/if}
+		<a href="/{LANG}/forum/">[*Zum Forum*]</a>
+		{elseif $namespace == 'news'}
+		{if $threads->num_rows}<a href="/{LANG}/forum/latest/news/">[*Die letzten 100 Beitr&auml;ge*]</a>{/if}
+		<a href="/{LANG}/forum/182-[*News*]/">[*Zu den News*]</a>
+		{elseif $namespace == 'team'}
+		{if $threads->num_rows}<a href="/{LANG}/forum/latest/team/">[*Die letzten 100 Beitr&auml;ge*]</a>{/if}
+		<a href="/{LANG}/forum/1-[*Teamintern*]/">[*Zum Teaminternen*]</a>
+		{/if}
+	</p>
+</div>

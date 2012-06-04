@@ -1,0 +1,537 @@
+.wiki,
+.wiki table,
+.wiki a,
+.wiki a:hover,
+.wiki a:active,
+.wiki a:visited {
+	line-height: 1.5em;
+	font: x-small sans-serif;
+	font-size:100%;
+}
+.wiki table {
+	width:auto;
+}
+
+.wiki h2,
+.wiki h3,
+.wiki h4,
+.wiki h5,
+.wiki h6,
+.wiki h7 {
+	clear:both;
+	float:none;
+	display:block;
+	background: none !important;
+	font-weight: normal;
+	margin: 0 0 .24em 0;
+	padding: 0 0 .17em 0;
+	text-indent:0;
+	border:0;
+	border-bottom: 1px solid #aaa;
+	font: x-small sans-serif;
+	width:auto !important;
+}
+.T-base-white .wiki h2,
+.T-base-white .wiki h3,
+.T-base-white .wiki h4,
+.T-base-white .wiki h5,
+.T-base-white .wiki h6,
+.T-base-white .wiki h7 {
+	color:black;
+}
+.T-base-black .wiki h2,
+.T-base-black .wiki h3,
+.T-base-black .wiki h4,
+.T-base-black .wiki h5,
+.T-base-black .wiki h6,
+.T-base-black .wiki h7 {
+	color: #bbb;
+}
+.wiki h2 {
+	font-size: 188%;
+}
+.wiki h2.firstHeading {
+	margin-bottom:.3em;
+}
+.wiki h2.firstHeading .aliases {
+	font-size:60%;
+	color:#666;
+}
+.wiki h2.firstHeading .aliases a,
+.wiki h2.firstHeading .aliases a:hover,
+.wiki h2.firstHeading .aliases a:active,
+.wiki h2.firstHeading .aliases a:visited {
+	font-size:100%;
+	color:#666;
+	font-weight:normal;
+}
+.wiki h2 .editsection {
+	font-size: 53%;
+}
+.wiki h3 {
+	font-size: 150%;
+	margin-top:1.4em;
+}
+.wiki h3 .editsection {
+	font-size: 67%;
+}
+.wiki h4,
+.wiki h5,
+.wiki h6,
+.wiki h7 {
+	clear:none;
+	border-bottom: none;
+	font-weight: bold;
+}
+.wiki h4 {
+	font-size: 132%;
+	margin-top:1.3em;
+}
+.wiki h4 .editsection {
+	font-size: 76%; font-weight: normal;
+}
+.wiki h5 {
+	font-size: 116%;
+	margin-top:1.2em;
+}
+.wiki h5 .editsection {
+	font-size: 86%;
+	font-weight: normal;
+}
+.wiki h6 {
+	font-size: 100%;
+	margin-top:1.1em;
+}
+.wiki h6 .editsection {
+	font-weight: normal;
+}
+.wiki h7 {
+	font-size: 80%;
+	margin-top:1em;
+}
+.wiki h7 .editsection {
+	font-size: 125%;
+	font-weight: normal;
+}
+
+.wiki .headingComment {
+	font-weight:bold;
+	color:#888;
+	margin-bottom:1.3em;
+	border-bottom: 1px solid #aaa;
+}
+.wiki .headingComment a {
+	color:#888;
+}
+.wiki .quiet,
+.wiki .quiet a {
+	color:#888;
+}
+.wiki .historyInfo {
+	color:#555;
+}
+
+/*404 Not Found! list-style-image: url(bullet.gif);*/
+.wiki ul {
+	line-height: 1.5em;
+	list-style-type: square;
+	margin: .3em 0 0 1.5em;
+	padding: 0;
+}
+.wiki ol {
+	line-height: 1.5em;
+	margin: .3em 0 0 3.2em;
+	padding: 0;
+	list-style-image: none;
+}
+.wiki li {
+	margin-bottom: .1em;
+}
+
+.wiki a {
+	text-decoration: none;
+	background: none;
+}
+.T-base-white .wiki a {
+	color: #002bb8;
+}
+.T-base-black .wiki a {
+	color: #8888ff;
+}
+.T-base-white .wiki a:visited {
+	color:#5a3696;
+}
+.T-base-black .wiki a:visited {
+}
+.wiki a:active {
+	color:#faa700;
+}
+.wiki a:hover {
+	text-decoration:underline;
+}
+.wiki a.stub {
+	color: #772233;
+}
+.T-base-white .wiki a.new,
+.T-base-white #p-personal a.new {
+	color: #ba0000;
+}
+.T-base-black .wiki a.new,
+.T-base-black #p-personal a.new {
+	color: #ff8888;
+}
+.wiki a.new:visited,
+#p-personal a.new:visited {
+	color: #a55858;
+}
+
+.wiki .catlinks {
+	padding: 5px 0px 5px 0;
+	margin-top: 1em;
+}
+.wiki .catlinks {
+	border: 0px;
+	border-top: 2px dotted #aaaaaa;
+}
+
+.wiki .error,
+.wiki .warning,
+.wiki .info {
+	width:80%;
+	margin-left:10%;
+	padding: .1em;
+	margin-top: .5em;
+	margin-bottom: .5em;
+	text-align:center;
+}
+.wiki .error {
+	font-weight:bold;
+	border:1px solid #ff2222;
+	background:#ee8888;
+}
+.wiki .warning {
+	font-weight:bold;
+	border:1px solid #ffff33;
+	background:#ffff77;
+}
+.wiki .info {
+	border:1px solid #aaaaaa;
+	background:#aaaaee;
+}
+.T-base-black .wiki .info,
+.T-base-black .wiki .info a {
+	color:#444;
+}
+
+.wiki .box-full,
+.wiki .box-left,
+.wiki .box-right {
+	border:1px #666 solid;
+}
+.wiki .box-left,
+.wiki .box-right {
+	width:49%;
+}
+.wiki .box-full {
+	width:100%;
+}
+.wiki .box-full h3,
+.wiki .box-left h3,
+.wiki .box-right h3 {
+	font-size:116%;
+	font-weight:bold;
+	background-color:#bbbbff;
+	border-bottom:1px #666 solid;
+	padding-top:2px;
+}
+.wiki .box-full h3 span,
+.wiki .box-full .box,
+.wiki .box-left h3 span,
+.wiki .box-right h3 span,
+.wiki .box-left .box,
+.wiki .box-right .box  {
+	padding:3px 0 2px 3px;
+}
+.wiki .box-full {
+	clear:both;
+}
+.wiki .box-left {
+	float:left;
+	clear:left;
+}
+.wiki .box-right {
+	float:right;
+	clear:right;
+}
+
+.wiki .diff-blockheader {
+	font-weight:bold;
+}
+.wiki .diff-a {
+	text-align:center;
+	font-weight:bold;
+	font-size:130%;
+}
+.wiki .diff-addedline {
+	background-color:#ccccff;
+}
+.wiki .diff-deletedline {
+	background-color:#ffcccc;
+}
+.wiki .diff-changed {
+	font-weight:bold;
+	color:red;
+}
+
+.wikitable,
+.prettytable {
+	margin: 1em 1em 1em 0;
+	border-collapse: collapse;
+	empty-cells:show;
+}
+.T-base-white .wikitable,
+.T-base-white .prettytable {
+	background: #f9f9f9;
+	border: 1px #AAA solid;
+}
+.T-base-black .wikitable,
+.T-base-black .prettytable {
+	background: #090909;
+	border: 1px #555 solid;
+}
+.wikitable th,
+.wikitable td,
+.prettytable th,
+.prettytable td {
+	padding: 0.3em;
+}
+.T-base-white .wikitable th,
+.T-base-white .wikitable td,
+.T-base-white .prettytable th,
+.T-base-white .prettytable td {
+	border: 1px #AAA solid;
+}
+.T-base-black .wikitable th,
+.T-base-black .wikitable td,
+.T-base-black .prettytable th,
+.T-base-black .prettytable td {
+	border: 1px #555 solid;
+}
+.wikitable caption,
+.prettytable caption {
+	font-weight: bold;
+}
+.wikitable th,
+.prettytable th {
+	text-align:center;
+}
+
+ /* Wie Inhaltsverzeichnis */
+.T-base-white table.wikitable tr.hintergrundfarbe1 th,
+.T-base-white table.wikitable tr th.hintergrundfarbe1,
+.T-base-white table.hintergrundfarbe1,
+.T-base-white .hintergrundfarbe1 {
+	background-color: #f9f9f9;
+}
+ /* Wie Inhaltsverzeichnis */
+.T-base-black table.wikitable tr.hintergrundfarbe1 th,
+.T-base-black table.wikitable tr th.hintergrundfarbe1,
+.T-base-black table.hintergrundfarbe1,
+.T-base-black .hintergrundfarbe1 {
+	background-color: #090909;
+}
+/* "Weiss", fuer Nicht-Artikel-Seiten, neutral */
+.T-base-white table.wikitable tr.hintergrundfarbe2 th,
+.T-base-white table.wikitable tr th.hintergrundfarbe2,
+.T-base-white table.hintergrundfarbe2,
+.T-base-white .hintergrundfarbe2 {
+	background-color: #ffffff;
+}
+/* "Weiss", fuer Nicht-Artikel-Seiten, neutral */
+.T-base-black table.wikitable tr.hintergrundfarbe2 th,
+.T-base-black table.wikitable tr th.hintergrundfarbe2,
+.T-base-black table.hintergrundfarbe2,
+.T-base-black .hintergrundfarbe2 {
+	background-color: #000000;
+}
+/* "Gelb", auffaellig */
+table.wikitable tr.hintergrundfarbe3 th,
+table.wikitable tr th.hintergrundfarbe3,
+table.hintergrundfarbe3,
+.hintergrundfarbe3 {
+	background-color: #ffff40;
+}
+/* Sehr auffaellig */
+table.wikitable tr.hintergrundfarbe4 th,
+table.wikitable tr th.hintergrundfarbe4,
+table.hintergrundfarbe4,
+.hintergrundfarbe4 {
+	background-color: #ffaa00;
+}
+/* Neutral, abgesetzt */
+table.wikitable tr.hintergrundfarbe5 th,
+table.wikitable tr th.hintergrundfarbe5,
+table.hintergrundfarbe5,
+.hintergrundfarbe5 {
+	background-color: #e0e0e0;
+}
+/* Allgemein bunt, fuer Hervorhebungen und Unterscheidungen */
+.T-base-white table.wikitable tr.hintergrundfarbe6 th,
+.T-base-white table.wikitable tr th.hintergrundfarbe6,
+.T-base-white table.hintergrundfarbe6,
+.T-base-white .hintergrundfarbe6 {
+	background-color: #b3b7ff;
+}
+/* Allgemein bunt, fuer Hervorhebungen und Unterscheidungen */
+.T-base-black table.wikitable tr.hintergrundfarbe6 th,
+.T-base-black table.wikitable tr th.hintergrundfarbe6,
+.T-base-black table.hintergrundfarbe6,
+.T-base-black .hintergrundfarbe6 {
+	background-color: #313131;
+}
+/* Allgemein bunt, fuer Hervorhebungen und Unterscheidungen */
+table.wikitable tr.hintergrundfarbe7 th,
+table.wikitable tr th.hintergrundfarbe7,
+table.hintergrundfarbe7,
+.hintergrundfarbe7 {
+	background-color: #ffcbcb;
+}
+/* Allgemein bunt, fuer Hervorhebungen und Unterscheidungen */
+table.wikitable tr.hintergrundfarbe8 th,
+table.wikitable tr th.hintergrundfarbe8,
+table.hintergrundfarbe8,
+.hintergrundfarbe8 {
+	background-color: #ffebad;
+}
+/* Allgemein bunt, fuer Hervorhebungen und Unterscheidungen */
+table.wikitable tr.hintergrundfarbe9 th,
+table.wikitable tr th.hintergrundfarbe9,
+table.hintergrundfarbe9,
+.hintergrundfarbe9 {
+	background-color: #b9ffc5;
+}
+
+.toc,
+.mw-warning {
+	border: 1px solid #aaa;
+	padding: 5px;
+	font-size: 95%;
+}
+.T-base-white .toc,
+.T-base-white .mw-warning {
+	background-color: #f9f9f9;
+}
+.T-base-black .toc,
+.T-base-black .mw-warning {
+	background-color: #090909;
+}
+.toc h3 {
+	display: inline;
+	border: none;
+	padding: 0;
+	font-size: 110%;
+	font-weight: bold;
+}
+.toc .toctitle {
+	text-align:center;
+	padding:8px 0 3px 0;
+}
+.toc td {
+	padding:0 8px 5px 8px;
+}
+.toc ul {
+	list-style-type: none;
+	list-style-image: none;
+	margin-left: 0;
+	padding-left: 0;
+	text-align: left;
+}
+.toc ul ul {
+	margin: 0 0 0 2em;
+}
+.toc .toctoggle {
+	font-size:94%;
+}
+
+.wiki .pagescol,
+.wiki .pagescol_first,
+.wiki .pagescol_last {
+	float:left;
+	width:32%;
+	overflow:hidden;
+}
+.wiki .pagescol_last {
+	float:right;
+	overflow:hidden;
+}
+.wiki .pagescol h3,
+.wiki .pagescol_first h3,
+.wiki .pagescol_last h3 {
+	padding-top:10px;
+	overflow:hidden;
+}
+.wiki .pagescol {
+	margin-left:1.9%;
+	overflow:hidden;
+}
+
+.wiki div.thumb {
+	margin-bottom: .5em;
+	border-style: solid;
+	border-color: transparent;
+	width: auto;
+}
+.wiki div.thumbinner {
+	padding: 3px !important;
+	font-size: 94%;
+	text-align: center;
+	overflow: hidden;
+}
+.T-base-white .wiki div.thumbinner {
+	border: 1px solid #ccc;
+	background-color: #f9f9f9;
+}
+.T-base-black .wiki div.thumbinner {
+	border: 1px solid #333;
+	background-color: #090909;
+}
+.wiki div.thumbinner img {
+	max-width:100%;
+	border:none;
+}
+.wiki div.thumb.tright {
+	clear: right;
+	float: right;
+	border-width: .5em 0 .8em .8em;
+}
+.wiki div.thumb.tleft {
+	float: left;
+	clear: left;
+	margin-right: .5em;
+	border-width: .5em .8em .8em 0;
+}
+.wiki div.thumb.tnone {
+	float: none;
+	clear: both;
+	border-width: .5em 0 .8em 0;
+}
+
+.wiki pre {
+	padding: 3px !important;
+	font-size: 100%;
+	white-space:normal;
+	overflow: hidden;
+	margin:0;
+}
+.T-base-white .wiki pre {
+	border: 1px solid #ccc;
+	background-color: #f9f9f9;
+}
+.T-base-black .wiki pre {
+	border: 1px solid #444;
+	background-color: #090909;
+}
+
+.wikiH2 a {
+	font-size:100% !important;
+}

@@ -1,0 +1,32 @@
+<div class="module-item" id="ModuleOnlineUsers">
+	<h1><a href="/{LANG}/online_users/">[*Benutzer die gerade online sind*]</a></h1>
+	<div class="module-content">
+		{if $online_team->num_rows}
+		<p>
+			{while $i = $online_team->fetch_assoc() |i}
+			{user($i.user_id)->html(1, '', array(6), false)}
+			{if $while_i < $online_team->num_rows}, {/if}
+			{/if}
+		</p>
+		{/if}
+		{if $online_users->num_rows == 0}
+		<p class="info">
+			[*Momentan ist niemand online*]
+		</p>
+		{else}
+		{set $current_letter = "#"}
+		<p>
+			{while $i = $online_users->fetch_assoc() |i}
+			{if $current_letter == '#'}
+			{if preg_match('~^([a-z])~i', $i.nick, $out)}{set $current_letter = strtoupper($out.1)}</p><p>{/if}
+			{else}
+			{set $c = strtoupper(mb_substr($i.nick, 0, 1))}
+			{if $c != $current_letter}{set $current_letter = $c}</p><p>{/if}
+			{/if}
+			<a href="/{LANG}/users/{$i.user_id}-{^$i.nick}/">{~$i.nick}</a>{if $while_i < $online_users->num_rows}, {/if}
+			{/while}
+		</p>
+		{/if}
+	</div>
+	<div class="module-footer"></div>
+</div>

@@ -1,0 +1,36 @@
+<div class="module-item">
+	<h1><a href="/{LANG}/admin/warnings/{$user_id}/">Verwarnungen ausgestellt von {~user($user_id)->nick}</a></h1>
+	<div class="module-content">
+		{if not $warnings->num_rows}<p>Dieser User hat noch keine Verwarnungen ausgestellt.</p>
+		{else}
+		{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div><br>{/if}
+		{while $i = $warnings->fetch_assoc()}
+		<table class="user-message">
+			<tr>
+				<td class="user-message-infos">
+					{user($i.user_id)->html(-1)}<br>
+					{timeago($i.timeadded)}<br>
+					{%$i.points} Punkt{if $i.points != 1}e{/if}<br>
+					{if $i.ended}[*verfallen*]{else}[*verf&auml;llt*]{/if} {if not $i.timeending or $i.timeending == '0000-00-00 00:00:00'}[*nie*]{else}{timeago($i.timeending, $i.ended)}{/if}
+				 </td>
+				<td>
+					{if has_privilege('user_warnings')}
+					<div class="user-message-controls user-entry">
+						<form method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.user-message');">
+							<input type="hidden" name="{#IMPOST 'action'}" value="del_warning">
+							<input type="hidden" name="{#IMPOST 'user_id'}" value="{$i.user_id}">
+							<input type="hidden" name="{#IMPOST 'warning_id'}" value="{$i.warning_id}">
+							<button class="button" type="submit" >X</button>
+						</form>
+					</div>
+					{/if}
+					{ubbcode::add_smileys(ubbcode::compile($i.reason, 580))}
+				</td>
+			</tr>
+		</table>
+		{/while}
+		{if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+		{/if}
+	</div>
+	<div class="module-footer"></div>
+</div>

@@ -1,0 +1,8 @@
+{if $create}
+<input type="text" style="text-align:center;width:100px;" onfocus="this.select();" value="{~$create}">
+{else}
+<form method="post" action="{$url}" onsubmit="return iC(this);">
+	<input type="hidden" name="{#IMPOST 'action'}" value="create">
+	<button type="submit" class="button">[*Invite-Code erstellen*]</button>
+</form>
+{/if}
