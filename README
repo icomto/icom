@@ -50,9 +50,9 @@ sed -i 's/START=no/START=yes/' /etc/default/sphinxsearch
 
 #ACHTUNG: Pfad zum icom root gegebenenfalls ändern
 mv /etc/sphinxsearch/sphinx.conf /etc/sphinxsearch/sphinx.conf.original
-ln -s /var/www/icom/conf/sphinx.conf /etc/sphinxsearch/sphinx.conf
+cp /var/www/icom/conf/sphinx.conf /etc/sphinxsearch/sphinx.conf
 
-#Die Datei conf/sphinx.conf bitte anpassen (MySQL Login Daten ...)
+#Die Datei /etc/sphinxsearch/sphinx.conf bitte anpassen (MySQL Login Daten ...)
 
 /usr/bin/indexer --all
 /etc/init.d/sphinxsearch restart
@@ -76,10 +76,10 @@ apt-get install nginx
 
 #ACHTUNG: Pfad zum icom root gegebenenfalls ändern
 rm /etc/nginx/sites-enabled/default
-ln -s /var/www/icom/conf/nginx.conf /etc/nginx/sites-enabled/icom.conf
+cp /var/www/icom/conf/nginx.conf /etc/nginx/sites-enabled/icom.conf
 /etc/init.d/nginx restart
 
-#Die Datei conf/icom.conf eventuell anpassen (root Pfad ändern).
+#Die Datei /etc/nginx/sites-enabled/icom.conf eventuell anpassen (root Pfad ändern).
 
 
 5. PHP 5.4 (php-fpm)
@@ -107,7 +107,8 @@ apt-get install php5 php5-memcache php-apc php5-gd php5-mysql php5-mcrypt php5-c
 # wenn die haupt debian version kleiner als wheezy ist muss apt der parameter "-t wheezy" mitgegeben werden (ohen die ")
 
 #einstellungen für fpm
-sed -i 's/^display_errors = Off/short_open_tag = On/' /etc/php5/fpm/php.ini		# ACHTUNG: Diesen Eintrag nur zum Debuggen ändern
+
+sed -i 's/^display_errors = Off/display_errors = On/' /etc/php5/fpm/php.ini		# ACHTUNG: Diesen Eintrag nur zum Debuggen ändern
 
 sed -i 's/^short_open_tag = Off/short_open_tag = On/' /etc/php5/fpm/php.ini
 sed -i 's/^error_reporting = E_ALL & ~E_DEPRECATED/error_reporting = E_ALL/' /etc/php5/fpm/php.ini
