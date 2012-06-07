@@ -4,9 +4,21 @@ class imail {
 	public static $config;
 	
 	public static function mail($to, $subject, $message, $args) {
-		$s = self::smtp_mail_start();
-		self::smtp_mail_send($s, $to, '', $subject, $message);
-		self::smtp_mail_end($s);
+		if(empty(self::$config['host']) {
+			mail(
+				$to,
+				"=?UTF-8?B?".base64_encode($subject)."?=",
+				base64_encode($message),
+				"From: iCom.to <".self::$config['noreply'].">\r\n".
+				"MIME-Version: 1.0\r\n".
+				"Content-Type: text/plain; charset=UTF-8\r\n".
+				"Content-Transfer-Encoding: base64\r\n");
+		}
+		else {
+			$s = self::smtp_mail_start();
+			self::smtp_mail_send($s, $to, '', $subject, $message);
+			self::smtp_mail_end($s);
+		}
 	}
 
 
@@ -73,6 +85,6 @@ class imail {
 	}
 }
 
-imail::$config = $CONFIG['mail'];
+imail::$config = (empty($CONFIG['mail']) ? NULL : $CONFIG['mail']);
 
 ?>

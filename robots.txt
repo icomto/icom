@@ -2,4 +2,3 @@ User-agent: *
 Allow: /
 Disallow: /users/
 Disallow: /community/
-Disallow: /go/

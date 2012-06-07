@@ -50,7 +50,7 @@ sed -i 's/START=no/START=yes/' /etc/default/sphinxsearch
 
 #ACHTUNG: Pfad zum icom root gegebenenfalls ändern
 mv /etc/sphinxsearch/sphinx.conf /etc/sphinxsearch/sphinx.conf.original
-cp /var/www/icom/conf/sphinx.conf /etc/sphinxsearch/sphinx.conf
+cp conf/sphinx.conf /etc/sphinxsearch/sphinx.conf
 
 #Die Datei /etc/sphinxsearch/sphinx.conf bitte anpassen (MySQL Login Daten ...)
 
@@ -76,7 +76,7 @@ apt-get install nginx
 
 #ACHTUNG: Pfad zum icom root gegebenenfalls ändern
 rm /etc/nginx/sites-enabled/default
-cp /var/www/icom/conf/nginx.conf /etc/nginx/sites-enabled/icom.conf
+cp conf/nginx.conf /etc/nginx/sites-enabled/icom.conf
 /etc/init.d/nginx restart
 
 #Die Datei /etc/nginx/sites-enabled/icom.conf eventuell anpassen (root Pfad ändern).

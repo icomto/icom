@@ -69,6 +69,17 @@ CREATE TABLE `forum_posts` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `forum_posts`
+--
+
+LOCK TABLES `forum_posts` WRITE;
+/*!40000 ALTER TABLE `forum_posts` DISABLE KEYS */;
+INSERT INTO `forum_posts` VALUES (916432,127072,1,'2012-06-04 22:10:53','0000-00-00 00:00:00',0,'','Test','123'),(916433,127073,1,'2012-06-04 22:28:25','0000-00-00 00:00:00',0,'','iCom ist Open Source','[news_introduce]196[/news_introduce]');
+/*!40000 ALTER TABLE `forum_posts` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+--
 -- Table structure for table `forum_reported_posts`
 --
 
@@ -195,6 +206,17 @@ CREATE TABLE `forum_threads` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `forum_threads`
+--
+
+LOCK TABLES `forum_threads` WRITE;
+/*!40000 ALTER TABLE `forum_threads` DISABLE KEYS */;
+INSERT INTO `forum_threads` VALUES (127072,2,'de',1,0,1,0,'','9normal',0,1,0,1,1),(127073,236,'de',1,0,1,1,'','9normal',0,1,0,916433,916433);
+/*!40000 ALTER TABLE `forum_threads` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+--
 -- Table structure for table `forum_threads_visited_guests`
 --
 
@@ -269,7 +291,7 @@ CREATE TABLE `groups` (
 
 LOCK TABLES `groups` WRITE;
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
-INSERT INTO `groups` VALUES (1,'Admin',NULL,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0),(2,'Co-Admin',NULL,1,2,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,1,0,1,0),(3,'Moderator',NULL,1,4,0,0,1,1,0,0,0,1,0,1,1,1,1,0,0,1,0,0,1,1,0),(6,'Benutzer','User',1,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(154,'Designer',NULL,1,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(158,'Banned',NULL,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1),(177,'_shoutboxmaster',NULL,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(178,'BF3-Admin',NULL,1,61,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(168,'_mods',NULL,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0),(175,'Supermoderator',NULL,1,3,0,0,1,1,0,0,0,1,0,1,1,1,1,0,0,1,0,0,0,1,0),(180,'VIP',NULL,1,71,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(181,'_newswriter',NULL,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(182,'_noad',NULL,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(187,'Radioadmin',NULL,1,40,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0),(190,'_user_warnings',NULL,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0),(192,'Geburtstagskinder',NULL,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(194,'Wiki Moderator',NULL,1,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0),(195,'Am Pranger',NULL,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(196,'Alle Mitglieder','All Members',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(197,'Level 2','Level 2',1,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(199,'Supporter',NULL,1,35,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(201,'Händler','Trader',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(202,'Chatmoderator',NULL,1,9,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(204,'Gast-DJ','Guest-DJ',1,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(226,'Gäste und Mitglieder','Guests and members',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(208,'Level 2 (alle)','Level 2 (alle)',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(212,'iCom Times',NULL,1,36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(215,'News','News',1,34,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0),(221,'_mod_undercoder','_mod_undercoder',0,0,0,1,1,1,0,0,0,1,0,1,1,1,1,0,0,0,0,1,0,1,0),(222,'_poweradmin',NULL,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,0),(224,'Troll','Troll',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0);
+INSERT INTO `groups` VALUES (1,'Admin',NULL,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0),(2,'Co-Admin',NULL,1,2,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,1,0,1,0),(3,'Moderator',NULL,1,4,0,0,1,1,0,0,0,1,0,1,1,1,1,0,0,1,0,0,1,1,0),(6,'Benutzer','User',1,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(154,'Designer',NULL,1,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(158,'Banned',NULL,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1),(177,'_shoutboxmaster',NULL,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(178,'BF3-Admin',NULL,1,61,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(168,'_mods',NULL,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0),(175,'Supermoderator',NULL,1,3,0,0,1,1,0,0,0,1,0,1,1,1,1,0,0,1,0,0,0,1,0),(180,'VIP',NULL,1,71,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(181,'_newswriter',NULL,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(182,'_noad',NULL,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(187,'Radioadmin',NULL,1,40,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0),(190,'_user_warnings',NULL,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0),(192,'Geburtstagskinder',NULL,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(194,'Wiki Moderator',NULL,1,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0),(195,'Am Pranger',NULL,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(196,'Alle Mitglieder','All Members',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(197,'Level 2','Level 2',1,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(199,'Supporter',NULL,1,35,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(201,'H','Trader',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(202,'Chatmoderator',NULL,1,9,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(204,'Gast-DJ','Guest-DJ',1,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(226,'G','Guests and members',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(208,'Level 2 (alle)','Level 2 (alle)',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(212,'iCom Times',NULL,1,36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(215,'News','News',1,34,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0),(221,'_mod_undercoder','_mod_undercoder',0,0,0,1,1,1,0,0,0,1,0,1,1,1,1,0,0,0,0,1,0,1,0),(222,'_poweradmin',NULL,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,0),(224,'Troll','Troll',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0);
 /*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -464,6 +486,17 @@ CREATE TABLE `news` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `news`
+--
+
+LOCK TABLES `news` WRITE;
+/*!40000 ALTER TABLE `news` DISABLE KEYS */;
+INSERT INTO `news` VALUES (196,1,127073,'','iCom ist Open Source','Juhuuuu :)','','','','','','2012-06-04 22:28:09','0000-00-00 00:00:00','2012-06-04 22:28:25','public');
+/*!40000 ALTER TABLE `news` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+--
 -- Table structure for table `radio`
 --
 
@@ -489,6 +522,22 @@ CREATE TABLE `radio` (
   PRIMARY KEY (`channel`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `radio`
+--
+
+LOCK TABLES `radio` WRITE;
+/*!40000 ALTER TABLE `radio` DISABLE KEYS */;
+INSERT INTO `radio` VALUES
+	('iC1','radio.icom.to',8001,'1','',0,'',0,0,0,0,0,0,0,''),
+	('iC2','radio.icom.to',8003,'1','',0,'',0,0,0,0,0,0,0,''),
+	('iC3','radio.icom.to',8005,'1','',0,'',0,0,0,0,0,0,0,''),
+	('iC4','radio.icom.to',8007,'1','',0,'',0,0,0,0,0,0,0,''),
+	('iC5','radio.icom.to',8009,'1','',0,'',0,0,0,0,0,0,0,'');
+/*!40000 ALTER TABLE `radio` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `report_page`
@@ -563,6 +612,17 @@ CREATE TABLE `shoutbox_de` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `shoutbox_de`
+--
+
+LOCK TABLES `shoutbox_de` WRITE;
+/*!40000 ALTER TABLE `shoutbox_de` DISABLE KEYS */;
+INSERT INTO `shoutbox_de` VALUES (1,'2012-06-04 22:16:57',1,'test');
+/*!40000 ALTER TABLE `shoutbox_de` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+--
 -- Table structure for table `shoutbox_de_archive`
 --
 
@@ -595,6 +655,17 @@ CREATE TABLE `shoutbox_en` (
   KEY `uid` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1625 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `shoutbox_en`
+--
+
+LOCK TABLES `shoutbox_en` WRITE;
+/*!40000 ALTER TABLE `shoutbox_en` DISABLE KEYS */;
+INSERT INTO `shoutbox_en` VALUES (1,'2012-06-04 22:16:57',1,'test');
+/*!40000 ALTER TABLE `shoutbox_en` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `shoutbox_en_archive`
@@ -695,6 +766,17 @@ CREATE TABLE `user_chat_content` (
   KEY `subid_id` (`subid`,`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=586584 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_chat_content`
+--
+
+LOCK TABLES `user_chat_content` WRITE;
+/*!40000 ALTER TABLE `user_chat_content` DISABLE KEYS */;
+INSERT INTO `user_chat_content` VALUES (1,137,1,'2012-06-04 22:16:57','test');
+/*!40000 ALTER TABLE `user_chat_content` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `user_chat_online_guests`
@@ -803,7 +885,7 @@ CREATE TABLE `user_chats` (
 
 LOCK TABLES `user_chats` WRITE;
 /*!40000 ALTER TABLE `user_chats` DISABLE KEYS */;
-INSERT INTO `user_chats` VALUES (137,1,0,'de','Gangsterbox','Anmelden & mitmachen: https://icom.piratenpad.de/icom','','','2010-12-31 02:39:56',1,'1','2','12854,4509','','1,2,3,175',0,0,'open',200,'textarea');
+INSERT INTO `user_chats` VALUES (137,1,0,'de','Gangsterbox','Foo','','','2010-12-31 02:39:56',1,'1','2','','','1,2,3,175',0,0,'open',200,'textarea');
 /*!40000 ALTER TABLE `user_chats` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1144,7 +1226,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','admin','foo@bar.com','8d556263ffdbe6db12692ac0d7a89c04','71a6e17170b2d214b7fb9b8a1582f0a2','2008-06-10 10:17:34','2012-05-11 04:50:14','2012-05-11 05:16:14','2012-05-11 05:16:14','0000-00-00 00:00:00',44434953,1,'196,182,208,208,0,197','de,en','','','',1,'','','','private','private','friends','users',12316,1,'4082,1924,2581,2,5451',579,632.325,1,1,0,0);
+INSERT INTO `users` VALUES (1,'admin','admin','foo@bar.com','20427bc8e3f9ca222f630eec7dc9b869','71a6e17170b2d214b7fb9b8a1582f0a2','2008-06-10 10:17:34','2012-05-11 04:50:14','2012-05-11 05:16:14','2012-05-11 05:16:14','0000-00-00 00:00:00',44434953,1,'1,196','de,en','','','',1,'','','','private','private','friends','users',12316,1,'',579,632.325,1,1,0,0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1203,6 +1285,17 @@ CREATE TABLE `wiki_changes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `wiki_changes`
+--
+
+LOCK TABLES `wiki_changes` WRITE;
+/*!40000 ALTER TABLE `wiki_changes` DISABLE KEYS */;
+INSERT INTO `wiki_changes` VALUES (11069,'2012-06-04 22:01:53',1,1764,0,'article_created',''),(11070,'2012-06-04 22:01:53',1,1764,4837,'content_changed',''),(11071,'2012-06-04 22:02:29',1,1765,0,'article_created',''),(11072,'2012-06-04 22:02:29',1,1765,4838,'content_changed',''),(11073,'2012-06-04 22:04:09',1,1764,4837,'history_activated',''),(11074,'2012-06-04 22:05:54',1,1765,4838,'history_activated','');
+/*!40000 ALTER TABLE `wiki_changes` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+--
 -- Table structure for table `wiki_history`
 --
 
@@ -1219,6 +1312,17 @@ CREATE TABLE `wiki_history` (
   FULLTEXT KEY `content` (`content`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4837 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wiki_history`
+--
+
+LOCK TABLES `wiki_history` WRITE;
+/*!40000 ALTER TABLE `wiki_history` DISABLE KEYS */;
+INSERT INTO `wiki_history` VALUES (4837,'2012-06-04 22:01:53',1764,'Neues Wiki'),(4838,'2012-06-04 22:02:29',1765,'Neu Wiki');
+/*!40000 ALTER TABLE `wiki_history` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `wiki_pages`
@@ -1243,6 +1347,17 @@ CREATE TABLE `wiki_pages` (
   FULLTEXT KEY `name_fulltext` (`name`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1764 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wiki_pages`
+--
+
+LOCK TABLES `wiki_pages` WRITE;
+/*!40000 ALTER TABLE `wiki_pages` DISABLE KEYS */;
+INSERT INTO `wiki_pages` VALUES (1764,'de','Hauptseite','2012-06-04 22:01:53','2012-06-04 22:04:09',0,0,4837,2),(1765,'de','Main Page','2012-06-04 22:02:29','2012-06-04 22:05:54',0,0,4838,0);
+/*!40000 ALTER TABLE `wiki_pages` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `wiki_tickets`

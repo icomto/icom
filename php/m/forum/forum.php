@@ -125,7 +125,6 @@ class m_forum extends imodule {
 			FROM forum_sections
 			WHERE ".($this->section_id ? "section_id=".$this->section_id : "parent=0")." AND ".$this->read_groups."
 			ORDER BY lft");
-		print_r($this->read_groups);
 		if($this->sections->num_rows == 0) throw new iexception('403_404', $this);
 		
 		if($this->section_id) {
