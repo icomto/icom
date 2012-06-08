@@ -116,6 +116,7 @@ abstract class session_engine extends MonitoredArray {
 		define('USER_ID', $guest_uid);
 	}
 	protected function is_cookieless_session() {
+		if(!ENABLE_COOKIE_SPAMMER_CHECK) return;
 		if($this->cookie_spammer_check()) return true;
 		//drop table guest_sessions;
 		//alter table guest_sessions_bin rename guest_sessions;

@@ -109,8 +109,8 @@ trait ilphp_trait {
 		$data = file_get_contents($_file);
 		$data = preg_replace("~\{\*.*\*}~sU", "", $data);
 		$data = preg_replace("~\{#IMPOST (.*)}~sU", '{ILPHP_CLASS->IMODULE_POST_VAR(\1)}', $data);
-		$data = preg_replace("~\{/(while|for|foreach|if|switch)\}~", "<? } ?>", $data);
-		$data = preg_replace("~\{/(case|default)\}~", "<?break;?>", $data);
+		$data = preg_replace("~\{/(while|for|foreach|if|switch)\}~", "<?php } ?>", $data);
+		$data = preg_replace("~\{/(case|default)\}~", "<?php break;?>", $data);
 		$data = preg_replace("~\{%(\d*) *([^\}]+) *\}~", "{htmlspecialchars(number_format(\\2,'\\1'?'\\1':0,',','.'))}", $data);
 		$data = preg_replace("~\{\~ *([^\}]+) *\}~", "{htmlspecialchars(\\1)}", $data);
 		$data = preg_replace("~\{° *([^\}]+) *\}~", "{urlencode(\\1)}", $data);
@@ -220,7 +220,7 @@ trait ilphp_trait {
 				$data = str_replace($orig, "<?=".$val.";?>", $data);
 				break;
 			case 1:
-				$data = str_replace($orig, "<?".$val.";?>", $data);
+				$data = str_replace($orig, "<?php ".$val.";?>", $data);
 				break;
 			case 2:
 				$data = str_replace($orig, $val, $data);
@@ -237,39 +237,39 @@ trait ilphp_trait {
 		$data = preg_replace("~\{\?>([\r\n\t]+)<\?=~", "{\\1echo ", $data);
 		$data = preg_replace("~\?>([\r\n\t]*)<\?=~", ";\\1echo ", $data);
 		
-		$data = preg_replace("~\{\?>([\r\n\t]*)<\?~", "{\\1", $data);
-		$data = preg_replace("~\?>([\r\n\t]*)<\?\}~", ";\\1}", $data);
-		$data = preg_replace("~\?>([\r\n\t]*)<\?~", ";\\1", $data);
+		$data = preg_replace("~\{\?>([\r\n\t]*)<\?php~", "{\\1", $data);
+		$data = preg_replace("~\?>([\r\n\t]*)<\?php\}~", ";\\1}", $data);
+		$data = preg_replace("~\?>([\r\n\t]*)<\?php~", ";\\1", $data);
 		
 		$data = str_replace("{?><?=", "{echo ", $data);
 		$data = str_replace("?><?=", ";echo ", $data);
-		$data = str_replace("?><?}", ";}", $data);
-		$data = str_replace("?><?", ";", $data);
+		$data = str_replace("?><?php }", ";}", $data);
+		$data = str_replace("?><?php ", ";", $data);
 		
 		$data = str_replace(";;", ";", $data);
 		$data = preg_replace("/\n[ \t]+/", "\n ", $data);
 		
-		/*$data = preg_replace("~\?>(&[^\n\r\t\"']{0,10};)<\?~", ";echo'\\1';", $data);*/
+		/*$data = preg_replace("~\?>(&[^\n\r\t\"']{0,10};)<\?php~", ";echo'\\1';", $data);*/
 		
-		$data = '<?function '.$fn_name.'(&$ILPHP){?>'.$data.'<?}?>';
+		$data = '<?php function '.$fn_name.'(&$ILPHP){?>'.$data.'<?php }?>';
 		if(preg_match_all('~!%NEW_ILPHP_SUB_START (.*?)%!(.*?)!%NEW_ILPHP_SUB_END%!~s', $data, $out)) {
 			for($i = 0, $num = count($out[0]); $i < $num; $i++) {
 				$name = $fn_name.'_'.$out[1][$i];
-				$data = '<?function '.$name.'(&$ILPHP){?>'.$out[2][$i].'<?}?>'.
-					str_replace($out[0][$i], '<?'.$name.'($ILPHP)?>', $data);
+				$data = '<?php function '.$name.'(&$ILPHP){?>'.$out[2][$i].'<?php }?>'.
+					str_replace($out[0][$i], '<?php '.$name.'($ILPHP)?>', $data);
 			}
 		}
 		if(preg_match_all('~!%DEFINE_ILPHP_SUB_START (.*?)%!(.*?)!%DEFINE_ILPHP_SUB_END%!~s', $data, $out)) {
 			for($i = 0, $num = count($out[0]); $i < $num; $i++) {
 				$name = $fn_name.'_'.$out[1][$i];
-				$data = '<?function '.$name.'(&$ILPHP){?>'.$out[2][$i].'<?}?>'.
+				$data = '<?php function '.$name.'(&$ILPHP){?>'.$out[2][$i].'<?php }?>'.
 					str_replace($out[0][$i], '', $data);
 			}
 		}
 		if(preg_match_all('~!%CALL_ILPHP_SUB (.*?)%!~s', $data, $out)) {
 			for($i = 0, $num = count($out[0]); $i < $num; $i++) {
 				$name = $fn_name.'_'.$out[1][$i];
-				$data = str_replace($out[0][$i], '<?'.$name.'($ILPHP);?>', $data);
+				$data = str_replace($out[0][$i], '<?php '.$name.'($ILPHP);?>', $data);
 			}
 		}
 		

@@ -1,6 +1,7 @@
 <?php
 
 error_reporting(E_ALL);
+
 mb_internal_encoding('UTF-8');
 setlocale(LC_ALL, 'de_DE', 'deu_deu');
 date_default_timezone_set('Europe/Berlin');
@@ -122,7 +123,7 @@ function has_forumrights() {
 
 
 
-$CONFIG = parse_ini_file('/etc/icom.ini', true);
+$CONFIG = parse_ini_file(file_exists('/etc/icom.ini') ? '/etc/icom.ini' : '../../icom.ini', true);
 $ICOM_CONFIG = $CONFIG;
 
 db::addConnection(0, $CONFIG['mysql']['host'], $CONFIG['mysql']['user'], $CONFIG['mysql']['pass'], $CONFIG['mysql']['db'], $CONFIG['mysql']['port'], $CONFIG['mysql']['sock']);
@@ -141,6 +142,8 @@ if($CONFIG['main']['custom_error_handler'])
 define('MASTER_PASSWORD', $CONFIG['main']['master_password']);
 
 define('LOAD_JAVASCRIPT_MINIFIED', $CONFIG['main']['load_javascript_minified']);
+
+define('ENABLE_COOKIE_SPAMMER_CHECK', $CONFIG['main']['enable_cookie_spammer_check']);
 
 define('PROXY_HOST', empty($CONFIG['proxy']['host']) ? NULL : $CONFIG['proxy']['host']);
 define('PROXY_PORT', empty($CONFIG['proxy']['port']) ? NULL : $CONFIG['proxy']['port']);
