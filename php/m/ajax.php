@@ -58,7 +58,7 @@ class m_ajax extends imodule {
 	}
 	
 	protected function MODULE(&$args) {
-		throw new iexception('FUUUUUUUU', $this);
+		throw new iexception('m_ajax can not be called as module', $this);
 	}
 	
 	private function calc_update_val($id, $time_window) {

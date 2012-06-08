@@ -1,0 +1,35 @@
+<?function ILPHP____templates_c_73bc548e_cookie_spammer_4fcbffeb_php(&$ILPHP){?><tt>
+ <form method="post" action="/<?=LANG;?>/validate_human/">
+ <p>
+ Deine Anfragen sehen aus als ob sie von einem Bot kommen.
+ </p>
+ <p>
+ Es kann aber auch sein das Dein Browser keine Cookies unterst&uuml;tzt.<br>
+ Cookies sind notwendig um diese Seite zu betreten.<br>
+ &Uuml;berpr&uuml;fe also bitte die Einstellungen deines Browsers.
+ </p>
+ <p>
+ Bitte verifiziere Dich als Mensch indem Du die folgenden Zeichen in das Eingabefeld eingibst.
+ </p>
+ 
+ <noscript>
+ <p>
+ ACHTUNG: Um fortfahren zu k&ouml;nnen muss javascript in Deinem Browser aktiviert sein!
+ </p>
+ </noscript>
+ 
+ <p>
+ <script type="text/javascript" src="/<?=LANG;?>/captcha/cookie_spammer?<?=mt_rand();?>"></script><br>
+ <input type="text" name="captcha" style="width:200px;">
+ </p>
+ 
+ <?if($ILPHP->captcha_error){;?>
+ <p class="error">
+ Bitte best&auml;tige das Captcha.
+ </p>
+ <? } ?>
+ 
+ <button type="submit">Ich bin ein Mensch!</button>
+ </form>
+</tt>
+<?}?>

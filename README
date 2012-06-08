@@ -1,21 +1,16 @@
-Minimale Installationsanleitung basierend auf Debian wheezy (wheezy wegen dem benötigtem php 5.4)
--------------------------------------------------------------------------------------------------
-
 Benötigt wird mindestens folgendes:
 - MySQL Server
-- nginx
-- php5-fpm
+- apache2
 
 
+Diese Anleitung geht davon aus das man sich im Ordner der iCom Kopie befindet.
 
-Debian install script:
-In den Ordner vom iCom Clon wechseln, dann folgende Schritte ausführen:
 
 
 1. MySQL
 apt-get install mysql-server
 
-#User anlegen
+# datenbank erstellen und neuen benutzer anlegen
 mysql -uroot -pDEIN_GEWÄHLTES_MYSQL_PASSWORT <<EOF
 CREATE DATABASE icom;
 CREATE USER 'icom'@'127.0.0.1' IDENTIFIED BY 'some_password';
@@ -29,80 +24,65 @@ Die Datei /etc/mysql/my.cnf editieren und in der Sektion [mysqld] folgendes hinz
 ft_min_word_len         = 1
 ft_stopword_file        =
 
-#Backup einspielen
+# mysql neu starten
+/etc/init.d/mysql restart
+
+# backup einspielen
 mysql -uicom -psome_password -Dicom <conf/icom.sql
 
 
 
+2. apache2
+apt-get install apache2 libapache2-mod-php5
 
-2. nginx
-apt-get install nginx
+# rewrite modul aktivieren
+ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load
 
-rm /etc/nginx/sites-enabled/default
-cp conf/nginx.conf /etc/nginx/sites-enabled/icom.conf
-#Die Datei /etc/nginx/sites-enabled/icom.conf eventuell anpassen (root Pfad ändern).
-
-/etc/init.d/nginx restart
-
+# alte default config datei löschen und die von icom kopieren
+# in der datei /etc/apache2/sites-enabled/icom.conf gegebenenfalls die pfade anpassen
+rm /etc/apache2/sites-enabled/000-default
+cp conf/apache2.conf /etc/apache2/sites-enabled/icom.conf
 
 
-
-3. PHP 5.4 installieren
-
-apt-get install php5 php5-memcache php-apc php5-gd php5-mysql php5-mcrypt php5-curl php5-cli php5-fpm
-
-# ACHTUNG: Diesen Eintrag nur zum Entwickeln und nicht auf einem Produktionssystem-System ändern
-sed -i 's/^display_errors = Off/display_errors = On/' /etc/php5/fpm/php.ini
-
-sed -i 's/^short_open_tag = Off/short_open_tag = On/' /etc/php5/fpm/php.ini
-sed -i 's/^error_reporting = E_ALL & ~E_DEPRECATED/error_reporting = E_ALL/' /etc/php5/fpm/php.ini
-sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/' /etc/php5/fpm/php.ini
-
-#einstellungen für cli
-sed -i 's/^short_open_tag = Off/short_open_tag = On/' /etc/php5/cli/php.ini
-sed -i 's/^error_reporting = E_ALL & ~E_DEPRECATED/error_reporting = E_ALL/' /etc/php5/cli/php.ini
-
-/etc/init.d/php5-fpm restart
+# apache2 neu starten
+/etc/init.d/apache2 restart
 
 
 
 
-4. iCom INI Datei
+3. iCom INI Datei
 cp conf/icom.ini /etc/icom.ini
-
-Die Datei /etc/icom.ini anpassen.
-
+# die datei /etc/icom.ini anpassen
 
 
 
-5. iCom Domain
-Das Script läuft nicht ohne Domain, deshalb legen wir schnell eine an:
 
-5.1 Windows
+4. iCom Domain
+Das Script läuft nicht ohne Domain, deshalb legen wir schnell eine an.
+Die IP bitte auf beiden Systemen entsprechend anpassen.
+
+4.1 Windows
 Windowstaste -> "notepad" eingeben -> Rechtsklick auf notepad -> Als Administrator ausführen
 Datei öffnen -> c:\windows\system32\drivers\etc\hosts
 
 Dort diesen Eintrag einfügen:
 192.168.0.33	icom.loc
 
-Die IP bitte anpassen.
 
 
-5.2 Linux
+4.2 Linux
 Der Datei /etc/hosts folgenden Eintrag anhängen:
 
 192.168.0.33	icom.loc
 
-Die IP bitte anpassen.
 
 
 
-
-6. Seite aufrufen
+5. Seite aufrufen
 Die URL sollte jetzt so lauten: http://icom.loc/
 Du kannst dich mit den Daten admin:admin einloggen.
 
 
 
 
-In der Datei README.old findest du Informationen darüber wie man zum Beispiel sphinx oder memcached installiert.
+In der Datei README.old findest du Informationen darüber wie man nginx, php5-fpm, sphinx oder memcached installiert.

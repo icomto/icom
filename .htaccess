@@ -1,0 +1,37 @@
+RewriteEngine on
+
+RewriteBase /
+
+RewriteRule .+/favicon.(ico|gif|png)$ /favicon.$1 [L,R]
+RewriteRule ^_redir/\d*/*(/.*)$ $1 [L,R]
+
+RewriteRule ^$ /php/index.php [L]
+
+RewriteRule ^(de|en)$ /$1/ [L,R]
+RewriteRule ^(de|en)/(.*)$ $2?_lllang=$1 [QSA,L]
+
+RewriteRule ^(.*\.(tar|txt|html))$ $1 [L]
+RewriteRule ^(tools_pub/.+)$ $1 [L]
+
+RewriteRule ^s/([it])/(..)(......)\.([a-z]*)$ /s/$1/$2/$2$3.$4 [L]
+RewriteRule ^(.*\.(jpe?g|gif|png|ico|bmp|html|css|js|htc|xap|swf))$ $1 [L]
+
+RewriteRule /\. - [F]
+
+RewriteRule ^captcha/(.*) /php/captcha/captcha.php?id=$id [QSA,L]
+
+RewriteRule ^ajax/(.*)$ $1?_engine=ajax&_ajax=1 [QSA,L]
+RewriteRule ^(report_page|banned)/+(.*)$ $2?_engine=$1 [QSA,L]
+RewriteRule ^admin/(.*)$ /admin__$1 [L]
+RewriteRule ^thread/(.*)$ /forum__thread/$1 [L]
+RewriteRule ^forum/([^/]+)/search/(.*)$ /forum__search/$1/search/$2 [L]
+RewriteRule ^forum/latest/(.*)$ /forum__latest/$1 [L]
+RewriteRule ^radio/([^/]*) /php/index.php?_action=radio&radio=$1&_engine=radio [QSA,L]
+RewriteRule ^(search|wiki)/?([^/]*)/?(.*)$ /php/index.php?_action=$1&$1=$2&_extended=&_cutted=$3 [QSA,L]
+
+RewriteCond %{REQUEST_URI} !^/php/
+RewriteRule ^([^/]+)?/?(-?[^/\-]*)-?([^/]*)/?(.*)$ /php/index.php?_action=$1&$1=$2&_extended=$3&_cutted=$4 [QSA,L]
+
+RewriteRule ^(php/.*\.php)$ $1 [L]
+
+RewriteRule ^ - [F]

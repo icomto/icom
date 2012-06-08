@@ -4,5 +4,5 @@
 - added scripts conf/update-fulltext-search.sql and conf/update-sphinx-search.sql to switch between search method sphinx and fulltext
 - made memcached optional
 - doing fallback in class/cache_L1.php with rules: APC -> xcache -> cache_L2
-  every caching function is now optional
-
+- every caching function is now optional
+- rewrite rules for apache2 created
