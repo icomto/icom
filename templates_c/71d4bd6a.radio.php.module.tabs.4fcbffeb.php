@@ -1,2 +1,0 @@
-<?function ILPHP____templates_c_71d4bd6a_radio_php_module_tabs_4fcbffeb_php(&$ILPHP){?><?$ILPHP->while_i=0;while($ILPHP->i = $ILPHP->channels->fetch_assoc()){$ILPHP->while_i++;?><a class="tab<?if($ILPHP->channel['channel'] == $ILPHP->i['channel']){;?> active<?}elseif($ILPHP->i['online']){;?> green<? } ?> <?if($ILPHP->while_i == 1){;?>first<?}elseif($ILPHP->while_i == $ILPHP->channels->num_rows){;?>last<?}else{;?>middle<? } ?>" href="/<?=LANG;?>/radio/<?=htmlspecialchars($ILPHP->i['channel']);?>/" target="_self">#<?=$ILPHP->while_i;?></a><? } ?>
-<?}?>
