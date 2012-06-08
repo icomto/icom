@@ -32,21 +32,17 @@ Jetzt die Datei Speichern und den Editor schließen.
 
 7. Jetzt die Datei xampp-control.exe unter C:\xampp ausführen und dort Apache und MySQL starten.
 
-8. Im Browser die URL http://127.0.0.1/ aufrufen, die Sprache auswählen und anschließend im
-Menü unter Tools auf "phpMyAdmin" klicken.
+8. Im Browser die URL http://127.0.0.1/ aufrufen, die Sprache auswählen und anschließend im Menü unter Tools auf "phpMyAdmin" klicken.
 
 9. Oben auf "Datenbanken" klicken und dort eine neue Datenbank mit dem Namen "icom" erstellen.
 Im Feld "Kollation" muss nichts ausgewählt werden.
 
 10. Jetzt auf die neu erstellte Datenbank icom klicken, danach oben auf "Importieren".
-Bei "Zu importierende Datei" wählen wir die Datei C:\xampp\htdocs\icom\conf\icom.sql aus
-und klicken anschließend unten auf OK.
+Bei "Zu importierende Datei" wählen wir die Datei C:\xampp\htdocs\icom\conf\icom.sql aus und klicken anschließend unten auf OK.
 
-11. Jetzt das vorhin geöffnete Programm (xampp-control.exe) wieder in den Vordergrund bringen
-und dort in der Zeile Apache auf den Eintrag "Apache (httpd.conf)" klicken.
+11. Jetzt das vorhin geöffnete Programm (xampp-control.exe) wieder in den Vordergrund bringen und dort in der Zeile Apache auf den Eintrag "Apache (httpd.conf)" klicken.
 
-12. In der Datei ändern wir alle Einträge "/xampp/htdocs" in "/xampp/htdocs/icom" um und speichern
-und schließen die Datei.
+12. In der Datei ändern wir alle Einträge "/xampp/htdocs" in "/xampp/htdocs/icom" um und speichern und schließen die Datei.
 
 13. Darauf hin starten wir Apache neu.
 
