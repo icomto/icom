@@ -7,8 +7,7 @@ Zu finden ist sie hier: www.apachefriends.org/en/xampp-beta.html
 
 2. Die runtergeladene Datei entpacken (am besten unter C:\xampp)
 
-3. Jetzt laden wir das iCom Script. Unter https://github.com/icomto/icom/downloads auf
-"Download as zip" klicken.
+3. Jetzt laden wir das iCom Script. Unter https://github.com/icomto/icom/downloads auf "Download as zip" klicken.
 
 4. Anschließend die Datei in den Ordner C:\xampp\htdocs entpacken.
 
@@ -27,7 +26,7 @@ pass = some_password
 user = root
 pass = 
 
-Bei pass löschen wir einfach "some_password".
+Bei "pass" löschen wir einfach "some_password".
 Jetzt die Datei Speichern und den Editor schließen.
 
 7. Jetzt die Datei xampp-control.exe unter C:\xampp ausführen und dort Apache und MySQL starten.
@@ -40,11 +39,9 @@ Im Feld "Kollation" muss nichts ausgewählt werden.
 10. Jetzt auf die neu erstellte Datenbank icom klicken, danach oben auf "Importieren".
 Bei "Zu importierende Datei" wählen wir die Datei C:\xampp\htdocs\icom\conf\icom.sql aus und klicken anschließend unten auf OK.
 
-11. Jetzt das vorhin geöffnete Programm (xampp-control.exe) wieder in den Vordergrund bringen und dort in der Zeile Apache auf den Eintrag "Apache (httpd.conf)" klicken.
-
-12. In der Datei ändern wir alle Einträge "/xampp/htdocs" in "/xampp/htdocs/icom" um und speichern und schließen die Datei.
-
-13. Darauf hin starten wir Apache neu.
+11. Jetzt das vorhin geöffnete Programm (xampp-control.exe) wieder in den Vordergrund bringen und dort in der Zeile Apache auf Konrig klicken und dort den Eintrag "Apache (httpd.conf)" auswählen.
+In der Datei ändern wir alle Einträge "/xampp/htdocs" in "/xampp/htdocs/icom" um und speichern und schließen die Datei.
+Darauf hin starten wir Apache neu.
 
 14. Jetzt die Seite http://localhost/ aufrufen und dein iCom Clon sollte laufen :)
 Du kannst dich mit den Daten admin:admin als Administrator einloggen.
