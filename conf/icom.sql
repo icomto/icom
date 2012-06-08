@@ -64,8 +64,11 @@ CREATE TABLE `forum_posts` (
   `content` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`post_id`),
   KEY `thread` (`thread_id`),
-  KEY `uid` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=916432 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  KEY `uid` (`user_id`),
+  FULLTEXT KEY `name` (`name`),
+  FULLTEXT KEY `content` (`content`),
+  FULLTEXT KEY `name__content` (`name`,`content`)
+) ENGINE=MyISAM AUTO_INCREMENT=916432 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

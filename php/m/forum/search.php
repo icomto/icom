@@ -125,7 +125,7 @@ class m_forum_search extends imodule {
 		if($this->content) $fields[] = 'content';
 		$num_fields = count($fields);
 		
-		$search_method = 'sphinx';
+		$search_method = (isset(db::$configs['sphinx']) ? 'sphinx' : 'fulltext');
 		
 		$searchtext = preg_replace("~  +~", " ", preg_replace("/[\.\-_]/", " ", $this->term));
 		$words = array_map('trim', explode(" ", $searchtext));

@@ -1,12 +1,13 @@
 <?php
 
-cache_L2::connect(MEMCACHE_HOST, MEMCACHE_PORT);
+if(!empty($CONFIG['memcached']))
+	cache_L2::connect($CONFIG['memcached']['host'], $CONFIG['memcached']['port']);
 
 class cache_L2 {
 	public static $handle = NULL;
 	
 	public static function connect($host, $port) {
-		self::$handle = @memcache_pconnect($host, $port) or trigger_error('Could not connect to memcached', E_USER_ERROR);
+		self::$handle = @memcache_pconnect($host, $port) or trigger_error('Could not connect to memcached', E_USER_WARNING);
 	}
 	
 	public static function get($id) {

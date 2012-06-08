@@ -122,11 +122,11 @@ function has_forumrights() {
 
 
 
-
 $CONFIG = parse_ini_file('/etc/icom.ini', true);
+$ICOM_CONFIG = $CONFIG;
 
 db::addConnection(0, $CONFIG['mysql']['host'], $CONFIG['mysql']['user'], $CONFIG['mysql']['pass'], $CONFIG['mysql']['db'], $CONFIG['mysql']['port'], $CONFIG['mysql']['sock']);
-db::addConnection('sphinx', $CONFIG['sphinx']['host'], '', '', '', $CONFIG['sphinx']['port'], $CONFIG['sphinx']['sock']);
+if(isset($CONFIG['sphinx'])) db::addConnection('sphinx', $CONFIG['sphinx']['host'], '', '', '', $CONFIG['sphinx']['port'], $CONFIG['sphinx']['sock']);
 
 define('SITE_DOMAIN', $CONFIG['main']['domain']);
 define('SITE_NAME', $CONFIG['main']['name']);

@@ -2,9 +2,6 @@
 
 require_once 'class/G.php';
 
-define('MEMCACHE_HOST', '127.0.0.1');
-define('MEMCACHE_PORT', 11211);
-
 define('THEME_INI_DIRECTORY', '../themes/_ini');
 
 define('STATIC_CONTENT_DOMAIN', '');

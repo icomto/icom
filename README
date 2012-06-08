@@ -1,31 +1,22 @@
-Benötigt:
+Minimale Installationsanleitung basierend auf Debian wheezy (wheezy wegen dem benötigtem php 5.4)
+-------------------------------------------------------------------------------------------------
+
+Benötigt wird mindestens folgendes:
 - MySQL Server
-- nginx (oder apache2 mit neu erstellung der rewrite regeln)
-- php5-fpm oder apache2 (als PHP backend). php5-fpm wird bevorzugt
-- php 5.4 (5.3 ist nicht kompatibel!)
-
-Am Besten man verwendet eine Distribution die direkt php 5.4 bereitstellt. Debian wheezy (testing) tut dieses, Ubuntu sollte es auch.
-
-
-Optional:
-- memcached
-- php5-apc
-- sphinx search database (ohne dem geht die forensuche nicht, kann aber auf mysql fulltext index umgestellt werden)
-
-Wenn optionale Module nicht installiert werden, müssen die Dateien in php/class/cache*.php modifiziert werden.
-
+- nginx
+- php5-fpm
 
 
 
 Debian install script:
-In den Ordner vom iCom clon wechseln, dann folgende schritte ausführen.
+In den Ordner vom iCom Clon wechseln, dann folgende Schritte ausführen:
 
 
 1. MySQL
 apt-get install mysql-server
 
 #User anlegen
-mysql -u root <<EOF
+mysql -uroot -pDEIN_GEWÄHLTES_MYSQL_PASSWORT <<EOF
 CREATE DATABASE icom;
 CREATE USER 'icom'@'127.0.0.1' IDENTIFIED BY 'some_password';
 GRANT ALL PRIVILEGES ON icom.* TO 'icom'@'127.0.0.1';
@@ -43,72 +34,25 @@ mysql -uicom -psome_password -Dicom <conf/icom.sql
 
 
 
-2. sphinx search
-apt-get install sphinxsearch
 
-sed -i 's/START=no/START=yes/' /etc/default/sphinxsearch
-
-#ACHTUNG: Pfad zum icom root gegebenenfalls ändern
-mv /etc/sphinxsearch/sphinx.conf /etc/sphinxsearch/sphinx.conf.original
-cp conf/sphinx.conf /etc/sphinxsearch/sphinx.conf
-
-#Die Datei /etc/sphinxsearch/sphinx.conf bitte anpassen (MySQL Login Daten ...)
-
-/usr/bin/indexer --all
-/etc/init.d/sphinxsearch restart
-
-
-#cronjob zur erstellung der indexes
-cat >/etc/cron.d/sphinxsearch <<EOF
-@daily      root . /etc/default/sphinxsearch && if [ "$START" = "yes" ] && [ -x /usr/bin/indexer ]; then /usr/bin/indexer --quiet --rotate --all; fi
-*/5 * * * * root indexer --quiet --rotate forum_search_delta
-EOF
-
-
-
-3. memcache
-apt-get install memcached
-
-
-
-4. nginx
+2. nginx
 apt-get install nginx
 
-#ACHTUNG: Pfad zum icom root gegebenenfalls ändern
 rm /etc/nginx/sites-enabled/default
 cp conf/nginx.conf /etc/nginx/sites-enabled/icom.conf
-/etc/init.d/nginx restart
-
 #Die Datei /etc/nginx/sites-enabled/icom.conf eventuell anpassen (root Pfad ändern).
 
-
-5. PHP 5.4 (php-fpm)
-5.1 Wenn nicht debian wheezy genutzt wird muss das als quelle hinzugefügt werden:
-
-cat >/etc/apt/sources.list <<EOF
-deb http://ftp.nl.debian.org/debian wheezy main contrib non-free
-deb-src http://ftp.nl.debian.org/debian wheezy main contrib non-free
-
-deb http://security.debian.org/ wheezy/updates main
-deb-src http://security.debian.org/ wheezy/updates main
-EOF
-
-cat >/etc/apt/preferences <<EOF
-Package: *
-Pin: release n=wheezy
-Pin-Priority: 200
-EOF
-
-apt-get update
+/etc/init.d/nginx restart
 
 
-5.2 PHP installieren
+
+
+3. PHP 5.4 installieren
+
 apt-get install php5 php5-memcache php-apc php5-gd php5-mysql php5-mcrypt php5-curl php5-cli php5-fpm
-# wenn die haupt debian version kleiner als wheezy ist muss apt der parameter "-t wheezy" mitgegeben werden (ohen die ")
 
-#einstellungen für fpm
-
-sed -i 's/^display_errors = Off/display_errors = On/' /etc/php5/fpm/php.ini		# ACHTUNG: Diesen Eintrag nur zum Debuggen ändern
+# ACHTUNG: Diesen Eintrag nur zum Entwickeln und nicht auf einem Produktionssystem-System ändern
+sed -i 's/^display_errors = Off/display_errors = On/' /etc/php5/fpm/php.ini
 
 sed -i 's/^short_open_tag = Off/short_open_tag = On/' /etc/php5/fpm/php.ini
 sed -i 's/^error_reporting = E_ALL & ~E_DEPRECATED/error_reporting = E_ALL/' /etc/php5/fpm/php.ini
@@ -122,26 +66,29 @@ sed -i 's/^error_reporting = E_ALL & ~E_DEPRECATED/error_reporting = E_ALL/' /et
 
 
 
-6. iCom
+
+4. iCom INI Datei
 cp conf/icom.ini /etc/icom.ini
 
 Die Datei /etc/icom.ini anpassen.
 
 
-7. iCom Domain
-Das script läuft nicht ohne Domain, deshalb legen wir schnell eine an:
 
-7.1 Windows
+
+5. iCom Domain
+Das Script läuft nicht ohne Domain, deshalb legen wir schnell eine an:
+
+5.1 Windows
 Windowstaste -> "notepad" eingeben -> Rechtsklick auf notepad -> Als Administrator ausführen
 Datei öffnen -> c:\windows\system32\drivers\etc\hosts
 
-Dort diesen eintrag einfügen:
+Dort diesen Eintrag einfügen:
 192.168.0.33	icom.loc
 
 Die IP bitte anpassen.
 
 
-7.2 Linux
+5.2 Linux
 Der Datei /etc/hosts folgenden Eintrag anhängen:
 
 192.168.0.33	icom.loc
@@ -150,8 +97,12 @@ Die IP bitte anpassen.
 
 
 
-8. Seite aufrufen (http://icom.loc/)
+
+6. Seite aufrufen
+Die URL sollte jetzt so lauten: http://icom.loc/
+Du kannst dich mit den Daten admin:admin einloggen.
 
 
 
-9. Einloggen (User admin, Passwort admin)
+
+In der Datei README.old findest du Informationen darüber wie man zum Beispiel sphinx oder memcached installiert.
