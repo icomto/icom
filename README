@@ -29,22 +29,38 @@ pass =
 Bei "pass" löschen wir einfach "some_password".
 Jetzt die Datei Speichern und den Editor schließen.
 
-7. Jetzt die Datei xampp-control.exe unter C:\xampp ausführen und dort Apache und MySQL starten.
+7. Jetzt die Datei xampp-control.exe unter C:\xampp ausführen.
 
-8. Im Browser die URL http://127.0.0.1/ aufrufen, die Sprache auswählen und anschließend im Menü unter Tools auf "phpMyAdmin" klicken.
+8. In der Zeile MySQL auf Konfigurieren klicken und dort my.ini auswählen.
+In der Datei folgende 2 Zeilen unter [mysqld] einfügen:
 
-9. Oben auf "Datenbanken" klicken und dort eine neue Datenbank mit dem Namen "icom" erstellen.
+ft_min_word_len         = 1
+ft_stopword_file        =
+
+Das ganze sollte dann in etwa so aussehen:
+
+# The MySQL server
+[mysqld]
+ft_min_word_len         = 1
+ft_stopword_file        =
+port= 3306
+
+Anschließend die Datei speichern und schließen.
+
+9. Jetzt MySQL und Apache starten und im Browser die URL http://127.0.0.1/ aufrufen, die Sprache auswählen und anschließend im Menü unter Tools auf "phpMyAdmin" klicken.
+
+10. Oben auf "Datenbanken" klicken und dort eine neue Datenbank mit dem Namen "icom" erstellen.
 Im Feld "Kollation" muss nichts ausgewählt werden.
 
-10. Jetzt auf die neu erstellte Datenbank icom klicken, danach oben auf "Importieren".
+11. Jetzt auf die neu erstellte Datenbank icom klicken, danach oben auf "Importieren".
 Bei "Zu importierende Datei" wählen wir die Datei C:\xampp\htdocs\icom\conf\icom.sql aus und klicken anschließend unten auf OK.
 
-11. Jetzt das vorhin geöffnete Programm (xampp-control.exe) wieder in den Vordergrund bringen und dort in der Zeile Apache auf Konrig klicken und dort den Eintrag "Apache (httpd.conf)" auswählen.
+12. Jetzt das vorhin geöffnete Programm (xampp-control.exe) wieder in den Vordergrund bringen und dort in der Zeile Apache auf Konrig klicken und dort den Eintrag "Apache (httpd.conf)" auswählen.
 
-12. In der Datei ändern wir alle Einträge "/xampp/htdocs" in "/xampp/htdocs/icom" um und speichern und schließen die Datei.
+13. In der Datei ändern wir alle Einträge "/xampp/htdocs" in "/xampp/htdocs/icom" um und speichern und schließen die Datei.
 Darauf hin starten wir Apache neu.
 
-13. Jetzt die Seite http://localhost/ aufrufen und dein iCom Clon sollte laufen :)
+14. Jetzt die Seite http://localhost/ aufrufen und dein iCom Clon sollte laufen :)
 Du kannst dich mit den Daten admin:admin als Administrator einloggen.
 
 
