@@ -40,10 +40,11 @@ Im Feld "Kollation" muss nichts ausgew‰hlt werden.
 Bei "Zu importierende Datei" w‰hlen wir die Datei C:\xampp\htdocs\icom\conf\icom.sql aus und klicken anschlieﬂend unten auf OK.
 
 11. Jetzt das vorhin geˆffnete Programm (xampp-control.exe) wieder in den Vordergrund bringen und dort in der Zeile Apache auf Konrig klicken und dort den Eintrag "Apache (httpd.conf)" ausw‰hlen.
-In der Datei ‰ndern wir alle Eintr‰ge "/xampp/htdocs" in "/xampp/htdocs/icom" um und speichern und schlieﬂen die Datei.
+
+12. In der Datei ‰ndern wir alle Eintr‰ge "/xampp/htdocs" in "/xampp/htdocs/icom" um und speichern und schlieﬂen die Datei.
 Darauf hin starten wir Apache neu.
 
-14. Jetzt die Seite http://localhost/ aufrufen und dein iCom Clon sollte laufen :)
+13. Jetzt die Seite http://localhost/ aufrufen und dein iCom Clon sollte laufen :)
 Du kannst dich mit den Daten admin:admin als Administrator einloggen.
 
 
