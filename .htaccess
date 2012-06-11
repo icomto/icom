@@ -26,7 +26,7 @@ RewriteRule ^admin/(.*)$ /admin__$1 [L]
 RewriteRule ^thread/(.*)$ /forum__thread/$1 [L]
 RewriteRule ^forum/([^/]+)/search/(.*)$ /forum__search/$1/search/$2 [L]
 RewriteRule ^forum/latest/(.*)$ /forum__latest/$1 [L]
-RewriteRule ^radio/([^/]*) /php/index.php?_action=radio&radio=$1&_engine=radio [QSA,L]
+RewriteRule ^/radio/([^/]*)(/(.*))?$ /php/index.php?_action=radio&radio=$1&_engine=radio&_cutted=$3 [QSA,L]
 RewriteRule ^(search|wiki)/?([^/]*)/?(.*)$ /php/index.php?_action=$1&$1=$2&_extended=&_cutted=$3 [QSA,L]
 
 RewriteCond %{REQUEST_URI} !^/php/

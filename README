@@ -55,7 +55,7 @@ Im Feld "Kollation" muss nichts ausgewählt werden.
 11. Jetzt auf die neu erstellte Datenbank icom klicken, danach oben auf "Importieren".
 Bei "Zu importierende Datei" wählen wir die Datei C:\xampp\htdocs\icom\conf\icom.sql aus und klicken anschließend unten auf OK.
 
-12. Jetzt das vorhin geöffnete Programm (xampp-control.exe) wieder in den Vordergrund bringen und dort in der Zeile Apache auf Konrig klicken und dort den Eintrag "Apache (httpd.conf)" auswählen.
+12. Jetzt das vorhin geöffnete Programm (xampp-control.exe) wieder in den Vordergrund bringen und dort in der Zeile Apache auf Konfig klicken und dort den Eintrag "Apache (httpd.conf)" auswählen.
 
 13. In der Datei ändern wir alle Einträge "/xampp/htdocs" in "/xampp/htdocs/icom" um und speichern und schließen die Datei.
 Darauf hin starten wir Apache neu.
