@@ -4,7 +4,7 @@ class imail {
 	public static $config;
 	
 	public static function mail($to, $subject, $message, $args) {
-		if(empty(self::$config['host']) {
+		if(empty(self::$config['host'])) {
 			mail(
 				$to,
 				"=?UTF-8?B?".base64_encode($subject)."?=",
