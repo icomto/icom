@@ -73,10 +73,12 @@ abstract class lang_base {
 		
 		if($lang) {
 			setcookie('lang', $lang, time()+60*60*24*365*5, '/', $domain, false, true);
+			setcookie('lang', $lang, time()+60*60*24*365*5, '/', '', false, true);
 			$_COOKIE['lang'] = $lang;
 		}
 		else {
 			setcookie('lang', 'deleted', time()-3600, '/', $domain, false, true);
+			setcookie('lang', 'deleted', time()-3600, '/', '', false, true);
 			$_COOKIE['lang'] = NULL;
 		}
 	}

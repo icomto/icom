@@ -49,6 +49,8 @@ class session extends session_engine {
 	public function set_cookie_user($user_id, $hash) {
 		setcookie('stayon_u', $user_id, time() + 60*60*24*365*5, '/', '.'.BASE_DOMAIN, false, true);
 		setcookie('stayon_s', $hash, time() + 60*60*24*365*5, '/', '.'.BASE_DOMAIN, false, true);
+		setcookie('stayon_u', $user_id, time() + 60*60*24*365*5, '/', '', false, true);
+		setcookie('stayon_s', $hash, time() + 60*60*24*365*5, '/', '', false, true);
 	}
 	public function del_cookie_user() {
 		setcookie('stayon_u', 'deleted', time() - 3600, '/', '.'.BASE_DOMAIN, false, true);
@@ -62,6 +64,7 @@ class session extends session_engine {
 	}
 	public function set_cookie_guest($hash) {
 		setcookie('suilid', $hash, time() + 60*60*24*365*5, '/', '.'.BASE_DOMAIN, false, true);
+		setcookie('suilid', $hash, time() + 60*60*24*365*5, '/', '', false, true);
 	}
 	public function del_cookie_guest() {
 		setcookie('suilid', 'deleted', time() - 3600, '/', '.'.BASE_DOMAIN, false, true);
