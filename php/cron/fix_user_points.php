@@ -1,9 +1,14 @@
 <?php
 
+/*
+ * DEPRECATED SCRIPT!!!
+ */
+
 require '../config.inc.php';
 header("Content-Type: text/plain");
 
 
+/*
 SELECT COUNT(*)*0.1 AS points FROM shoutbox_de WHERE user_id='".$this->i['user_id']."' UNION
 SELECT COUNT(*)*0.1 AS points FROM shoutbox_de_archive WHERE user_id='".$this->i['user_id']."' UNION
 SELECT COUNT(*)*0.1 AS points FROM shoutbox_en WHERE user_id='".$this->i['user_id']."' UNION
@@ -18,6 +23,8 @@ WHERE
 	a.user_id='".$this->i['user_id']."' AND
 	a.thread_id=b.thread_id AND
 	b.section_id=c.section_id
+*/
+
 
 echo sprintf("%5s %10s %10s %10s %10s %10s %10s\n", "ID", "OLD", "NEW", "DIFF", "OLD", "NEW", "DIFF");
 $users = db()->query("SELECT user_id, points, forum_posts FROM users ORDER BY user_id");

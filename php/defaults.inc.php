@@ -6,7 +6,6 @@ mb_internal_encoding('UTF-8');
 setlocale(LC_ALL, 'de_DE', 'deu_deu');
 date_default_timezone_set('Europe/Berlin');
 
-
 function __render_error($errno, $errstr, $errfile, $errline) {
 	$str = date(DATE_RFC822).' -- '.$errfile.': '.$errline.': '.$errno.': '.$errstr."\n";
 	foreach(debug_backtrace() as $k=>$v){

@@ -72,8 +72,8 @@ if(isset($_GET['get'])) {
 	die;
 }
 
-echo '<pre>';
-echo '<style>td { vertical-align:top; }</style>';
+?><pre>
+<style>td { vertical-align:top; }</style><?php
 
 if(isset($_POST['data'])) {
 	//create table _sql_query_data ( name varchar(100) not null primary key, data longtext not null );
