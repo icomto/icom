@@ -71,7 +71,7 @@ class lang extends lang_base {
 		return 'COALESCE('.implode(',', $f).')';
 	}
 	
-	public static function _LS_get_define($hash) {
+	public static function _LS_get_define($hash, $default_str = NULL) {
 		if(($str = cache_L1::get('LANG_'.$hash.LANG)) !== false) return $str;
 		foreach(self::$LANGUAGE_PRIORITY as $l) {
 			$a = db()->query("SELECT data FROM lang_table WHERE lang='".$l."' AND hash='".$hash."' LIMIT 1")->fetch_assoc();
@@ -81,7 +81,7 @@ class lang extends lang_base {
 			db()->query("UPDATE lang_table SET used=used+1 WHERE lang='".$l."' AND hash='".$hash."' LIMIT 1");
 			return $str;
 		}
-		return false;
+		return $default_str !== NULL ? $default_str : false;
 	}
 	public static function LS($str) {
 		return self::_LS($str, func_get_args());
@@ -118,7 +118,14 @@ class lang extends lang_base {
 		$m = substr($str, 0, 1);
 		if(strpos('!#*', $m) !== false) $str = substr($str, 1);
 		list($define, $hash) = self::import_compiled_string($str, $namespace);
-		$define = 'lang::_LS_get_define(\''.$hash.'\')';
+		
+		//unclean definition. second parameter of lang::_LS_get_define is not needed
+		//this is only needed when truncating or deleting entries from sql table lang_table and not rebuild templates_c scripts
+		//or when changing hash function for language string ids.
+		//note to also restart php-fpm/apache2 to cleanup local variable cache (apc, xcache ...) or memcached when local variable fallback cache is used
+		//original is: $define = 'lang::_LS_get_define(\''.$hash.'\')';
+		$define = 'lang::_LS_get_define(\''.$hash.'\', \''.str_replace("'", "\\'", $str).'\')';
+		
 		switch($m) {
 		default:
 			return $args ? '<?=htmlspecialchars(lang::_handle_template_string('.$define.','.implode(',', $args).'))?>' : '<?=htmlspecialchars('.$define.')?>';
