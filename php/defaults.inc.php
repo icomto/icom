@@ -57,7 +57,7 @@ function __error_handler($errno, $errstr, $errfile, $errline) {
 
 define('CONFIG_DIRNAME', dirname(__FILE__));
 function __autoload($class) {
-	include CONFIG_DIRNAME.'/class/'.$class.'.php';
+	include CONFIG_DIRNAME.'/class/'.str_replace('__', '/', $class).'.php';
 }
 
 
