@@ -1,3 +1,12 @@
+30-06-2012
+- image uploader
+  to update database run in mysql:
+	alter table images add ctime timestamp not null default current_timestamp;
+	update images set ctime=current_timestamp;
+	alter table images add user_id int unsigned not null default 0;
+	update images set user_id=uploader;
+	alter table images drop uploader;
+
 08-06-2012
 - default engine for table forum_posts is now MyISAM with fulltext indexes enabled
 - default forum search method is now fulltext

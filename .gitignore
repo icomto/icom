@@ -2,3 +2,6 @@
 templates_c/*.php
 .settings
 .buildpath
+php/test.php
+s/*/*/*
+!s/*/*/.empty

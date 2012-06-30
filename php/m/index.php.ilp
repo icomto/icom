@@ -17,6 +17,7 @@
 						<a href="/{LANG}/chats/">[*Chats*]</a> |
 						{if IS_LOGGED_IN}<a href="/{LANG}/community/">[*Community*]</a> |{/if}
 						<a href="/{LANG}/wiki/Portal/">[*Portal*]</a> |
+						<a href="/{LANG}/image/">[*Bilder*]</a> |
 						<a href="/{LANG}/contact/">[*Kontakt*]</a> |
 						<a href="/{LANG}/report_page/" target="_blank">[*Abuse*]</a>
 					</div>
@@ -24,7 +25,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	{if DISPLAY_COMMUNITY_ELEMENTS}
 	<div class="side-menu side-menu-helper side-menu-left {$THEME.side_menu}">
 		{include 'index.php.menu_left.ilp'}
@@ -59,7 +60,7 @@
 				<div class="module-footer"></div>
 			</div>
 			{/if*}
-			
+
 			{if !HIDE_DIFFERENT_LANG_MESSAGE_BOX and LANG_ENABLED_DIFFERENT_LANG}
 			<div class="module-item" id="ModuleDifferentLang">
 				<h1>[*Andere Sprache*]</a></h1>
@@ -103,7 +104,7 @@
 		{if not DISPLAY_COMMUNITY_ELEMENTS}{include 'index.php.menu_left.ilp'}{/if}
 		{include 'index.php.menu_right.ilp'}
 	</div>
-	
+
 	<div class="page-footer">
 		<div class="copyright">Copyright &copy; 2008 - 2012 iCom.to Inc. [*Alle Rechte vorbehalten*]</div>
 		<div class="links">

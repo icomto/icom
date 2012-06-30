@@ -357,7 +357,8 @@ DROP TABLE IF EXISTS `images`;
 CREATE TABLE `images` (
   `id` char(8) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   `bullshit` int(10) unsigned NOT NULL,
-  `uploader` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_id` int(10) unsigned NOT NULL DEFAULT '0',
   `ext` char(4) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   `ext_thumb` char(4) CHARACTER SET ascii COLLATE ascii_bin NOT NULL DEFAULT 'jpg',
   `name` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
@@ -368,7 +369,7 @@ CREATE TABLE `images` (
   `hits_thumb` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `bullshit` (`bullshit`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

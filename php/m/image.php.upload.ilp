@@ -1,0 +1,57 @@
+<style>
+	.module-image-upload * {{
+		font-size: 15px;
+		height:auto;
+	}}
+	.module-image-upload .error {{
+		text-align:center;
+		margin-top:5px;
+	}}
+	.module-image-upload form {{
+		text-align:center;
+		margin:10px 0;
+	}}
+	.module-image-upload table {{
+		width:70%;
+		margin:0 auto;
+	}}
+	.module-image-upload table th {{
+		width:30%;
+	}}
+	.module-image-upload table input {{
+		width:100%;
+		margin-bottom:10px;
+	}}
+</style>
+<script>
+	$(function(){{
+		$('.module-image-upload form').submit(function(){{
+			var f = $(this).find('[type=file]'),
+				u = $(this).find('[type=text]');
+			if(!f.val() && !u.val()){{
+				$('.module-image-upload .error').html('[*Bitte trage etwas zum Hochladen ein!*]');
+				return false;
+			}}
+			if(f.val() && !f.val().matches(/\.(jpe?g|gif|png|bmp)/i)){{
+				$('.module-image-upload .error').html('[*Dateityp nicht erlaubt!*]');
+				return false;
+			}}
+			return true;
+		}});
+	}});
+</script>
+<div class="module-item">
+	<h1>{#THIS->im_way_html()}</h1>
+	<div class="module-content module-image-upload">
+		<div class="error">{~$error}</div>
+		<form method="post" enctype="multipart/form-data" action="{~$url}">
+			<input type="hidden" name="{#IMPOST 'action'}" value="upload">
+			<table>
+				<tr><th>[*URL Upload:*]</th><td><input type="text" name="{#IMPOST 'url'}"></td></tr>
+				<tr><th>[*Datei Upload:*]</th><td><input type="file" name="{#IMPOST 'file'}"></td></tr>
+			</table>
+			<button type="submit" class="button">[*Upload!*]</button>
+		</form>
+	</div>
+	<div class="module-footer"></div>
+</div>

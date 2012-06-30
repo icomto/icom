@@ -1,8 +1,5 @@
 <?php
 
-#include "../tools/img_maikne.inc.php";
-#$IMAGE_HOST_CALLBACK = "img_maikne";
-
 class image {
 	public static function querylinks($id) {
 		$row = db()->query("SELECT * FROM images WHERE id='$id' LIMIT 1")->fetch_assoc();
@@ -15,29 +12,29 @@ class image {
 		return array($image, $thumb, $row);
 	}
 
-	public static function download($url, $force_handling = true, &$error = array()) {
+	public static function download($url, $force_handling = true, &$error = NULL) {
 		$data = my_file_get_contents($url);
 		if(!$data) {
-			$error[] = 'DOWNLOAD_ERROR';
+			$error = 'DOWNLOAD_ERROR';
 			return;
 		}
-		
-		if(preg_match('~([^\?&=/]+\.(jpe?g|gif|png))$~i', $url, $rv)) $name = $rv[1];
+
+		if(preg_match('~([^\?&=/]+\.(jpe?g|gif|png))([\?#].*)?$~i', $url, $rv)) $name = $rv[1];
 		else $name = 'noname.jpg';
-		
+
 		return self::insert($data, $name, $force_handling, $error);
 	}
-	public static function insert($data, $name, $force_handling, &$error = array()) {
+	public static function insert($data, $name, $force_handling, &$error = NULL) {
 		$id = ilchk($data);
 		$subid = substr($id, 0, 2);
-		
+
 		$name = es($name);
-		
+
 		if(db()->query("SELECT * FROM images WHERE id='$id' LIMIT 1")->num_rows == 1) {
 			if($force_handling) $update = true;
 			else return $id;
-		} else $update = false;	
-		
+		} else $update = false;
+
 		$ext = strtolower(substr(strtolower(strrchr($name, '.')), 1));
 		if($ext != 'jpg' and $ext != 'gif' and $ext != 'png') $ext="jpg";
 
@@ -45,49 +42,49 @@ class image {
 		$local_image = IMAGE_DIRECTORY."/$subid/$file";
 		$local_thumb = THUMB_DIRECTORY."/$subid/$id";
 		$size = strlen($data);
-		
+
 		$fh = fopen($local_image, 'w');
 		if(!$fh) {
-			$error[] = "Fehler beim speichern des Covers ($local_image)";
+			$error = "Fehler beim speichern des Covers ($local_image)";
 			return;
 		}
 		fwrite($fh, $data);
 		fclose($fh);
 		@chmod($local_image, 0666);
-		
+
 		list($width, $height) = getimagesize($local_image);
 		if(empty($width) or empty($height)) {
 			if(file_exists($local_image)) unlink($local_image);
-			$error[] = "Fehler beim &ouml;ffnen des runtergeladenen Bildes ($local_image [$width x $height])";
+			$error = "Fehler beim &ouml;ffnen des runtergeladenen Bildes ($local_image [$width x $height])";
 			return;
 		}
-		
+
 		$ext_thumb = $ext;
 		$wh = self::create_thumb($local_image, $local_thumb, 122, 173, 70, $local_image, $ext, $ext_thumb);
 		if(empty($wh)) {
 			if(file_exists($local_image)) unlink($local_image);
 			if(file_exists($local_thumb)) unlink($local_thumb);
-			$error[] = "Fehler beim erstellen des Thumbnails ($local_thumb)";
+			$error = "Fehler beim erstellen des Thumbnails ($local_thumb)";
 			return;
 		}
 		@chmod($local_thumb, 0644);
-		
+
 		self::spread(array(
 			array($local_image, "images/$subid", $file),
 			array($local_thumb, "thumbs/$subid", $id.".".$ext_thumb)
 		));
-		
+
 		$name = preg_replace('~^(.+)\.[^\.]{3,4}$~', '\1', $name);
 		$name = preg_replace('~[^a-z0-9\-_]~i', '_', $name);
 		mt_srand(time());
 		$rand = mt_rand() % 0xffffffff;
-		$update = "bullshit=$rand, ext='".db()->escape_string($ext)."', ext_thumb='".db()->escape_string($ext_thumb)."', name='$name', size='$size', width=$width, height=$height, uploader=''";
+		$update = "bullshit=$rand, ext='".db()->escape_string($ext)."', ext_thumb='".db()->escape_string($ext_thumb)."', name='$name', size='$size', width=$width, height=$height, user_id='".(IS_LOGGED_IN ? USER_ID : 0)."'";
 		$query = "
 			INSERT INTO images
 			SET id='$id', $update
 			ON DUPLICATE KEY UPDATE $update";
 		db()->query($query);
-		
+
 		/*$db_img = new db('pichost', 'work', 'geioarhfo4wj8gr', 'img', 3306, NULL);
 		$db_img->query($query);
 		$db_img->close();*/
@@ -116,10 +113,10 @@ class image {
 			@file_put_contents($fuck, file_get_contents($in));
 			return array();
 		}
-		
+
 		$ext_thumb = 'jpg';
 		$out .= ".".$ext_thumb;
-		
+
 		list($w, $h) = getimagesize($in);
 		$nw = $w;
 		$nh = $h;
@@ -132,7 +129,7 @@ class image {
 			$nh = ($h/$w)*$max_w;
 		}
 		$temp = imagecreatetruecolor($nw, $nh);
-		imagecopyresampled($temp, $src, 0, 0, 0, 0, $nw, $nh, $w, $h); 
+		imagecopyresampled($temp, $src, 0, 0, 0, 0, $nw, $nh, $w, $h);
 		switch($ext_thumb) {
 		case 'gif'; imagegif($temp, $out, $quality); break;
 		case 'png': imagepng($temp, $out, $quality); break;
@@ -144,10 +141,10 @@ class image {
 	}
 
 	public static function spread($files) {
-		$errors = array();
+		/*$errors = array();
 		//self::spread_do('ssh', 'pichost', 22, 'webman', 'vzb54wihrefs', '/home/i/', $files, $errors);
 		#self::spread_do('ssh', 'ro2', 22, 'webman', 'vzb54wihrefs', '/data/i/', $files, $errors);
-		if($errors) print_r($errors);
+		if($errors) print_r($errors);*/
 	}
 	private static function spread_do($type, $host, $port, $user, $pass, $basedir, &$files, &$errors) {
 		switch($type) {
@@ -155,39 +152,39 @@ class image {
 		case 'ftp':
 			$s = ftp_ssl_connect($host, $port);
 			if(!$s) {
-				$error[] = "FTP Fehler (connect)";
+				$error = "FTP Fehler (connect)";
 				return;
 			}
 			if(!ftp_login($s, $user, $pass)) {
-				$error[] = "FTP Fehler (login)";
+				$error = "FTP Fehler (login)";
 				return;
 			}
 			foreach($files as $f) {
 				if(!ftp_chdir($s, $basedir.$f[1])) {
-					$error[] = "FTP Fehler (chdir(".$f[1]."))";
+					$error = "FTP Fehler (chdir(".$f[1]."))";
 					return;
 				}
 				if(!ftp_put($s, $f[2], $f[0], FTP_BINARY)) {
-					$error[] = "FTP Fehler (put(".$f[2]."))";
+					$error = "FTP Fehler (put(".$f[2]."))";
 					return;
 				}
 			}
 			ftp_close($s);
 			break;
-		
+
 		case 'ssh':
 			$s = ssh2_connect($host, $port);
 			if(!$s) {
-				$error[] = "SSH Fehler (connect)";
+				$error = "SSH Fehler (connect)";
 				return;
 			}
 			if(!ssh2_auth_password($s, $user, $pass)) {
-				$error[] = "SSH Fehler (login)";
+				$error = "SSH Fehler (login)";
 				return;
 			}
 			foreach($files as $f) {
 				if(!@ssh2_scp_send($s, $f[0], $basedir.$f[1]."/".$f[2])) {
-					$error[] = "SSH Fehler (scp_send(".$f[0]." -> ".$basedir.$f[1]."/".$f[2]."))";
+					$error = "SSH Fehler (scp_send(".$f[0]." -> ".$basedir.$f[1]."/".$f[2]."))";
 					return;
 				}
 			}

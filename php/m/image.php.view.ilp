@@ -1,0 +1,39 @@
+<style>
+	.module-image-view * {{
+		height:auto;
+	}}
+	.module-image-view .image {{
+		text-align:center;
+	}}
+	.module-image-view .image .infos td {{
+		text-align:center;
+		width:33%;
+	}}
+</style>
+<div class="module-item">
+	<h1>{#THIS->im_way_html()}</h1>
+	<div class="module-content module-image-view">
+		<div class="image">
+			<a href="{~$url}">
+				<img src="{STATIC_CONTENT_DOMAIN}/s/i/{$image.id}.{$image.ext}" />
+			</a><br/>
+			<table class="infos">
+				<tr>
+					<td>
+						{$image.user_id ? user($image.user_id)->html() : '<strong>System/Anonym</strong>'} {timeago(@$image.ctime)}
+					</td>
+					<td>
+						<a href="{~$url}">{~$image.name}.{~$image.ext}</a>
+
+					</td>
+					<td>
+						{%$image.width} x {%$image.height} | {strsize($image.size)}
+						{*{set $image.hits = $image['hits_image'] + $image['hits_thumb'] + 1}
+						{if $image.hits == 1}[*1 Hit*]{else}[*{%$image.hits} Hits*]{/if}*}
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="module-footer"></div>
+</div>
