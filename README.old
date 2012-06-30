@@ -7,6 +7,7 @@ Benötigt:
 Am Besten man verwendet eine Distribution die direkt php 5.4 bereitstellt. Debian wheezy (testing) tut dieses, Ubuntu sollte es auch.
 
 
+
 Optional:
 - memcached
 - php5-apc

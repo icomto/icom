@@ -2,6 +2,7 @@ RewriteEngine on
 
 RewriteBase /
 
+
 RewriteRule .+/favicon.(ico|gif|png)$ /favicon.$1 [L,R]
 RewriteRule ^_redir/\d*/*(/.*)$ $1 [L,R]
 
