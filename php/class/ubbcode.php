@@ -58,13 +58,23 @@ class ubbcode {
 			$data = '<div class="center">'.trim($data).'</div>';
 			break;
 		case 'color':
-			$data = '<span style="color: '.str_replace('"', '&quot;', $arg).';">'.$data.'</span>';
+			$W3C_COLOR_NAMES = array('aqua', 'black', 'blue', 'fuchsia', 'gray', 'green', 'lime', 'maroon', 'navy', 'olive', 'purple', 'red', 'silver', 'teal', 'white', 'yellow');
+			if (in_array($arg, $W3C_COLOR_NAMES) || self::checkHEX($arg)) {
+				$data = '<span style="color: '.str_replace('"', '&quot;', $arg).';">'.$data.'</span>';	
+			}
 			break;
 		case 'size':
-			$data = '<span style="font-size:'.str_replace('"', '&quot;', $arg).'px;">'.$data.'</span>';
+			if (filter_var($arg, FILTER_VALIDATE_INT)) {	
+				if ((int) $arg > MAX_FONT_SIZE) 
+					$arg = MAX_FONT_SIZE;
+				if ((int) $arg < MIN_FONT_SIZE) 
+					$arg = MIN_FONT_SIZE;
+				$data = '<span style="font-size:'.str_replace('"', '&quot;', $arg).'px;">'.$data.'</span>';
+			}
 			break;
 		case 'font':
-			$data = '<span style="font-family:'.str_replace('"', '&quot;', $arg).';">'.$data.'</span>';
+			$arg = explode(';', str_replace('"', '&quot;', $arg)); 
+			$data = '<span style="font-family:'.$arg[0].';">'.$data.'</span>';
 			break;
 		case 'email':
 			$link = trim(str_replace('"', '&quot;', $arg ? $arg : $data));
@@ -423,6 +433,20 @@ class ubbcode {
 			}
 		}
 		return str_replace($in, $out, $text);
+	}
+
+	protected static function checkHEX($hex) {
+		/*
+			Prüft lediglich auf einen validen HEX-Wert
+			HEX kann 3 oder 6 Zeichen haben (#fff, #ffffff)
+		*/
+		$hex_pattern = '~^#?([0-9a-f]{3}\b|[0-9a-f]{6}\b)$~i';
+		if (preg_match($hex_pattern, $hex)) {
+			return True; 
+		}
+		else{
+			return False;
+		}
 	}
 }
 
