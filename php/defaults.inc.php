@@ -147,4 +147,8 @@ define('ENABLE_COOKIE_SPAMMER_CHECK', $CONFIG['main']['enable_cookie_spammer_che
 define('PROXY_HOST', empty($CONFIG['proxy']['host']) ? NULL : $CONFIG['proxy']['host']);
 define('PROXY_PORT', empty($CONFIG['proxy']['port']) ? NULL : $CONFIG['proxy']['port']);
 
+# Einstellungen für BB-Code Parsers
+define('MAX_FONT_SIZE', 50);
+define('MIN_FONT_SIZE', 5);
+
 ?>
