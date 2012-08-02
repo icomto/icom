@@ -1,5 +1,6 @@
 <?php
 
+global $CONFIG;
 if(!empty($CONFIG['memcached']))
 	cache_L2::connect($CONFIG['memcached']['host'], $CONFIG['memcached']['port']);
 

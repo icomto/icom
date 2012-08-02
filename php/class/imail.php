@@ -85,6 +85,7 @@ class imail {
 	}
 }
 
+global $CONFIG;
 imail::$config = (empty($CONFIG['mail']) ? NULL : $CONFIG['mail']);
 
 ?>
