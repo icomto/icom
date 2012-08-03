@@ -6,7 +6,6 @@ php/test.php
 s/*/*/*
 !s/*/*/.empty
 php/IGNORE
-lib/vt-*
 .tags
 .tags_sorted_by_file
 *.swp
