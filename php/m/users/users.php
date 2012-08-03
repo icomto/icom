@@ -267,25 +267,35 @@ class m_users extends im_tabs {
 	
 	
 	protected function TAB_bookmarks_INIT(&$args) {
-		$this->im_tabs_init_sub($args, ['users', 'bookmarks']);
+		$this->im_tabs_init_sub($args, ['users', 'bookmarks'], $this->user['user_id'] == USER_ID);
+	}
+	protected function TAB_bookmarks_POST_change_priv_bookmarks(&$args) {
+		if($this->user['user_id'] != USER_ID) throw new iexception('ACCESS_DENIED', $this);
+		user()->set_priv('priv_bookmarks', $args['priv_bookmarks']);
+		if(!IS_AJAX) page_redir($this->url);
 	}
 	protected function TAB_bookmarks(&$args) {
-		if($this->user['user_id'] == USER_ID and isset($args['priv_bookmarks'])) {
-			$this->user['priv_bookmarks'] = user()->set_priv('priv_bookmarks', $_POST['priv_bookmarks']);
-			page_redir($this->url);
-		}
-		return $this->im_tabs_sub->RUN('MODULE');
+		return ($this->user['user_id'] == USER_ID ? $this->ilphp_fetch('bookmarks.php.ilp') : '').$this->im_tabs_sub->RUN('MODULE');
 	}
 	
 	protected function TAB_friends_INIT(&$args) {
-		$this->im_tabs_init_sub($args, ['users', 'friends']);
+		$this->im_tabs_init_sub($args, ['users', 'friends'], $this->user['user_id'] == USER_ID);
+	}
+	protected function TAB_friends_POST_change_priv_friends(&$args) {
+		if($this->user['user_id'] != USER_ID) throw new iexception('ACCESS_DENIED', $this);
+		user()->set_priv('priv_friends', $args['priv_friends']);
+		if(!IS_AJAX) page_redir($this->url);
 	}
 	protected function TAB_friends() {
-		if($this->user['user_id'] == USER_ID and isset($_POST['priv_friends']))
-			$this->user['priv_friends'] = user()->set_priv('priv_friends', $_POST['priv_friends']);
-		return $this->im_tabs_sub->RUN('MODULE');
+		return ($this->user['user_id'] == USER_ID ? $this->ilphp_fetch('friends.php.ilp') : '').$this->im_tabs_sub->RUN('MODULE');
 	}
 	
+	protected function TAB_guestbook_POST_change_priv_guestbook(&$args) {
+		if($this->user['user_id'] != USER_ID) throw new iexception('ACCESS_DENIED', $this);
+		user()->set_priv('priv_guestbook', $args['priv_guestbook']);
+		if(!IS_AJAX) page_redir($this->url);
+	}
+
 	protected function TAB_guestbook() {
 		$this->page = (@$_GET['page'] > 1 ? (int)$_GET['page'] : 1);
 		if(isset($_POST['guestbook_message']) or isset($_POST['delete_guestbook_entrie']) or has_userrights()) $this->ilphp_init('users.php.guestbook.ilp');
@@ -295,8 +305,6 @@ class m_users extends im_tabs {
 		}
 		
 		if(user()->has_priv($this->user['priv_guestbook'], user($this->user['user_id']))) {
-			if(USER_ID == $this->user['user_id'] and isset($_POST['priv_guestbook']))
-				$this->user['priv_guestbook'] = user()->set_priv('priv_guestbook', $_POST['priv_guestbook']);
 			if((USER_ID == $this->user['user_id'] or has_privilege('guestbook_master')) and isset($_POST['delete_guestbook_entrie']))
 				db()->query("DELETE FROM user_guestbook WHERE id='".es($_POST['delete_guestbook_entrie'])."' AND user_id='".$this->user['user_id']."' LIMIT 1");
 		

@@ -20,23 +20,7 @@ trait user_pns {
 			$pn_id = db()->insert_id;
 			db()->query("INSERT IGNORE INTO user_pns3_links SET user_id=".$this->i['user_id'].", pn_id='$pn_id'");
 		}
-		db()->query("
-			INSERT INTO user_pns3_content
-			SET
-				subid='".$pn_id."',
-				user_id='0',
-				message='".es($message)."'");
-		if($blink) db()->query("UPDATE user_pns3_links SET has_new_message=1 WHERE pn_id='".$pn_id."'");
-	}
-	public function pn_message($pn_id, $message, $blink = true) {
-		if(!$pn_id) return true;
-		db()->query("
-			INSERT INTO user_pns3_content
-			SET
-				subid='".$pn_id."',
-				user_id='".$this->i['user_id']."',
-				message='".es($message)."'");
-		if($blink) db()->query("UPDATE user_pns3_links SET has_new_message=1 WHERE pn_id='".$pn_id."'");
+		$this->pn_message($pn_id, $message, $blink);
 	}
 	public function pn_new($to = array(), $topic, $message, $blink = true) {
 		if(!$to or !$topic or !$message) return;
@@ -51,16 +35,22 @@ trait user_pns {
 				users='".$users."',
 				involved_users='".$users."'");
 		$pn_id = db()->insert_id;
+		$this->pn_message($pn_id, $message, false);
+		if($blink)
+			foreach($to as $user_id)
+				db()->query("INSERT IGNORE INTO user_pns3_links SET user_id='".$user_id."', pn_id='$pn_id', has_new_message=1");
+		return $pn_id;
+	}
+	public function pn_message($pn_id, $message, $blink = true) {
+		if(!$pn_id) return true;
 		db()->query("
 			INSERT INTO user_pns3_content
 			SET
 				subid='".$pn_id."',
 				user_id='".$this->i['user_id']."',
 				message='".es($message)."'");
-		if($blink)
-			foreach($to as $user_id)
-				db()->query("INSERT IGNORE INTO user_pns3_links SET user_id='".$user_id."', pn_id='$pn_id', has_new_message=1");
-		return $pn_id;
+		if($blink) db()->query("UPDATE user_pns3_links SET has_new_message=1 WHERE pn_id='".$pn_id."'");
+		cache_L1::del('pn_im_chat_pn'.$pn_id.'_last_id');
 	}
 }
 

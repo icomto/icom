@@ -28,10 +28,6 @@ class m_users_friends extends im_tabs {
 		parent::INIT($args);
 	}
 	
-	#protected function MODULE($args) {
-	#	return $this->ilphp_fetch('friends.php.ilp');
-	#}
-	
 	protected function TAB_friends(&$args) {
 		if(has_userrights() or $this->user['user_id'] == USER_ID) $this->ilphp_init('friends.php.friends.ilp');
 		else  {

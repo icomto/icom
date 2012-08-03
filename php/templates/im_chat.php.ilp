@@ -1,0 +1,70 @@
+<div class="im_chat" id="{$im_chat.html_id}{$im_chat.place.name}">
+	{if $im_chat.page == 1}
+	{if $im_chat.deny_post}
+	{if $im_chat.deny_post !== true}<p class="error">{$im_chat.deny_post}</p>{/if}
+	{else}
+	<span class="error">{$im_chat.error}</span>
+	<form class="chat-message-form" method="post" action="{~$im_chat.url}" onsubmit="return im_chat_submit(this, '{~str_replace("'", "\\'", $im_chat.default_text)}', '[*Du musst eine Nachricht eingeben!*]', 'Shouting...');">
+		<input type="hidden" name="{#IMPOST 'action'}" value="chat_new">
+		<input type="hidden" name="{#IMPOST 'namespace'}" value="{$im_chat.name}">
+		{if $im_chat.place.input_box == 'textarea-ubb'}<textarea class="bbcodeedit chat-message-input" name="{#IMPOST 'message'}" onfocus="if(this.value=='{~$im_chat.default_text}')this.value='';" onblur="if(this.value=='')this.value='{~$im_chat.default_text}';">{~$im_chat.default_text}</textarea>
+		{elseif $im_chat.place.input_box == 'textarea'}<textarea class="chat-message-input" name="{#IMPOST 'message'}" onfocus="if(this.value=='{~$im_chat.default_text}')this.value='';" onblur="if(this.value=='')this.value='{~$im_chat.default_text}';">{~$im_chat.default_text}</textarea>
+		{else}<input class="chat-message-input" type="text" name="{#IMPOST 'message'}" autocomplete="off" onfocus="if(this.value=='{~$im_chat.default_text}')this.value='';" onblur="if(this.value=='')this.value='{~$im_chat.default_text}';" style="width:89%;margin-bottom:3px;float:left;">
+		{/if}
+		<button type="submit" class="button"{if $im_chat.place.input_box == 'input'} style="display:block;margin-bottom:3px;float:right;"{/if}>[*Shout!*]</button>
+		<div class="clear" style="height:2px;"></div>
+	</form>
+	{/if}
+	{/if}
+
+	<div class="chat-insert-point"></div>
+
+	{set $im_chat.last_id = 0}
+	{while $im_chat.posts and $im_chat.post = $im_chat.posts->fetch_assoc()}
+	{if $im_chat.last_id < $im_chat.post.id}{set $im_chat.last_id = $im_chat.post.id}{/if}
+	{new ilphp_sub 'row'}
+	<div class="chat-row chat-row-{$im_chat.post.id}">
+		{user($im_chat.post.user_id)->html()} {timeago($im_chat.post.ctime)}<br>
+		{if $im_chat.has_mod_rights}
+		<div class="chat-admin">
+			<form method="post" action="{~$im_chat.url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.chat-row');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="chat_edit">
+				<input type="hidden" name="{#IMPOST 'namespace'}" value="{$im_chat.name}">
+				<input type="hidden" name="{#IMPOST 'post_id'}" value="{$im_chat.post.id}">
+				<textarea name="{#IMPOST 'message'}">{~$im_chat.post.message}</textarea>
+				<button type="submit" class="button">[*Speichern*]</button>
+			</form>
+			<form method="post" action="{~$im_chat.url}" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.chat-row');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="chat_delete">
+				<input type="hidden" name="{#IMPOST 'namespace'}" value="{$im_chat.name}">
+				<input type="hidden" name="{#IMPOST 'post_id'}" value="{$im_chat.post.id}">
+				<button type="submit" class="button">[*L&ouml;schen*]</button>
+			</form>
+			<button type="button" class="button" onclick="$(this).parent().hide().next().show();">[*Abbrechen*]</button>
+		</div>
+		<div class="user-entry" style="cursor:pointer;" title="[*Doppelklick zum editieren*]" ondblclick="$(this).hide().prev().show();">
+			{ubbcode::add_smileys(ubbcode::compile($im_chat.post.message, $im_chat.place.ubb_width))}&nbsp;
+		</div>
+		{else}
+		<div class="user-entry">
+			{ubbcode::add_smileys(ubbcode::compile($im_chat.post.message, $im_chat.place.ubb_width))}
+		</div>
+		{/if}
+	</div>
+	{/new ilphp_sub}
+	{/while}
+
+	<div class="thin-line"></div>
+
+	{if $im_chat.place.pages and $im_chat.num_pages > 1}
+	<div class="pages im_chat-pages">
+		{create_pages($im_chat.page, $im_chat.num_pages - 1, $im_chat.url . $im_chat['page_var'] .'/%s/', true, ' &nbsp;', '%02s', '<a href="%s">%s</a>')}
+		<form method="post" action="{~$im_chat.url}#{$im_chat.html_id}{$im_chat.place.name}" onsubmit="return iC(this, '~#{$im_chat.html_id}{$im_chat.place.name}');" class="im-chat-page-form" style="display:none;">
+			<input type="hidden" name="{#IMPOST 'action'}" value="chat_change_page">
+			<input type="hidden" name="{#IMPOST 'namespace'}" value="{$im_chat.name}">
+			<input type="hidden" name="{#IMPOST 'place'}" value="{$im_chat.place.name}">
+			<input type="hidden" name="{#IMPOST $im_chat.page_var}" class="im-chat-page">
+		</form>
+	</div>
+	{/if}
+</div>

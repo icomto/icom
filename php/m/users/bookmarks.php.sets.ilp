@@ -1,0 +1,48 @@
+<div class="module-user-bookmarks-sets">
+	<style>
+		.module-user-bookmarks-sets table th {{
+			width:20%;
+		}}
+		.module-user-bookmarks-sets .tags * {{
+			font-weight:normal;
+		}}
+	</style>
+	{if !$sets->num_rows}<p class="error">[*Keine Eintr&auml;ge gefunden.*]</p>
+	{else}
+	{while $set = $sets->fetch_assoc()}
+	{set $set = new i__set($set)}
+	{if $set.name}<h4>{$set->getLinkHtml()}</h4>{/if}
+	<table>
+		<tr>
+			<th>
+				{$set->renderFirstImage()}
+			</th>
+			<td>
+				{if IS_LOGGED_IN}<div style="float:right;">{bookmark_engine::icon($url, 'i_set', $set.id)}</div>{/if}
+				{if $set.content}<div>{ubbcode::add_smileys(ubbcode::compile($set.content))}</div>{/if}
+			</td>
+		</tr>
+	</table>
+	<table class="infos">
+		<tr>
+			<td>{user($set.user_id)->html(-1)}</td>
+			<td>{timeago($set.ctime)}</td>
+			<td>[*{$set->countImages()} Bilder*]</td>
+			<td>[*{$set->countComments()} Kommentare*]</td>
+		</tr>
+	</table>
+	{if $set->getAllTags()}
+	<div class="tags">
+		<span>[*Tags:*]</span>
+		{set $tags = array_map_call('getLinkHtml', $set->getAllTags())}
+		{set sort($tags)}
+		{implode(', ', $tags)}
+	</div>
+	{/if}
+	</table>
+	<hr />
+	{/while}
+	<div class="clear"></div>
+	{if $num_pages > 1}<div class="pages center">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+	{/if}
+</div>

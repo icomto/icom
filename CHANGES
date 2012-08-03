@@ -1,3 +1,10 @@
+03-08-2012
+- some improvements and bugfixes
+- chat system rewritten (more flexible)
+  to update you have to run this queries:
+    alter table user_chats change input_box input_box enum('textarea', 'textarea-ubb', 'input') not null default 'textarea-ubb';
+    update user_chats set input_box='textarea-ubb' where input_box='textarea';
+
 30-06-2012
 - image uploader
   to update database run in mysql:

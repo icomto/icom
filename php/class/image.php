@@ -85,17 +85,6 @@ class image {
 			ON DUPLICATE KEY UPDATE $update";
 		db()->query($query);
 
-		/*$db_img = new db('pichost', 'work', 'geioarhfo4wj8gr', 'img', 3306, NULL);
-		$db_img->query($query);
-		$db_img->close();*/
-
-		#$db_img = new db('ro2', 'work', 'fasdkjlgh4oit4hwoirs', 'img', 3306, NULL);
-		#$db_img->query($query);
-		#$db_img->close();
-
-		#if($update) db()->query("UPDATE images SET ext='".es($ext)."', ext_thumb='".es($ext_thumb)."', name='$name', size='$size', width=$width, height=$height WHERE id='$id' LIMIT 1");
-		#else db()->query("INSERT INTO images SET id='$id', ext='".es($ext)."', ext_thumb='".es($ext_thumb)."', name='$name', size='$size', width=$width, height=$height");
-
 		return $id;
 	}
 

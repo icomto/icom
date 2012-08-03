@@ -16,7 +16,7 @@ class bookmark_engine {
 			'<input type="hidden" name="imodules/bookmark_engine/action" value="'.($bookmarked ? 'remove' : 'add').'">'.
 			'<input type="hidden" name="imodules/bookmark_engine/thing" value="'.$thing.'">'.
 			'<input type="hidden" name="imodules/bookmark_engine/id" value="'.$thing_id.'">'.
-			'<button type="submit" title="'.($bookmarked ? LS('In meine Lesezei:chen aufnehmen') : LS('Aus den Lesezeichen rausnehmen')).'"></button>'.
+			'<button type="submit" title="'.($bookmarked ? LS('Aus den Lesezeichen rausnehmen') : LS('In meine Lesezei:chen aufnehmen')).'"></button>'.
 			'</form>';
 	}
 }

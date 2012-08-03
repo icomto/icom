@@ -1,67 +1,87 @@
 <?php
 
-require_once 'chat_base.php';
-
 if(time() % 5 == 0) {
 	db()->query("DELETE FROM user_pns3_online_users WHERE lasttime<SUBTIME(CURRENT_TIMESTAMP,'".LS_USER_ALIVE_TIME."')");
 }
 
-class m_pn extends m_chat_base {
+class m_pn extends imodule {
+	use ilphp_trait;
+	use im_way;
+	use im_chat;
+
+	protected $pn_id = 0;
+
 	public function __construct() {
 		parent::__construct(__DIR__);
+
+		$this->pn = $this->im_chat_add('pn', [
+			'INIT_function' => 'INIT_IDLE',
+			'table' => 'user_pns3_content',
+			'id_field' => 'id',
+			'subid_field' => 'subid',
+			'time_field' => 'timeadded'
+		]);
 	}
-	
+
 	protected function INIT(&$args) {
-		if(!IS_LOGGED_IN) throw new iexception('ACCESS_DENIED', $this);
-		
+		if(!IS_LOGGED_IN) throw new iexception('403', $this);
+
+		if(!$this->pn_id) $this->pn_id = (int)(empty($args[$this->imodule_name]) ? $args['pn_id'] : $args[$this->imodule_name]);
+		if(!$this->pn_id) throw new iexception('403', $this);
+
 		$this->way[] = array(LS('Private Nachrichten'), '/pns/');
-		
-		$this->pn_id = (int)$args[$this->imodule_name];
-		$this->init_pn();
-	}
-	
-	protected function MODULE(&$args) {
+
+		$this->data = $this->query_data($this->pn_id);
+		if(!$this->data) throw new iexception('403', $this);
+		if($this->data['name'] == '%-SYSTEM%') {
+			$this->data['name'] = LS('Systembenachrichtigungen');
+			$this->pn->deny_post = true;
+		}
+		$this->pn->subid = $this->data['id'];
+		$this->pn->default_text = ' ';
+
+		$this->url = '/'.LANG.'/pn/'.$this->data['id'].'-'.urlenc($this->data['name']).'/';
+		$this->pn->url = $this->url;
 		$this->way[] = array($this->data['name'], $this->url);
-		$this->im_way_title = true;
-		
-		#if(!$this->data['read_only'] and !empty($args['action'])) {
-		#	$data = $this->settings($args);
-		#	if($data !== false) return $data;
-		#}
-		#if(IS_AJAX) page_redir($this->url);
-		
-		$this->module_head_data = $this->init_head_data(true);
-		return parent::MODULE($args);
+
+		$this->pn->INIT($args);
+		$this->update_stats();
 	}
-	
-	protected function IDLE(&$idle) {
-		foreach($idle as $pn_id=>$args) {
-			if($pn_id == 'icon') {
-				G::$json_data['e']['MenuPNs'] = $this->ICON($args);
-				if(isset($args['status']) and $args['status'] == $this->imodule_args['icon'])
-					unset(G::$json_data['e']['MenuPNs']);
+	public function INIT_IDLE(&$args) {
+		try {
+			return $this->INIT($args);
+		}
+		catch(iexception $e) {
+			switch($e->msg) {
+			default:
+				throw $e;
+			case '403':
+			case 'ACCESS_DENIED':
+				return 'IGNORE';
 			}
-			else {
-				try {
-					$this->pn_id = $pn_id;
-					$this->_init = false;
-					$this->init_pn(false, true);
-				}
-				catch(Exception $e) {
-					if($e->getMessage() == 'ACCESS_DENIED') continue;
-					else throw $e;
-				}
-				
-				#$this->update_stats();
-				parent::IDLE_RUN($args);
-				
+		}
+	}
+
+	protected function MODULE(&$args) {
+		$this->im_way_title();
+		return $this->ilphp_fetch('pn.php.ilp');
+	}
+
+	protected function IDLE(&$idle) {
+		$this->pn->IDLE($idle, null, null, function(&$args) {
+			if(!empty($args['module'])) {
 				$key = 'ModulePN'.$this->data['id'].'Stats';
 				G::$json_data['e'][$key] = $this->init_head_data(false);
 				if(!G::$json_data['e'][$key]) unset(G::$json_data['e'][$key]);
 			}
+		});
+		if(isset($idle['icon'])) {
+			G::$json_data['e']['MenuPNs'] = $this->ICON($args);
+			if(isset($args['status']) and $args['status'] == $this->imodule_args['icon'])
+				unset(G::$json_data['e']['MenuPNs']);
 		}
 	}
-	
+
 	protected function ICON(&$args) {
 		$this->has_new_pns = db()->query("
 			SELECT 1
@@ -71,12 +91,12 @@ class m_pn extends m_chat_base {
 		$this->imodule_args['icon'] = ($this->has_new_pns ? 1 : 0);
 		return $this->ilphp_fetch('pn.php.icon.ilp');
 	}
-	
+
 	public function update_stats() {
-		db()->query("INSERT INTO user_pns3_online_users SET pn_id='".$this->subid."', user_id='".USER_ID."' ON DUPLICATE KEY UPDATE lasttime=CURRENT_TIMESTAMP");
+		db()->query("INSERT INTO user_pns3_online_users SET pn_id='".$this->pn_id."', user_id='".USER_ID."' ON DUPLICATE KEY UPDATE lasttime=CURRENT_TIMESTAMP");
 		db()->query("UPDATE user_pns3_links SET has_new_message=0 WHERE user_id='".USER_ID."' AND pn_id='".$this->data['id']."'");
 	}
-	
+
 	protected function POST_add_user(&$args) {
 		if(!preg_match('~/users/(\d+)~i', $args['link'], $out)) return $this->settings_end(true, 'add_user');
 		$user_id = $out[1];
@@ -149,11 +169,11 @@ class m_pn extends m_chat_base {
 		else $no[] = USER_ID;
 		db()->query("UPDATE user_pns3_polls SET votes_yes='".es(implode_arr_list($yes))."', votes_no='".es(implode_arr_list($no))."' WHERE id='$poll_id' AND pn_id='".$this->data['id']."' LIMIT 1");
 		$users = explode_arr_list($this->data['users']);
-		
+
 		if((count($yes) / count($users)) > 0.5) $final_result = 'yes';
 		elseif((count($no) / count($users)) >= 0.5) $final_result = 'no';
 		else return $this->settings_end(false, 'vote_for_user');
-		
+
 		db()->query("UPDATE user_pns3_polls SET status='$final_result' WHERE id='$poll_id' AND pn_id='".$this->data['id']."' LIMIT 1");
 		$user =& user($poll['user_id'])->i;
 		if(!$user) return $this->settings_end(false, 'vote_for_user');
@@ -203,8 +223,8 @@ class m_pn extends m_chat_base {
 		}
 		else page_redir($this->url);
 	}
-	
-	
+
+
 	private function query_data($pn_id) {
 		return db()->query("
 			SELECT
@@ -218,39 +238,10 @@ class m_pn extends m_chat_base {
 				MATCH (users) AGAINST ('+".USER_ID."' IN BOOLEAN MODE)
 			LIMIT 1")->fetch_assoc();
 	}
-	private function init_pn($update_menu = false, $update_module = false) {
-		if($this->_init) return;
-		if(!$this->pn_id) throw new iexception('ACCESS_DENIED', $this);
-		$this->data = $this->query_data($this->pn_id);
-		if(!$this->data) throw new iexception('ACCESS_DENIED', $this);
-		if($this->data['name'] == '%-SYSTEM%') {
-			$this->data['name'] = LS('Systembenachrichtigungen');
-			$this->data['read_only'] = true;
-		}
-		else $this->data['read_only'] = false;
-		$this->link = 'pn';
-		$this->table = 'user_pns3_content';
-		$this->subid = $this->data['id'];
-		$this->has_mod_rights = false;
-		$this->default_text = ' ';
-		$this->update_menu = $update_menu;
-		$this->update_module = $update_module;
-		$this->title = $this->data['name'];
-		$this->html_id = 'PN'.$this->data['id'];
-		$this->module_id = 'ModulePN'.$this->data['id'];
-		$this->allow_post = !$this->data['read_only'];
-		#if(!$this->allow_post) $this->reason = LS('Derzeit hast du keine Berechtigung in diesen Chat zu schreiben.');
-		$this->has_archive = false;
-		$this->chat_input_box = 'textarea';
-		$this->update_stats();
-		#$this->init();
-		$this->url = '/'.LANG.'/pn/'.$this->data['id'].'-'.urlenc($this->data['name']).'/';
-		parent::INIT($args);
-	}
-	
+
 	public function init_head_data($with_settings, $admin_sub_function = '') {
-		if($this->data['read_only']) return;
-		
+		if($this->pn->deny_post) return;
+
 		$this->users = db()->query("
 			SELECT a.user_id, a.nick nick, b.user_id online, a.languages languages
 			FROM users a
@@ -267,10 +258,10 @@ class m_pn extends m_chat_base {
 				pn_id='".$this->data['id']."' AND
 				status='open'
 			ORDER BY has_voted DESC, user_id");
-		
+
 		return $this->ilphp_fetch('pn.php.head_data'.($with_settings ? '' : '.stats').'.ilp'.($admin_sub_function ? '|'.$admin_sub_function : ''));
 	}
-	
+
 	protected function on_new_message(&$args) {
 		db()->query("UPDATE user_pns3_links SET has_new_message=1 WHERE pn_id='".$this->data['id']."' AND user_id!='".USER_ID."'");
 	}

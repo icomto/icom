@@ -102,6 +102,7 @@
 			<input type="hidden" name="{#IMPOST 'action'}" value="change_input_box">
 			<select name="{#IMPOST 'input_box'}">
 				<option value="textarea"{if $data.input_box == 'textarea'} selected="selected"{/if}>[*Textfeld*]</option>
+				<option value="textarea-ubb"{if $data.input_box == 'textarea-ubb'} selected="selected"{/if}>[*BB-Editor*]</option>
 				<option value="input"{if $data.input_box == 'input'} selected="selected"{/if}>[*Eingabezeile*]</option>
 			</select> <button type="submit" class="button">[*&Auml;ndern*]</button>
 		</form>

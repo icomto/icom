@@ -5,15 +5,14 @@ class m_online_users extends imodule {
 	public function __construct() {
 		parent::__construct(__DIR__);
 	}
-	protected function MODULE(&$args) {
-		$this->imodule_args['module'] = 1;
-		$this->ilphp_init('online_users.php.module.ilp', 10);
+
+	protected function MODULE_query(&$args) {
 		$team_groups = array(1, 2, 3, 175, 194, 184, 171, 187, 154, 169);
 		$this->online_team = db()->query("
 			SELECT user_id, nick, groups
 			FROM users
 			WHERE
-				NOT user_id IN (1,167,541,236,5451,4509,5561) AND
+				/*NOT user_id IN (1,167,541,236,5451,4509,5561) AND*/
 				(FIND_IN_SET(".implode(',groups) OR FIND_IN_SET(', $team_groups).",groups)) AND
 				UNIX_TIMESTAMP(lastvisit)>".(time() - 60)."
 			ORDER BY nick");
@@ -21,9 +20,14 @@ class m_online_users extends imodule {
 			SELECT user_id, nick
 			FROM users
 			WHERE
-				NOT user_id IN (1,167,541,236,5451,4509,5561) AND
+				/*NOT user_id IN (1,167,541,236,5451,4509,5561) AND*/
 				UNIX_TIMESTAMP(lastvisit)>".(time() - 60)."
 			ORDER BY nick");
+	}
+	protected function MODULE(&$args) {
+		$this->imodule_args['module'] = 1;
+		$this->ilphp_init('online_users.php.module.ilp', 10);
+		$this->MODULE_query($args);
 		return $this->ilphp_fetch();
 	}
 	protected function MENU(&$args) {

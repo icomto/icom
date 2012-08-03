@@ -2,13 +2,13 @@
 
 class ArrayClass implements ArrayAccess, Iterator, Serializable {
 	public $_acd;
-	
+
 	private $position = 0;
-	
+
 	public function __construct($_acd = array()) {
 		$this->set($_acd);
 	}
-	
+
 	protected function newChildInstance($_acd) {
 		$temp = $this->_acd;
 		$this->_acd = NULL;
@@ -17,7 +17,7 @@ class ArrayClass implements ArrayAccess, Iterator, Serializable {
 		$this->_acd =& $temp;
 		return $new;
 	}
-	
+
 	public function __get($k) {
 		return $this->offsetGet($k);
 	}
@@ -30,13 +30,13 @@ class ArrayClass implements ArrayAccess, Iterator, Serializable {
 	public function __unset($k) {
 		return $this->offsetUnset($k);
 	}
-	
+
 	public function offsetGet($k) {
 		if(!isset($this->_acd[$k])) throw new Exception('OFFSET_NOT_FOUND:'.$k);
 		return $this->_acd[$k];
 	}
 	public function offsetSet($k, $v) {
-		if(isset($this->_acd[$k]) and ($this->_acd[$k] == $v or ($this->_acd[$k] instanceof self and $this->_acd[$k]->_acd == $v))) return;
+		if(isset($this->_acd[$k]) and ($this->_acd[$k] === $v or ($this->_acd[$k] instanceof self and $this->_acd[$k]->_acd === $v))) return;
 		if(is_array($v)) $v = $this->newChildInstance($v);
 		if($k === NULL) $this->_acd[] = $v;
 		else $this->_acd[$k] = $v;
@@ -50,7 +50,7 @@ class ArrayClass implements ArrayAccess, Iterator, Serializable {
 		unset($this->_acd[$k]);
 		return true;
 	}
-	
+
 	public function rewind() {
 		return reset($this->_acd);
 	}
@@ -69,19 +69,19 @@ class ArrayClass implements ArrayAccess, Iterator, Serializable {
 	public function valid() {
 		return key($this->_acd) !== NULL;
 	}
-	
+
 	public function serialize() {
 		return serialize($this->deconvert_data($this->_acd));
 	}
 	public function unserialize($_acd) {
 		$this->set(unserialize($_acd));
 	}
-	
+
 	public function set($_acd) {
 		$this->convert_data($_acd);
 		$this->_acd = $_acd;
 	}
-	
+
 	public function toArray() {
 		return $this->deconvert_data($this->_acd);
 	}
@@ -89,7 +89,7 @@ class ArrayClass implements ArrayAccess, Iterator, Serializable {
 		if($this->_acd[$k] instanceof self) return $this->_acd[$k]->toArray();
 		else return $this->_acd[$k];
 	}
-	
+
 	private function convert_data(&$_acd) {
 		if(!is_array($_acd)) throw new Exception('DATA_IS_NO_ARRAY');
 		foreach(array_keys($_acd) as $k) {

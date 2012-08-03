@@ -1,0 +1,8 @@
+<div class="module-item">
+	<h1>{#THIS->im_way_html()}</h1>
+	<div class="module-content module-chat">
+        {ILPHP_CLASS->init_head_data(true)}
+        {$chat->RENDER('module')}
+	</div>
+	<div class="module-footer"></div>
+</div>

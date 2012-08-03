@@ -4,10 +4,11 @@
 	{else}
 	{if $user.user_id == USER_ID}
 	<div class="SEP first"><div><div></div><h3>[*Wer darf mein G&auml;stebuch sehen?*]</h3><div></div></div></div>
-	<form method="post" action="{~$url}">
-		<input type="radio" name="priv_guestbook" value="friends"{if $user.priv_guestbook == 'friends'} checked="checked"{/if} id="PrivGuestbookFriends"><label for="PrivGuestbookFriends">[*nur meine Freunde*]</label><br>
-		<input type="radio" name="priv_guestbook" value="users"{if $user.priv_guestbook == 'users'} checked="checked"{/if} id="PrivGuestbookUsers"><label for="PrivGuestbookUsers">[*alle registrierten Benutzer*]</label><br>
-		<input type="radio" name="priv_guestbook" value="public"{if $user.priv_guestbook == 'public'} checked="checked"{/if} id="PrivGuestbookPublic"><label for="PrivGuestbookPublic">[*jeder*]</label><br>
+	<form method="post" action="{~$url}" onsubmit="return iC(this, '~.module-content');">
+		<input type="hidden" name="{#IMPOST 'action'}" value="change_priv_guestbook">
+		<input type="radio" name="{#IMPOST 'priv_guestbook'}" value="friends"{if $user.priv_guestbook == 'friends'} checked="checked"{/if} id="PrivGuestbookFriends"><label for="PrivGuestbookFriends">[*nur meine Freunde*]</label><br>
+		<input type="radio" name="{#IMPOST 'priv_guestbook'}" value="users"{if $user.priv_guestbook == 'users'} checked="checked"{/if} id="PrivGuestbookUsers"><label for="PrivGuestbookUsers">[*alle registrierten Benutzer*]</label><br>
+		<input type="radio" name="{#IMPOST 'priv_guestbook'}" value="public"{if $user.priv_guestbook == 'public'} checked="checked"{/if} id="PrivGuestbookPublic"><label for="PrivGuestbookPublic">[*jeder*]</label><br>
 		<button type="submit" class="button">[*Speichern*]</button>
 	</form>
 	<div class="SEP"><div><div></div><h3>[*G&auml;stebuch*]</h3><div></div></div></div>

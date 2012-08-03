@@ -1,0 +1,7 @@
+<div class="module-item">
+	<h1>{#THIS->im_way_html()}</h1>
+	<div class="module-content module-chat">
+        {$chat->RENDER('module')}
+	</div>
+	<div class="module-footer"></div>
+</div>

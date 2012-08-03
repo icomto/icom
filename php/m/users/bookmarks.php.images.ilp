@@ -1,0 +1,14 @@
+{if !$images->num_rows}<p class="error">[*Keine Eintr&auml;ge gefunden.*]</p>
+{else}
+{while $image = $images->fetch_assoc()}
+{set $image = new i__image($image)}
+<div style="float:left;margin:5px;width:200px;height:200px;text-align:center;">
+	<div style="position:absolute;width:200px;"><div style="text-align:center;margin:0 auto;width:20px;">{bookmark_engine::icon($url, 'i_image', $image.id)}</div></div>
+	<a href="{~$image->getLink()}">
+		<img title="Tags: {~implode(', ', array_map_key('name', $image->getTags()))}" src="{~$image->getDisplayLink('thumb')}" style="display:block;max-width:190px;max-height:190px;margin:auto auto;">
+	</a>
+</div>
+{/while}
+<div class="clear"></div>
+{if $num_pages > 1}<div class="pages center">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+{/if}

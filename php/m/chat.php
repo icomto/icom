@@ -1,50 +1,76 @@
 <?php
 
-require_once 'chat_base.php';
-
 if(time() % 5 == 0) {
 	db()->query("DELETE FROM user_chat_online_users WHERE lasttime<SUBTIME(CURRENT_TIMESTAMP,'".LS_USER_ALIVE_TIME."')");
 	db()->query("DELETE FROM user_chat_online_guests WHERE lasttime<SUBTIME(CURRENT_TIMESTAMP,'".LS_GUEST_ALIVE_TIME."')");
 }
 
-class m_chat extends m_chat_base {
-	public function __construct() {
-		parent::__construct(__DIR__);
-	}
-	
+class m_chat extends imodule {
+	use ilphp_trait;
+	use im_way;
+	use im_chat;
+
 	protected $chat_id = 0;
 	
-	protected function INIT(&$args) {
-		if(!$this->chat_id) $this->chat_id = $args[$this->imodule_name];
+	public function __construct() {
+		parent::__construct(__DIR__);
+
+		$this->chat = $this->im_chat_add('user', [
+			'INIT_function' => 'INIT',
+			'table' => 'user_chat_content',
+			'id_field' => 'id',
+			'subid_field' => 'subid',
+			'time_field' => 'timeadded'
+		]);
+	}
+	
+	public function INIT(&$args) {
+		if(!$this->chat_id) $this->chat_id = (int)(empty($args[$this->imodule_name]) ? $args['chat_id'] : $args[$this->imodule_name]);
 		if(!$this->chat_id) throw new iexception('404', $this);
 		
-		if($this->init_chat()) throw new iexception('403', $this);
-		
-		$this->url = '/'.LANG.'/chat/'.$this->data['id'].'-'.urlenc($this->data['name']).'/';
+		$this->data = $this->query_data($this->chat_id);
+		if(!$this->data) throw new iexception('403', $this);
+		$this->way = array(array(LS('Chats'), '/'.LANG.'/chats/'));
+		if($this->data['category_id']) {
+			$this->way[] = array(
+				$this->data['category_name'],
+				'/chats/'.$this->data['category_id'].'-'.urlenc($this->data['category_name']).'/');
+			if($this->data['has_sub_categorys'] and $this->data['sub_category_id'])
+				$this->way[] = array($this->data[
+					'sub_category_name'],
+					'/chats/'.$this->data['category_id'].'-'.urlenc($this->data['category_name']).
+					'/sub/'.$this->data['sub_category_id'].'-'.urlenc($this->data['sub_category_name']).'/');
+		}
+		$this->url = '/'.LANG.'/chat/'.$this->chat_id.'-'.urlenc($this->data['name']).'/';
+		$this->chat->url = $this->url;
+		$this->way[] = array($this->data['name'], $this->url);
+		$this->chat->subid = $this->data['id'];
+		$this->chat->has_mod_rights = $this->data['is_admin'];
+		$this->chat->default_text = $this->data['default_text'];
+
+		$this->deny_post = user()->denie_entrance('chat');
+		if(!$this->deny_post) {
+			$this->deny_post = (!IS_LOGGED_IN or (!$this->data['is_admin'] and $this->data['status'] != 'open'));
+		}
+		#if(!$this->allow_post) $this->reason = LS('Derzeit hast du keine Berechtigung in diesen Chat zu schreiben.');
+		$this->chat->places->module->input_box = $this->data['input_box'];
+		$this->weight = 4;
+		$this->update_stats();
+
+		$this->chat->INIT($args);
 	}
 	
 	protected function MODULE(&$args) {
-		if(empty($this->chat_id)) $this->chat_id = $args['chat'];
-		if(!$this->chat_id) throw new iexception('404', $this);
-		
-		if($this->init_chat()) throw new iexception('ACCESS_DENIED', $this);
-		
-		$this->url = '/'.LANG.'/chat/'.$this->data['id'].'-'.urlenc($this->data['name']).'/';
-		
-		#if($this->data['sub_category_id'] and !defined('CURRENT_USER_CHAT_SUBCATEGORY'))
-		#	define('CURRENT_USER_CHAT_SUBCATEGORY', $this->data['sub_category_id']);
-		
 		if($this->data['is_admin'] and !empty($args['action'])) {
 			$data = $this->settings($args, IS_AJAX);
 			if($data !== false) return $data;
 			if(IS_AJAX) page_redir($this->url.'settings/');
 		}
 		
-		$this->im_way_title = true;
-		
-		$this->module_head_data = $this->init_head_data(true);
-		return parent::MODULE($args);
+		$this->im_way_title();
+		return $this->ilphp_fetch('chat.php.ilp');
 	}
+
 	protected function POST_change_name(&$args) {
 			$name = trim(@$args['name']);
 			if($name) db()->query("UPDATE user_chats SET name='".es($name)."' WHERE id='".$this->data['id']."' LIMIT 1");
@@ -71,7 +97,7 @@ class m_chat extends m_chat_base {
 	}
 	protected function POST_change_input_box(&$args) {
 		$input_box = @$args['input_box'];
-		if($input_box and in_array($input_box, array('textarea', 'input')))
+		if($input_box and in_array($input_box, array('textarea', 'textarea-ubb', 'input')))
 			db()->query("UPDATE user_chats SET input_box='".es($input_box)."' WHERE id='".$this->data['id']."' LIMIT 1");
 		return $this->settings_end('change_input_box');
 	}
@@ -264,8 +290,29 @@ class m_chat extends m_chat_base {
 		else page_redir($this->url.'settings/');
 	}
 	
+	protected function MENU(&$args) {
+		try {
+			$this->INIT($args);
+			if(user()->denie_entrance('chat')) return LS('403 Forbidden - Zugriff verweigert.');
+			$this->chat_name = $this->data['name'];
+			return $this->chat->RENDER('menu').'<p class="all-entries" style="border-top:0"><a href="'.htmlspecialchars($this->chat->url).'">'.LS('Alle Eintr&auml;ge').'</a>';
+		}
+		catch(iexception $e) {
+			switch($e->msg) {
+			default:
+				throw $e;
+			case '403':
+			case 'ACCESS_DENIED':
+				return;
+			}
+		}
+	}
 	
-	
+	protected function IDLE(&$idle) {
+		$this->chat->IDLE($idle, null, null, function(&$args) {
+			if(!empty($args['module'])) G::$json_data['e']['ModuleChat'.$this->data['id'].'Stats'] = $this->init_head_data(false);
+		});
+	}
 	
 	private function query_data($chat_id) {
 		return db()->query("
@@ -301,47 +348,9 @@ class m_chat extends m_chat_base {
 			LIMIT 1")->fetch_assoc();
 	}
 	
-	protected function init_chat($update_menu = false, $update_module = false) {
-		if($this->_init) return;
-		if(!$this->chat_id) return true;
-		$this->data = $this->query_data($this->chat_id);
-		if(!$this->data) return true;
-		$this->way = array(array(LS('Chats'), '/'.LANG.'/chats/'));
-		if($this->data['category_id']) {
-			$this->way[] = array(
-				$this->data['category_name'],
-				'/chats/'.$this->data['category_id'].'-'.urlenc($this->data['category_name']).'/');
-			if($this->data['has_sub_categorys'] and $this->data['sub_category_id'])
-				$this->way[] = array($this->data[
-					'sub_category_name'],
-					'/chats/'.$this->data['category_id'].'-'.urlenc($this->data['category_name']).
-					'/sub/'.$this->data['sub_category_id'].'-'.urlenc($this->data['sub_category_name']).'/');
-		}
-		$this->url = '/'.LANG.'/chat/'.$this->chat_id.'-'.urlenc($this->data['name']).'/';
-		$this->way[] = array($this->data['name'], $this->url);
-		$this->link = 'chat';
-		$this->table = 'user_chat_content';
-		$this->subid = $this->data['id'];
-		$this->has_mod_rights = $this->data['is_admin'];
-		$this->default_text = ' ';
-		$this->default_text = $this->data['default_text'];
-		$this->update_menu = $update_menu;
-		$this->update_module = $update_module;
-		$this->title = $this->data['name'];
-		$this->html_id = 'Chat'.$this->data['id'];
-		$this->module_id = 'ModuleChat'.$this->data['id'];
-		#$this->allow_post = ((IS_LOGGED_IN and !isset(session::$s['denie_entrance']['chat']) and ($this->data['is_admin'] or $this->data['status'] == 'open')) ? true : false);
-		$this->allow_post = ((IS_LOGGED_IN and !user()->denie_entrance('chat') and ($this->data['is_admin'] or $this->data['status'] == 'open')) ? true : false);
-		if(!$this->allow_post) $this->reason = LS('Derzeit hast du keine Berechtigung in diesen Chat zu schreiben.');
-		$this->has_archive = false;
-		$this->chat_input_box = $this->data['input_box'];
-		$this->weight = 4;
-		$this->update_stats();
-		#parent::init();
-	}
 	private function update_stats() {
 		if(!IS_LOGGED_IN) {
-			db()->query("INSERT INTO user_chat_online_guests SET chat_id='".$this->subid."', guest_id='".es(USER_ID)."' ON DUPLICATE KEY UPDATE lasttime=CURRENT_TIMESTAMP");
+			db()->query("INSERT INTO user_chat_online_guests SET chat_id='".$this->chat_id."', guest_id='".es(USER_ID)."' ON DUPLICATE KEY UPDATE lasttime=CURRENT_TIMESTAMP");
 			return;
 		}
 		$user_visible = true;
@@ -365,17 +374,17 @@ class m_chat extends m_chat_base {
 				if(!$found) $user_visible = false;
 			}
 		}
-		if($user_visible) db()->query("INSERT INTO user_chat_online_users SET chat_id='".$this->subid."', user_id='".USER_ID."' ON DUPLICATE KEY UPDATE lasttime=CURRENT_TIMESTAMP");
+		if($user_visible) db()->query("INSERT INTO user_chat_online_users SET chat_id='".$this->chat_id."', user_id='".USER_ID."' ON DUPLICATE KEY UPDATE lasttime=CURRENT_TIMESTAMP");
 	}
 	
-	private function init_head_data($with_admin_data, $admin_sub_function = '') {
+	public function init_head_data($with_admin_data, $admin_sub_function = '') {
 		if($with_admin_data) $this->ilphp_init('chat.php.head_data.ilp'.($admin_sub_function ? '|'.$admin_sub_function : ''));
 		else {
 			$this->ilphp_init('chat.php.head_data.stats.ilp', 15, $this->data['id']);
 			if(($data = cache_L1::get('chat.php.head_data.stats.'.$this->data['id'])) !== false) return $data;
 			if(($data = $this->ilphp_cache_load()) !== false) {
 				cache_L1::set('chat.php.head_data.stats.'.$this->data['id'], 10, $data);
-				return $data;;
+				return $data;
 			}
 		}
 		
@@ -394,12 +403,12 @@ class m_chat extends m_chat_base {
 		$this->stats_users = db()->query("
 			SELECT user_id
 			FROM user_chat_online_users
-			WHERE chat_id='".$this->subid."'
+			WHERE chat_id='".$this->chat_id."'
 			ORDER BY user_id");
 		$this->stats_guests = db()->query("
 			SELECT COUNT(*) AS num
 			FROM user_chat_online_guests
-			WHERE chat_id='".$this->subid."'")->fetch_object()->num;
+			WHERE chat_id='".$this->chat_id."'")->fetch_object()->num;
 		
 		$this->display_settings = isset($_GET['settings']);
 		if($with_admin_data and $this->data['is_admin'] and $this->display_settings) $this->init_setting_vars();
@@ -417,32 +426,6 @@ class m_chat extends m_chat_base {
 		$this->banned_users = db()->query("SELECT user_id id, nick FROM users WHERE ".($this->data['banned_users'] ? "user_id IN (".$this->data['banned_users'].")" : "0")." ORDER BY nick");
 		$this->groups = db()->query("SELECT id, ".LQ('name_LL')." AS name FROM groups WHERE id!=".BANNED_GROUPID." AND ".($this->data['groups'] != '' ? "id IN (".$this->data['groups'].")" : "0")." AND ".LQ('name_LL')." NOT LIKE '\\_%' ORDER BY ".LQ('name_LL'));
 		$this->available_groups = db()->query("SELECT id, ".LQ('name_LL')." AS name FROM groups WHERE ".LQ('name_LL')." NOT LIKE '\\_%' ".($this->data['groups'] != '' ? " AND id!=".BANNED_GROUPID." AND id NOT IN (".$this->data['groups'].")" : "")." ORDER BY ".LQ('name_LL'));
-	}
-	
-	
-	
-	
-	protected function MENU(&$args) {
-		if(user()->denie_entrance('chat')) return LS('403 Forbidden - Zugriff verweigert.');
-		$this->chat_id = $args['chat_id'];
-		if($this->init_chat()) return;
-		$this->chat_name = $this->data['name'];
-		return parent::MENU($args);
-	}
-	
-	protected function IDLE(&$idle) {
-		if(user()->denie_entrance('chat')) return;
-		foreach($idle as $chat_id=>$args) {
-			$this->_init = false;
-			$this->chat_id = $chat_id;
-			if($this->init_chat(!empty($args['menu']), !empty($args['module']))) continue;
-			
-			#$this->update_stats();
-			parent::INIT($args);
-			parent::IDLE_RUN($args);
-			
-			if(!empty($args['module'])) G::$json_data['e']['ModuleChat'.$this->data['id'].'Stats'] = $this->init_head_data(false);
-		}
 	}
 }
 

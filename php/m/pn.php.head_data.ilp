@@ -1,4 +1,4 @@
-{if not $data.read_only}
+{if not $pn.deny_post}
 <div class="SEP first"><div><div></div><h3>[*Einstellungen und Funktionen*]</h3><div></div></div></div>
 <style>ul.user-chat-setting li {{ margin-bottom:8px; }}</style>
 <ul class="user-chat-setting">

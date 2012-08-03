@@ -1,13 +1,8 @@
-{if $user.user_id == USER_ID}
 <div class="SEP first"><div><div></div><h3>[*Wer darf meine Freunde sehen?*]</h3><div></div></div></div>
-<form method="post" action="{~$url}">
-	<input type="radio" name="priv_friends" value="friends"{if $user.priv_friends == 'friends'} checked="checked"{/if} id="PrivFriendsFriends"><label for="PrivFriendsFriends">[*nur meine Freunde*]</label><br>
-	<input type="radio" name="priv_friends" value="users"{if $user.priv_friends == 'users'} checked="checked"{/if} id="PrivFriendsUsers"><label for="PrivFriendsUsers">[*alle registrierten Benutzer*]</label><br>
-	<input type="radio" name="priv_friends" value="public"{if $user.priv_friends == 'public'} checked="checked"{/if} id="PrivFriendsPublic"><label for="PrivFriendsPublic">[*jeder*]</label><br>
+<form method="post" action="{~$url}" onsubmit="return iC(this, '~.module-content');">
+	<input type="hidden" name="{#IMPOST 'action'}" value="change_priv_friends">
+	<input type="radio" name="{#IMPOST 'priv_friends'}" value="friends"{if $user.priv_friends == 'friends'} checked="checked"{/if} id="PrivFriendsFriends"><label for="PrivFriendsFriends">[*nur meine Freunde*]</label><br>
+	<input type="radio" name="{#IMPOST 'priv_friends'}" value="users"{if $user.priv_friends == 'users'} checked="checked"{/if} id="PrivFriendsUsers"><label for="PrivFriendsUsers">[*alle registrierten Benutzer*]</label><br>
+	<input type="radio" name="{#IMPOST 'priv_friends'}" value="public"{if $user.priv_friends == 'public'} checked="checked"{/if} id="PrivFriendsPublic"><label for="PrivFriendsPublic">[*jeder*]</label><br>
 	<button type="submit" class="button">[*Speichern*]</button>
 </form>
-{/if}
-<div class="SEP"><div><div></div><h3>[*Freunde von {~$user.nick}*]</h3><div></div></div></div>
-<div class="user-friends">
-	{ILPHP_CLASS->im_tab_create()}
-</div>

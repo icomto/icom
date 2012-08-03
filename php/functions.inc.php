@@ -646,4 +646,25 @@ function check_valid_email($email) {
 	if(preg_match('~@('.implode('|', array_map('preg_quote', get_trash_mails())).')$~i', $_POST['email'])) return 'EMAIL_HOST_FORBIDDEN';
 }
 
+
+
+function array_map_key($key, $arr) {
+	return array_map(create_function('$a', 'return $a[\''.$key.'\'];'), $arr);
+}
+function array_map_call($fn, $arr) {
+	return array_map(create_function('$a', 'return $a->'.$fn.'();'), $arr);
+}
+function array_filter_key($arr, $key, $val) {
+	return array_filter($arr, create_function('$a', 'return $a[\''.$key.'\'] != "'.$val.'";'));
+}
+
+function array_has_key_value(&$arr, $key, $value) {
+	foreach($arr as &$a) {
+		if($a[$key] == $value) {
+			return true;
+		}
+	}
+	return false;
+}
+
 ?>
