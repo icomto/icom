@@ -81,7 +81,7 @@ X-(             /img/smileys/skype/emoticon-0121-angry.gif
 ;(              /img/smileys/skype/emoticon-0106-crying.gif
 ;=(             /img/smileys/skype/emoticon-0106-crying.gif
 ;-(             /img/smileys/skype/emoticon-0106-crying.gif
-(crying         /img/smileys/skype/emoticon-0106-crying.gif
+(crying)         /img/smileys/skype/emoticon-0106-crying.gif
 (sweat)         /img/smileys/skype/emoticon-0107-sweating.gif
 (sweating)      /img/smileys/skype/emoticon-0107-sweating.gif
 :*              /img/smileys/skype/emoticon-0109-kiss.gif
