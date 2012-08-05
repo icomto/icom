@@ -667,4 +667,14 @@ function array_has_key_value(&$arr, $key, $value) {
 	return false;
 }
 
+function hash64i($data) {
+	$digest = sha1($data, true);
+	$hash = 0;
+	for($i = 0, $len = strlen($digest); $i < $len; $i++) {
+		$c = ord(substr($digest, $i, 2));
+		$hash ^= ($c & 0xFF) << (8*(($i/2) % 8));
+	}
+	return $hash;
+}
+
 ?>
