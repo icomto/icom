@@ -130,6 +130,20 @@
 				{/if}
 			</td>
 		</tr>
+		{if $image->ap->isAdmin()}
+		<tr><td colspan="2">&nbsp;</td></tr>
+		<tr>
+			<th>
+				[*L&ouml;schen:*]
+			</th>
+			<td>
+				<form method="post" action="{~$url}" enctype="multipart/form-data" action="{~$url}" class="upload" onsubmit="return iC_confirm('[*Sicher? Das Bild wird komplett und dauerhaft entfernt!*]', this, '~.module-content');">
+					<input type="hidden" name="{#IMPOST 'action'}" value="remove">
+					<button type="submit" style="color:red">[*Bild l&ouml;schen*]</button>
+				</form>
+				{/if}
+			</td>
+		</tr>
 	</table>
 </div>
 

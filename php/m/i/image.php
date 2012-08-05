@@ -87,6 +87,12 @@ trait m_i_image {
 		page_redir($set->getLink());
 	}
 
+	protected function TAB_image_POST_remove(&$args) {
+		if(!$this->image->ap->isAdmin()) throw new iexception('403', $this);
+		$this->image->remove();
+		page_redir('/'.LANG.'/i/images/');
+	}
+
 	protected function TAB_image(&$args) {
 		$this->way[] = [$this->image->id, $this->url, false];
 

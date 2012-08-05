@@ -306,6 +306,10 @@ class i__image extends ArrayClass2 {
 		if(!$this->ap->isAdmin()) throw new Exception('403');
 		return parent::removeAttr($this->sources, $this->attrSources, $attr);
 	}
+	public function removeAllSources($where = []) {
+		if(!$this->ap->isAdmin()) throw new Exception('403');
+		return parent::removeAllAttrs($this->tags, $this->attrSources, $where);
+	}
 	public function getSources() {
 		return parent::getAttrs($this->sources, $this->attrSources, 'ctime');
 	}
@@ -328,6 +332,10 @@ class i__image extends ArrayClass2 {
 		if(!$this->ap->isMod()) throw new Exception('403');
 		return parent::removeAttr($this->tags, $this->attrTags, $attr);
 	}
+	public function removeAllTags($where = []) {
+		if(!$this->ap->isAdmin()) throw new Exception('403');
+		return parent::removeAllAttrs($this->tags, $this->attrTags, $where);
+	}
 	public function getTags() {
 		return parent::getAttrs($this->tags, $this->attrTags, 'name');
 	}
@@ -349,6 +357,12 @@ class i__image extends ArrayClass2 {
 	public function getSets() {
 		return parent::getAttrs($this->sets, $this->attrSets, 'b.ctime', 'b.*, a.ctime, a.user_id, a.content');
 	}
+	public function removeAllSets() {
+		if(!$this->ap->isAdmin()) throw new Exception('403');
+		foreach($this->getSets() as $set) {
+			$set->removeImage($this);
+		}
+	}
 
 	protected $attrComments = [
 		'class' => 'i__comment',
@@ -358,6 +372,41 @@ class i__image extends ArrayClass2 {
 	];
 	public function countComments() {
 		return parent::countAttrs($this->comments, $this->attrComments);
+	}
+	public function removeAllComments() {
+		if(!$this->ap->isAdmin()) throw new Exception('403');
+		$null = null;
+		return parent::removeAllAttrs($null, $this->attrComments, [], true);
+	}
+
+	public function removeAllBookmarks() {
+		$aa = db()->query("SELECT * FROM user_bookmarks WHERE thing='i_image' AND thing_id='".$this->id."'");
+		while($a = $aa->fetch_assoc()) {
+			unset($a['thing_id']);
+			$this->logAttrAction('user_bookmarks', ['id' => 0], 'remove', $a);
+		}
+		db()->query("DELETE FROM user_bookmarks WHERE thing='i_image' AND thing_id='".$this->id."'");
+	}
+
+	public function remove() {
+		$this->removeAllTags();
+		$this->removeAllComments();
+		$this->removeAllBookmarks();
+		$this->removeAllSets();
+
+		foreach(array_keys(self::$sizes) as $size_type) {
+			$this->deleteThumb($size_type);
+		}
+
+		$a = db()->query("SELECT * FROM i_images WHERE image_id='".$this->id."' LIMIT 1")->fetch_assoc();
+		unset($a['image_id']);
+		$this->logAttrAction('i_images', $this, 'remove', $a);
+		db()->query("DELETE FROM i_images WHERE image_id='".$this->id."' LIMIT 1");
+
+		$file = CONFIG_DIRNAME.'/../'.$this->imageDir();
+		if(file_exists($file)) {
+			unlink($file);
+		}
 	}
 
 
@@ -412,8 +461,9 @@ class i__image extends ArrayClass2 {
 		$this->setHasThumb($size_name, true);
 	}
 	public function deleteThumb($size_name) {
-		if(file_exists(CONFIG_DIRNAME.'/'.$this->thumbDir($size_name))) {
-			unlink(CONFIG_DIRNAME.'/'.$this->thumbDir($size_name));
+		$file = CONFIG_DIRNAME.'/../'.$this->thumbDir($size_name);
+		if(file_exists($file)) {
+			unlink($file);
 		}
 		$this->setHasThumb($size_name, false);
 	}

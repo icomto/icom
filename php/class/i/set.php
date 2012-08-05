@@ -148,6 +148,8 @@ class i__set extends ArrayClass2 {
 	}
 
 	public function remove() {
+		if(!$this->ap->isAdmin()) throw new Exception('403');
+		
 		$this->removeAllImages();
 		$this->removeAllTags();
 		$this->removeAllComments();
