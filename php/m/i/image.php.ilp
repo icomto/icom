@@ -86,7 +86,7 @@
 					{/foreach}
 					{if $image->ap->allowWrite() and i__set::getWriteableSets()}
 					<li>
-						<button type="button" onclick="$(this).hide().next().show().focus().select();">[*Einem Set zuordnen*]</button>
+						<button type="button" class="button" onclick="$(this).hide().next().show().focus().select();">[*Einem Set zuordnen*]</button>
 						<form style="display:none;" method="post" action="{~$url}" onsubmit="return iC(this, '~.td');">
 							<input type="hidden" name="{#IMPOST 'action'}" value="associate_to_set">
 							[*Set ausw&auml;hlen:*]
@@ -139,7 +139,7 @@
 			<td>
 				<form method="post" action="{~$url}" enctype="multipart/form-data" action="{~$url}" class="upload" onsubmit="return iC_confirm('[*Sicher? Das Bild wird komplett und dauerhaft entfernt!*]', this, '~.module-content');">
 					<input type="hidden" name="{#IMPOST 'action'}" value="remove">
-					<button type="submit" style="color:red">[*Bild l&ouml;schen*]</button>
+					<button type="submit" class="button" style="color:red">[*Bild l&ouml;schen*]</button>
 				</form>
 				{/if}
 			</td>

@@ -50,11 +50,11 @@ class i__tag extends ArrayClass2 {
 		if($allow_add) {
 			if($out) $out .= '<br />';
 			$out .=
-				'<button type="button" onclick="$(this).hide().next().show().find(\'input[type=text]\').focus().select();">'.LS('Tags hinzuf&uuml;gen').'</button>'.
+				'<button type="button" class="button" onclick="$(this).hide().next().show().find(\'input[type=text]\').focus().select();">'.LS('Tags hinzuf&uuml;gen').'</button>'.
 				'<form method="post" action="'.htmlspecialchars($url).'" onsubmit="return iC(this, \'~.tagList'.$rand.'\');" style="display:none">'.
 					'<input type="hidden" name="'.imodule::IMODULE_POST_VAR_STATIC($imodule, 'action').'" value="add_tags">'.
 					LS('Tags:').' <input type="text" name="'.imodule::IMODULE_POST_VAR_STATIC($imodule, 'tags').'">'.
-					'<button type="submit">'.LS('Hinzuf&uuml;gen').'</button>'.
+					'<button type="submit" class="button">'.LS('Hinzuf&uuml;gen').'</button>'.
 				'</form>';
 		}
 		return $out ? '<span class="tagList'.$rand.'">'.$out.'</span>' : '';

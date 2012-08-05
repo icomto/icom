@@ -132,7 +132,7 @@
 			<form style="float:right;" method="post" action="{~$image->getLink()}" onsubmit="$(this).css({{float:'normal',clear:'both'}});return iC(this);">
 				<input type="hidden" name="{#IMPOST 'action'}" value="display_comments">
 				<input type="hidden" name="{#IMPOST 'place'}" value="inline">
-				<button type="submit">{if $image->countComments() == 1}[*{$image->countComments()} Kommentar*]{else}[*{$image->countComments()} Kommentare*]{/if}</button>
+				<button type="submit" class="button">{if $image->countComments() == 1}[*{$image->countComments()} Kommentar*]{else}[*{$image->countComments()} Kommentare*]{/if}</button>
 			</form>
 			{/if}
 			{if $image->content}<p>{ubbcode::add_smileys(ubbcode::compile($image->content))}</p>{/if}
