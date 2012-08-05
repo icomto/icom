@@ -47,12 +47,7 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				{user($comment.user_id)->html()} {timeago($comment.ctime)}
-				{if $comment.type == 'set'}
-				[*!beim Set {$thing->getLinkHtml()}*]
-				{else}
-				[*! beim Bild {$thing->getLinkHtml()}*]
-				{/if}
+				{user($comment.user_id)->html()} {timeago($comment.ctime)} {if $comment.type == 'set'}[*!beim Set {$thing->getLinkHtml()}*]{else}[*! beim Bild {$thing->getLinkHtml()}*]{/if}
 			</td>
 		</tr>
 		<tr>
