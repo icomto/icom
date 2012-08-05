@@ -24,6 +24,7 @@ class m_settings extends im_tabs {
 		$this->im_tabs_add('themes', LS('Themen'), TAB_SELF);
 		$this->im_tabs_add('kit', LS('Baukasten'), TAB_SELF);
 		$this->im_tabs_add('tickets', LS('Tickets'), (IS_LOGGED_IN or @$args['get']['ticket_id']) ? TAB_SELF : false);
+		$this->im_tabs_add('filter', LS('Filter'), TAB_SELF);
 		
 		parent::INIT($args);
 	}
@@ -283,7 +284,6 @@ class m_settings extends im_tabs {
 		page_redir('/'.LANG.'/_theme/'.session::$s['theme_ini'].'/_userset/'.$rv.rebuild_location());
 	}
 	
-	
 	protected function TAB_tickets(&$args) {
 		$where = array();
 		$where['report_id'] = (int)@$args['ticket_id'];
@@ -304,6 +304,14 @@ class m_settings extends im_tabs {
 			$this->num_pages = db()->query("SELECT FOUND_ROWS() AS num")->fetch_object()->num/5;
 		}
 		return $this->ilphp_fetch('settings.php.tickets.ilp');
+	}
+
+	protected function TAB_filter(&$args) {
+		$this->verified_fsk18 = !empty(session::$s['verified_fsk18']);
+		return $this->ilphp_fetch('settings.php.filter.ilp');
+	}
+	protected function TAB_filter_POST_save(&$args) {
+		session::$s['verified_fsk18'] = !empty($args['verified_fsk18']);
 	}
 }
 

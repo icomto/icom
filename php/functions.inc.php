@@ -448,11 +448,6 @@ function captcha_decrypt($text) {
 
 
 
-function view_fsk18_blocked() {
-	$tpl = new ilphp('fsk18_blocked.ilp');
-	return $tpl->ilphp_fetch();
-}
-
 function get_avatar_url($id) {
 	if(($a = cache_L1::get('avatar_'.$id)) !== false) return $a;
 	$a = image::querylinks($id);

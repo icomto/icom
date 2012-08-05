@@ -71,6 +71,9 @@ class m_index extends imodule {
 				if(!iengine::$get) throw $e;
 				$this->rethrow = $e;
 				break;
+			case 'FSK18_BLOCKED':
+				iengine::$get = iengine::GET(['error', 'fsk18']);
+				break;
 			}
 			iengine::$get->RUN_ONCE('INIT');
 			$this->MODULE_CONTENT = iengine::$get->RUN('MODULE');

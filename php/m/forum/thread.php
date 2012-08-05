@@ -94,7 +94,7 @@ class m_forum_thread extends imodule {
 		$this->is_possible_solved_thread = false;
 		while($a = $aa->fetch_assoc()) {
 			if($a['is_fsk18'] and !session::$s['verified_fsk18'])
-				return view_fsk18_blocked();
+				throw new iexception('FSK18_BLOCKED');
 			$this->way[] = [$a['name'], '/'.LANG.'/forum/'.$a['section_id'].'-'.urlenc($a['name']).'/'];
 			switch($a['section_id']) {
 			case 71://Boerse -> Suche

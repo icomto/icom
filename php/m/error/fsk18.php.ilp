@@ -1,0 +1,24 @@
+<div class="module-item ddl">
+    <h1>
+        [*Alters&uuml;berpr&uuml;fung*]
+    </h1>
+    <div class="module-content center">
+        <p class="error" style="font-weight:bold;font-size:12px;">
+            [**Diese Seite enth&auml;lt Material das nicht Jungendfrei ist.<br>
+            Um sie betreten zu k&ouml;nnen musst Du mindestens 18 Jahre alt sein.*]
+        </p>
+        <p>
+            <form method="post" action="" style="display:inline;">
+                <input type="hidden" name="i_am_old_enough" value="1">
+                <button class="big-button" type="submit">Ich bin 18 oder &auml;lter</button>
+            </form>
+            <form method="post" action="/{LANG}/" style="display:inline;">
+                <button class="big-button" type="submit">Seite verlassen</button>
+            </form>
+        </p>
+        <p class="info">
+            [**Diese Einstellung kannst Du jederzeit in den <a href="/{LANG}/settings/filter/">Einstellungen unter dem Punkt &quot;Filter&quot;</a> r&uuml;ckg&auml;ngig machen.*]
+        </p>
+    </div>
+    <div class="module-footer"></div>
+</div>

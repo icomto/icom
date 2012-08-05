@@ -137,7 +137,7 @@ class m_forum extends imodule {
 				ORDER BY forum_sections.lft");
 			while($r = $rv->fetch_assoc()) {
 				if($r['is_fsk18'] and !session::$s['verified_fsk18'])
-					return view_fsk18_blocked();
+					throw new iexception('FSK18_BLOCKED');
 				$this->way[] = [$r['name'], $this->url.$r['id'].'-'.urlenc($r['name']).'/'];
 			}
 			$this->url .= $this->section['id'].'-'.urlenc($this->section['name']).'/';

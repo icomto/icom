@@ -1,0 +1,8 @@
+<div class="module-user-settings">
+	<div class="SEP first"><div><div></div><h4>[*Alterseinstellungen*]</h4><div></div></div></div>
+	<form method="post" action="{~$url}" onsubmit="return iC(this, '~.module-content');">
+		<input type="hidden" name="{#IMPOST 'action'}" value="save">
+		<p><input type="checkbox"{if $verified_fsk18} checked="checked"{/if} id="VerifiedFSK18" name="{#IMPOST 'verified_fsk18'}"><label for="VerifiedFSK18"> [*Ich bin 18 Jahre alt oder &auml;lter*]</label></p>
+		<button type="submit">[*Speichern*]</button>
+	</form>
+</div>

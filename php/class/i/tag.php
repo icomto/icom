@@ -4,6 +4,13 @@ class i__tag extends ArrayClass2 {
 	protected $table = 'i_tags';
 	protected $id_field = 'tag_id';
 
+	public function __construct($data = NULL) {
+		parent::__construct($data);
+		if($this->name == 'fsk18' and !session::$s['verified_fsk18']) {
+			throw new iexception('FSK18_BLOCKED');
+		}
+	}
+
 	public static function insert($name) {
 		$id = i__i::hash(strtolower($name));
 		db()->query("INSERT IGNORE INTO i_tags SET tag_id='".$id."', name='".es($name)."'");
