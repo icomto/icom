@@ -58,7 +58,7 @@ class ubbcode {
 			$data = '<div class="center">'.trim($data).'</div>';
 			break;
 		case 'color':
-			$W3C_COLOR_NAMES = array('aqua', 'black', 'blue', 'fuchsia', 'gray', 'green', 'lime', 'maroon', 'navy', 'olive', 'purple', 'red', 'silver', 'teal', 'white', 'yellow');
+			$W3C_COLOR_NAMES = array('aqua', 'black', 'blue', 'fuchsia', 'gray', 'green', 'lime', 'maroon', 'navy', 'olive', 'purple', 'red', 'silver', 'teal', 'white', 'yellow', 'orange');
 			if (in_array($arg, $W3C_COLOR_NAMES) || self::checkHEX($arg)) {
 				$data = '<span style="color: '.str_replace('"', '&quot;', $arg).';">'.$data.'</span>';	
 			}
