@@ -1,0 +1,96 @@
+<div>
+	<style>
+		.module-i-tag .error {{
+			text-align:center;
+			margin-top:5px;
+		}}
+		.module-i-tag hr {{
+			margin:5px 0 5px 0;
+		}}
+		.module-i-tag .tags * {{
+			font-weight:normal;
+		}}
+		.module-i-tag table {{
+			/*width:70%;*/
+			margin:0 auto;
+		}}
+		.module-i-tag table th {{
+			width:20%;
+		}}
+		.module-i-tag table input {{
+			width:100%;
+		}}
+		.module-i-tag .images * {{
+			font-size:11px;
+			font-weight:normal;
+		}}
+		.module-i-tag .images .the-image img {{
+			display:block;
+			margin: 0 auto;
+		}}
+		.module-i-tag-chat textarea {{
+			height:80px;
+		}}
+		.module-i-tag-chat form,
+		.module-i-tag-chat .pages {{
+			text-align:center;
+		}}
+	</style>
+	<div class="module-i-tag">
+		{if $sets and $sets->num_rows}
+		{if $images->num_rows and !$dummy_image}
+		<div class="SEP first"><div><div></div><h3>[*Sets*]</h3><div></div></div></div>
+		{/if}
+
+		{while $set = $sets->fetch_assoc()}
+		{set $set = new i__set($set)}
+		{if $set.name}<h4>{$set->getLinkHtml()}</h4>{/if}
+		<table>
+			<tr>
+				<th>
+					{$set->renderFirstImage()}
+				</th>
+				<td>
+					{if IS_LOGGED_IN}<div style="float:right;">{bookmark_engine::icon($url, 'i_set', $set.id)}</div>{/if}
+					{if $set.content}<div>{ubbcode::add_smileys(ubbcode::compile($set.content))}</div>{/if}
+				</td>
+			</tr>
+		</table>
+		<table class="infos">
+			<tr>
+				<td>{user($set.user_id)->html(-1)}</td>
+				<td>{timeago($set.ctime)}</td>
+				<td>[*{$set->countImages()} Bilder*]</td>
+				<td>[*{$set->countComments()} Kommentare*]</td>
+			</tr>
+		</table>
+		{if $set->getAllTags()}
+		<div class="tags">
+			<span>[*Tags:*]</span>
+			{set $tags = array_map_call('getLinkHtml', $set->getAllTags())}
+			{set sort($tags)}
+			{implode(', ', $tags)}
+		</div>
+		{/if}
+		</table>
+		<hr />
+		{/while}
+		{/if}
+
+		{if $images->num_rows and !$dummy_image}
+		{if $sets and $sets->num_rows}
+		<div class="SEP"><div><div></div><h3>[*Bilder*]</h3><div></div></div></div>
+		{/if}
+		{while $image = $images->fetch_assoc()}
+		{set $image = new i__image($image)}
+		<a href="{~$image->getLink()}" style="display:block;float:left;margin:5px;width:200px;height:200px;text-align:center;">
+			<img title="Tags: {~implode(', ', array_map_key('name', $image->getTags()))}" src="{~$image->getDisplayLink('thumb')}" style="display:block;max-width:190px;max-height:190px;margin:auto auto;">
+		</a>
+		{/while}
+		<div class="clear"></div>
+		{/if}
+
+		<hr/>
+		{if $num_pages > 1}<div class="pages center">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+	</div>
+</div>

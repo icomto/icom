@@ -1,0 +1,149 @@
+<div>
+	<style>
+		.module-i-set * {{
+			font-size: 13px;
+			height:auto;
+		}}
+		.module-i-set .error {{
+			text-align:center;
+			margin-top:5px;
+		}}
+		.module-i-set hr {{
+			margin:5px 0 5px 0;
+		}}
+		.module-i-set form {{
+			text-align:center;
+		}}
+		.module-i-set form input,
+		.module-i-set form textarea,
+		.module-i-set form button {{
+			margin:5px 0;
+		}}
+		.module-i-set table {{
+			/*width:70%;*/
+			margin:0 auto;
+		}}
+		.module-i-set table th {{
+			width:20%;
+		}}
+		.module-i-set table input {{
+			width:100%;
+		}}
+		.module-i-set .images * {{
+			font-size:11px;
+			font-weight:normal;
+		}}
+		.module-i-set .images .the-image img {{
+			display:block;
+			margin: 0 auto;
+		}}
+		.module-i-set-chat textarea {{
+			height:80px;
+		}}
+		.module-i-set-chat form,
+		.module-i-set-chat .pages {{
+			text-align:center;
+		}}
+	</style>
+	<div class="module-i-set">
+		{if $set->ap->isMod()}
+		<div class="SEP first"><div><div></div><h3>[*Bearbeiten*]</h3><div></div></div></div>
+		{new ilphp_sub 'edit'}
+		<form method="post" action="{~$url}" onsubmit="return iC(this);">
+			<input type="hidden" name="{#IMPOST 'action'}" value="edit">
+			<table>
+				<tr><th>[*Name:*]</th><td><input type="text" name="{#IMPOST 'name'}" value="{~$set->name}"></td></tr>
+				<tr><th>[*Text:*]</th><td><textarea name="{#IMPOST 'content'}">{~$set->content}</textarea></td></tr>
+			</table>
+			<button type="submit" class="button">[*Speichern*]</button>
+		</form>
+		{/new ilphp_sub}
+
+		<div class="SEP"><div><div></div><h3>[*Bild hinzuf&uuml;gen*]</h3><div></div></div></div>
+		<script>
+			$(function(){{
+				var mis = $('.module-i-set'),
+					upload = mis.find('form.upload');
+				upload.submit(function(){{
+					var f = $(this).find('[type=file]'),
+						u = $(this).find('[type=text]');
+					if(!f.val() && !u.val()){{
+						mis.find('.error').html('[*Bitte trage etwas zum Hochladen ein!*]');
+						return false;
+					}}
+					if(f.val() && !f.val().matches(/\.(jpe?g|gif|png|bmp)/i)){{
+						mis.find('.error').html('[*Dateityp nicht erlaubt!*]');
+						return false;
+					}}
+					return true;
+				}});
+				mis.find('form.upload input[type=file]').change(function(){{
+					console.log(this.files[0]);
+				}});
+			}});
+		</script>
+		<form method="post" action="{~$url}" enctype="multipart/form-data" action="{~$url}" class="upload">
+			<div class="error">{~$error}</div>
+			<input type="hidden" name="{#IMPOST 'action'}" value="upload">
+			<table>
+				<tr><th>[*URL Upload:*]</th><td><input type="text" name="{#IMPOST 'url'}"></td></tr>
+				<tr><th>[*Datei Upload:*]</th><td><input type="file" name="{#IMPOST 'file'}"></td></tr>
+				<tr><th>[*Text:*]</th><td><textarea name="{#IMPOST 'content'}"></textarea></td></tr>
+				<tr><th>[*Tags:*]</th><td><input type="text" name="{#IMPOST 'tags'}" value="{*~implode(', ', array_map_key('name', $set->getTags()))*}"></td></tr>
+			</table>
+			<button type="submit" class="button">[*Upload!*]</button>
+		</form>
+
+		{if $set->ap->isAdmin()}
+		<div class="SEP"><div><div></div><h3>[*Set l&ouml;schen*]</h3><div></div></div></div>
+		<form method="post" action="{~$url}" enctype="multipart/form-data" action="{~$url}" class="upload" onsubmit="return iC_confirm('[*Sicher? Die Bilder werden nicht mitgel&ouml;scht.*]', this, '~.module-content');">
+			<input type="hidden" name="{#IMPOST 'action'}" value="remove">
+			<button type="submit" class="button">[*L&ouml;schen!*]</button>
+		</form>
+		{/if}
+		{/if}
+
+		{if $set->ap->isMod()}
+		<div class="SEP"><div><div></div><h3>{$set->getLinkHtml()}</h3><div></div></div></div>
+		{else}
+		<h3>{$set->getLinkHtml()}</h3>
+		{/if}
+
+		{if IS_LOGGED_IN}<div style="float:right;">{bookmark_engine::icon($url, 'i_set', $set.id)}</div>{/if}
+		{if $set->content}<p>{ubbcode::add_smileys(ubbcode::compile($set->content))}</p>{/if}
+		{set $tags = $set->renderTags()}{if $tags}[*Tags:*] {$tags}{/if}
+		<div class="clear"></div>
+
+		<div class="images">
+			{while $image = $images->fetch_assoc()}
+			{set $image = new i__image($image)}
+			<hr/>
+			<a href="{~$image->getLink()}" class="the-image"><img src="{~$image->getDisplayLink()}" /></a>
+			{if $set->ap->isMod()}
+			<form title="[*Bild aus diesem Set entfernen*]" style="display:inline;float:right;" method="post" action="{~$url}" onsubmit="return iC_confirm('[*Sicher?*]', this);">
+				<input type="hidden" name="{#IMPOST 'action'}" value="remove_image">
+				<input type="hidden" name="{#IMPOST 'image_id'}" value="{$image.id}">
+				<button type="submit" style="border:0;color:red;">X</button>
+			</form>
+			{/if}
+			{set $tags = $image->renderTags()}{if $tags}[*Tags:*] {$tags}{/if}
+			{if IS_LOGGED_IN}<div style="float:right;">{bookmark_engine::icon($url, 'i_image', $image.id)}</div>{/if}
+			{if $image->ap->allowWrite() or $image->countComments() > 0}
+			<form style="float:right;" method="post" action="{~$image->getLink()}" onsubmit="$(this).css({{float:'normal',clear:'both'}});return iC(this);">
+				<input type="hidden" name="{#IMPOST 'action'}" value="display_comments">
+				<input type="hidden" name="{#IMPOST 'place'}" value="inline">
+				<button type="submit">{if $image->countComments() == 1}[*{$image->countComments()} Kommentar*]{else}[*{$image->countComments()} Kommentare*]{/if}</button>
+			</form>
+			{/if}
+			{if $image->content}<p>{ubbcode::add_smileys(ubbcode::compile($image->content))}</p>{/if}
+			<div class="clear"></div>
+			{/while}
+		</div>
+
+		<hr/>
+		{if $num_pages > 1}<div class="pages center">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+	</div>
+
+	<div class="SEP"><div><div></div><h3>[*Kommentare*]</h3><div></div></div></div>
+	<div class="module-i-set-chat">{$set_chat->RENDER('module')}</div>
+</div>

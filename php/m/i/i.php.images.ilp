@@ -1,0 +1,77 @@
+<div class="module-i-images">
+	<style>
+		.module-i-images * {{
+			font-size:13px;
+			height:auto;
+		}}
+		.module-i-images .image {{
+			text-align:center;
+		}}
+		.module-i-images table th {{
+			width:20%;
+		}}
+		.module-i-images form,
+		.module-i-images .error {{
+			text-align:center;
+		}}
+		.module-i-images form input,
+		.module-i-images form textarea {{
+			width:100%;
+			margin:5px 0;
+		}}
+		.module-i-images .infos *,
+		.module-i-images .tags * {{
+			font-size:11px;
+			font-weight:normal;
+		}}
+	</style>
+
+	{if $allow_new_image}
+	<div class="SEP first"><div><div></div><h3>[*Neues Bild hochladen*]</h3><div></div></div></div>
+	<script>
+		$(function(){{
+			$('.module-i-images form.upload').submit(function(){{
+				var f = $(this).find('[type=file]'),
+					u = $(this).find('[type=text]');
+				if(!f.val() && !u.val()){{
+					$('.module-i-images .error').html('[*Bitte trage etwas zum Hochladen ein!*]');
+					return false;
+				}}
+				if(f.val() && !f.val().matches(/\.(jpe?g|gif|png|bmp)/i)){{
+					$('.module-i-images .error').html('[*Dateityp nicht erlaubt!*]');
+					return false;
+				}}
+				return true;
+			}});
+		}});
+	</script>
+	<form method="post" action="{~$url}" enctype="multipart/form-data" action="{~$url}" class="upload">
+		<div class="error">{~$error}</div>
+		<input type="hidden" name="{#IMPOST 'action'}" value="upload">
+		<table>
+			<tr><th>[*URL Upload:*]</th><td><input type="text" name="{#IMPOST 'url'}"></td></tr>
+			<tr><th>[*Datei Upload:*]</th><td><input type="file" name="{#IMPOST 'file'}"></td></tr>
+			<tr><th>[*Tags:*]</th><td><input type="text" name="{#IMPOST 'tags'}"></td></tr>
+		</table>
+		<button type="submit" class="button">[*Upload!*]</button>
+	</form>
+
+	<div class="SEP"><div><div></div><h3>[*Bilder*]</h3><div></div></div></div>
+	{/if}
+
+	{if not $images->num_rows}
+	<div class="error">[*Keine Bilder gefunden*]</div>
+	{else}
+
+	{while $image = $images->fetch_assoc()}
+	{set $image = new i__image($image)}
+	<a href="{~$image->getLink()}" style="display:block;float:left;margin:5px;width:150px;height:200px;text-align:center;">
+		{set $tags = implode(', ', array_map_key('name', $image->getTags()))}
+		<img {if $tags}title="Tags: {~$tags}" {/if} src="{~$image->getDisplayLink('thumb')}" style="display:block;max-width:140px;max-height:190px;margin:auto auto;">
+	</a>
+	{/while}
+	<div class="clear"></div>
+
+	{if $num_pages > 1}<div class="pages center">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+	{/if}
+</div>

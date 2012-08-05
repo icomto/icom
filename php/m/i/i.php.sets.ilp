@@ -1,0 +1,83 @@
+<style>
+	.module-i-sets * {{
+		--font-size:13px;
+		height:auto;
+	}}
+	.module-i-sets h3 * {{
+		font-size:14px;
+	}}
+	.module-i-sets .image {{
+		text-align:center;
+	}}
+	.module-i-sets table th {{
+		width:20%;
+	}}
+	.module-i-sets form,
+	.module-i-sets .error {{
+		text-align:center;
+	}}
+	.module-i-sets form input,
+	.module-i-sets form textarea {{
+		width:100%;
+		margin:5px 0;
+	}}
+	.module-i-sets .infos *,
+	.module-i-sets .tags * {{
+		font-size:11px;
+		font-weight:normal;
+	}}
+</style>
+<div class="module-i-sets">
+	{if $allow_new_sets}
+	<div class="SEP first"><div><div></div><h3>[*Neue Galerie erstellen*]</h3><div></div></div></div>
+	<form method="post" onsubmit="return iC(this);">
+		<input type="hidden" name="{#IMPOST 'action'}" value="new">
+		<table>
+			<tr><th>[*Name:*]</th><td><input type="text" name="{#IMPOST 'name'}"></td></tr>
+			<tr><th>[*Text:*]</th><td><textarea name="{#IMPOST 'content'}"></textarea></td></tr>
+			<tr><th>[*Tags:*]</th><td><input type="text" name="{#IMPOST 'tags'}"></td></tr>
+		</table>
+		<button type="submit" class="button">[*Erstellen!*]</button>
+	</form>
+	<div class="SEP"><div><div></div><h3>[*Galerien*]</h3><div></div></div></div>
+	{/if}
+	{if not $sets->num_rows}
+	<div class="error">[*Keine Galerien gefunden*]</div>
+	{else}
+
+	{while $set = $sets->fetch_assoc()}
+	{set $set = new i__set($set)}
+	<table>
+		<tr>
+			<th>
+				{$set->renderFirstImage()}
+			</th>
+			<td>
+				{if IS_LOGGED_IN}<div style="float:right;">{bookmark_engine::icon($url, 'i_set', $set.id)}</div>{/if}
+				{if $set.name}<h3>{$set->getLinkHtml()}</h3>{/if}
+				{if $set.content}<div>{ubbcode::add_smileys(ubbcode::compile($set.content))}</div>{/if}
+			</td>
+		</tr>
+	</table>
+	<table class="infos">
+		<tr>
+			<td>{user($set.user_id)->html(-1)}</td>
+			<td>{timeago($set.ctime)}</td>
+			<td>[*{$set->countImages()} Bilder*]</td>
+			<td>[*{$set->countComments()} Kommentare*]</td>
+		</tr>
+	</table>
+	{if $set->getAllTags()}
+	<div class="tags" style="border-top:1px #aaa solid;">
+		<span>[*Tags:*]</span>
+		{set $tags = array_map_call('getLinkHtml', $set->getAllTags())}
+		{set sort($tags)}
+		{implode(', ', $tags)}
+	</div>
+	{/if}
+	<hr />
+	{/while}
+
+	{if $num_pages > 1}<div class="pages center">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+	{/if}
+</div>

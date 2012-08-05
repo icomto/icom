@@ -1,0 +1,37 @@
+<style>
+	.module-i-tags * {{
+		height:auto;
+	}}
+	.module-i-tags table {{
+		width:40%;
+		margin:0 auto;
+	}}
+	.module-i-tags table th {{
+		font-weight:bold;
+	}}
+	.module-i-tags table td * {{
+		font-weight:normal;
+	}}
+	.module-i-tags table .num {{
+		text-align:right;
+	}}
+</style>
+<div class="module-i-tags">
+	<table>
+		<tr>
+			<th>[*Name*]</th>
+			<th class="num">[*Anzahl Bilder*]</th>
+			<th class="num">[*Anzahl Sets*]</th>
+		</tr>
+		{while $tag = $tags->fetch_assoc()}
+		{set $tag = new i__tag($tag)}
+		<tr>
+			<td>{$tag->getLinkHtml()}</td>
+			<td class="num">{%$tag.num_images}</td>
+			<td class="num">{%$tag.num_sets}</td>
+		</tr>
+		{/while}
+	</table>
+
+	{if $num_pages > 1}<div class="pages center">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+</div>

@@ -1,0 +1,78 @@
+<style>
+	.module-i-comments * {{
+		height:auto;
+	}}
+	.module-i-comments .image {{
+		text-align:center;
+	}}
+	.module-i-comments table th {{
+		width:110px;
+	}}
+	.module-i-comments table th a {{
+		display:block;
+		float:left;
+		margin:5px;
+		width:100px;
+		text-align:center;
+	}}
+	.module-i-comments table th img {{
+		display:block;
+		max-width:100px;
+		max-height:150px;
+		margin:auto auto;
+	}}
+	.module-i-comments form,
+	.module-i-comments .error {{
+		text-align:center;
+	}}
+	.module-i-comments form input,
+	.module-i-comments form textarea {{
+		width:100%;
+		margin:5px 0;
+	}}
+	.module-i-comments .infos *,
+	.module-i-comments .tags * {{
+		font-size:11px;
+		font-weight:normal;
+	}}
+</style>
+<div class="module-i-comments">
+	{while $comment = $comments->fetch_assoc()}
+	{set $class = 'i__'.$comment.type}
+	{set $thing = new $class($comment.sub_id)}
+	<table class="chat-row">
+		<tr>
+			<th></th>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				{user($comment.user_id)->html()} {timeago($comment.ctime)}
+				{if $comment.type == 'set'}
+				[*!beim Set {$thing->getLinkHtml()}*]
+				{else}
+				[*! beim Bild {$thing->getLinkHtml()}*]
+				{/if}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				{if $comment.type == 'set'}
+				{$thing->renderFirstImage('mini', true)}
+				{else}
+				<a href="{~$thing->getLink()}" style="display:block;float:left;margin:5px;width:100px;max-height:200px;text-align:center;">
+					<img title="Tags: {~implode(', ', array_map_key('name', $thing->getTags()))}" src="{~$thing->getDisplayLink('mini')}">
+				</a>
+				{/if}
+			</th>
+			<td>
+				<div class="user-entry">
+					{ubbcode::add_smileys(ubbcode::compile($comment.message))}
+				</div>
+			</td>
+		</tr>
+	</table>
+	{/while}
+
+	{if $num_pages > 1}<div class="pages center">{ILPHP_CLASS->im_pages_html()}</div>{/if}
+</div>

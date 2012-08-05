@@ -60,7 +60,7 @@ class AccessPolicy {
         if(($cb = $this->isAdminCallback) and $cb()) {
             return ACCESS_POLICY_ADMIN;
         }
-        
+
         if($max_needed_rights <= $this->default_privilege) {
             return $this->default_privilege;
         }

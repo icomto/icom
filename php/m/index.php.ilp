@@ -9,7 +9,7 @@
 					</div>
 				</div>
 				<div class="main-menu-places-helper {$THEME.mm_places}">
-					<style>.main-menu-places a {{ padding: 0 30px 0 30px; }}</style>
+					<style>.main-menu-places a {{ padding: 0 25px 0 25px; }}</style>
 					<div class="main-menu-places">
 						<a href="/{LANG}/forum/">[*Forum*]</a> |
 						<a href="/{LANG}/news/">[*News*]</a> |

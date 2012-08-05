@@ -1,3 +1,13 @@
+05-08-2012
+- some bugfixes
+- php/class/AccessPolicy.php - allround access policy system
+- image system including sets, tags, comments, bookmarks. ratings and more access privileges will come...
+
+UPDATE INSTRUCTIONS:
+SQL queries for this update can be found in conf/update-05-08-2012.sql
+nginx.conf changed so please update your webserver
+WARNING: .htaccess apache2 rules are untested!
+
 03-08-2012
 - some improvements and bugfixes
 - chat system rewritten (more flexible)

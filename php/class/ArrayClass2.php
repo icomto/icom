@@ -15,7 +15,7 @@ class ArrayClass2 extends ArrayClass {
 		if(is_array($data)) parent::set($data);
 		elseif(preg_match('~^\-?\d+(\-.+)?$~', $data)) $this->getById($data);
 		elseif($data !== null) {
-			$data = i__i::hash(strtolower(urldecode($data)));
+			$data = i__i::hash(strtolower($data));
 			$this->getById($data);
 		}
 	}
@@ -69,55 +69,6 @@ class ArrayClass2 extends ArrayClass {
 	}
 
 
-	/*public function __call($fn, $args) {
-		if(!preg_match('~^(add|removeAll|remove|get|count|allow)(.+?)(s)?$~', $fn, $out)) {
-			throw new Exception('Method not found: '.$fn);
-		}
-
-		if($out[1] == 'allow') {
-			$out[2]{0} = strtolower($out[2]{0});
-			if(!preg_match('~^(add|removeAll|remove|get|count)(.+?)(s)?$~', $out[2], $out)) {
-				throw new Exception('Method not found: '.$fn);
-			}
-			if(!isset($this->attributes[$out[2]])) {
-				throw new Exception('Method not found: '.$fn);
-			}
-			return (isset($attr[$out[1]]) and !is_null($attr[$out[1]])) ? true : false;
-		}
-
-		if(!isset($this->attributes[$out[2]])) {
-			throw new Exception('Method not found: '.$fn);
-		}
-		$attr =& $this->attributes[$out[2]];
-
-		if(!isset($attr[$out[1]]) or is_null($attr[$out[1]])) {
-			throw new Exception('Method not found or access denied: '.$fn);
-		}
-
-		function csa(&$args, &$default, $i, $fb = null) {
-			return isset($args[$i]) ? $args[$i] : (isset($default[$i]) ? $default[$i] : $fb);
-		}
-
-		$default =& $attr[$out[1]];
-		switch($out[1]) {
-		case 'add':
-			//add($attr, $update = []);
-			return $this->addAttrs($attr['out'], $attr['table'], csa($args, $default, 0), csa($args, $default, 1, []));
-		case 'remove':
-			//remove($attr, $where = []);
-			return $this->removeAttrs($attr['out'], $attr['table'], csa($args, $default, 0), csa($args, $default, 1, []));
-		case 'removeAll':
-			//removeAll($where = []);
-			return $this->removeAllAttrs($attr['out'], $attr['table'], csa($args, $default, 0, []));
-		case 'get':
-			//get($order_by, $select = 'b.*');
-			return $this->getAttrs($attr['out'], $attr['table'], $attr['content_table'], $attr['content_id_field'], $attr['content_class'], csa($args, $default, 0), csa($args, $default, 1, 'b.*'));
-		case 'count':
-			//get();
-			return $this->countAttrs($attr['out'], $attr['table']);
-		}
-	}*/
-
 	protected function logAttrAction($table, $attr, $action, $args) {
 		$user_id = (IS_LOGGED_IN ? USER_ID : 0);
 		if(isset($args['user_id']) and $args['user_id'] == $user_id) {
@@ -129,7 +80,7 @@ class ArrayClass2 extends ArrayClass {
 				user_id='".$user_id."',
 				t=".self::value_to_sql($table).",
 				content_id=".self::value_to_sql($this->id).",
-				attr_id=".self::value_to_sql($attr->id).",
+				attr_id=".self::value_to_sql(is_array($attr) ? $attr['id'] : $attr->id).",
 				action=".self::value_to_sql($action).",
 				args=".self::value_to_sql($args ? json_encode($args) : ''));
 	}
@@ -153,13 +104,19 @@ class ArrayClass2 extends ArrayClass {
 			}
 		}
 	}
-	protected function removeAttr(&$out, &$opts, $attr, $where = []) {
+	protected function removeAttr(&$out, &$opts, $attr, $where = [], $log_full_row = false) {
 		$this->ArrayClass2_Assert();
 
 		$log_args = $where;
 
 		$where[$this->id_field] = $this->id;
 		$where[$attr->id_field] = $attr->id;
+
+		if($log_full_row) {
+			$log_args = db()->query("SELECT * FROM ".$opts['table']." WHERE ".implode(" AND ", self::prepare_sql_arr($where)))->fetch_assoc();
+			unset($log_args[$this->id_field]);
+			unset($log_args[$attr->id_field]);
+		}
 
 		db()->query("DELETE FROM ".$opts['table']." WHERE ".implode(" AND ", self::prepare_sql_arr($where)));
 
@@ -175,19 +132,22 @@ class ArrayClass2 extends ArrayClass {
 			unset($out[$attr->id]);
 		}
 	}
-	protected function removeAllAttrs(&$out, &$opts, $where = []) {
+	protected function removeAllAttrs(&$out, &$opts, $where = [], $log_full_row = false) {
 		$this->ArrayClass2_Assert();
 
 		$where[$this->id_field] = $this->id;
 
-		if(!empty($opts['log'])) {
+		if(true or !empty($opts['log'])) {
 			$aa = db()->query("
 				SELECT ".$opts['content_id_field']."
 				FROM ".$opts['table']." a
 				WHERE ".implode(" AND ", self::prepare_sql_arr($where)));
 			while($a = $aa->fetch_assoc()) {
-				$this->removeAttr($out, $opts, new $opts['class']($a), $where);
+				$this->removeAttr($out, $opts, new $opts['class']($a), $where, $log_full_row);
 			}
+		}
+		else {
+			///////// TODO
 		}
 
 		$out = null;

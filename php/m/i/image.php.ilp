@@ -1,0 +1,137 @@
+<style>
+	.module-i-image * {{
+		height:auto;
+	}}
+	.module-i-image {{
+		text-align:center;
+	}}
+	.module-i-image .infos {{
+		width:90%;
+	}}
+	.module-i-image .infos th {{
+		width:20%;
+	}}
+	.module-i-image .infos td * {{
+		font-weight:normal;
+	}}
+	.module-i-image-chat textarea {{
+		height:80px;
+	}}
+	.module-i-image-chat form,
+	.module-i-image-chat .pages {{
+		text-align:center;
+	}}
+</style>
+<div class="module-i-image">
+	<div>
+		<a href="{$image->getDisplayLink('')}" target="_blank" class="image">
+			<img src="{$image->getDisplayLink()}" />
+		</a>
+	</div>
+	{if IS_LOGGED_IN}<div class="clear" style="float:right;">{bookmark_engine::icon($url, 'i_image', $image.id)}</div>{/if}
+	<table class="infos">
+		<tr>
+			<th>
+				[*ID:*]
+			</th>
+			<td>
+				<a href="{~$url}">{$image.id}</a>
+			</td>
+		</tr>
+		<tr>
+			<th>
+				[*Dimension:*]
+			</th>
+			<td>
+				{%$image.width} x {%$image.height}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				[*Gr&ouml;se:*]
+			</th>
+			<td>
+				{strsize($image.size)}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				[*Hits:*]
+			</th>
+			<td>
+				{%$image.hits}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				[*Tags:*]
+			</th>
+			<td>
+				{$image->renderTags()}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				[*Sets:*]
+			</th>
+			{new ilphp_sub 'sets'}
+			<td>
+				{set $sets = $image->getSets()}
+				<ul>
+					{foreach $sets as $set}
+					<li>
+						{user($set.user_id)->html(-1)} {timeago($set.ctime)}:<br />
+						{$set->getLinkHtml()}
+					</li>
+					{/foreach}
+					{if $image->ap->allowWrite() and i__set::getWriteableSets()}
+					<li>
+						<button type="button" onclick="$(this).hide().next().show().focus().select();">[*Einem Set zuordnen*]</button>
+						<form style="display:none;" method="post" action="{~$url}" onsubmit="return iC(this, '~.td');">
+							<input type="hidden" name="{#IMPOST 'action'}" value="associate_to_set">
+							[*Set ausw&auml;hlen:*]
+							<select name="{#IMPOST 'set_id'}">
+								<option></option>
+								{foreach i__set::getWriteableSets() as $set}
+								{if not array_has_key_value($sets, 'id', $set.id)}
+								<option value="{$set.id}"{if $current_working_set_id == $set.id} selected="selected"{/if}>{~$set.name}</option>
+								{/if}
+								{/foreach}
+							</select><br>
+							[*Text:*]
+							<textarea name="{#IMPOST 'content'}"></textarea><br>
+							<button type="submit" class="button">[*Zuordnen*]</button>
+							<button type="button" class="button" onclick="$(this).parent().hide().prev().show();">[*Abbrechen*]</button>
+						</form>
+					</li>
+					{/if}
+				</ul>
+			</td>
+			{/new ilphp_sub}
+		</tr>
+		<tr>
+			<th>
+				[*Quellen:*]
+			</th>
+			<td>
+				{if $image->getSources()}
+				<ul>
+					{foreach $image->getSources() as $source}
+					<li>
+						{user($source->user_id)->html(-1)} {timeago($source.ctime)}:<br />
+						{if preg_match('~^file://~', $source->url)}{~$source.name}
+						{else}<a href="{~$source->url}" target="_blank">{~$source.name}</a>
+						{/if}
+					</li>
+					{/foreach}
+				</ul>
+				{else}
+				-
+				{/if}
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div class="SEP"><div><div></div><h3>[*Kommentare*]</h3><div></div></div></div>
+<div class="module-i-image-chat">{$image_chat->RENDER('module')}</div>
