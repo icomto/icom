@@ -50,21 +50,15 @@ class m_admin_users extends imodule {
 		default:
 			return;
 		case 'rename':
-			db()->query("UPDATE users SET nick='".es($args['nick'])."' WHERE user_id='".$user_id."' LIMIT 1");
+			user($user_id)->update(['nick'=>$args['nick']]);
 			return IS_AJAX ? $this->row(db()->query("SELECT * FROM users WHERE user_id='".$user_id."' LIMIT 1")->fetch_assoc()) : true;
 		
 		case 'add_group':
-			$groups = explode_arr_list(db()->query("SELECT groups FROM users WHERE user_id='".$user_id."' LIMIT 1")->fetch_object()->groups);
-			$group_id = es($args['group_id']);
-			if(!in_array($group_id, $groups)) $groups[] = $group_id;
-			db()->query("UPDATE users SET groups='".implode_arr_list($groups)."' WHERE user_id='".$user_id."' LIMIT 1");
+			user($user_id)->add_group($args['group_id']);
 			return IS_AJAX ? $this->row(db()->query("SELECT * FROM users WHERE user_id='".$user_id."' LIMIT 1")->fetch_assoc()) : true;
 		
 		case 'del_group':
-			$groups = explode_arr_list(db()->query("SELECT groups FROM users WHERE user_id='".$user_id."' LIMIT 1")->fetch_object()->groups);
-			$group_id = es($args['group_id']);
-			$groups = remove_arr_value($groups, $group_id);
-			db()->query("UPDATE users SET groups='".implode_arr_list($groups)."' WHERE user_id='".$user_id."' LIMIT 1");
+			user($user_id)->del_group($args['group_id']);
 			return IS_AJAX ? $this->row(db()->query("SELECT * FROM users WHERE user_id='".$user_id."' LIMIT 1")->fetch_assoc()) : true;
 		}
 	}
