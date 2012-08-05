@@ -80,7 +80,7 @@ var outofcc=function(t,e){{
 				<div class="main-menu" title="{~$k}" href="javascript:void(0);" onclick="return stcc(this);" target="_self" data-name="mm-style" data-value="{$k}" data-target=".main-menu-style-helper" data-classes="{$t}">
 					<div class="{$t}">
 						<div class="main-menu-top">
-							<a class="main-menu-logo" style="background:none !important;"></a>
+							<a href="javascript:void(0);" class="main-menu-logo" style="background:none !important;"></a>
 							<div class="clear"></div>
 						</div>
 					</div>
@@ -105,7 +105,7 @@ var outofcc=function(t,e){{
 					<div class="main-menu-style-helper {$t_mm_style}">
 						<div class="{$t}">
 							<div class="main-menu-top">
-								<a class="main-menu-logo"></a>
+								<a href="javascript:void(0);" class="main-menu-logo"></a>
 								<div class="clear"></div>
 							</div>
 						</div>
@@ -161,7 +161,7 @@ var outofcc=function(t,e){{
 						<div class="main-menu-style-helper {$t_mm_style}">
 							<div class="main-menu-logo-helper {$t_mm_logo}">
 								<div class="main-menu-top">
-									<a class="main-menu-logo"></a>
+									<a href="javascript:void(0);" class="main-menu-logo"></a>
 									<div class="clear"></div>
 								</div>
 							</div>
