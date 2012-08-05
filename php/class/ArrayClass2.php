@@ -4,6 +4,9 @@
  * Extended ArrayClass with some SQL improvements
  */
 
+class NotFoundException extends Exception {
+}
+
 class ArrayClass2 extends ArrayClass {
 	protected $table = null;
 	protected $id_field = null;
@@ -13,7 +16,15 @@ class ArrayClass2 extends ArrayClass {
 
 	public function __construct($data = NULL) {
 		if(is_array($data)) parent::set($data);
-		elseif(preg_match('~^\-?\d+(\-.+)?$~', $data)) $this->getById($data);
+		elseif(preg_match('~^\-?\d+(\-.+)?$~', $data)) {
+			try {
+				$this->getById($data);
+			}
+			catch(NotFoundException $e) {
+				$data = i__i::hash(strtolower($data));
+				$this->getById($data);
+			}
+		}
 		elseif($data !== null) {
 			$data = i__i::hash(strtolower($data));
 			$this->getById($data);
@@ -64,7 +75,7 @@ class ArrayClass2 extends ArrayClass {
 		$this->ArrayClass2_Assert();
 
 		$a = db()->query("SELECT * FROM ".$this->table." WHERE ".$this->id_field."='".es($id)."' LIMIT 1")->fetch_assoc();
-		if(!$a) throw new Exception($this->table.'('.$id.'): not found');
+		if(!$a) throw new NotFoundException($this->table.'('.$id.'): not found');
 		parent::set($a);
 	}
 

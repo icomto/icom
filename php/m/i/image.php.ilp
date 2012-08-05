@@ -137,7 +137,7 @@
 				[*L&ouml;schen:*]
 			</th>
 			<td>
-				<form method="post" action="{~$url}" enctype="multipart/form-data" action="{~$url}" class="upload" onsubmit="return iC_confirm('[*Sicher? Das Bild wird komplett und dauerhaft entfernt!*]', this, '~.module-content');">
+				<form method="post" action="{~$url}" class="upload" onsubmit="return iC_confirm('[*Sicher? Das Bild wird komplett und dauerhaft entfernt!*]', this, '~.module-content');">
 					<input type="hidden" name="{#IMPOST 'action'}" value="remove">
 					<button type="submit" class="button" style="color:red">[*Bild l&ouml;schen*]</button>
 				</form>

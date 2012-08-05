@@ -37,9 +37,111 @@
 		}}
 	</style>
 	<div class="module-i-tag">
+		{if has_privilege('forum_admin')}
+		<div class="SEP first"><div><div></div><h3>[*!Tag {$tag->getLinkHtml()}*]</h3><div></div></div></div>
+
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~.module-content');">
+			<input type="hidden" name="{#IMPOST 'action'}" value="rename">
+			[*Umbenennen:*] <input type="text" name="{#IMPOST 'name'}">
+			<button type="submit" class="button">[*Speichern*]</button>
+		</form>
+
+		<form method="post" action="{~$url}" onsubmit="return iC(this, '~.module-content');">
+			<input type="hidden" name="{#IMPOST 'action'}" value="merge">
+			[*Verschmelzen mit:*] <input type="text" name="{#IMPOST 'name'}">
+			<button type="submit" class="button">[*Speichern*]</button>
+		</form>
+
+		<p>&nbsp;</p>
+
+		{if false}
+		{new ilphp_sub 'parents'}
+		<div class="i-tag-parents tags">
+			{if $tag->countParents()}
+			[*Dar&uuml;berliegende Tags:*] 
+			{foreach $tag->getParents() as $parent |parent}
+			{$parent->getLinkHtml()}
+			{if true}
+			<form style="display:inline;" action="{~$url}" onsubmit="return iC(this, '~.i-tag-parents');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="remove_parent">
+				<input type="hidden" name="{#IMPOST 'tag_id'}" value="{$parent->id}">
+				<button style="border:0;color:red;" type="submit">X</button>
+			</form>
+			{/if}
+			{if $foreach_parent < $tag->countParents()}, {/if}
+			{/foreach}
+			{/if}
+
+			<form method="post" action="{~$url}" onsubmit="return iC(this, '~.i-tag-parents');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="add_parents">
+				[*Dar&uuml;berliegenden Tag hinzuf&uuml;gen:*] <input type="text" name="{#IMPOST 'name'}">
+				<button type="submit" class="button">[*Speichern*]</button>
+			</form>
+		</div>
+		{/new ilphp_sub}
+
+		<p>&nbsp;</p>
+
+		{new ilphp_sub 'aliases'}
+		<div class="i-tag-aliases tags">
+			<div>Aktueller Tag: {$tag->getLinkHtml()}</div>
+			{if $tag->countAliases()}
+			[*Aliases:*] 
+			{foreach $tag->getAliases() as $alias |alias}
+			{$alias->getLinkHtml()}
+			{if true}
+			<form style="display:inline;" action="{~$url}" onsubmit="return iC(this, '~.i-tag-aliases');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="remove_alias">
+				<input type="hidden" name="{#IMPOST 'tag_id'}" value="{$alias->id}">
+				<button style="border:0;color:red;" type="submit">X</button>
+			</form>
+			{/if}
+			{if $foreach_alias < $tag->countAliases()}, {/if}
+			{/foreach}
+			{/if}
+			<form method="post" action="{~$url}" onsubmit="return iC(this, '~.i-tag-aliases');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="add_aliases">
+				[*Alias hinzuf&uuml;gen:*] <input type="text" name="{#IMPOST 'name'}">
+				<button type="submit" class="button">[*Speichern*]</button>
+			</form>
+		</div>
+		{/new ilphp_sub}
+		
+		<p>&nbsp;</p>
+
+		{new ilphp_sub 'childs'}
+		<div class="i-tag-childs tags">
+			{if $tag->countChilds()}
+			[*Darunterliegende Tags:*] 
+			{foreach $tag->getChilds() as $child |child}
+			{$child->getLinkHtml()}
+			{if true}
+			<form style="display:inline;" action="{~$url}" onsubmit="return iC(this, '~.i-tag-childs');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="remove_child">
+				<input type="hidden" name="{#IMPOST 'tag_id'}" value="{$child->id}">
+				<button style="border:0;color:red;" type="submit">X</button>
+			</form>
+			{/if}
+			{if $foreach_child < $tag->countChilds()}, {/if}
+			{/foreach}
+			{/if}
+
+			<form method="post" action="{~$url}" onsubmit="return iC(this, '~.i-tag-childs');">
+				<input type="hidden" name="{#IMPOST 'action'}" value="add_childs">
+				[*Darunterliegenden Tag hinzuf&uuml;gen:*] <input type="text" name="{#IMPOST 'name'}">
+				<button type="submit" class="button">[*Speichern*]</button>
+			</form>
+		</div>
+		{/new ilphp_sub}
+
+		<p>&nbsp;</p>
+		{/if}
+		<div class="clear"></div>
+		{/if}
+
 		{if $sets and $sets->num_rows}
-		{if $images->num_rows and !$dummy_image}
-		<div class="SEP first"><div><div></div><h3>[*Sets*]</h3><div></div></div></div>
+		{if has_privilege('forum_admin') or ($images->num_rows and !$dummy_image)}
+		<div class="SEP{if false} first{/if}"><div><div></div><h3>[*Sets*]</h3><div></div></div></div>
 		{/if}
 
 		{while $set = $sets->fetch_assoc()}
@@ -78,7 +180,7 @@
 		{/if}
 
 		{if $images->num_rows and !$dummy_image}
-		{if $sets and $sets->num_rows}
+		{if has_privilege('forum_admin') or ($sets and $sets->num_rows)}
 		<div class="SEP"><div><div></div><h3>[*Bilder*]</h3><div></div></div></div>
 		{/if}
 		{while $image = $images->fetch_assoc()}

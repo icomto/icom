@@ -62,10 +62,10 @@ trait m_i_set {
 		if($args['content'] != $this->set->content) {
 			$this->set->content = $args['content'];
 		}
-		if($args['tags']) {
+		/*if($args['tags']) {
 			$this->set->removeAllTags();
 			i__tag::insert_string($args['tags'], [[$this->set, [null]]]);
-		}
+		}*/
 
 		page_redir($this->set->getLink());
 	}
