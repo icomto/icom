@@ -38,7 +38,7 @@
 	</style>
 	<div class="module-i-tag">
 		{if has_privilege('forum_admin')}
-		<div class="SEP first"><div><div></div><h3>[*!Tag {$tag->getLinkHtml()}*]</h3><div></div></div></div>
+		<div class="SEP first"><div><div></div><h3>[*!Tag &quot;{$tag->getLinkHtml()}&quot;*]</h3><div></div></div></div>
 
 		<form method="post" action="{~$url}" onsubmit="return iC(this, '~.module-content');">
 			<input type="hidden" name="{#IMPOST 'action'}" value="rename">
@@ -81,6 +81,7 @@
 		{/new ilphp_sub}
 
 		<p>&nbsp;</p>
+		{/if}
 
 		{new ilphp_sub 'aliases'}
 		<div class="i-tag-aliases tags">
@@ -109,6 +110,7 @@
 		
 		<p>&nbsp;</p>
 
+		{if false}
 		{new ilphp_sub 'childs'}
 		<div class="i-tag-childs tags">
 			{if $tag->countChilds()}
@@ -136,6 +138,7 @@
 
 		<p>&nbsp;</p>
 		{/if}
+
 		<div class="clear"></div>
 		{/if}
 

@@ -14,7 +14,7 @@ trait m_i_tag {
 	}
 
 	protected function TAB_tag_POST_add_aliases(&$args) {
-		if(has_privilege('forum_admin')) throw new iexception('403', $this);
+		if(!has_privilege('forum_admin')) throw new iexception('403', $this);
 		$tags = i__tag::insert_string($args['name']);
 		foreach($tags as $tag) {
 			$this->tag->addAlias($tag);
@@ -23,7 +23,7 @@ trait m_i_tag {
 		else page_redir($this->url);
 	}
 	protected function TAB_tag_POST_remove_alias(&$args) {
-		if(has_privilege('forum_admin')) throw new iexception('403', $this);
+		if(!has_privilege('forum_admin')) throw new iexception('403', $this);
 		$tag = new i__tag($args['tag_id']);
 		$tag->removeAlias();
 		if(IS_AJAX) return $this->ilphp_fetch('tag.php.ilp|aliases');
@@ -65,12 +65,12 @@ trait m_i_tag {
 	}
 
 	protected function TAB_tag_POST_rename(&$args) {
-		if(has_privilege('forum_admin')) throw new iexception('403', $this);
+		if(!has_privilege('forum_admin')) throw new iexception('403', $this);
 		if($this->tag->rename($args['name']))
 			page_redir($this->tag->getLink());
 	}
 	protected function TAB_tag_POST_merge(&$args) {
-		if(has_privilege('forum_admin')) throw new iexception('403', $this);
+		if(!has_privilege('forum_admin')) throw new iexception('403', $this);
 		$tag = new i__tag($args['name']);
 		$this->tag->mergeWith($tag);
 		page_redir($tag->getLink());

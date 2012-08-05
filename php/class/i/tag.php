@@ -176,7 +176,10 @@ class i__tag extends ArrayClass2 {
 		$name = trim($name);
 		if(!$name or preg_match('~\s~', $name)) return;
 		try {
-			new self($name);
+			$tag = new self($name);
+			if($tag->name != $name) {
+				throw new NotFoundException();
+			}
 		}
 		catch(NotFoundException $e) {
 			$id = i__i::hash(strtolower($name));
