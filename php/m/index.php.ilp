@@ -17,7 +17,7 @@
 						<a href="/{LANG}/chats/">[*Chats*]</a> |
 						{if IS_LOGGED_IN}<a href="/{LANG}/community/">[*Community*]</a> |{/if}
 						<a href="/{LANG}/wiki/Portal/">[*Portal*]</a> |
-						<a href="/{LANG}/image/">[*Bilder*]</a> |
+						<a href="/{LANG}/i/">[*Bilder*]</a> |
 						<a href="https://github.com/icomto/icom" target="_blank">[*github*]</a> |
 						<a href="/{LANG}/contact/">[*Kontakt*]</a> |
 						<a href="/{LANG}/report_page/" target="_blank">[*Abuse*]</a>
