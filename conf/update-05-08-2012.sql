@@ -24,7 +24,7 @@ CREATE TABLE `i_image_comments` (
     PRIMARY KEY (`comment_id`),
     KEY `image_id` (`image_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-TABLE `i_image_sources` (
+CREATE TABLE `i_image_sources` (
     `image_id` bigint(20) NOT NULL,
     `source_id` bigint(20) NOT NULL,
     `user_id` int(10) unsigned NOT NULL,
