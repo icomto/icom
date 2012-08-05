@@ -422,7 +422,7 @@ class ubbcode {
 	public static function add_smileys($text) {
 		static $in = array();
 		static $out = array();
-		$text = preg_replace('~\(flag:([a-z]{2})\)~', '<img class="countryflag" src="'.STATIC_CONTENT_DOMAIN.'/img/countryflags/\\1.gif" alt="(flag:\\1)" title="(flag:\\1)">', $text);
+		$text = preg_replace('~\(flag:([a-z]{2})\)~', '<img class="countryflag" src="'.STATIC_CONTENT_DOMAIN.'/img/countryflags/\\1.gif" alt="(flag&#58;\\1)" title="(flag&#58;\\1)">', $text);
 		if(!$in or !$out) {
 			$data = file("../txt/smileys.txt");
 			foreach($data as $l) {
