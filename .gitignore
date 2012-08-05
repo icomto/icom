@@ -4,7 +4,9 @@ templates_c/*.php
 .buildpath
 php/test.php
 s/*/*/*
+s/*/*/*/*
 !s/*/*/.empty
+!s/*/*/*/.empty
 php/IGNORE
 .tags
 .tags_sorted_by_file

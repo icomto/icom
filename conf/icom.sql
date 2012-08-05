@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.23, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.24, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: v6
+-- Host: localhost    Database: icom
 -- ------------------------------------------------------
--- Server version	5.5.23-2
+-- Server version	5.5.24-0ubuntu0.12.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,8 +28,103 @@ CREATE TABLE `ajax_update` (
   `N` bigint(20) unsigned NOT NULL DEFAULT '0',
   `i` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MEMORY DEFAULT CHARSET=latin1;
+) ENGINE=MEMORY DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ajax_update`
+--
+
+LOCK TABLES `ajax_update` WRITE;
+/*!40000 ALTER TABLE `ajax_update` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ajax_update` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ap_groups`
+--
+
+DROP TABLE IF EXISTS `ap_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ap_groups` (
+  `namespace` bigint(20) NOT NULL,
+  `item_id` bigint(20) NOT NULL DEFAULT '0',
+  `group_id` int(10) unsigned NOT NULL,
+  `permission` tinyint(1) NOT NULL,
+  PRIMARY KEY (`namespace`,`item_id`,`group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ap_groups`
+--
+
+LOCK TABLES `ap_groups` WRITE;
+/*!40000 ALTER TABLE `ap_groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ap_groups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ap_users`
+--
+
+DROP TABLE IF EXISTS `ap_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ap_users` (
+  `namespace` bigint(20) NOT NULL,
+  `item_id` bigint(20) NOT NULL DEFAULT '0',
+  `user_id` int(10) unsigned NOT NULL,
+  `permission` tinyint(1) NOT NULL,
+  PRIMARY KEY (`namespace`,`item_id`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ap_users`
+--
+
+LOCK TABLES `ap_users` WRITE;
+/*!40000 ALTER TABLE `ap_users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ap_users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `ap_view_users_groups`
+--
+
+DROP TABLE IF EXISTS `ap_view_users_groups`;
+/*!50001 DROP VIEW IF EXISTS `ap_view_users_groups`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `ap_view_users_groups` (
+  `namespace` bigint(20),
+  `item_id` bigint(20),
+  `user_id` int(10) unsigned,
+  `group_id` int(11),
+  `owner_id` binary(0),
+  `permission` tinyint(4)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `ap_view_users_groups_owner`
+--
+
+DROP TABLE IF EXISTS `ap_view_users_groups_owner`;
+/*!50001 DROP VIEW IF EXISTS `ap_view_users_groups_owner`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `ap_view_users_groups_owner` (
+  `namespace` bigint(20),
+  `item_id` bigint(20),
+  `user_id` int(10) unsigned,
+  `group_id` int(11),
+  `owner_id` binary(0),
+  `permission` tinyint(4)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `banned_ips`
@@ -42,8 +137,17 @@ CREATE TABLE `banned_ips` (
   `ip` binary(16) NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`ip`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `banned_ips`
+--
+
+LOCK TABLES `banned_ips` WRITE;
+/*!40000 ALTER TABLE `banned_ips` DISABLE KEYS */;
+/*!40000 ALTER TABLE `banned_ips` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `forum_posts`
@@ -68,7 +172,7 @@ CREATE TABLE `forum_posts` (
   FULLTEXT KEY `name` (`name`),
   FULLTEXT KEY `content` (`content`),
   FULLTEXT KEY `name__content` (`name`,`content`)
-) ENGINE=MyISAM AUTO_INCREMENT=916432 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=916434 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,7 +184,6 @@ LOCK TABLES `forum_posts` WRITE;
 INSERT INTO `forum_posts` VALUES (916432,127072,1,'2012-06-04 22:10:53','0000-00-00 00:00:00',0,'','Test','123'),(916433,127073,1,'2012-06-04 22:28:25','0000-00-00 00:00:00',0,'','iCom ist Open Source','[news_introduce]196[/news_introduce]');
 /*!40000 ALTER TABLE `forum_posts` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `forum_reported_posts`
@@ -105,8 +208,17 @@ CREATE TABLE `forum_reported_posts` (
   KEY `uid` (`user_id`),
   KEY `closer_uid` (`closer_uid`),
   KEY `post_id` (`post_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12859 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `forum_reported_posts`
+--
+
+LOCK TABLES `forum_reported_posts` WRITE;
+/*!40000 ALTER TABLE `forum_reported_posts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `forum_reported_posts` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `forum_sections`
@@ -165,10 +277,9 @@ CREATE TABLE `forum_sections` (
 
 LOCK TABLES `forum_sections` WRITE;
 /*!40000 ALTER TABLE `forum_sections` DISABLE KEYS */;
-INSERT INTO `forum_sections` VALUES (1,2,29,0,'Teamintern','Teamboard','kkkkkk',NULL,1,'',1,'','221,3','1,2,3,175,221,202,194,154,187,212,215','1,2,3,175,221,202,194,154,187,212,215',1,0,'team',1,0,0,0,0,0,0,3,3,0,1),(2,3,4,1,'Admintalk',NULL,NULL,NULL,0,'',0,'','221','1,2','1,2',1,0,'team',0,7,7,1,30,30,1,108931,108931,72891,0),(3,5,6,1,'Moderatorentalk',NULL,'',NULL,0,'',1,'','221','1,3,2,175,221','1,2,3,175,221',2,0,'team',0,116,116,1,1764,1764,10,11789,126930,37552,1),(4,9,10,1,'[ALT] Uploadertalk',NULL,NULL,NULL,0,'',1,'','221','','',4,0,'team',0,10,10,0,35,35,0,7603,7603,0,1),(5,66,75,0,'Hilfe','Helpdesk',NULL,NULL,0,'',0,'','169,178,187,184,194','0','196',4,0,'def',1,0,0,0,0,0,0,7,7,0,1),(6,34,35,194,'Allgemeine Bekanntmachungen','General Announcements',NULL,NULL,0,'',1,'','175,3,221','0,221,199,215,208','1,2,3,175,221,187',1,0,'def',0,56,56,0,2111,2111,0,118580,118580,0,1),(7,51,52,48,'Verbesserungsvorschl�ge & Feedback','Feedback','Probleme, Anregungen, Lob, Tadel zur Struktur und den Funktionen der Seite','Tell us what you\'re thinking about the site',0,'',1,'','221','196,0,221,199,215,208','196,221,187',3,0,'def',0,1009,1006,8,16022,16013,242,127050,127050,119484,1),(8,189,190,39,'Gespr�chsecke','Miscellaneous','Vermischtes das nirgendwo anders passt','Miscellaneous stuff',0,'',1,'','','0','196',0,0,'def',0,1903,1901,15,64424,64399,480,100955,127058,124593,0.1),(9,71,72,5,'Tutorials','Tutorials','Anleitungen zu den verschiedensten Sachen','Several Tutorials, Tipps and Tricks',0,'',1,'','','0','196',3,0,'def',0,721,720,6,13816,13809,25,27601,27601,125331,1),(10,76,81,0,'Up- und Downloads',NULL,'',NULL,0,'',0,'','','0','196',5,0,'def',1,0,0,0,0,0,0,0,0,0,1),(11,86,87,197,'OneKlick- und Streamhoster','OneKlick- and Streamhoster','News und Infos �ber die Hoster','News, infos and discussions',0,'',1,'','','0','196',2,0,'def',0,702,702,3,12880,12880,16,127017,127017,118352,1),(12,88,89,197,'Alternative Downloadm�glichkeiten','Other ways to download Warez','Torrent, Usenet, SFT etc...','Torrent, Usenet, SFT etc...',0,'',1,'','','0','196',3,0,'def',0,210,210,0,2870,2870,0,127003,127003,0,1),(13,77,78,10,'Suche',NULL,'Suche nach allen m�glichen Downloads',NULL,0,'',1,'','','','',2,0,'def',0,0,0,0,0,0,0,9043,9043,0,1),(14,82,165,0,'Diskussionen','Discussions',NULL,NULL,0,'',0,'','','0,196','196',6,0,'def',1,0,0,0,0,0,0,8,8,0,1),(15,84,85,197,'Netzwelt','World Wide Web','Alles �bers Netz','All about the web',0,'',1,'','','0','196',1,0,'def',0,1520,1520,15,23675,23675,271,126985,127038,123326,1),(16,150,151,213,'Politik und Wirtschaft','Politics & Economy','Aktuelle politische Themen und Diskussionen',NULL,0,'',1,'','','0','196',1,0,'def',0,139,139,0,4226,4226,0,127008,127008,0,1),(17,152,153,213,'Gesellschaft & Kultur','Society & Culture','Die heutige Gesellschaft und deren Kultur',NULL,0,'',1,'','','0','196',3,0,'def',0,150,150,3,5121,5121,19,126898,126898,125914,1),(18,156,157,213,'Sport','Sports','Diskussionen, News',NULL,0,'',1,'','','0','196',6,0,'def',0,242,242,4,11283,11283,64,46744,126803,89120,1),(19,158,159,213,'Wissenschaft & �kologie','Science',NULL,NULL,0,'',1,'','','0','196',7,0,'def',0,55,55,0,1130,1130,0,127029,127029,0,1),(21,154,155,213,'Religion und Philosophie','Religion & Philosophy','Diskussionen �ber jegliche Religionen',NULL,0,'',1,'','','0','196',4,0,'def',0,41,41,0,2283,2283,0,124115,124115,0,1),(23,162,163,213,'Andere','Other Discussions','Kein passendes Forum gefunden!',NULL,0,'',1,'','','0','196',9,0,'def',0,1665,1665,7,22097,22097,121,46844,126993,123647,1),(215,169,178,185,'Handel','Trading',NULL,NULL,0,'',0,'','','208,196','208,196',2,0,'def',1,1,1,0,0,0,0,56681,56681,0,1),(25,94,95,199,'Hardware','Hardware',NULL,NULL,0,'',1,'','','0','196',1,0,'def',0,3038,3037,8,33430,33419,74,127020,127056,127054,1),(26,96,97,199,'Anwendungssoftware','Software',NULL,NULL,0,'',1,'','','0','196',2,0,'def',0,1981,1981,9,16183,16183,81,127060,127060,123573,1),(27,98,99,199,'Windows','Windows',NULL,NULL,0,'',1,'','','0','196',3,0,'def',0,1809,1809,10,19004,19004,67,102676,126976,126961,1),(28,120,121,201,'PC','PC Games','Diskussion, Probleme beim Installieren, Cracken',NULL,0,'',1,'','','0','196',2,0,'def',0,2241,2241,18,24130,24130,278,126947,127043,123956,1),(29,100,101,199,'Apple','Apple',NULL,NULL,0,'',1,'','','0','196',4,0,'def',0,398,398,2,3424,3424,4,127036,127036,93650,1),(30,102,103,199,'Linux','Linux',NULL,NULL,0,'',1,'','','0','196',5,0,'def',0,105,105,0,952,952,0,126185,126185,0,1),(31,130,131,201,'Konsolen (Altes Forum)',NULL,'ACHTUNG: Dieses Forum wird aufgel�st und gel�scht',NULL,0,'',0,'','','','',7,0,'def',0,0,0,0,0,0,0,2594,2594,0,1),(32,122,123,201,'PS2 und PS3','PS2 & PS3',NULL,NULL,0,'',1,'','','0','196',3,0,'def',0,649,649,2,7634,7634,14,127033,127033,114062,1),(35,124,125,201,'Wii','Wii',NULL,NULL,0,'',1,'','','0','196',4,0,'def',0,212,211,1,2146,2145,1,124242,125273,58834,1),(36,128,129,201,'Handhelds','Handhelds',NULL,NULL,0,'',1,'','','0','196',6,0,'def',0,272,272,10,2461,2461,48,126984,126984,107728,1),(38,126,127,201,'Xbox und Xbox360','Xbox & Xbox360',NULL,NULL,0,'',1,'','','0','196',5,0,'def',0,1013,1013,7,11793,11793,37,127055,127055,126957,1),(39,188,195,0,'Offtopic','Offtopic',NULL,NULL,0,'',0,'','175,3','0,196','196',9,0,'def',1,0,0,0,0,0,0,13,13,0,1),(40,191,192,39,'Fun','Fun','Witze, Bilder, Videos','Jokes, funny videos and pictures',0,'',1,'','','196','196',1,0,'def',0,559,558,13,38335,38329,682,113101,127044,123976,0.1),(41,46,47,194,'Gewinnspiele','Prize games',NULL,NULL,0,'',1,'','221','196,221,199,215,208','196,221,187',6,0,'def',0,84,84,0,8591,8591,0,127070,127070,0,0.5),(42,160,161,213,'Reallife','Reallife','Das echte Leben',NULL,0,'',1,'','','196','196',8,0,'def',0,1303,1302,8,27174,27168,179,127047,127047,124036,0.7),(45,193,194,39,'M�lleimer','Trash Bin','Sinnloses Zeug...','Spam and pointless threads',0,'',1,'','175,3','0','196',6,0,'tras',0,995,994,7,79072,79067,54,92199,127031,125371,0.1),(46,67,68,5,'Up- und Download Probleme','Up-and downloadproblems','Probleme beim Download, Tipps und Tricks','Problems with downloading, tips and tricks',0,'',1,'','','0','196',1,0,'def',0,2312,2309,7,19626,19609,75,96906,96906,126496,1),(47,79,80,10,'Gefunden',NULL,'Erledigte Threads aus dem Forum Suche',NULL,0,'',1,'','','','',3,0,'def',0,11,11,0,74,74,0,15725,15725,0,1),(48,30,55,0,'Regeln und Bekanntmachungen','Rules & announcements',NULL,NULL,1,'',0,'','175,3,221','196,0,221,180,175,3,1,2,199,215,208','196,221,1,2,175,3,180,187',2,0,'def',1,0,0,0,0,0,0,0,0,0,1),(49,31,32,48,'Regeln','Rules','Unsere Regeln - Bitte sorgf�ltig durchlesen!','Please read carefully',0,'',1,'','221','0,221,199,215,208','1,2,175,3,221,187',1,0,'def',0,2,2,0,2,2,0,2543,2543,0,1),(50,73,74,5,'W�nsch-dir-was Informationen',NULL,'Hier findet man den Status der Userw�nsche',NULL,0,'',1,'','','','',4,0,'def',0,32,32,0,241,241,0,18487,18487,0,1),(53,21,22,1,'Teamintern',NULL,NULL,NULL,0,'',1,'','3,221','1,202,2,3,194,221','1,202,2,3,194,221',10,0,'team',0,135,134,3,2058,2048,16,127064,127064,127064,1),(55,7,8,1,'Supermoderatorentalk',NULL,NULL,NULL,1,'foobar test 12\r\njalla jalla',1,'','221','1,2,175,221','1,2,175,221',3,0,'team',0,12,12,0,169,169,0,92447,92447,0,1),(56,11,12,1,'Invite-Code Anfragen',NULL,NULL,NULL,0,'',1,'','221','1','1',5,0,'team',0,389,389,0,819,819,0,7312,7312,0,1),(57,104,105,199,'Programmierung','Programming','C++, Java, HTML, PHP, Python, Perl und sogar TurboPascal wird hier besprochen','C++, Java, HTML, PHP, Python etc.',0,'',1,'','','0','196',6,0,'def',0,382,382,5,3939,3939,116,126831,126831,90219,1),(58,106,107,199,'Design, Grafik- und Webdesign','GFX & Web Design',NULL,NULL,0,'',1,'','','0','196',7,0,'def',0,572,572,4,9133,9133,25,127049,127049,116414,1),(59,108,109,199,'Server & Webspace','Server & Webspace','Alles rund ums Hosting und Betreiben von Homepages',NULL,0,'',1,'','','0','196',8,0,'def',0,207,207,4,1695,1695,24,126343,126343,124338,1),(60,38,39,194,'iCom Gameserver','iCom Gameserver','Alles �ber unsere Gameserver',NULL,0,'',1,'','169,178,221','196,221,199,215,208','196,221,187',4,0,'def',0,66,66,0,2000,2000,0,115641,125219,0,1),(245,196,197,0,NULL,NULL,NULL,NULL,0,'',1,'','','','',10,0,'def',0,0,0,0,0,0,0,0,0,0,1),(158,13,14,1,'Designertalk',NULL,NULL,NULL,0,'',1,'','221','1,2,154,175,221','1,2,154,175,221',6,0,'team',0,12,12,1,235,235,18,33372,33372,33372,1),(160,15,16,1,'Radio',NULL,NULL,NULL,0,'',1,'','221','1,2,187,175,3,221','1,2,187,175,3,221',7,0,'team',0,8,8,0,236,236,0,55312,55312,0,1),(161,36,37,194,'iCom Radio','iCom Radio','Alles �ber unser Radio',NULL,0,'',1,'','187,221','196,221,199,215,208','196,221,187',3,0,'def',0,40,40,1,625,625,4,127070,127070,35801,1),(162,17,18,1,'M�ll',NULL,'Threads die zu scheisse waren um sie zu l�schen :D',NULL,0,'',1,'','221','1,2,3,175,221','1,2,3,175,221',8,0,'team',0,112,112,8,2469,2469,85,126930,126930,61212,1),(164,110,111,199,'Handys und Smartphones','Mobile- & Smartphones',NULL,NULL,0,'',1,'','','0','196',9,0,'def',0,857,856,10,8120,8117,103,126997,126997,103049,1),(165,146,147,207,'Unterhaltung (altes Forum)',NULL,'ACHTUNG: Dieses Forum wird aufgel�st und gel�scht',NULL,0,'',1,'','','','',7,0,'def',0,0,0,0,0,0,0,44553,44553,0,1),(173,1,198,99999999,'root',NULL,'',NULL,0,'',1,'','','','',0,0,'def',0,0,0,0,0,0,0,0,0,0,1),(175,40,45,194,'iComPedia','iComPedia','Alles �ber unser Wiki',NULL,0,'',1,'','194,221','221,199,215,208','221,187',5,0,'def',1,6,6,0,60,60,0,21571,21571,0,1),(176,41,42,175,'Artikelw�sche',NULL,'Hier k�nnt Ihr Euch Artikel w�nschen',NULL,0,'',1,'','194,221','221,199,215,208','221,187',1,0,'def',0,2,2,0,3,3,0,48884,48884,0,1),(177,43,44,175,'Diskussionen',NULL,'Diskussionen �ber Wiki-Artikel',NULL,0,'',1,'','194,221','221,199,215,208','221,187',2,0,'def',0,6,6,0,27,27,0,36113,36113,0,1),(178,180,187,0,'Level 2','Level 2','Dieses Forum sehen nur unsere Stammuser',NULL,0,'',0,'','','1,2,3,175,208','1,2,3,175,208',8,0,'def',1,0,0,0,0,0,0,0,0,0,1),(179,181,182,178,'Allgemein','General',NULL,NULL,0,'',1,'','','1,2,3,175,208','1,2,3,175,208',1,0,'def',0,79,79,3,2970,2970,10,126931,126931,117260,1),(180,183,184,178,'Handel','Trading',NULL,NULL,0,'',1,'','','1,2,3,175,208','1,2,3,175,208',2,0,'def',0,80,80,1,754,754,1,126963,126963,88705,1),(182,56,65,0,'News Forum','News',NULL,NULL,0,'',0,'','175,3,215','0','196',3,0,'news',1,0,0,0,0,0,0,58085,58085,0,1),(183,60,61,237,'Allgemeine News','General news','Politik, Wissenschaft, Technik usw...','Politics, science, tech etc...',0,'',1,'','175,3,215','0','196',1,0,'news',0,1814,1807,29,33512,33465,385,127070,127070,127002,1),(184,62,63,237,'Scene News','Scene news','Neuigkeiten aus der Hacking- und Warez Szene',NULL,0,'',1,'','175,3,215','0','196',2,0,'news',0,414,413,10,7530,7529,180,127070,127070,97002,1),(185,166,179,0,'Handel','Trading',NULL,NULL,0,'',0,'','3','208,196','208,196,2,1,175,3',7,0,'def',1,0,0,0,0,0,0,46049,46049,0,1),(186,167,168,185,'Regeln','Rules','Spezielle Regeln beim Handeln','Specific rules for trading',0,'',1,'','3','196','2,1,175,3',1,0,'def',0,3,2,1,3,2,1,127066,127066,52350,1),(187,174,175,215,'Tausche','Exchange',NULL,NULL,0,'',1,'','3','208','208',3,0,'def',0,101,101,0,739,739,0,125195,125195,0,1),(188,170,171,215,'Biete','Offers',NULL,NULL,0,'',1,'','3','208','208',1,0,'def',0,486,485,9,5853,5846,148,126546,126801,125534,1),(189,172,173,215,'Suche','Requests',NULL,NULL,0,'',1,'','3','196','196',2,0,'def',0,605,605,6,4454,4454,66,127001,127001,114926,1),(190,185,186,178,'Tutorials','Tutorials',NULL,NULL,0,'',1,'','','1,2,3,175,208','1,2,3,175,208',3,0,'def',0,9,9,0,642,642,0,121582,121582,0,1),(191,176,177,215,'Verschenke','Give Aways',NULL,NULL,0,'',1,'','3','196','196',4,0,'def',0,233,233,7,2179,2179,73,127052,127052,116478,1),(194,33,50,48,'Bekanntmachungen','Announcements','Ank�ndigungen und Neuigkeiten rund um iLoad','News and announcements about iLoad',0,'',0,'','221','0,221,196,180,175,3,1,2,199,215,208','1,2,3,175,221,196,180,187',2,0,'def',1,0,0,0,0,0,0,0,0,0,1),(195,53,54,48,'Vorstellungen','Introductions','Hier k�nnt ihr Euch vorstellen','Say hello and tell us a little about yourself',0,'',1,'','221','196,221,199,215,208','196,221,187',4,0,'def',0,250,243,8,7322,7236,100,126977,127042,119481,1),(196,69,70,5,'Forenhilfe','Forum support','Hilfe f�r Neulinge','Help for newbies',0,'',1,'','','0','196',2,0,'def',0,991,989,17,7959,7946,164,126970,126994,126917,1),(214,138,139,207,'TV','Television',NULL,NULL,0,'',1,'','','0','196',3,0,'def',0,201,201,3,2102,2102,7,101042,126511,106924,1),(197,83,92,14,'Netzwelt','World Wide Web','Alles aus dem World Wide Web',NULL,0,'',0,'','','0','196',1,0,'def',1,0,0,0,0,0,0,0,0,0,1),(198,90,91,197,'Downtimes und invites','Downtimes & Invites',NULL,NULL,0,'',1,'','','0','196',4,0,'def',0,32,32,1,409,409,4,126627,126627,99836,1),(199,93,116,14,'Technik','Computers & Technologies','Hilfe, Kaufberatung und Diskussionen rund um die Technik',NULL,0,'',0,'','','0','196',2,0,'def',1,0,0,0,0,0,0,0,0,0,1),(200,112,113,199,'Sicherheit & Anonymit�t','Security & Anonymity',NULL,NULL,0,'',1,'','','0','196',10,0,'def',0,130,130,0,1465,1465,0,126460,126460,0,1),(201,117,132,14,'Gaming','Gaming','Hilfe und Diskussionen zu alten und neuen Games',NULL,0,'',0,'','','0','196',3,0,'def',1,0,0,0,0,0,0,0,0,0,1),(213,149,164,14,'Andere','Other Discussions',NULL,NULL,0,'',0,'','','0,196','196',5,0,'def',1,0,0,0,0,0,0,0,0,0,1),(202,118,119,201,'Spielediskussionen','Gaming Discussion',NULL,NULL,0,'',1,'','','0','196',1,0,'def',0,363,363,2,6278,6278,13,127046,127046,122254,1),(218,19,20,1,'Chatmodtalk',NULL,NULL,NULL,0,'',1,'','221','1,221,202','2,221,202',9,0,'team',0,0,0,0,0,0,0,0,0,0,1),(207,133,148,14,'Unterhaltung','Entertainment',NULL,NULL,0,'',0,'','','0','196',4,0,'def',1,0,0,0,0,0,0,0,0,0,1),(208,134,135,207,'Filme','Movies',NULL,NULL,0,'',1,'','','0','196',1,0,'def',0,761,761,5,16918,16918,45,126969,959,110773,1),(209,136,137,207,'Serien','TV Shows',NULL,NULL,0,'',1,'','','0','196',2,0,'def',0,201,201,1,2968,2968,14,124181,127051,92148,1),(210,142,143,207,'B�cher','Books',NULL,NULL,0,'',1,'','','0','196',5,0,'def',0,40,40,0,374,374,0,126875,126875,0,1),(211,140,141,207,'Musik','Music',NULL,NULL,0,'',1,'','','0','196',4,0,'def',0,920,920,10,11576,11576,401,127022,127022,125383,1),(212,144,145,207,'Kaufempfehlungen','Shopping Tips',NULL,NULL,0,'',1,'','','0','196',6,0,'def',0,146,146,0,1851,1851,0,111454,126219,0,1),(219,114,115,199,'Kaufberatung',NULL,'',NULL,0,'',1,'','','0','196',11,0,'def',0,749,749,3,8928,8928,49,127059,127059,118075,1),(230,48,49,194,'VIP\'s',NULL,NULL,NULL,0,'',1,'','221','180,175,3,1,2,221,199,215,208','180,175,3,1,2,221,187',7,0,'def',0,1,1,1,85,85,85,60667,60667,60667,1),(244,27,28,1,'Zwischenlager',NULL,'Alles von dem man net weiss obs noch okay is oder schon nimmer geht',NULL,0,'',1,'','3,221','1,2,3','1,2,3',13,0,'team',0,2,2,0,9,9,0,127014,127014,0,1),(233,23,24,1,'iLoad Times',NULL,NULL,NULL,0,'',1,'','221','212,1,175,2,3,221','212,1,175,2,3,221',11,0,'team',0,2,2,0,78,78,0,64497,65374,0,1),(235,25,26,1,'News',NULL,NULL,NULL,0,'',1,'','221','1,2,215,175,3,221','215,1,2,175,3,221',12,0,'team',0,20,20,0,538,538,0,110591,121588,0,1),(236,57,58,182,'News',NULL,'News vom iLoad News Team',NULL,0,'',1,'','3,175,215','0','196',3,0,'news',0,138,138,1,3593,3593,5,127071,127071,113856,1),(237,59,64,182,'User-News',NULL,'Von Usern eingestellte News',NULL,0,'',0,'','175,3,215','0','196',4,0,'news',1,0,0,0,0,0,0,81034,81034,0,1);
+INSERT INTO `forum_sections` VALUES (1,2,29,0,'Teamintern','Teamboard','',NULL,1,'',1,'','221,3','1,2,3,175,221,202,194,154,187,212,215','1,2,3,175,221,202,194,154,187,212,215',1,0,'team',1,0,0,0,0,0,0,3,3,0,1),(2,3,4,1,'Admintalk',NULL,NULL,NULL,0,'',0,'','221','1,2','1,2',1,0,'team',0,7,7,1,30,30,1,108931,108931,72891,0),(3,5,6,1,'Moderatorentalk',NULL,'',NULL,0,'',1,'','221','1,3,2,175,221','1,2,3,175,221',2,0,'team',0,116,116,1,1764,1764,10,11789,126930,37552,1),(4,9,10,1,'[ALT] Uploadertalk',NULL,NULL,NULL,0,'',1,'','221','','',4,0,'team',0,10,10,0,35,35,0,7603,7603,0,1),(5,66,75,0,'Hilfe','Helpdesk',NULL,NULL,0,'',0,'','169,178,187,184,194','0','196',4,0,'def',1,0,0,0,0,0,0,7,7,0,1),(6,34,35,194,'Allgemeine Bekanntmachungen','General Announcements',NULL,NULL,0,'',1,'','175,3,221','0,221,199,215,208','1,2,3,175,221,187',1,0,'def',0,56,56,0,2111,2111,0,118580,118580,0,1),(7,51,52,48,'Verbesserungsvorschl','Feedback','Probleme, Anregungen, Lob, Tadel zur Struktur und den Funktionen der Seite','Tell us what you\'re thinking about the site',0,'',1,'','221','196,0,221,199,215,208','196,221,187',3,0,'def',0,1009,1006,8,16022,16013,242,127050,127050,119484,1),(8,189,190,39,'Gespr','Miscellaneous','Vermischtes das nirgendwo anders passt','Miscellaneous stuff',0,'',1,'','','0','196',0,0,'def',0,1903,1901,15,64424,64399,480,100955,127058,124593,0.1),(9,71,72,5,'Tutorials','Tutorials','Anleitungen zu den verschiedensten Sachen','Several Tutorials, Tipps and Tricks',0,'',1,'','','0','196',3,0,'def',0,721,720,6,13816,13809,25,27601,27601,125331,1),(10,76,81,0,'Up- und Downloads',NULL,'',NULL,0,'',0,'','','0','196',5,0,'def',1,0,0,0,0,0,0,0,0,0,1),(11,86,87,197,'OneKlick- und Streamhoster','OneKlick- and Streamhoster','News und Infos ','News, infos and discussions',0,'',1,'','','0','196',2,0,'def',0,702,702,3,12880,12880,16,127017,127017,118352,1),(12,88,89,197,'Alternative Downloadm','Other ways to download Warez','Torrent, Usenet, SFT etc...','Torrent, Usenet, SFT etc...',0,'',1,'','','0','196',3,0,'def',0,210,210,0,2870,2870,0,127003,127003,0,1),(13,77,78,10,'Suche',NULL,'Suche nach allen m',NULL,0,'',1,'','','','',2,0,'def',0,0,0,0,0,0,0,9043,9043,0,1),(14,82,165,0,'Diskussionen','Discussions',NULL,NULL,0,'',0,'','','0,196','196',6,0,'def',1,0,0,0,0,0,0,8,8,0,1),(15,84,85,197,'Netzwelt','World Wide Web','Alles ','All about the web',0,'',1,'','','0','196',1,0,'def',0,1520,1520,15,23675,23675,271,126985,127038,123326,1),(16,150,151,213,'Politik und Wirtschaft','Politics & Economy','Aktuelle politische Themen und Diskussionen',NULL,0,'',1,'','','0','196',1,0,'def',0,139,139,0,4226,4226,0,127008,127008,0,1),(17,152,153,213,'Gesellschaft & Kultur','Society & Culture','Die heutige Gesellschaft und deren Kultur',NULL,0,'',1,'','','0','196',3,0,'def',0,150,150,3,5121,5121,19,126898,126898,125914,1),(18,156,157,213,'Sport','Sports','Diskussionen, News',NULL,0,'',1,'','','0','196',6,0,'def',0,242,242,4,11283,11283,64,46744,126803,89120,1),(19,158,159,213,'Wissenschaft & ','Science',NULL,NULL,0,'',1,'','','0','196',7,0,'def',0,55,55,0,1130,1130,0,127029,127029,0,1),(21,154,155,213,'Religion und Philosophie','Religion & Philosophy','Diskussionen ',NULL,0,'',1,'','','0','196',4,0,'def',0,41,41,0,2283,2283,0,124115,124115,0,1),(23,162,163,213,'Andere','Other Discussions','Kein passendes Forum gefunden!',NULL,0,'',1,'','','0','196',9,0,'def',0,1665,1665,7,22097,22097,121,46844,126993,123647,1),(215,169,178,185,'Handel','Trading',NULL,NULL,0,'',0,'','','208,196','208,196',2,0,'def',1,1,1,0,0,0,0,56681,56681,0,1),(25,94,95,199,'Hardware','Hardware',NULL,NULL,0,'',1,'','','0','196',1,0,'def',0,3038,3037,8,33430,33419,74,127020,127056,127054,1),(26,96,97,199,'Anwendungssoftware','Software',NULL,NULL,0,'',1,'','','0','196',2,0,'def',0,1981,1981,9,16183,16183,81,127060,127060,123573,1),(27,98,99,199,'Windows','Windows',NULL,NULL,0,'',1,'','','0','196',3,0,'def',0,1809,1809,10,19004,19004,67,102676,126976,126961,1),(28,120,121,201,'PC','PC Games','Diskussion, Probleme beim Installieren, Cracken',NULL,0,'',1,'','','0','196',2,0,'def',0,2241,2241,18,24130,24130,278,126947,127043,123956,1),(29,100,101,199,'Apple','Apple',NULL,NULL,0,'',1,'','','0','196',4,0,'def',0,398,398,2,3424,3424,4,127036,127036,93650,1),(30,102,103,199,'Linux','Linux',NULL,NULL,0,'',1,'','','0','196',5,0,'def',0,105,105,0,952,952,0,126185,126185,0,1),(31,130,131,201,'Konsolen (Altes Forum)',NULL,'ACHTUNG: Dieses Forum wird aufgel',NULL,0,'',0,'','','','',7,0,'def',0,0,0,0,0,0,0,2594,2594,0,1),(32,122,123,201,'PS2 und PS3','PS2 & PS3',NULL,NULL,0,'',1,'','','0','196',3,0,'def',0,649,649,2,7634,7634,14,127033,127033,114062,1),(35,124,125,201,'Wii','Wii',NULL,NULL,0,'',1,'','','0','196',4,0,'def',0,212,211,1,2146,2145,1,124242,125273,58834,1),(36,128,129,201,'Handhelds','Handhelds',NULL,NULL,0,'',1,'','','0','196',6,0,'def',0,272,272,10,2461,2461,48,126984,126984,107728,1),(38,126,127,201,'Xbox und Xbox360','Xbox & Xbox360',NULL,NULL,0,'',1,'','','0','196',5,0,'def',0,1013,1013,7,11793,11793,37,127055,127055,126957,1),(39,188,195,0,'Offtopic','Offtopic',NULL,NULL,0,'',0,'','175,3','0,196','196',9,0,'def',1,0,0,0,0,0,0,13,13,0,1),(40,191,192,39,'Fun','Fun','Witze, Bilder, Videos','Jokes, funny videos and pictures',0,'',1,'','','196','196',1,0,'def',0,559,558,13,38335,38329,682,113101,127044,123976,0.1),(41,46,47,194,'Gewinnspiele','Prize games',NULL,NULL,0,'',1,'','221','196,221,199,215,208','196,221,187',6,0,'def',0,84,84,0,8591,8591,0,127070,127070,0,0.5),(42,160,161,213,'Reallife','Reallife','Das echte Leben',NULL,0,'',1,'','','196','196',8,0,'def',0,1303,1302,8,27174,27168,179,127047,127047,124036,0.7),(45,193,194,39,'M','Trash Bin','Sinnloses Zeug...','Spam and pointless threads',0,'',1,'','175,3','0','196',6,0,'tras',0,995,994,7,79072,79067,54,92199,127031,125371,0.1),(46,67,68,5,'Up- und Download Probleme','Up-and downloadproblems','Probleme beim Download, Tipps und Tricks','Problems with downloading, tips and tricks',0,'',1,'','','0','196',1,0,'def',0,2312,2309,7,19626,19609,75,96906,96906,126496,1),(47,79,80,10,'Gefunden',NULL,'Erledigte Threads aus dem Forum Suche',NULL,0,'',1,'','','','',3,0,'def',0,11,11,0,74,74,0,15725,15725,0,1),(48,30,55,0,'Regeln und Bekanntmachungen','Rules & announcements',NULL,NULL,1,'',0,'','175,3,221','196,0,221,180,175,3,1,2,199,215,208','196,221,1,2,175,3,180,187',2,0,'def',1,0,0,0,0,0,0,0,0,0,1),(49,31,32,48,'Regeln','Rules','Unsere Regeln - Bitte sorgf','Please read carefully',0,'',1,'','221','0,221,199,215,208','1,2,175,3,221,187',1,0,'def',0,2,2,0,2,2,0,2543,2543,0,1),(50,73,74,5,'W',NULL,'Hier findet man den Status der Userw',NULL,0,'',1,'','','','',4,0,'def',0,32,32,0,241,241,0,18487,18487,0,1),(53,21,22,1,'Teamintern',NULL,NULL,NULL,0,'',1,'','3,221','1,202,2,3,194,221','1,202,2,3,194,221',10,0,'team',0,135,134,3,2058,2048,16,127064,127064,127064,1),(55,7,8,1,'Supermoderatorentalk',NULL,NULL,NULL,1,'foobar test 12\r\njalla jalla',1,'','221','1,2,175,221','1,2,175,221',3,0,'team',0,12,12,0,169,169,0,92447,92447,0,1),(56,11,12,1,'Invite-Code Anfragen',NULL,NULL,NULL,0,'',1,'','221','1','1',5,0,'team',0,389,389,0,819,819,0,7312,7312,0,1),(57,104,105,199,'Programmierung','Programming','C++, Java, HTML, PHP, Python, Perl und sogar TurboPascal wird hier besprochen','C++, Java, HTML, PHP, Python etc.',0,'',1,'','','0','196',6,0,'def',0,382,382,5,3939,3939,116,126831,126831,90219,1),(58,106,107,199,'Design, Grafik- und Webdesign','GFX & Web Design',NULL,NULL,0,'',1,'','','0','196',7,0,'def',0,572,572,4,9133,9133,25,127049,127049,116414,1),(59,108,109,199,'Server & Webspace','Server & Webspace','Alles rund ums Hosting und Betreiben von Homepages',NULL,0,'',1,'','','0','196',8,0,'def',0,207,207,4,1695,1695,24,126343,126343,124338,1),(60,38,39,194,'iCom Gameserver','iCom Gameserver','Alles ',NULL,0,'',1,'','169,178,221','196,221,199,215,208','196,221,187',4,0,'def',0,66,66,0,2000,2000,0,115641,125219,0,1),(245,196,197,0,NULL,NULL,NULL,NULL,0,'',1,'','','','',10,0,'def',0,0,0,0,0,0,0,0,0,0,1),(158,13,14,1,'Designertalk',NULL,NULL,NULL,0,'',1,'','221','1,2,154,175,221','1,2,154,175,221',6,0,'team',0,12,12,1,235,235,18,33372,33372,33372,1),(160,15,16,1,'Radio',NULL,NULL,NULL,0,'',1,'','221','1,2,187,175,3,221','1,2,187,175,3,221',7,0,'team',0,8,8,0,236,236,0,55312,55312,0,1),(161,36,37,194,'iCom Radio','iCom Radio','Alles ',NULL,0,'',1,'','187,221','196,221,199,215,208','196,221,187',3,0,'def',0,40,40,1,625,625,4,127070,127070,35801,1),(162,17,18,1,'Müll',NULL,'Threads die zu scheisse waren um sie zu löschen',NULL,0,'',1,'','221','1,2,3,175,221','1,2,3,175,221',8,0,'team',0,112,112,8,2469,2469,85,126930,126930,61212,1),(164,110,111,199,'Handys und Smartphones','Mobile- & Smartphones',NULL,NULL,0,'',1,'','','0','196',9,0,'def',0,857,856,10,8120,8117,103,126997,126997,103049,1),(165,146,147,207,'Unterhaltung (altes Forum)',NULL,'ACHTUNG: Dieses Forum wird aufgel',NULL,0,'',1,'','','','',7,0,'def',0,0,0,0,0,0,0,44553,44553,0,1),(173,1,198,99999999,'root',NULL,'',NULL,0,'',1,'','','','',0,0,'def',0,0,0,0,0,0,0,0,0,0,1),(175,40,45,194,'iComPedia','iComPedia','Alles ',NULL,0,'',1,'','194,221','221,199,215,208','221,187',5,0,'def',1,6,6,0,60,60,0,21571,21571,0,1),(176,41,42,175,'Artikelw',NULL,'Hier k',NULL,0,'',1,'','194,221','221,199,215,208','221,187',1,0,'def',0,2,2,0,3,3,0,48884,48884,0,1),(177,43,44,175,'Diskussionen',NULL,'Diskussionen ',NULL,0,'',1,'','194,221','221,199,215,208','221,187',2,0,'def',0,6,6,0,27,27,0,36113,36113,0,1),(178,180,187,0,'Level 2','Level 2','Dieses Forum sehen nur unsere Stammuser',NULL,0,'',0,'','','1,2,3,175,208','1,2,3,175,208',8,0,'def',1,0,0,0,0,0,0,0,0,0,1),(179,181,182,178,'Allgemein','General',NULL,NULL,0,'',1,'','','1,2,3,175,208','1,2,3,175,208',1,0,'def',0,79,79,3,2970,2970,10,126931,126931,117260,1),(180,183,184,178,'Handel','Trading',NULL,NULL,0,'',1,'','','1,2,3,175,208','1,2,3,175,208',2,0,'def',0,80,80,1,754,754,1,126963,126963,88705,1),(182,56,65,0,'News Forum','News',NULL,NULL,0,'',0,'','175,3,215','0','196',3,0,'news',1,0,0,0,0,0,0,58085,58085,0,1),(183,60,61,237,'Allgemeine News','General news','Politik, Wissenschaft, Technik usw...','Politics, science, tech etc...',0,'',1,'','175,3,215','0','196',1,0,'news',0,1814,1807,29,33512,33465,385,127070,127070,127002,1),(184,62,63,237,'Scene News','Scene news','Neuigkeiten aus der Hacking- und Warez Szene',NULL,0,'',1,'','175,3,215','0','196',2,0,'news',0,414,413,10,7530,7529,180,127070,127070,97002,1),(185,166,179,0,'Handel','Trading',NULL,NULL,0,'',0,'','3','208,196','208,196,2,1,175,3',7,0,'def',1,0,0,0,0,0,0,46049,46049,0,1),(186,167,168,185,'Regeln','Rules','Spezielle Regeln beim Handeln','Specific rules for trading',0,'',1,'','3','196','2,1,175,3',1,0,'def',0,3,2,1,3,2,1,127066,127066,52350,1),(187,174,175,215,'Tausche','Exchange',NULL,NULL,0,'',1,'','3','208','208',3,0,'def',0,101,101,0,739,739,0,125195,125195,0,1),(188,170,171,215,'Biete','Offers',NULL,NULL,0,'',1,'','3','208','208',1,0,'def',0,486,485,9,5853,5846,148,126546,126801,125534,1),(189,172,173,215,'Suche','Requests',NULL,NULL,0,'',1,'','3','196','196',2,0,'def',0,605,605,6,4454,4454,66,127001,127001,114926,1),(190,185,186,178,'Tutorials','Tutorials',NULL,NULL,0,'',1,'','','1,2,3,175,208','1,2,3,175,208',3,0,'def',0,9,9,0,642,642,0,121582,121582,0,1),(191,176,177,215,'Verschenke','Give Aways',NULL,NULL,0,'',1,'','3','196','196',4,0,'def',0,233,233,7,2179,2179,73,127052,127052,116478,1),(194,33,50,48,'Bekanntmachungen','Announcements','Ank','News and announcements about iLoad',0,'',0,'','221','0,221,196,180,175,3,1,2,199,215,208','1,2,3,175,221,196,180,187',2,0,'def',1,0,0,0,0,0,0,0,0,0,1),(195,53,54,48,'Vorstellungen','Introductions','Hier k','Say hello and tell us a little about yourself',0,'',1,'','221','196,221,199,215,208','196,221,187',4,0,'def',0,250,243,8,7322,7236,100,126977,127042,119481,1),(196,69,70,5,'Forenhilfe','Forum support','Hilfe f','Help for newbies',0,'',1,'','','0','196',2,0,'def',0,991,989,17,7959,7946,164,126970,126994,126917,1),(214,138,139,207,'TV','Television',NULL,NULL,0,'',1,'','','0','196',3,0,'def',0,201,201,3,2102,2102,7,101042,126511,106924,1),(197,83,92,14,'Netzwelt','World Wide Web','Alles aus dem World Wide Web',NULL,0,'',0,'','','0','196',1,0,'def',1,0,0,0,0,0,0,0,0,0,1),(198,90,91,197,'Downtimes und invites','Downtimes & Invites',NULL,NULL,0,'',1,'','','0','196',4,0,'def',0,32,32,1,409,409,4,126627,126627,99836,1),(199,93,116,14,'Technik','Computers & Technologies','Hilfe, Kaufberatung und Diskussionen rund um die Technik',NULL,0,'',0,'','','0','196',2,0,'def',1,0,0,0,0,0,0,0,0,0,1),(200,112,113,199,'Sicherheit & Anonymit','Security & Anonymity',NULL,NULL,0,'',1,'','','0','196',10,0,'def',0,130,130,0,1465,1465,0,126460,126460,0,1),(201,117,132,14,'Gaming','Gaming','Hilfe und Diskussionen zu alten und neuen Games',NULL,0,'',0,'','','0','196',3,0,'def',1,0,0,0,0,0,0,0,0,0,1),(213,149,164,14,'Andere','Other Discussions',NULL,NULL,0,'',0,'','','0,196','196',5,0,'def',1,0,0,0,0,0,0,0,0,0,1),(202,118,119,201,'Spielediskussionen','Gaming Discussion',NULL,NULL,0,'',1,'','','0','196',1,0,'def',0,363,363,2,6278,6278,13,127046,127046,122254,1),(218,19,20,1,'Chatmodtalk',NULL,NULL,NULL,0,'',1,'','221','1,221,202','2,221,202',9,0,'team',0,0,0,0,0,0,0,0,0,0,1),(207,133,148,14,'Unterhaltung','Entertainment',NULL,NULL,0,'',0,'','','0','196',4,0,'def',1,0,0,0,0,0,0,0,0,0,1),(208,134,135,207,'Filme','Movies',NULL,NULL,0,'',1,'','','0','196',1,0,'def',0,761,761,5,16918,16918,45,126969,959,110773,1),(209,136,137,207,'Serien','TV Shows',NULL,NULL,0,'',1,'','','0','196',2,0,'def',0,201,201,1,2968,2968,14,124181,127051,92148,1),(210,142,143,207,'B','Books',NULL,NULL,0,'',1,'','','0','196',5,0,'def',0,40,40,0,374,374,0,126875,126875,0,1),(211,140,141,207,'Musik','Music',NULL,NULL,0,'',1,'','','0','196',4,0,'def',0,920,920,10,11576,11576,401,127022,127022,125383,1),(212,144,145,207,'Kaufempfehlungen','Shopping Tips',NULL,NULL,0,'',1,'','','0','196',6,0,'def',0,146,146,0,1851,1851,0,111454,126219,0,1),(219,114,115,199,'Kaufberatung',NULL,'',NULL,0,'',1,'','','0','196',11,0,'def',0,749,749,3,8928,8928,49,127059,127059,118075,1),(230,48,49,194,'VIP\'s',NULL,NULL,NULL,0,'',1,'','221','180,175,3,1,2,221,199,215,208','180,175,3,1,2,221,187',7,0,'def',0,1,1,1,85,85,85,60667,60667,60667,1),(244,27,28,1,'Zwischenlager',NULL,'Alles von dem man net weiss obs noch okay is oder schon nimmer geht',NULL,0,'',1,'','3,221','1,2,3','1,2,3',13,0,'team',0,2,2,0,9,9,0,127014,127014,0,1),(233,23,24,1,'iLoad Times',NULL,NULL,NULL,0,'',1,'','221','212,1,175,2,3,221','212,1,175,2,3,221',11,0,'team',0,2,2,0,78,78,0,64497,65374,0,1),(235,25,26,1,'News',NULL,NULL,NULL,0,'',1,'','221','1,2,215,175,3,221','215,1,2,175,3,221',12,0,'team',0,20,20,0,538,538,0,110591,121588,0,1),(236,57,58,182,'News',NULL,'News vom iLoad News Team',NULL,0,'',1,'','3,175,215','0','196',3,0,'news',0,138,138,1,3593,3593,5,127071,127071,113856,1),(237,59,64,182,'User-News',NULL,'Von Usern eingestellte News',NULL,0,'',0,'','175,3,215','0','196',4,0,'news',1,0,0,0,0,0,0,81034,81034,0,1);
 /*!40000 ALTER TABLE `forum_sections` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `forum_threads`
@@ -205,7 +316,7 @@ CREATE TABLE `forum_threads` (
   KEY `lang_en` (`lang_en`),
   KEY `priority` (`priority`),
   KEY `priority__lastpost` (`priority`,`lastpost`)
-) ENGINE=InnoDB AUTO_INCREMENT=127072 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=127074 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -217,7 +328,6 @@ LOCK TABLES `forum_threads` WRITE;
 INSERT INTO `forum_threads` VALUES (127072,2,'de',1,0,1,0,'','9normal',0,1,0,1,1),(127073,236,'de',1,0,1,1,'','9normal',0,1,0,916433,916433);
 /*!40000 ALTER TABLE `forum_threads` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `forum_threads_visited_guests`
@@ -230,8 +340,17 @@ CREATE TABLE `forum_threads_visited_guests` (
   `thread_id` int(10) unsigned NOT NULL,
   `guest_id` binary(16) NOT NULL,
   PRIMARY KEY (`thread_id`,`guest_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `forum_threads_visited_guests`
+--
+
+LOCK TABLES `forum_threads_visited_guests` WRITE;
+/*!40000 ALTER TABLE `forum_threads_visited_guests` DISABLE KEYS */;
+/*!40000 ALTER TABLE `forum_threads_visited_guests` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `forum_threads_visited_users`
@@ -244,8 +363,17 @@ CREATE TABLE `forum_threads_visited_users` (
   `thread_id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`thread_id`,`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `forum_threads_visited_users`
+--
+
+LOCK TABLES `forum_threads_visited_users` WRITE;
+/*!40000 ALTER TABLE `forum_threads_visited_users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `forum_threads_visited_users` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `groups`
@@ -294,10 +422,9 @@ CREATE TABLE `groups` (
 
 LOCK TABLES `groups` WRITE;
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
-INSERT INTO `groups` VALUES (1,'Admin',NULL,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0),(2,'Co-Admin',NULL,1,2,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,1,0,1,0),(3,'Moderator',NULL,1,4,0,0,1,1,0,0,0,1,0,1,1,1,1,0,0,1,0,0,1,1,0),(6,'Benutzer','User',1,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(154,'Designer',NULL,1,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(158,'Banned',NULL,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1),(177,'_shoutboxmaster',NULL,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(178,'BF3-Admin',NULL,1,61,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(168,'_mods',NULL,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0),(175,'Supermoderator',NULL,1,3,0,0,1,1,0,0,0,1,0,1,1,1,1,0,0,1,0,0,0,1,0),(180,'VIP',NULL,1,71,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(181,'_newswriter',NULL,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(182,'_noad',NULL,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(187,'Radioadmin',NULL,1,40,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0),(190,'_user_warnings',NULL,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0),(192,'Geburtstagskinder',NULL,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(194,'Wiki Moderator',NULL,1,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0),(195,'Am Pranger',NULL,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(196,'Alle Mitglieder','All Members',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(197,'Level 2','Level 2',1,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(199,'Supporter',NULL,1,35,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(201,'H','Trader',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(202,'Chatmoderator',NULL,1,9,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(204,'Gast-DJ','Guest-DJ',1,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(226,'G','Guests and members',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(208,'Level 2 (alle)','Level 2 (alle)',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(212,'iCom Times',NULL,1,36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(215,'News','News',1,34,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0),(221,'_mod_undercoder','_mod_undercoder',0,0,0,1,1,1,0,0,0,1,0,1,1,1,1,0,0,0,0,1,0,1,0),(222,'_poweradmin',NULL,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,0),(224,'Troll','Troll',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0);
+INSERT INTO `groups` VALUES (1,'Admin',NULL,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0),(2,'Co-Admin',NULL,1,2,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,1,0,1,0),(3,'Moderator',NULL,1,4,0,0,1,1,0,0,0,1,0,1,1,1,1,0,0,1,0,0,1,1,0),(6,'Benutzer','User',1,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(154,'Designer',NULL,1,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(158,'Banned',NULL,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1),(177,'_shoutboxmaster',NULL,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(178,'BF3-Admin',NULL,1,61,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(168,'_mods',NULL,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0),(175,'Supermoderator',NULL,1,3,0,0,1,1,0,0,0,1,0,1,1,1,1,0,0,1,0,0,0,1,0),(180,'VIP',NULL,1,71,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(181,'_newswriter',NULL,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(182,'_noad',NULL,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(187,'Radioadmin',NULL,1,40,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0),(190,'_user_warnings',NULL,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0),(192,'Geburtstagskinder',NULL,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(194,'Wiki Moderator',NULL,1,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0),(195,'Am Pranger',NULL,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(196,'Alle Mitglieder','All Members',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(197,'Level 2','Level 2',1,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(199,'Supporter',NULL,1,35,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(201,'H','Trader',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(202,'Chatmoderator',NULL,1,9,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(204,'Gast-DJ','Guest-DJ',1,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(226,'G','Guests and members',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(208,'Level 2 (alle)','Level 2 (alle)',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(212,'iCom Times',NULL,1,36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(215,'News','News',1,34,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0),(221,'_mod_undercoder','_mod_undercoder',0,0,0,1,1,1,0,0,0,1,0,1,1,1,1,0,0,0,0,1,0,1,0),(222,'_poweradmin',NULL,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,0),(224,'Troll','Troll',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0);
 /*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `guest_sessions`
@@ -315,8 +442,17 @@ CREATE TABLE `guest_sessions` (
   `data` blob NOT NULL,
   PRIMARY KEY (`id`),
   KEY `ip` (`ip`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 DELAY_KEY_WRITE=1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci DELAY_KEY_WRITE=1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `guest_sessions`
+--
+
+LOCK TABLES `guest_sessions` WRITE;
+/*!40000 ALTER TABLE `guest_sessions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `guest_sessions` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `guest_sessions_blocked`
@@ -330,8 +466,17 @@ CREATE TABLE `guest_sessions_blocked` (
   `t` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `referer` varchar(100) NOT NULL,
   `user_agent` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `guest_sessions_blocked`
+--
+
+LOCK TABLES `guest_sessions_blocked` WRITE;
+/*!40000 ALTER TABLE `guest_sessions_blocked` DISABLE KEYS */;
+/*!40000 ALTER TABLE `guest_sessions_blocked` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `guests`
@@ -348,6 +493,340 @@ CREATE TABLE `guests` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `guests`
+--
+
+LOCK TABLES `guests` WRITE;
+/*!40000 ALTER TABLE `guests` DISABLE KEYS */;
+/*!40000 ALTER TABLE `guests` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `i_image_comments`
+--
+
+DROP TABLE IF EXISTS `i_image_comments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `i_image_comments` (
+  `comment_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `image_id` bigint(20) NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_id` int(10) unsigned NOT NULL,
+  `message` varchar(4000) NOT NULL,
+  PRIMARY KEY (`comment_id`),
+  KEY `image_id` (`image_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `i_image_comments`
+--
+
+LOCK TABLES `i_image_comments` WRITE;
+/*!40000 ALTER TABLE `i_image_comments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `i_image_comments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `i_image_sources`
+--
+
+DROP TABLE IF EXISTS `i_image_sources`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `i_image_sources` (
+  `image_id` bigint(20) NOT NULL,
+  `source_id` bigint(20) NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`image_id`,`source_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `i_image_sources`
+--
+
+LOCK TABLES `i_image_sources` WRITE;
+/*!40000 ALTER TABLE `i_image_sources` DISABLE KEYS */;
+/*!40000 ALTER TABLE `i_image_sources` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `i_image_tags`
+--
+
+DROP TABLE IF EXISTS `i_image_tags`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `i_image_tags` (
+  `image_id` bigint(20) NOT NULL,
+  `tag_id` bigint(20) NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`image_id`,`tag_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `i_image_tags`
+--
+
+LOCK TABLES `i_image_tags` WRITE;
+/*!40000 ALTER TABLE `i_image_tags` DISABLE KEYS */;
+/*!40000 ALTER TABLE `i_image_tags` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `i_images`
+--
+
+DROP TABLE IF EXISTS `i_images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `i_images` (
+  `image_id` bigint(20) NOT NULL,
+  `ext` varchar(5) NOT NULL,
+  `width` int(10) unsigned NOT NULL,
+  `height` int(10) unsigned NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `atime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `has_thumb` tinyint(1) NOT NULL DEFAULT '0',
+  `status` enum('ok','blacklisted') NOT NULL DEFAULT 'ok',
+  `hits` bigint(20) NOT NULL DEFAULT '0',
+  `size` int(10) unsigned NOT NULL,
+  `has_large` tinyint(1) NOT NULL DEFAULT '0',
+  `has_default` tinyint(1) NOT NULL DEFAULT '0',
+  `has_medium` tinyint(1) NOT NULL DEFAULT '0',
+  `has_mini` tinyint(1) NOT NULL DEFAULT '0',
+  `has_icon` tinyint(1) NOT NULL DEFAULT '0',
+  `signature` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`image_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `i_images`
+--
+
+LOCK TABLES `i_images` WRITE;
+/*!40000 ALTER TABLE `i_images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `i_images` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `i_logs`
+--
+
+DROP TABLE IF EXISTS `i_logs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `i_logs` (
+  `log_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `t` varchar(15) NOT NULL,
+  `content_id` bigint(20) NOT NULL,
+  `attr_id` bigint(20) NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `action` enum('add','remove') NOT NULL,
+  `args` text NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`log_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=292 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `i_logs`
+--
+
+LOCK TABLES `i_logs` WRITE;
+/*!40000 ALTER TABLE `i_logs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `i_logs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `i_set_comments`
+--
+
+DROP TABLE IF EXISTS `i_set_comments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `i_set_comments` (
+  `comment_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `set_id` bigint(20) NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_id` int(10) unsigned NOT NULL,
+  `message` varchar(4000) NOT NULL,
+  PRIMARY KEY (`comment_id`),
+  KEY `set_id` (`set_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `i_set_comments`
+--
+
+LOCK TABLES `i_set_comments` WRITE;
+/*!40000 ALTER TABLE `i_set_comments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `i_set_comments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `i_set_images`
+--
+
+DROP TABLE IF EXISTS `i_set_images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `i_set_images` (
+  `set_id` bigint(20) NOT NULL,
+  `image_id` bigint(20) NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `content` varchar(2000) NOT NULL,
+  PRIMARY KEY (`set_id`,`image_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `i_set_images`
+--
+
+LOCK TABLES `i_set_images` WRITE;
+/*!40000 ALTER TABLE `i_set_images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `i_set_images` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `i_set_tags`
+--
+
+DROP TABLE IF EXISTS `i_set_tags`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `i_set_tags` (
+  `set_id` bigint(20) NOT NULL,
+  `tag_id` bigint(20) NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`set_id`,`tag_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `i_set_tags`
+--
+
+LOCK TABLES `i_set_tags` WRITE;
+/*!40000 ALTER TABLE `i_set_tags` DISABLE KEYS */;
+/*!40000 ALTER TABLE `i_set_tags` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `i_sets`
+--
+
+DROP TABLE IF EXISTS `i_sets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `i_sets` (
+  `set_id` bigint(20) NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `mtime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `atime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `name` varchar(100) NOT NULL,
+  `content` varchar(2000) NOT NULL,
+  PRIMARY KEY (`set_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `i_sets`
+--
+
+LOCK TABLES `i_sets` WRITE;
+/*!40000 ALTER TABLE `i_sets` DISABLE KEYS */;
+/*!40000 ALTER TABLE `i_sets` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `i_sources`
+--
+
+DROP TABLE IF EXISTS `i_sources`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `i_sources` (
+  `source_id` bigint(20) NOT NULL,
+  `url` varchar(1000) NOT NULL,
+  `name` varchar(500) NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`source_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `i_sources`
+--
+
+LOCK TABLES `i_sources` WRITE;
+/*!40000 ALTER TABLE `i_sources` DISABLE KEYS */;
+/*!40000 ALTER TABLE `i_sources` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `i_tag_childs`
+--
+
+DROP TABLE IF EXISTS `i_tag_childs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `i_tag_childs` (
+  `alias_id` bigint(20) NOT NULL,
+  `child_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`alias_id`,`child_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `i_tag_childs`
+--
+
+LOCK TABLES `i_tag_childs` WRITE;
+/*!40000 ALTER TABLE `i_tag_childs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `i_tag_childs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `i_tags`
+--
+
+DROP TABLE IF EXISTS `i_tags`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `i_tags` (
+  `tag_id` bigint(20) NOT NULL,
+  `alias_id` bigint(20) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`tag_id`),
+  KEY `alias_id` (`alias_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `i_tags`
+--
+
+LOCK TABLES `i_tags` WRITE;
+/*!40000 ALTER TABLE `i_tags` DISABLE KEYS */;
+/*!40000 ALTER TABLE `i_tags` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `images`
 --
 
@@ -357,8 +836,7 @@ DROP TABLE IF EXISTS `images`;
 CREATE TABLE `images` (
   `id` char(8) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   `bullshit` int(10) unsigned NOT NULL,
-  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `user_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `uploader` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `ext` char(4) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   `ext_thumb` char(4) CHARACTER SET ascii COLLATE ascii_bin NOT NULL DEFAULT 'jpg',
   `name` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
@@ -367,10 +845,28 @@ CREATE TABLE `images` (
   `height` smallint(5) unsigned NOT NULL,
   `hits_image` bigint(20) unsigned NOT NULL DEFAULT '0',
   `hits_thumb` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `mtime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `atime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `user_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `has_large` tinyint(1) NOT NULL DEFAULT '0',
+  `has_default` tinyint(1) NOT NULL DEFAULT '0',
+  `has_medium` tinyint(1) NOT NULL DEFAULT '0',
+  `has_mini` tinyint(1) NOT NULL DEFAULT '0',
+  `has_icon` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `bullshit` (`bullshit`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `images`
+--
+
+LOCK TABLES `images` WRITE;
+/*!40000 ALTER TABLE `images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `images` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `invite_codes`
@@ -384,8 +880,17 @@ CREATE TABLE `invite_codes` (
   `code` varchar(12) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   `used` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49437 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `invite_codes`
+--
+
+LOCK TABLES `invite_codes` WRITE;
+/*!40000 ALTER TABLE `invite_codes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `invite_codes` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `invite_requests`
@@ -403,8 +908,17 @@ CREATE TABLE `invite_requests` (
   `status` varchar(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL DEFAULT 'requested',
   `code` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53717 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `invite_requests`
+--
+
+LOCK TABLES `invite_requests` WRITE;
+/*!40000 ALTER TABLE `invite_requests` DISABLE KEYS */;
+/*!40000 ALTER TABLE `invite_requests` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `ipcounter`
@@ -425,6 +939,15 @@ CREATE TABLE `ipcounter` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `ipcounter`
+--
+
+LOCK TABLES `ipcounter` WRITE;
+/*!40000 ALTER TABLE `ipcounter` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ipcounter` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `lang_table`
 --
 
@@ -443,6 +966,15 @@ CREATE TABLE `lang_table` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `lang_table`
+--
+
+LOCK TABLES `lang_table` WRITE;
+/*!40000 ALTER TABLE `lang_table` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lang_table` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `log`
 --
 
@@ -458,8 +990,17 @@ CREATE TABLE `log` (
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   KEY `type` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=223726 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `log`
+--
+
+LOCK TABLES `log` WRITE;
+/*!40000 ALTER TABLE `log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `log` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `news`
@@ -486,7 +1027,7 @@ CREATE TABLE `news` (
   `status` enum('edit','deleted','public') DEFAULT 'edit',
   PRIMARY KEY (`news_id`),
   FULLTEXT KEY `tags` (`tags`)
-) ENGINE=MyISAM AUTO_INCREMENT=196 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=197 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -495,10 +1036,9 @@ CREATE TABLE `news` (
 
 LOCK TABLES `news` WRITE;
 /*!40000 ALTER TABLE `news` DISABLE KEYS */;
-INSERT INTO `news` VALUES (196,1,127073,'','iCom ist Open Source','Juhuuuu :)','','','','','','2012-06-04 22:28:09','0000-00-00 00:00:00','2012-06-04 22:28:25','public');
+INSERT INTO `news` VALUES (196,1,127073,'','iCom ist Open Source','Juhuuuu :)','','','','','','2012-06-04 20:28:09','0000-00-00 00:00:00','2012-06-04 20:28:25','public');
 /*!40000 ALTER TABLE `news` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `radio`
@@ -533,15 +1073,9 @@ CREATE TABLE `radio` (
 
 LOCK TABLES `radio` WRITE;
 /*!40000 ALTER TABLE `radio` DISABLE KEYS */;
-INSERT INTO `radio` VALUES
-	('iC1','radio.icom.to',8001,'1','',0,'',0,0,0,0,0,0,0,''),
-	('iC2','radio.icom.to',8003,'1','',0,'',0,0,0,0,0,0,0,''),
-	('iC3','radio.icom.to',8005,'1','',0,'',0,0,0,0,0,0,0,''),
-	('iC4','radio.icom.to',8007,'1','',0,'',0,0,0,0,0,0,0,''),
-	('iC5','radio.icom.to',8009,'1','',0,'',0,0,0,0,0,0,0,'');
+INSERT INTO `radio` VALUES ('iC1','radio.icom.to',8001,'1','',0,'',0,0,'0000-00-00 00:00:00',0,0,0,0,''),('iC2','radio.icom.to',8003,'1','',0,'',0,0,'0000-00-00 00:00:00',0,0,0,0,''),('iC3','radio.icom.to',8005,'1','',0,'',0,0,'0000-00-00 00:00:00',0,0,0,0,''),('iC4','radio.icom.to',8007,'1','',0,'',0,0,'0000-00-00 00:00:00',0,0,0,0,''),('iC5','radio.icom.to',8009,'1','',0,'',0,0,'0000-00-00 00:00:00',0,0,0,0,'');
 /*!40000 ALTER TABLE `radio` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `report_page`
@@ -566,8 +1100,17 @@ CREATE TABLE `report_page` (
   `comment` text NOT NULL,
   `status` enum('open','accepted','rejected') NOT NULL DEFAULT 'open',
   PRIMARY KEY (`report_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `report_page`
+--
+
+LOCK TABLES `report_page` WRITE;
+/*!40000 ALTER TABLE `report_page` DISABLE KEYS */;
+/*!40000 ALTER TABLE `report_page` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `searches`
@@ -581,8 +1124,17 @@ CREATE TABLE `searches` (
   `str` varchar(100) NOT NULL,
   `num` int(10) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `searches`
+--
+
+LOCK TABLES `searches` WRITE;
+/*!40000 ALTER TABLE `searches` DISABLE KEYS */;
+/*!40000 ALTER TABLE `searches` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `session_replay`
@@ -595,8 +1147,17 @@ CREATE TABLE `session_replay` (
   `replay_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `data` blob,
   PRIMARY KEY (`replay_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `session_replay`
+--
+
+LOCK TABLES `session_replay` WRITE;
+/*!40000 ALTER TABLE `session_replay` DISABLE KEYS */;
+/*!40000 ALTER TABLE `session_replay` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `shoutbox_de`
@@ -612,7 +1173,7 @@ CREATE TABLE `shoutbox_de` (
   `message` varchar(2048) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `uid` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2862898 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2862936 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -621,10 +1182,9 @@ CREATE TABLE `shoutbox_de` (
 
 LOCK TABLES `shoutbox_de` WRITE;
 /*!40000 ALTER TABLE `shoutbox_de` DISABLE KEYS */;
-INSERT INTO `shoutbox_de` VALUES (1,'2012-06-04 22:16:57',1,'test');
+INSERT INTO `shoutbox_de` VALUES (1,'2012-06-04 20:16:57',1,'test');
 /*!40000 ALTER TABLE `shoutbox_de` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `shoutbox_de_archive`
@@ -640,8 +1200,17 @@ CREATE TABLE `shoutbox_de_archive` (
   `message` varchar(2048) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `uid` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2834969 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `shoutbox_de_archive`
+--
+
+LOCK TABLES `shoutbox_de_archive` WRITE;
+/*!40000 ALTER TABLE `shoutbox_de_archive` DISABLE KEYS */;
+/*!40000 ALTER TABLE `shoutbox_de_archive` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `shoutbox_en`
@@ -657,7 +1226,7 @@ CREATE TABLE `shoutbox_en` (
   `message` varchar(2048) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `uid` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1625 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -666,10 +1235,9 @@ CREATE TABLE `shoutbox_en` (
 
 LOCK TABLES `shoutbox_en` WRITE;
 /*!40000 ALTER TABLE `shoutbox_en` DISABLE KEYS */;
-INSERT INTO `shoutbox_en` VALUES (1,'2012-06-04 22:16:57',1,'test');
+INSERT INTO `shoutbox_en` VALUES (1,2012,'0000-00-00 00:00:00','test');
 /*!40000 ALTER TABLE `shoutbox_en` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `shoutbox_en_archive`
@@ -685,8 +1253,17 @@ CREATE TABLE `shoutbox_en_archive` (
   `message` varchar(2048) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `uid` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1197 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `shoutbox_en_archive`
+--
+
+LOCK TABLES `shoutbox_en_archive` WRITE;
+/*!40000 ALTER TABLE `shoutbox_en_archive` DISABLE KEYS */;
+/*!40000 ALTER TABLE `shoutbox_en_archive` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `sph_counter`
@@ -699,8 +1276,17 @@ CREATE TABLE `sph_counter` (
   `n` varchar(20) NOT NULL,
   `v` bigint(20) NOT NULL DEFAULT '0',
   PRIMARY KEY (`n`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sph_counter`
+--
+
+LOCK TABLES `sph_counter` WRITE;
+/*!40000 ALTER TABLE `sph_counter` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sph_counter` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_bookmarks`
@@ -711,12 +1297,21 @@ DROP TABLE IF EXISTS `user_bookmarks`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_bookmarks` (
   `user_id` int(10) unsigned NOT NULL,
-  `thing` enum('title','category','thread','wiki','news') NOT NULL,
-  `thing_id` int(10) unsigned NOT NULL,
+  `thing` enum('thread','wiki','news','i_set','i_image') NOT NULL,
+  `thing_id` bigint(20) NOT NULL,
   `timeadded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`,`thing`,`thing_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_bookmarks`
+--
+
+LOCK TABLES `user_bookmarks` WRITE;
+/*!40000 ALTER TABLE `user_bookmarks` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_bookmarks` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_chat_categorys`
@@ -737,7 +1332,7 @@ CREATE TABLE `user_chat_categorys` (
   `order_by` enum('name','time') DEFAULT 'time',
   PRIMARY KEY (`id`),
   FULLTEXT KEY `groups` (`groups`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -749,7 +1344,6 @@ LOCK TABLES `user_chat_categorys` WRITE;
 INSERT INTO `user_chat_categorys` VALUES (1,'Main','Main',1,0,1,0,'1,2','time'),(3,'Radio','Radio',3,0,1,0,'187','name'),(4,'Chats','Chats',4,1,1,0,'196','time'),(5,'Bugs','Bugs',5,1,1,0,'196','time');
 /*!40000 ALTER TABLE `user_chat_categorys` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `user_chat_content`
@@ -768,7 +1362,7 @@ CREATE TABLE `user_chat_content` (
   KEY `subid` (`subid`),
   KEY `uid` (`user_id`),
   KEY `subid_id` (`subid`,`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=586584 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=586595 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -777,10 +1371,9 @@ CREATE TABLE `user_chat_content` (
 
 LOCK TABLES `user_chat_content` WRITE;
 /*!40000 ALTER TABLE `user_chat_content` DISABLE KEYS */;
-INSERT INTO `user_chat_content` VALUES (1,137,1,'2012-06-04 22:16:57','test');
+INSERT INTO `user_chat_content` VALUES (1,137,1,'2012-06-04 20:16:57','test');
 /*!40000 ALTER TABLE `user_chat_content` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `user_chat_online_guests`
@@ -795,8 +1388,17 @@ CREATE TABLE `user_chat_online_guests` (
   `lasttime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`chat_id`,`guest_id`),
   KEY `chat_id` (`chat_id`)
-) ENGINE=MEMORY DEFAULT CHARSET=latin1;
+) ENGINE=MEMORY DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_chat_online_guests`
+--
+
+LOCK TABLES `user_chat_online_guests` WRITE;
+/*!40000 ALTER TABLE `user_chat_online_guests` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_chat_online_guests` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_chat_online_users`
@@ -811,8 +1413,17 @@ CREATE TABLE `user_chat_online_users` (
   `lasttime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`chat_id`,`user_id`),
   KEY `chat_id` (`chat_id`)
-) ENGINE=MEMORY DEFAULT CHARSET=latin1;
+) ENGINE=MEMORY DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_chat_online_users`
+--
+
+LOCK TABLES `user_chat_online_users` WRITE;
+/*!40000 ALTER TABLE `user_chat_online_users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_chat_online_users` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_chat_sub_categorys`
@@ -829,7 +1440,7 @@ CREATE TABLE `user_chat_sub_categorys` (
   `place` int(10) unsigned NOT NULL DEFAULT '12345',
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -841,7 +1452,6 @@ LOCK TABLES `user_chat_sub_categorys` WRITE;
 INSERT INTO `user_chat_sub_categorys` VALUES (6,4,'Support',NULL,100),(7,4,'Spam',NULL,12345),(8,4,'Sport',NULL,12345),(9,4,'Musik',NULL,12345),(10,4,'Filme, Serien, Dokus',NULL,12345),(11,4,'Spiele, Konsolen',NULL,12345),(12,4,'Sonstiges',NULL,12345);
 /*!40000 ALTER TABLE `user_chat_sub_categorys` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `user_chats`
@@ -870,7 +1480,7 @@ CREATE TABLE `user_chats` (
   `points_to` int(10) unsigned NOT NULL DEFAULT '0',
   `status` enum('open','closed','deleted') DEFAULT 'open',
   `place` int(10) unsigned NOT NULL DEFAULT '12345',
-  `input_box` enum('textarea','input') DEFAULT 'textarea',
+  `input_box` enum('textarea','textarea-ubb','input') NOT NULL DEFAULT 'textarea',
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   KEY `category_id` (`category_id`),
@@ -880,7 +1490,7 @@ CREATE TABLE `user_chats` (
   FULLTEXT KEY `groups` (`groups`),
   FULLTEXT KEY `banned_users` (`banned_users`),
   FULLTEXT KEY `admin_groups` (`admin_groups`)
-) ENGINE=MyISAM AUTO_INCREMENT=1274 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1274 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -889,10 +1499,9 @@ CREATE TABLE `user_chats` (
 
 LOCK TABLES `user_chats` WRITE;
 /*!40000 ALTER TABLE `user_chats` DISABLE KEYS */;
-INSERT INTO `user_chats` VALUES (137,1,0,'de','Gangsterbox','Foo','','','2010-12-31 02:39:56',1,'1','2','','','1,2,3,175',0,0,'open',200,'textarea');
+INSERT INTO `user_chats` VALUES (137,1,0,'de','Gangsterbox','foo','asdfasdfsdf','','2010-12-31 01:39:56',1,'1','2','','','1,2,3,175',0,0,'open',200,'textarea-ubb');
 /*!40000 ALTER TABLE `user_chats` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `user_denie_entrance`
@@ -916,8 +1525,17 @@ CREATE TABLE `user_denie_entrance` (
   KEY `place` (`place`),
   KEY `denie` (`denie`),
   KEY `denie_2` (`denie`)
-) ENGINE=InnoDB AUTO_INCREMENT=1269 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_denie_entrance`
+--
+
+LOCK TABLES `user_denie_entrance` WRITE;
+/*!40000 ALTER TABLE `user_denie_entrance` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_denie_entrance` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_friends`
@@ -935,8 +1553,17 @@ CREATE TABLE `user_friends` (
   KEY `uid` (`user_id`),
   KEY `friend` (`friend_id`),
   KEY `status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=54297 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_friends`
+--
+
+LOCK TABLES `user_friends` WRITE;
+/*!40000 ALTER TABLE `user_friends` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_friends` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_guestbook`
@@ -954,8 +1581,17 @@ CREATE TABLE `user_guestbook` (
   PRIMARY KEY (`id`),
   KEY `uid` (`user_id`),
   KEY `writer` (`writer`)
-) ENGINE=InnoDB AUTO_INCREMENT=12162 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_guestbook`
+--
+
+LOCK TABLES `user_guestbook` WRITE;
+/*!40000 ALTER TABLE `user_guestbook` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_guestbook` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_notes`
@@ -974,8 +1610,17 @@ CREATE TABLE `user_notes` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `writer_id` (`writer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=916 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_notes`
+--
+
+LOCK TABLES `user_notes` WRITE;
+/*!40000 ALTER TABLE `user_notes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_notes` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_pns3`
@@ -994,8 +1639,17 @@ CREATE TABLE `user_pns3` (
   PRIMARY KEY (`pn_id`),
   KEY `id__lastmessage_id` (`pn_id`),
   FULLTEXT KEY `users` (`users`)
-) ENGINE=MyISAM AUTO_INCREMENT=146902 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=146906 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_pns3`
+--
+
+LOCK TABLES `user_pns3` WRITE;
+/*!40000 ALTER TABLE `user_pns3` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_pns3` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_pns3_content`
@@ -1014,8 +1668,17 @@ CREATE TABLE `user_pns3_content` (
   KEY `subid` (`subid`),
   KEY `uid` (`user_id`),
   KEY `subid_id` (`subid`,`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1072730 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_pns3_content`
+--
+
+LOCK TABLES `user_pns3_content` WRITE;
+/*!40000 ALTER TABLE `user_pns3_content` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_pns3_content` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_pns3_links`
@@ -1029,8 +1692,17 @@ CREATE TABLE `user_pns3_links` (
   `pn_id` bigint(20) unsigned NOT NULL,
   `has_new_message` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`,`pn_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_pns3_links`
+--
+
+LOCK TABLES `user_pns3_links` WRITE;
+/*!40000 ALTER TABLE `user_pns3_links` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_pns3_links` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_pns3_new`
@@ -1043,8 +1715,17 @@ CREATE TABLE `user_pns3_new` (
   `user_id` int(10) unsigned NOT NULL,
   `pn_id` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`user_id`,`pn_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_pns3_new`
+--
+
+LOCK TABLES `user_pns3_new` WRITE;
+/*!40000 ALTER TABLE `user_pns3_new` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_pns3_new` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_pns3_online_users`
@@ -1058,8 +1739,17 @@ CREATE TABLE `user_pns3_online_users` (
   `user_id` int(10) unsigned NOT NULL,
   `lasttime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`pn_id`,`user_id`)
-) ENGINE=MEMORY DEFAULT CHARSET=latin1;
+) ENGINE=MEMORY DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_pns3_online_users`
+--
+
+LOCK TABLES `user_pns3_online_users` WRITE;
+/*!40000 ALTER TABLE `user_pns3_online_users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_pns3_online_users` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_pns3_polls`
@@ -1079,8 +1769,17 @@ CREATE TABLE `user_pns3_polls` (
   PRIMARY KEY (`id`),
   KEY `pn_id` (`pn_id`),
   FULLTEXT KEY `votes` (`votes_yes`,`votes_no`)
-) ENGINE=MyISAM AUTO_INCREMENT=408 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=408 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_pns3_polls`
+--
+
+LOCK TABLES `user_pns3_polls` WRITE;
+/*!40000 ALTER TABLE `user_pns3_polls` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_pns3_polls` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_poll_answers`
@@ -1095,8 +1794,17 @@ CREATE TABLE `user_poll_answers` (
   `answer` varchar(4000) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `poll_id` (`poll_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3340 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_poll_answers`
+--
+
+LOCK TABLES `user_poll_answers` WRITE;
+/*!40000 ALTER TABLE `user_poll_answers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_poll_answers` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_poll_votes`
@@ -1114,8 +1822,17 @@ CREATE TABLE `user_poll_votes` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `answer_id` (`answer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39126 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_poll_votes`
+--
+
+LOCK TABLES `user_poll_votes` WRITE;
+/*!40000 ALTER TABLE `user_poll_votes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_poll_votes` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_polls`
@@ -1134,8 +1851,17 @@ CREATE TABLE `user_polls` (
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   FULLTEXT KEY `groups` (`groups`)
-) ENGINE=MyISAM AUTO_INCREMENT=818 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=818 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_polls`
+--
+
+LOCK TABLES `user_polls` WRITE;
+/*!40000 ALTER TABLE `user_polls` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_polls` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_sessions`
@@ -1151,6 +1877,15 @@ CREATE TABLE `user_sessions` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_sessions`
+--
+
+LOCK TABLES `user_sessions` WRITE;
+/*!40000 ALTER TABLE `user_sessions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_sessions` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_warnings`
@@ -1171,8 +1906,17 @@ CREATE TABLE `user_warnings` (
   KEY `uid` (`user_id`),
   KEY `warner` (`warner_id`),
   KEY `uid__timeending` (`user_id`,`timeending`)
-) ENGINE=InnoDB AUTO_INCREMENT=19803 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_warnings`
+--
+
+LOCK TABLES `user_warnings` WRITE;
+/*!40000 ALTER TABLE `user_warnings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_warnings` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `users`
@@ -1221,7 +1965,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `nick` (`nick`),
   UNIQUE KEY `nick_jabber` (`nick_jabber`),
   KEY `salt` (`salt`)
-) ENGINE=InnoDB AUTO_INCREMENT=72332 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1230,10 +1974,9 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','admin','foo@bar.com','20427bc8e3f9ca222f630eec7dc9b869','71a6e17170b2d214b7fb9b8a1582f0a2','2008-06-10 10:17:34','2012-05-11 04:50:14','2012-05-11 05:16:14','2012-05-11 05:16:14','0000-00-00 00:00:00',44434953,1,'1,196','de,en','','','',1,'','','','private','private','friends','users',12316,1,'',579,632.325,1,1,0,0);
+INSERT INTO `users` VALUES (1,'admin','admin','foo@bar.com','20427bc8e3f9ca222f630eec7dc9b869','71a6e17170b2d214b7fb9b8a1582f0a2','2008-06-10 08:17:34','2012-08-02 23:15:11','2012-08-05 15:00:54','2012-08-05 14:59:57','2012-08-05 14:05:24',44940055,1,'1,196','de,en','','','',1,'','','','private','private','friends','users',12332,0,'',2,1.49,1,1,0,0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `wiki_aliases`
@@ -1249,8 +1992,17 @@ CREATE TABLE `wiki_aliases` (
   PRIMARY KEY (`id`),
   KEY `page` (`page`),
   KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=695 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wiki_aliases`
+--
+
+LOCK TABLES `wiki_aliases` WRITE;
+/*!40000 ALTER TABLE `wiki_aliases` DISABLE KEYS */;
+/*!40000 ALTER TABLE `wiki_aliases` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `wiki_categorys`
@@ -1265,6 +2017,15 @@ CREATE TABLE `wiki_categorys` (
   PRIMARY KEY (`name`,`lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wiki_categorys`
+--
+
+LOCK TABLES `wiki_categorys` WRITE;
+/*!40000 ALTER TABLE `wiki_categorys` DISABLE KEYS */;
+/*!40000 ALTER TABLE `wiki_categorys` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `wiki_changes`
@@ -1285,7 +2046,7 @@ CREATE TABLE `wiki_changes` (
   KEY `user` (`user`),
   KEY `page` (`page`),
   KEY `history` (`history`)
-) ENGINE=InnoDB AUTO_INCREMENT=11069 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11075 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1294,10 +2055,9 @@ CREATE TABLE `wiki_changes` (
 
 LOCK TABLES `wiki_changes` WRITE;
 /*!40000 ALTER TABLE `wiki_changes` DISABLE KEYS */;
-INSERT INTO `wiki_changes` VALUES (11069,'2012-06-04 22:01:53',1,1764,0,'article_created',''),(11070,'2012-06-04 22:01:53',1,1764,4837,'content_changed',''),(11071,'2012-06-04 22:02:29',1,1765,0,'article_created',''),(11072,'2012-06-04 22:02:29',1,1765,4838,'content_changed',''),(11073,'2012-06-04 22:04:09',1,1764,4837,'history_activated',''),(11074,'2012-06-04 22:05:54',1,1765,4838,'history_activated','');
+INSERT INTO `wiki_changes` VALUES (11069,'2012-06-04 20:01:53',1,1764,0,'article_created',''),(11070,'2012-06-04 20:01:53',1,1764,4837,'content_changed',''),(11071,'2012-06-04 20:02:29',1,1765,0,'article_created',''),(11072,'2012-06-04 20:02:29',1,1765,4838,'content_changed',''),(11073,'2012-06-04 20:04:09',1,1764,4837,'history_activated',''),(11074,'2012-06-04 20:05:54',1,1765,4838,'history_activated','');
 /*!40000 ALTER TABLE `wiki_changes` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `wiki_history`
@@ -1314,7 +2074,7 @@ CREATE TABLE `wiki_history` (
   PRIMARY KEY (`id`),
   KEY `page` (`page`),
   FULLTEXT KEY `content` (`content`)
-) ENGINE=MyISAM AUTO_INCREMENT=4837 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4839 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1323,10 +2083,9 @@ CREATE TABLE `wiki_history` (
 
 LOCK TABLES `wiki_history` WRITE;
 /*!40000 ALTER TABLE `wiki_history` DISABLE KEYS */;
-INSERT INTO `wiki_history` VALUES (4837,'2012-06-04 22:01:53',1764,'Neues Wiki'),(4838,'2012-06-04 22:02:29',1765,'Neu Wiki');
+INSERT INTO `wiki_history` VALUES (4837,'2012-06-04 20:01:53',1764,'Neues Wiki'),(4838,'2012-06-04 20:02:29',1765,'Neu Wiki');
 /*!40000 ALTER TABLE `wiki_history` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `wiki_pages`
@@ -1349,7 +2108,7 @@ CREATE TABLE `wiki_pages` (
   UNIQUE KEY `lang_name` (`lang`,`name`),
   KEY `deleted` (`deleted`),
   FULLTEXT KEY `name_fulltext` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=1764 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=1766 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1358,10 +2117,9 @@ CREATE TABLE `wiki_pages` (
 
 LOCK TABLES `wiki_pages` WRITE;
 /*!40000 ALTER TABLE `wiki_pages` DISABLE KEYS */;
-INSERT INTO `wiki_pages` VALUES (1764,'de','Hauptseite','2012-06-04 22:01:53','2012-06-04 22:04:09',0,0,4837,2),(1765,'de','Main Page','2012-06-04 22:02:29','2012-06-04 22:05:54',0,0,4838,0);
+INSERT INTO `wiki_pages` VALUES (1764,'de','Hauptseite','2012-06-04 20:01:53','2012-06-04 20:04:09',0,0,4837,8),(1765,'de','Main Page','2012-06-04 20:02:29','2012-06-04 20:05:54',0,0,4838,0);
 /*!40000 ALTER TABLE `wiki_pages` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `wiki_tickets`
@@ -1382,8 +2140,55 @@ CREATE TABLE `wiki_tickets` (
   KEY `page` (`page`),
   KEY `opener` (`opener`),
   KEY `closer` (`closer`)
-) ENGINE=InnoDB AUTO_INCREMENT=348 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wiki_tickets`
+--
+
+LOCK TABLES `wiki_tickets` WRITE;
+/*!40000 ALTER TABLE `wiki_tickets` DISABLE KEYS */;
+/*!40000 ALTER TABLE `wiki_tickets` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Final view structure for view `ap_view_users_groups`
+--
+
+/*!50001 DROP TABLE IF EXISTS `ap_view_users_groups`*/;
+/*!50001 DROP VIEW IF EXISTS `ap_view_users_groups`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `ap_view_users_groups` AS select `ap_users`.`namespace` AS `namespace`,`ap_users`.`item_id` AS `item_id`,`ap_users`.`user_id` AS `user_id`,NULL AS `group_id`,NULL AS `owner_id`,`ap_users`.`permission` AS `permission` from `ap_users` union select `ap_groups`.`namespace` AS `namespace`,`ap_groups`.`item_id` AS `item_id`,NULL AS `user_id`,`ap_groups`.`group_id` AS `group_id`,NULL AS `owner_id`,`ap_groups`.`permission` AS `permission` from `ap_groups` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `ap_view_users_groups_owner`
+--
+
+/*!50001 DROP TABLE IF EXISTS `ap_view_users_groups_owner`*/;
+/*!50001 DROP VIEW IF EXISTS `ap_view_users_groups_owner`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `ap_view_users_groups_owner` AS select `ap_users`.`namespace` AS `namespace`,`ap_users`.`item_id` AS `item_id`,`ap_users`.`user_id` AS `user_id`,NULL AS `group_id`,NULL AS `owner_id`,`ap_users`.`permission` AS `permission` from `ap_users` union select `ap_groups`.`namespace` AS `namespace`,`ap_groups`.`item_id` AS `item_id`,NULL AS `user_id`,`ap_groups`.`group_id` AS `group_id`,NULL AS `owner_id`,`ap_groups`.`permission` AS `permission` from `ap_groups` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -1394,4 +2199,4 @@ CREATE TABLE `wiki_tickets` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-06-02 23:58:36
+-- Dump completed on 2012-08-05 17:00:55

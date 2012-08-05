@@ -8,6 +8,11 @@ SQL queries for this update can be found in conf/update-05-08-2012.sql
 nginx.conf changed so please update your webserver
 WARNING: .htaccess apache2 rules are untested!
 
+- addidional SQL queries:
+ALTER TABLE i_tags ADD alias_id BIGINT NOT NULL AFTER tag_id, ADD INDEX alias_id (alias_id);
+UPDATE i_tags SET alias_id=tag_id;
+CREATE TABLE i_tag_childs ( alias_id BIGINT NOT NULL, child_id BIGINT NOT NULL, PRIMARY KEY (alias_id, child_id) );
+
 03-08-2012
 - some improvements and bugfixes
 - chat system rewritten (more flexible)
