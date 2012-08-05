@@ -18,6 +18,7 @@
 						{if IS_LOGGED_IN}<a href="/{LANG}/community/">[*Community*]</a> |{/if}
 						<a href="/{LANG}/wiki/Portal/">[*Portal*]</a> |
 						<a href="/{LANG}/image/">[*Bilder*]</a> |
+						<a href="https://github.com/icomto/icom" target="_blank">[*github*]</a> |
 						<a href="/{LANG}/contact/">[*Kontakt*]</a> |
 						<a href="/{LANG}/report_page/" target="_blank">[*Abuse*]</a>
 					</div>
@@ -108,7 +109,7 @@
 	<div class="page-footer">
 		<div class="copyright">Copyright &copy; 2008 - 2012 iCom.to Inc. [*Alle Rechte vorbehalten*]</div>
 		<div class="links">
-			<a href="/de/wiki/Disclaimer/" class="tos">[*Disclaimer*]</a><a href="/de/wiki/Disclaimer/" class="tos">[*Disclaimer*]</a>
+			<a href="/de/wiki/Disclaimer/" class="copyright">[*Disclaimer*]</a>
 		</div>
 		<div class="credits">
 			Coding by wuff, Content-Management by chucky, Design by J0NES &copy; 2008-2012 iCom.to, Land of the rising sun Holdings, LLC. [*Alle Rechte vorbehalten*].
