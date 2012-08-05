@@ -22,7 +22,7 @@
 		<script type="text/javascript" src="{STATIC_CONTENT_DOMAIN}/lib/jquery/superfish.js"></script>
 		<script type="text/javascript" src="{STATIC_CONTENT_DOMAIN}/lib/jquery/jSize.js"></script>
 		<script type="text/javascript" src="{STATIC_CONTENT_DOMAIN}/lib/jquery/jquery.tooltip.js"></script>
-		<script type="text/javascript" src="{STATIC_CONTENT_DOMAIN}/lib/lightbox-0.5/jquery.lightbox-0.5.min.js"></script>
+		<script type="text/javascript" src="{STATIC_CONTENT_DOMAIN}/lib/lightbox-0.5/jquery.lightbox-0.5.js"></script>
 		<script type="text/javascript" src="{STATIC_CONTENT_DOMAIN}/lib/markitup/jquery.markitup.js"></script>
 		<script type="text/javascript" src="{STATIC_CONTENT_DOMAIN}/lib/markitup/bbcode.js"></script>
 		<script type="text/javascript" src="{STATIC_CONTENT_DOMAIN}/lib/markitup/wiki.js"></script>
