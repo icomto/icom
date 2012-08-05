@@ -41,6 +41,8 @@ class iengine {
 		}
 		unset($_GET['_action']);
 
+		foreach($_GET as $k=>&$v)
+			$v = urldecode(urldecode($v)); #strange bug with unicode encodings ...
 		foreach($_GET as $k=>$v)
 			if(!isset($IMODULES[$get_module][$k]))
 				$IMODULES[$get_module][$k] = $v;
