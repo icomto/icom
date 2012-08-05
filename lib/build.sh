@@ -4,7 +4,7 @@ files="
 	jquery/jSize.js
 	jquery/jquery.tooltip.js
 
-	lightbox-0.5/jquery.lightbox-0.5.min.js
+	lightbox-0.5/jquery.lightbox-0.5.js
 
 	markitup/jquery.markitup.js
 	markitup/bbcode.js
