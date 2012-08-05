@@ -42,7 +42,7 @@ class m_users extends im_tabs {
 		$this->im_tabs_add('infos', LS('Infos'), $this->user ? TAB_SELF : false);
 		$this->im_tabs_add('bookmarks', LS('Lesezeichen'), user()->has_priv($this->user['priv_bookmarks'], user($this->user['user_id'])) ? TAB_SELF : false);
 		$this->im_tabs_add('friends', LS('Freunde'), user()->has_priv($this->user['priv_friends'], user($this->user['user_id'])) ? TAB_SELF : false);
-		$this->im_tabs_add('myspace', LS('iL Space'), $this->user['myspace'] ? TAB_SELF : false);
+		$this->im_tabs_add('myspace', LS('iCom Space'), $this->user['myspace'] ? TAB_SELF : false);
 		$this->im_tabs_add('guestbook', LS('G&auml;stebuch'), user()->has_priv($this->user['priv_guestbook'], user($this->user['user_id'])) ? TAB_SELF : false);
 		
 		parent::INIT($args);
