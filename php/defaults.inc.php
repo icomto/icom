@@ -121,8 +121,12 @@ function has_forumrights() {
 
 
 
+$file = (file_exists('/etc/icom.ini') ? '/etc/icom.ini' : '../../icom.ini');
+if(!file_exists($file)) {
+	throw new Exception("icom.ini not found at /etc/icom.ini nor at ../../icom.ini")
+}
 
-$CONFIG = parse_ini_file(file_exists('/etc/icom.ini') ? '/etc/icom.ini' : '../../icom.ini', true);
+$CONFIG = parse_ini_file($file, true);
 $ICOM_CONFIG = $CONFIG;
 
 db::addConnection(0, $CONFIG['mysql']['host'], $CONFIG['mysql']['user'], $CONFIG['mysql']['pass'], $CONFIG['mysql']['db'], $CONFIG['mysql']['port'], $CONFIG['mysql']['sock']);
