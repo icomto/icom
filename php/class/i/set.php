@@ -48,7 +48,7 @@ class i__set extends ArrayClass2 {
 		if(self::$writeableSets === null) {
 			self::$writeableSets = [];
 			$user_id = (IS_LOGGED_IN ? USER_ID : 0);
-			$aa = db()->query("SELECT * FROM i_sets WHERE ((".self::initAP()->query('set_id', 'user_id').") & ".ACCESS_POLICY_MOD.") = ".ACCESS_POLICY_MOD);
+			$aa = db()->query("SELECT * FROM i_sets WHERE ((".self::initAP()->query(ACCESS_POLICY_MOD, 'set_id', 'user_id').") & ".ACCESS_POLICY_MOD.") = ".ACCESS_POLICY_MOD);
 			while($a = $aa->fetch_assoc()) {
 				self::$writeableSets[] = new self($a);
 			}
@@ -149,7 +149,7 @@ class i__set extends ArrayClass2 {
 
 	public function remove() {
 		if(!$this->ap->isAdmin()) throw new Exception('403');
-		
+
 		$this->removeAllImages();
 		$this->removeAllTags();
 		$this->removeAllComments();

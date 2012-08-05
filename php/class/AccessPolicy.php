@@ -61,9 +61,9 @@ class AccessPolicy {
             return ACCESS_POLICY_ADMIN;
         }
 
-        if($max_needed_rights <= $this->default_privilege) {
-            return $this->default_privilege;
-        }
+        #if($max_needed_rights <= $this->default_privilege) {
+        #    return $this->default_privilege;
+        #}
 
         $q = [];
 
@@ -104,13 +104,11 @@ class AccessPolicy {
             }
         }
 
-        if(!(IS_LOGGED_IN and $sql_owner !== null)) {
-            if($q) {
-                $q[] = "SELECT ".$this->default_privilege." apx_permission";
-            }
-            else {
-                return $this->default_privilege;
-            }
+        if($q) {
+            $q[] = "SELECT ".$this->default_privilege." apx_permission";
+        }
+        else {
+            return $this->default_privilege;
         }
 
         if($q) {
@@ -123,7 +121,7 @@ class AccessPolicy {
 
     public function permission($max_needed_rights = ACCESS_POLICY_ALL) {
         if($this->cache_permission === null or $max_needed_rights > $this->cache_max_needed_rights) {
-            $permission = $this->query($this->item_id ? "'".es($this->item_id)."'" : null, null);
+            $permission = $this->query($max_needed_rights, $this->item_id ? "'".es($this->item_id)."'" : null, $this->owner);
             if(is_numeric($permission)) {
                 $this->cache_permission = $permission;
             }
