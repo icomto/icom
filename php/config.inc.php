@@ -6,7 +6,7 @@ define('THEME_INI_DIRECTORY', '../themes/_ini');
 
 define('STATIC_CONTENT_DOMAIN', '');
 
-define('RELEASE_VERSION', '5.4.3b');
+define('RELEASE_VERSION', '5.4.4b');
 define('RELEAES_DATE', '2011-04-16 00:42:17');
 
 define('REGISTER_CLOSED', false);
