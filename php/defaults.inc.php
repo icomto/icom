@@ -16,7 +16,7 @@ function __render_error($errno, $errstr, $errfile, $errline) {
 			$str .= sprintf("#%2s: %-50s %3s: %s()\n",
 					$k, @$v['file'], @$v['line'], $v['function']);
 	}
-	return $str.@$_SERVER['REQUEST_URI']."\n";
+	return $str."request: ".@$_SERVER['REQUEST_URI']."\nreferer: ".@$_SERVER['HTTP_REFERER']."\n";
 }
 
 function __error_handler($errno, $errstr, $errfile, $errline) {
