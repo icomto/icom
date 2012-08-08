@@ -16,6 +16,7 @@ class imail {
 		}
 		else {
 			$s = self::smtp_mail_start();
+			if(!is_resource($s)) throw new Exception("Email error ".$s);
 			self::smtp_mail_send($s, $to, '', $subject, $message);
 			self::smtp_mail_end($s);
 		}
