@@ -41,6 +41,11 @@ class imail {
 		if(self::smtp_mail_fetch($s)) { fclose($s); return 4; }
 		self::smtp_fputs($s, base64_encode(self::$config['pass'])."\r\n");
 		if(self::smtp_mail_fetch($s)) { fclose($s); return 5; }
+
+		/*self::smtp_fputs($s, "AUTH PLAIN\r\n");
+		if(self::smtp_mail_fetch($s)) { fclose($s); return 3; }
+		self::smtp_fputs($s, base64_encode("\x00".self::$config['user']."\x00".self::$config['pass'])."\r\n");
+		if(self::smtp_mail_fetch($s)) { fclose($s); return 4; }*/
 		
 		return $s;
 	}
