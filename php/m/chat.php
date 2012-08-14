@@ -48,7 +48,7 @@ class m_chat extends imodule {
 		$this->chat->has_mod_rights = $this->data['is_admin'];
 		$this->chat->default_text = $this->data['default_text'];
 
-		$this->chat->deny_post = user()->denie_entrance('chat');
+		$this->chat->deny_post = (user()->denie_entrance('chat') ? true : false);
 		if(!$this->chat->deny_post) {
 			$this->chat->deny_post = (!IS_LOGGED_IN or (!$this->data['is_admin'] and $this->data['status'] != 'open'));
 		}
