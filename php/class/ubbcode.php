@@ -292,7 +292,8 @@ class ubbcode {
 			'url'=>1, 'img'=>1, 'list'=>1, '*'=>1, 'table'=>1, 'row'=>1, 'col'=>1, 'col_head'=>1,
 			'youtube'=>1, 'clipfish'=>1, 'thanked'=>1, 'thx'=>1, 'lightbox'=>1, 'google'=>1,
 			'radio'=>1, 'poll'=>1, 'lang'=>1, 'strike'=>1, 'wiki'=>1, 'news_introduce'=>1,
-			'img_left'=>1, 'img_right'=>1, 'fb_like'=>1, 'radio_stats'=>1, 'ace_of_spades'=>1);
+			'img_left'=>1, 'img_right'=>1, 'fb_like'=>1, 'radio_stats'=>1, 'ace_of_spades'=>1,
+			'justify'=>1);
 		static $REGEX = '[^\]=]+';
 		$regex = $REGEX;
 		$offset = 0;
