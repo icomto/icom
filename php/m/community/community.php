@@ -23,7 +23,7 @@ class m_community extends im_tabs {
 		parent::INIT($args);
 	}
 	
-	protected function TAB_users() {
+	protected function TAB_users(&$args) {
 		$where = array();
 		$group = (int)@$_GET['group'];
 		if(!$group) $this->group = array('id' => 'all', 'name' => LS('Alle Mitglieder'));
@@ -54,7 +54,7 @@ class m_community extends im_tabs {
 		return $this->ilphp_fetch('community.php.users.ilp');
 	}
 	
-	protected function TAB_groups() {
+	protected function TAB_groups(&$args) {
 		$this->groups = db()->query("
 			SELECT g.id AS id, ".LQ('g.name_LL')." AS name, COUNT(u.user_id) AS num
 			FROM groups g
