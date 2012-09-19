@@ -634,7 +634,7 @@ class m_wiki extends imodule {
 		$this->action = 'SEARCH';
 		
 		if(IS_AJAX)
-			return $this->redirect($this->wiki, ((isset($this->args['deactivated']) and $this->args['deactivated']) ? 'qd' : 'q').'/'.wiki_urlencode(trim($this->args['q'])));
+			return $this->redirect($this->wiki, ((isset($this->args['deactivated']) and $this->args['deactivated']) ? 'qd' : 'q').'/'.wiki_urlencode(trim($this->args['q'])).'/');
 		
 		$this->q = (isset($this->args['q']) ? 'q' : (isset($this->args['qd']) ? 'qd' : ''));
 		$this->term = ((isset($this->args[$this->q]) and $this->args[$this->q]) ? trim(wiki_urldecode($this->args[$this->q])) : '');
