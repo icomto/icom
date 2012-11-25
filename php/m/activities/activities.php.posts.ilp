@@ -1,7 +1,7 @@
 {if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}
-{if not $posts->num_rows}<p class="error">[*Keine Posts gefunden*]</p>
+{if not $pages->num_rows}<p class="error">[*Keine Posts gefunden*]</p>
 {else}
-{while $i = $posts->fetch_assoc()}
+{while $i = $pages->fetch_assoc()}
 {set ILPHP_CLASS->posts_row()}
 <a href="/{LANG}/thread/{$i.thread_id}-{^$i.firstpost_name}/{if $i.page > 1}page/{$i.page}/{/if}#post{$i.num_lower_posts}"{if strlen($i.firstpost_name) > 80} title="{~$i.firstpost_name}"{/if}>{if $is_multilang}{get_sitelang_flag2($i.thread_lang_de, $i.thread_lang_en)}{else}<img src="{STATIC_CONTENT_DOMAIN}/img/dot.png" alt="">{/if} {~truncate($i.firstpost_name, 80, '...', true)}</a><br>
 {/while}
