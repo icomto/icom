@@ -38,7 +38,7 @@ trait user_pns {
 		$this->pn_message($pn_id, $message, false);
 		if($blink)
 			foreach($to as $user_id)
-				db()->query("INSERT IGNORE INTO user_pns3_links SET user_id='".$user_id."', pn_id='$pn_id', has_new_message=1");
+				db()->query("INSERT IGNORE INTO user_pns3_links SET user_id='".$user_id."', pn_id='$pn_id', has_new_message=1 ON DUPLICATE KEY UPDATE has_new_message=1");
 		return $pn_id;
 	}
 	public function pn_message($pn_id, $message, $blink = true) {
