@@ -128,6 +128,12 @@ class ubbcode {
 					'<img src="'.trim(str_replace('"', '&quot;', $arg ? $arg : $data)).'" alt="'.trim(str_replace('"', '&quot;', $data)).'"'.($max_height ? ' style="max-height:'.str_replace('"', '&quot;', $max_height).'px;"' : ' style="max-width:150px"').'>'.
 				'</a>';
 			break;
+		case 'box':
+			$data =
+				'<a href="'.trim(str_replace('"', '&quot;', $data)).'" target="_blank" class="image">'.
+					'<img src="'.trim(str_replace('"', '&quot;', $arg ? $arg : $data)).'" alt="'.trim(str_replace('"', '&quot;', $data)).'"'.($max_height ? ' style="max-height:'.str_replace('"', '&quot;', $max_height).'px;"' : ' style="max-width:150px"').'>'.
+				'</a>';
+			break;
 		case 'list':
 			if($arg) $data = '<ol type="'.str_replace('"', '&quot;', $arg).'">'.trim($data).'</ol>';
 			else $data = '<ul>'.trim($data).'</ul>';
@@ -221,7 +227,7 @@ class ubbcode {
 			$blubb = '<iframe src="http://www.facebook.com/plugins/like.php?href=%LINK%&amp;layout=button_count&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none;overflow:hidden;width:300px;height:21px;margin-top:4px;margin-left:5px;" allowTransparency="true"></iframe>';
 			$data = '<span id="'.$id.'"></span><script>$(function(){ $(\'#'.$id.'\').html(String(\''.$blubb.'\').replace(/%LINK%/,escape('.$url.'))); });</script>';
 			break;
-		case 'ace_of_spades':
+		/*case 'ace_of_spades':
 			$data = strtolower(trim($data));
 			if(!preg_match('~^http://.*~', $data)) return;
 			$cache_id = 'ubb_ace_of_spades_'.crc32($data);
@@ -256,7 +262,7 @@ class ubbcode {
 				$data = LS('<p class="error">Es trat ein Fehler beim abrufen der Ace of Spades Server Daten auf. Neuversuch in ein bis zwei Minuten...</p>', $data);
 				return;
 			}
-			break;
+			break;*/
 		/*case 'radio_stats':
 			if(!$data) $data = '[radio_stats]CHANNEL[/radio_stats]';
 			else {
@@ -290,7 +296,7 @@ class ubbcode {
 			'quote'=>1, 'code'=>1, 'spoiler'=>1, 'hidden'=>1, 'b'=>1, 'i'=>1, 'u'=>1,
 			'left'=>1, 'right'=>1, 'center'=>1, 'color'=>1, 'size'=>1, 'font'=>1, 'email'=>1,
 			'url'=>1, 'img'=>1, 'list'=>1, '*'=>1, 'table'=>1, 'row'=>1, 'col'=>1, 'col_head'=>1,
-			'youtube'=>1, 'clipfish'=>1, 'thanked'=>1, 'thx'=>1, 'lightbox'=>1, 'google'=>1,
+			'youtube'=>1, 'clipfish'=>1, 'thanked'=>1, 'thx'=>1, 'lightbox'=>1, 'box'=1, 'google'=>1,
 			'radio'=>1, 'poll'=>1, 'lang'=>1, 'strike'=>1, 'wiki'=>1, 'news_introduce'=>1,
 			'img_left'=>1, 'img_right'=>1, 'fb_like'=>1, 'radio_stats'=>1, 'ace_of_spades'=>1,
 			'justify'=>1);
