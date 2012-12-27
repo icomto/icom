@@ -52,7 +52,7 @@ class m_activities extends im_tabs {
 		if($lang) $where[] = "forum_threads.lang_$lang=1";
 		
 		$num_found_rows = cache_L1::get('profile_activities_threads_'.$cache_id);
-		$this->threads = db()->query("
+		$this->pages = db()->query("
 			SELECT".($num_found_rows === false ? " SQL_CALC_FOUND_ROWS" : "")."
 				forum_threads.thread_id AS thread_id, forum_threads.num_posts AS thread_num_posts,
 				forum_threads.lang_de AS thread_lang_de, forum_threads.lang_en AS thread_lang_en,
@@ -91,7 +91,7 @@ class m_activities extends im_tabs {
 		if($lang) $where[] = "forum_threads.lang_$lang=1";
 		
 		$num_found_rows = cache_L1::get('profile_activities_posts_'.$cache_id);
-		$this->posts = db()->query("
+		$this->pages = db()->query("
 			SELECT".($num_found_rows === false ? " SQL_CALC_FOUND_ROWS" : "")."
 				forum_threads.thread_id AS thread_id, forum_threads.num_posts AS thread_num_posts,
 				forum_threads.lang_de AS thread_lang_de, forum_threads.lang_en AS thread_lang_en,
