@@ -1,7 +1,7 @@
 {if $num_pages > 1}<div class="pages">{ILPHP_CLASS->im_pages_html()}</div>{/if}
-{if not $threads->num_rows}<p class="error">[*Keine Threads gefunden*]</p>
+{if not $pages->num_rows}<p class="error">[*Keine Threads gefunden*]</p>
 {else}
-{while $i = $threads->fetch_assoc()}
+{while $i = $pages->fetch_assoc()}
 <a href="/{LANG}/thread/{$i.thread_id}-{^$i.firstpost_name}/"{if strlen($i.firstpost_name) > 80} title="{~$i.firstpost_name}"{/if}>{if $is_multilang}{get_sitelang_flag2($i.thread_lang_de, $i.thread_lang_en)}{else}<img src="{STATIC_CONTENT_DOMAIN}/img/dot.png" alt="">{/if} {~truncate($i.firstpost_name, 80, '...', true)}</a><br>
 {/while}
 {/if}
