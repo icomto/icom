@@ -12,7 +12,7 @@ for(;;) {
 	if($t % 10 == 0) _exec('nice php update_radio.php');
 	if($t % (15*60) == 0) _exec('nice php move_shoutbox.php');
 	if($t % (1*60*60) == 0) _exec('nice php wiki_categorys.php');
-#	if($t % (2*60*60) == 0) _exec('nice php autoban.php');
+	if($t % (2*60*60) == 0) _exec('nice php autoban.php');
 	sleep(1);
 }
 
