@@ -1961,6 +1961,8 @@ CREATE TABLE `users` (
   `email_sent` tinyint(1) NOT NULL DEFAULT '0',
   `email_login` tinyint(1) NOT NULL DEFAULT '0',
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `icq_num` varchar(20) CHARACTER SET ascii COLLATE ascii_bin DEFAULT NULL,
+  `steam_id` varchar(40) CHARACTER SET ascii COLLATE ascii_bin DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `nick` (`nick`),
   UNIQUE KEY `nick_jabber` (`nick_jabber`),
@@ -1974,7 +1976,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','admin','foo@bar.com','20427bc8e3f9ca222f630eec7dc9b869','71a6e17170b2d214b7fb9b8a1582f0a2','2008-06-10 08:17:34','2012-08-02 23:15:11','2012-08-05 15:00:54','2012-08-05 14:59:57','2012-08-05 14:05:24',44940055,1,'1,196','de,en','','','',1,'','','','private','private','friends','users',12332,0,'',2,1.49,1,1,0,0);
+INSERT INTO `users` VALUES (1,'admin','admin','foo@bar.com','20427bc8e3f9ca222f630eec7dc9b869','71a6e17170b2d214b7fb9b8a1582f0a2','2008-06-10 08:17:34','2012-08-02 23:15:11','2012-08-05 15:00:54','2012-08-05 14:59:57','2012-08-05 14:05:24',44940055,1,'1,196','de,en','','','',1,'','','','private','private','friends','users',12332,0,'',2,1.49,1,1,0,0, NULL, NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 

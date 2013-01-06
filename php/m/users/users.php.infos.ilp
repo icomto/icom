@@ -186,17 +186,35 @@
 	</div>
 	<div class="clear"></div>
 	
+	<div class="SEP"><div><div></div><h3>[*Kontakt*]</h3><div></div></div></div>
+	<table class="user-infos">
+		<tr>
+			<th>[*Jabber Addresse:*]</th>
+			<td>(<a href="/{LANG}/wiki/Jabber_Server/" class="info">Infos</a>) <a href="xmpp:{$user.nick_jabber}@jabber.icom.to/icom" target="_blank">{~$user.nick_jabber}@jabber.icom.to</a></td>
+		</tr>
+		{if $user.icq_num}
+		<tr>
+			<th>[*ICQ Nummer:*]</th>
+			<td>{$user.icq_num}</td>
+		</tr>
+		{/if}
+		{if $user.steam_id}
+		<tr>
+			<th>[*Steam Profil:*]</th>
+			<td><a href="http://steamcommunity.com/id/{$user.steam_id}/" target="_blank">{~$user.steam_id}</a></td>
+		</tr>
+		{/if}
+	</table>
+	<div class="clear"></div>	
 	
 	<div class="SEP"><div><div></div><h3>[*Aktivit&auml;ten*]</h3><div></div></div></div>
 	<table class="user-infos">
 		<tr><th>[*Forenthemen:*]</th><td>{%$forum_threads}</td><td><a href="/{LANG}/activities/{$user.user_id}-{^$user.nick}/upat/threads/" class="info">anzeigen</a></td></tr>
 		<tr><th>[*Forenbeitr&auml;ge:*]</th><td>{%$forum_posts}</td><td><a href="/{LANG}/activities/{$user.user_id}-{^$user.nick}/upat/posts/" class="info">anzeigen</a></td></tr>
-		<tr><th>[*Wiki Artikel:*]</th><td>{%$wiki_stats.articles}</td><td></td></tr>
+		<tr><th>[*Wiki Artikel:*]</th><td>{%$wiki_stats.articles}</td><td>
 		<tr><th>[*Wiki &Auml;nderungen:*]</th><td>{%$wiki_stats.changes}</td><td><a href="/{LANG}/activities/{$user.user_id}-{^$user.nick}/upat/wiki/" class="info">anzeigen</a></td></tr>
-		<tr><th>[*Shoutbox Beitr&auml;ge:*]</th><td>{%$shouts}</td></tr>
-		<tr><th>&nbsp;</th><td></td><td></td></tr>
-		<tr><th>[*Lesezeichen:*]</th><td>{%$bookmarks}</td><td>{if user()->has_priv($user.priv_bookmarks, user($user.user_id))}<a href="/{LANG}/users/{$user.user_id}-{^$user.nick}/profile/bookmarks/" class="info">anzeigen</a>{/if}</td></tr>
-		<tr><th>&nbsp;</th><td></td><td></td></tr>
+		<tr><th>[*Shoutbox Beitr&auml;ge:*]</th><td>{%$shouts}</td><td>
+		<tr><th>[*Lesezeichen:*]</th><td>{%$bookmarks}</th><td>{if user()->has_priv($user.priv_bookmarks, user($user.user_id))}<a href="/{LANG}/users/{$user.user_id}-{^$user.nick}/profile/bookmarks/" class="info">anzeigen</a>{/if}</td></tr>
 		<tr><th>[*Gemeldete Beitr&auml;ge:*]</th><td><span class="success" title="Angenommene Meldungen">{%$forum_reported_posts.good}</span> / <span class="error" title="Abgelehnte Meldungen">{%$forum_reported_posts.bad}</span></td><td></td></tr>
 	</table>
 	<div class="clear"></div>

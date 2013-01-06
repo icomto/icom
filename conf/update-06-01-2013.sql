@@ -1,0 +1,1 @@
+ALTER TABLE users ADD (icq_num varchar(20) DEFAULT NULL, steam_id varchar(40) DEFAULT NULL);
