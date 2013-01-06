@@ -1549,21 +1549,18 @@ td input[type=checkbox] {
 }
 
 /* user-friends ********************************/
-.friends-box {
-	margin:0 auto;
-	width:552px;
-}
-.friends-box .row {
+.friend-box {
 	float:left;
 	text-align:center;
-	width:130px;
-	height:140px;
-	border:1px #666 solid;
+	width:100px;
+	height:85px;
+	--border:1px #666 solid;
 	padding-top:5px;
 	margin:3px;
 }
-.friends-box .row div {
-	height:120px;
+.friend-box div,
+.friend-box .avatar {
+	max-height:70px;
 }
 
 /* groups ********************************/
