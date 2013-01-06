@@ -155,6 +155,29 @@
 	</form>
 	{/new ilphp_sub}
 	
+	{new ilphp_sub 'contact'}
+	<form method="post" onsubmit="return iC(this);">
+		<input type="hidden" name="{#IMPOST 'action'}" value="contact">
+		<div class="SEP"><div><div></div><h4>[*Kontakt*]</h4><div></div></div></div>
+
+		<table>
+			<tr>
+				<td>[*ICQ Nummer:*]</td>
+				<td><input type="text" name="{#IMPOST 'icq'}" value="{~$user.icq_num}"></td>
+			</tr>
+			<tr>
+				<td>[*Benutzerdefinierte Steam ID:*]</td>
+				<td><input type="text" name="{#IMPOST 'steam'}" value="{~$user.steam_id}"></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><button type="submit" class="button">[*Speichern*]</button></td>
+			</tr>
+			</table>
+
+	</form>
+	{/new ilphp_sub}
+	
 	{new ilphp_sub 'signature'}
 	<form method="post" onsubmit="return iC(this);">
 		<input type="hidden" name="{#IMPOST 'action'}" value="signature">

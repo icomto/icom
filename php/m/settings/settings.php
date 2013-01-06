@@ -128,6 +128,20 @@ class m_settings extends im_tabs {
 			
 			if($update) user()->update($update);
 			return IS_AJAX ? $this->ilphp_fetch('settings.php.profile.ilp|myspace') : true;
+			
+		case 'contact':
+			$update = [];
+			if(es($args['icq']) != $this->user['icq_num']) {
+				$this->user['icq_num'] = $args['icq'];
+				$update['icq_num'] = $args['icq'];
+			}
+			if(es($args['steam']) != $this->user['steam_id']) {
+				$this->user['steam_id'] = $args['steam'];
+				$update['steam_id'] = $args['steam'];
+			}
+	
+			if($update) user()->update($update);
+			return IS_AJAX ? $this->ilphp_fetch('settings.php.profile.ilp|contact') : true;
 		}
 	}
 	private function profile_email($args) {
