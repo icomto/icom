@@ -128,12 +128,28 @@ class ubbcode {
 					'<img src="'.trim(str_replace('"', '&quot;', $arg ? $arg : $data)).'" alt="'.trim(str_replace('"', '&quot;', $data)).'"'.($max_height ? ' style="max-height:'.str_replace('"', '&quot;', $max_height).'px;"' : ' style="max-width:150px"').'>'.
 				'</a>';
 			break;
+			
 		case 'box':
 			$data =
 				'<a href="'.trim(str_replace('"', '&quot;', $data)).'" target="_blank" class="image">'.
 					'<img src="'.trim(str_replace('"', '&quot;', $arg ? $arg : $data)).'" alt="'.trim(str_replace('"', '&quot;', $data)).'"'.($max_height ? ' style="max-height:'.str_replace('"', '&quot;', $max_height).'px;"' : ' style="max-width:150px"').'>'.
 				'</a>';
 			break;
+
+		case 'box_right':
+			$data =
+				'<a href="'.trim(str_replace('"', '&quot;', $data)).'" target="_blank" class="image">'.
+					'<div class="fright"><img src="'.trim(str_replace('"', '&quot;', $arg ? $arg : $data)).'" alt="'.trim(str_replace('"', '&quot;', $data)).'"'.($max_height ? ' style="max-height:'.str_replace('"', '&quot;', $max_height).'px;"' : ' style="max-width:150px"').'></div>'.
+				'</a>';
+			break;    
+
+		case 'box_left':
+			$data =
+				'<a href="'.trim(str_replace('"', '&quot;', $data)).'" target="_blank" class="image">'.
+					'<div class="fleft"><img src="'.trim(str_replace('"', '&quot;', $arg ? $arg : $data)).'" alt="'.trim(str_replace('"', '&quot;', $data)).'"'.($max_height ? ' style="max-height:'.str_replace('"', '&quot;', $max_height).'px;"' : ' style="max-width:150px"').'></div>'.
+				'</a>';
+			break;	
+		
 		case 'list':
 			if($arg) $data = '<ol type="'.str_replace('"', '&quot;', $arg).'">'.trim($data).'</ol>';
 			else $data = '<ul>'.trim($data).'</ul>';
