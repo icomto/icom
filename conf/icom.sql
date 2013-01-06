@@ -1961,6 +1961,8 @@ CREATE TABLE `users` (
   `email_sent` tinyint(1) NOT NULL DEFAULT '0',
   `email_login` tinyint(1) NOT NULL DEFAULT '0',
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `icq_num` int(20) unsigned DEFAULT NULL,
+  `steam_id` varchar(40) CHARACTER SET ascii COLLATE ascii_bin DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `nick` (`nick`),
   UNIQUE KEY `nick_jabber` (`nick_jabber`),
