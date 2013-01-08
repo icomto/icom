@@ -312,7 +312,7 @@ class ubbcode {
 			'quote'=>1, 'code'=>1, 'spoiler'=>1, 'hidden'=>1, 'b'=>1, 'i'=>1, 'u'=>1,
 			'left'=>1, 'right'=>1, 'center'=>1, 'color'=>1, 'size'=>1, 'font'=>1, 'email'=>1,
 			'url'=>1, 'img'=>1, 'list'=>1, '*'=>1, 'table'=>1, 'row'=>1, 'col'=>1, 'col_head'=>1,
-			'youtube'=>1, 'clipfish'=>1, 'thanked'=>1, 'thx'=>1, 'lightbox'=>1, 'box'=>1, 'google'=>1,
+			'youtube'=>1, 'clipfish'=>1, 'thanked'=>1, 'thx'=>1, 'lightbox'=>1, 'box'=>1, 'box_left'=>1, 'box_right'=>1, 'google'=>1,
 			'radio'=>1, 'poll'=>1, 'lang'=>1, 'strike'=>1, 'wiki'=>1, 'news_introduce'=>1,
 			'img_left'=>1, 'img_right'=>1, 'fb_like'=>1, 'radio_stats'=>1, 'ace_of_spades'=>1,
 			'justify'=>1);
