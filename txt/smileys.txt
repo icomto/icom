@@ -107,6 +107,7 @@ I=)             /img/smileys/skype/emoticon-0113-sleepy.gif
 (doh)           /img/smileys/skype/emoticon-0120-doh.gif
 (party)         /img/smileys/skype/emoticon-0123-party.gif
 :s              /img/smileys/skype/emoticon-0124-worried.gif
+:S              /img/smileys/skype/emoticon-0124-worried.gif
 :=s             /img/smileys/skype/emoticon-0124-worried.gif
 :-s             /img/smileys/skype/emoticon-0124-worried.gif
 :S)             /img/smileys/skype/emoticon-0124-worried.gif
