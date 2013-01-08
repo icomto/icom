@@ -223,8 +223,8 @@
 		</p>
 		<p class="info">
 			[*Bitte beachte das wir dunkle und helle Themes haben. Teste deine Seite am besten mit beiden Theme-Arten.*]<br>
-			<a href="/{LANG}/theme/apple_white/settings/user/">[*Hier klicken um ein helles Theme auszuw&auml;hlen*]</a><br>
-			<a href="/{LANG}/theme/apple_black/settings/user/">[*Hier klicken um ein dunkles Theme auszuw&auml;hlen*]</a>
+			<a href="/{LANG}/_theme/a/_preset/white/settings/themes/">[*Hier klicken um ein helles Theme auszuw&auml;hlen*]</a><br>
+			<a href="/{LANG}/_theme/a/_preset/black/settings/themes/">[*Hier klicken um ein dunkles Theme auszuw&auml;hlen*]</a>
 		</p>
 		<table>
 			<tr>
