@@ -13,13 +13,22 @@
 							<td width="50" align="right">
 								{user($i.user_id)->html(-1)}
 							</td>
-							<td width="155">
+							<td width="140">
 								<form method="post" onsubmit="return iC_confirm('[*Sicher?*]', this,'~.user-table');">
 									<input type="hidden" name="{#IMPOST 'action'}" value="rename">
 									<input type="hidden" name="{#IMPOST 'user_id'}" value="{~$i.user_id}">
 									<input type="text" name="{#IMPOST 'nick'}" style="width:100px;" value="{~$i.nick}">
 									<button type="submit" class="button" style="width:35px;">[*Save*]</button>
 								</form>
+							</td>
+							<td width="140">
+								<form method="post" onsubmit="return iC_confirm('[*Sicher?*]', this,'~.user-table');">
+									<input type="hidden" name="{#IMPOST 'action'}" value="delete">
+									<input type="hidden" name="{#IMPOST 'user_id'}" value="{~$i.user_id}">
+									<input type="text" name="{#IMPOST 'deleted'}" style="width:100px;" value="{~$i.deleted}">							
+									<button type="submit" class="button" style="width:35px;">[*Save*]</button>
+								</form>
+								gel&ouml;scht=1
 							</td>
 							<td>
 								{while $g = $groups->fetch_assoc() |g}
@@ -33,7 +42,7 @@
 								{if $while_g < $groups->num_rows}, {/if}
 								{/while}
 							</td>
-							<td width="155" align="center">
+							<td width="140" align="center">
 								<form method="post" onsubmit="return iC_confirm('[*Sicher?*]', this, '~.user-table');">
 									<input type="hidden" name="{#IMPOST 'action'}" value="add_group">
 									<input type="hidden" name="{#IMPOST 'user_id'}" value="{~$i.user_id}">
@@ -45,9 +54,6 @@
 									</select>
 									<button type="submit" class="button" style="width:35px;">[*Add*]</button>
 								</form>
-							</td>
-							<td width="60">
-								[*L&ouml;schen*]
 							</td>
 						</tr>
 					</table>

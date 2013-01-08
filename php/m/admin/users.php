@@ -53,6 +53,10 @@ class m_admin_users extends imodule {
 			user($user_id)->update(['nick'=>$args['nick']]);
 			return IS_AJAX ? $this->row(db()->query("SELECT * FROM users WHERE user_id='".$user_id."' LIMIT 1")->fetch_assoc()) : true;
 		
+		case 'delete':
+			user($user_id)->update(['deleted'=>$args['deleted']]);
+			return IS_AJAX ? $this->row(db()->query("SELECT * FROM users WHERE user_id='".$user_id."' LIMIT 1")->fetch_assoc()) : true;
+		
 		case 'add_group':
 			user($user_id)->add_group($args['group_id']);
 			return IS_AJAX ? $this->row(db()->query("SELECT * FROM users WHERE user_id='".$user_id."' LIMIT 1")->fetch_assoc()) : true;
