@@ -1,0 +1,1 @@
+UPDATE  `forum_sections` SET  `description_de` =  'News vom iCom News Team' WHERE  `forum_sections`.`section_id` =236;

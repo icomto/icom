@@ -132,7 +132,6 @@ B-|             /img/smileys/skype/emoticon-0126-nerd.gif
 :=#             /img/smileys/skype/emoticon-0127-lipssealed.gif
 :-#             /img/smileys/skype/emoticon-0127-lipssealed.gif
 (lipssealed)    /img/smileys/skype/emoticon-0127-lipssealed.gif
-(hi)            /img/smileys/skype/emoticon-0128-hi.gif
 (call)          /img/smileys/skype/emoticon-0129-call.gif
 (devil)         /img/smileys/skype/emoticon-0130-devil.gif
 (angel)         /img/smileys/skype/emoticon-0131-angel.gif
@@ -217,6 +216,7 @@ B-|             /img/smileys/skype/emoticon-0126-nerd.gif
 (heidy)         /img/smileys/skype/emoticon-0185-heidy.gif
 (myspace)       /img/smileys/skype/emoticon-0186-myspace.gif
 (wave)			/img/smileys/skype/wave.gif
+(hi)			/img/smileys/skype/wave.gif
 (il)            /img/smileys/own/ugly_il.gif
 (iload)         /img/smileys/own/ugly_il.gif
 (wluv)          /img/smileys/own/wluv_il.gif
