@@ -1,0 +1,1 @@
+ALTER TABLE users ADD (skype_id varchar(40) DEFAULT NULL, origin_id varchar(40) DEFAULT NULL, xfire_id varchar(40) DEFAULT NULL, psn_id varchar(40) DEFAULT NULL, xbl_id varchar(40) DEFAULT NULL);

@@ -166,8 +166,28 @@
 				<td><input type="text" name="{#IMPOST 'icq'}" value="{~$user.icq_num}"></td>
 			</tr>
 			<tr>
+				<td>[*Skype ID:*]</td>
+				<td><input type="text" name="{#IMPOST 'skype'}" value="{~$user.skype_id}"></td>
+			</tr>
+			<tr>
 				<td>[*Benutzerdefinierte Steam ID:*]</td>
 				<td><input type="text" name="{#IMPOST 'steam'}" value="{~$user.steam_id}"></td>
+			</tr>
+			<tr>
+				<td>[*Origin ID:*]</td>
+				<td><input type="text" name="{#IMPOST 'origin'}" value="{~$user.origin_id}"></td>
+			</tr>
+			<tr>
+				<td>[*Xire Username:*]</td>
+				<td><input type="text" name="{#IMPOST 'xfire'}" value="{~$user.xfire_id}"></td>
+			</tr>
+			<tr>
+				<td>[*PlayStation Network ID:*]</td>
+				<td><input type="text" name="{#IMPOST 'psn'}" value="{~$user.psn_id}"></td>
+			</tr>
+			<tr>
+				<td>[*Xbox Live ID:*]</td>
+				<td><input type="text" name="{#IMPOST 'xbl'}" value="{~$user.xbl_id}"></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
