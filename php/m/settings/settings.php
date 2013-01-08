@@ -139,6 +139,26 @@ class m_settings extends im_tabs {
 				$this->user['steam_id'] = $args['steam'];
 				$update['steam_id'] = $args['steam'];
 			}
+			if(es($args['skype']) != $this->user['skype_id']) {
+				$this->user['skype_id'] = $args['skype'];
+				$update['skype_id'] = $args['skype'];
+			}
+			if(es($args['origin']) != $this->user['origin_id']) {
+				$this->user['origin_id'] = $args['origin'];
+				$update['origin_id'] = $args['origin'];
+			}
+			if(es($args['xfire']) != $this->user['xfire_id']) {
+				$this->user['xfire_id'] = $args['xfire'];
+				$update['xfire_id'] = $args['xfire'];
+			}
+			if(es($args['psn']) != $this->user['psn_id']) {
+				$this->user['psn_id'] = $args['psn'];
+				$update['psn_id'] = $args['psn'];
+			}
+			if(es($args['xbl']) != $this->user['xbl_id']) {
+				$this->user['xbl_id'] = $args['xbl'];
+				$update['xbl_id'] = $args['xbl'];
+			}
 	
 			if($update) user()->update($update);
 			return IS_AJAX ? $this->ilphp_fetch('settings.php.profile.ilp|contact') : true;

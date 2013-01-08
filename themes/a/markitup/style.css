@@ -169,20 +169,20 @@
 
 
 
-.bbcode .markItUpButton1x6 ul { width:81px; padding:1px; }
-.bbcode .markItUpButton1x6  li { border:1px solid white; width:25px; height:25px; overflow:hidden; padding:0px; margin:0px; float:left; }
-.bbcode .markItUpButton1x6 ul a { width:25px; height:25px; background-image:none !important; }
-.bbcode .markItUpButton1x6 ul a:hover { background-color:none; }
-.bbcode .markItUpButton1x6 .col1-1 a { background:yellow !important; }
-.bbcode .markItUpButton1x6 .col1-2 a { background:orange !important; }
-.bbcode .markItUpButton1x6 .col1-3 a { background:red !important; }
-.bbcode .markItUpButton1x6 .col2-1 a { background:blue !important; }
-.bbcode .markItUpButton1x6 .col2-2 a { background:purple !important; }
-.bbcode .markItUpButton1x6 .col2-3 a { background:green !important; }
-.bbcode .markItUpButton1x6 .col3-1 a { background:white !important; }
-.bbcode .markItUpButton1x6 .col3-2 a { background:gray !important; }
-.bbcode .markItUpButton1x6 .col3-3 a { background:black !important; }
-.bbcode .markItUpButton1x7 ul a { background-image:none !important; width:105px; overflow:hidden; padding:0px; margin:0px; }
+.bbcode .markItUpButton1x7 ul { width:81px; padding:1px; }
+.bbcode .markItUpButton1x7  li { border:1px solid white; width:25px; height:25px; overflow:hidden; padding:0px; margin:0px; float:left; }
+.bbcode .markItUpButton1x7 ul a { width:25px; height:25px; background-image:none !important; }
+.bbcode .markItUpButton1x7 ul a:hover { background-color:none; }
+.bbcode .markItUpButton1x7 .col1-1 a { background:yellow !important; }
+.bbcode .markItUpButton1x7 .col1-2 a { background:orange !important; }
+.bbcode .markItUpButton1x7 .col1-3 a { background:red !important; }
+.bbcode .markItUpButton1x7 .col2-1 a { background:blue !important; }
+.bbcode .markItUpButton1x7 .col2-2 a { background:purple !important; }
+.bbcode .markItUpButton1x7 .col2-3 a { background:green !important; }
+.bbcode .markItUpButton1x7 .col3-1 a { background:white !important; }
+.bbcode .markItUpButton1x7 .col3-2 a { background:gray !important; }
+.bbcode .markItUpButton1x7 .col3-3 a { background:black !important; }
+.bbcode .markItUpButton1x8 ul a { background-image:none !important; width:105px; overflow:hidden; padding:0px; margin:0px; }
 
 .markItUp .markItUpButton2x1 a	{ background-image:url(/img/smileys/skype/emoticon-0100-smile.gif); }
 .markItUp .markItUpButton2x2 a	{ background-image:url(/img/smileys/skype/emoticon-0105-wink.gif); }

@@ -194,10 +194,40 @@
 			<td>{$user.icq_num}</td>
 		</tr>
 		{/if}
+		{if $user.skype_id}
+		<tr>
+			<th>[*Skype:*]</th>
+			<td><a href="skype:{$user.skype_id}?add" target="_blank">{$user.skype_id}</a></td>
+		</tr>
+		{/if}
 		{if $user.steam_id}
 		<tr>
 			<th>[*Steam:*]</th>
 			<td><a href="http://steamcommunity.com/id/{$user.steam_id}/" target="_blank">{$user.steam_id}</a></td>
+		</tr>
+		{/if}
+		{if $user.xfire_id}
+		<tr>
+			<th>[*Xfire Username:*]</th>
+			<td>{$user.xfire_id}</td>
+		</tr>
+		{/if}
+		{if $user.origin_id}
+		<tr>
+			<th>[*Origin:*]</th>
+			<td>{$user.origin_id}</td>
+		</tr>
+		{/if}
+		{if $user.psn_id}
+		<tr>
+			<th>[*PlayStation Network ID:*]</th>
+			<td>{$user.psn_id}</td>
+		</tr>
+		{/if}
+		{if $user.xbl_id}
+		<tr>
+			<th>[*Xbox Live ID:*]</th>
+			<td>{$user.xbl_id}</td>
 		</tr>
 		{/if}
 	</table>
