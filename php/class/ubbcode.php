@@ -193,8 +193,8 @@ class ubbcode {
 			elseif(preg_match('~^http://.*?youtube\.com/watch\?v=([^&]+)$~i', $data, $eid)) $link = 'http://www.youtube.com/v/'.$eid[1];
 			if($link) {
 				if(is_numeric($arg) and $arg >= 30 and $arg < $max_width) $max_width = $arg;
-				$w = 560;
-				$h = 340;
+				$w = 300;
+				$h = 182;
 				if($max_width and $w > $max_width) {
 					$h -= round(($w - $max_width)*($h/$w));
 					$w = $max_width;
