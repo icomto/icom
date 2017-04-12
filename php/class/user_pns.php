@@ -35,7 +35,12 @@ trait user_pns {
 				users='".$users."',
 				involved_users='".$users."'");
 		$pn_id = db()->insert_id;
-		$this->pn_message($pn_id, $message, false);
+		db()->query("
+			INSERT INTO user_pns3_content
+			SET
+				subid='".$pn_id."',
+				user_id='".$this->i['user_id']."',
+				message='".es($message)."'");
 		if($blink)
 			foreach($to as $user_id)
 				db()->query("INSERT INTO user_pns3_links SET user_id='".$user_id."', pn_id='$pn_id', has_new_message=1 ON DUPLICATE KEY UPDATE has_new_message=1");
